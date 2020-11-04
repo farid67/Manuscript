@@ -187,7 +187,7 @@ pipeline is illustrated in the figure below \ref{Scrivener2016_Fig1}.
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/image4}
-\caption{Radiomics classical workflow as depicted by ©Scrivener et al. \cite{Scrivener2016}}
+\caption{Radiomics classical workflow as depicted by \textbf{©Scrivener et al.} \cite{Scrivener2016}}
 \label{Scrivener2016_Fig1}
 \end{figure}
 
@@ -230,14 +230,21 @@ commonly extracted from images only.
 \paragraph{Segmentation}\label{segmentation}
 
 Historically, the segmentation was performed manually, hence, sensitive
-to the inter-observer variability, as depicted below {[}\textbf{ref
-Echegaray et al. 2015, ref Bakr et al. 2017}{]}.
+to the inter-observer variability, as depicted below in the figure \ref{Echegaray_Fig2} \& \ref{Bakr_Fig2}.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/image11}
+	\caption{Inter-observer variability in the tumor segmentation, as reported by \textbf{© Echegaray et al.} \cite{Echegaray2015}}
+	\label{Echegaray_Fig2}
+\end{figure}
 
-\includegraphics[width=4.92776in,height=3.10385in]{./images/image11.png}
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/image14}
+	\caption{Inter-observer variability between 4 different observers on multiphasic images (a corresponding to arterial phase images and b to portal venous phase images), with a dice similarity coefficient from 0.19 to 0.93, ©Bakr et al. \cite{Bakr2017}}
+	\label{Bakr_Fig2}
+\end{figure}
 
-\includegraphics[width=4.22775in,height=6.83726in]{./images/image14.png}
-
-\includegraphics[width=4.26141in,height=0.87100in]{./images/image9.png}
 
 To reduce this bias, semi-automatic segmentation techniques were
 developed. Those based on the intensity of the pixels suffer from the
@@ -247,18 +254,16 @@ based on statistical models often require the computation of an energy
 function, that can involve a large number of parameters, thus being
 difficult to compute and optimize.\\
 (More details concerning the liver semantic segmentation techniques can
-be found in the appropriate section {[}\textbf{see Sem. Seg.
-chapter}{]}).\\
+be found in the \textcolor{red}{\textbf{Semantic Segmentation chapter}}).\\
 Once the volume of interest delineated, different features can be
 extracted. On one hand, features can be chosen a priori for their
 capacity to translate the physiological behavior expected by the
 experts. For example, studies performed on the lungs showed a
 correlation between the textural homogeneity and the survival of the
-patients {[}\textbf{ref 17, 18 of HT report}{]}, or the grade
-{[}\textbf{ref 19}{]}. This knowledge can also be used in the case of
+patients \cite{Ganeshan2012,Balagurunathan2014}, or the grade
+\cite{Al-Kadi2008}. This knowledge can also be used in the case of
 brain tumors to assess the response to a treatment, by observing for
-example the vascular or cellular density {[}\textbf{ref 20, 7 HT
-report}{]}. However, a prior knowledge is not always for the wanted
+example the vascular or cellular density \cite{Cao2006,Zhou2014}. However, a prior knowledge is not always for the wanted
 task, therefore, the alternative is to extract a huge quantity of
 features and to determine the most relevant one by using for example
 some machine learning algorithms.
@@ -272,22 +277,22 @@ transformed into an histogram, and different values are computed such as
 the uniformity or the entropy. Even though those features are often
 sensitive to the acquisition settings such as the slice thickness or
 even the way the histogram is computed, they permitted the prediction of
-the malignancy of breast lesions {[}\textbf{ref 21 of HT report}{]}.\\
+the malignancy of breast lesions \cite{Parekh2016}.\\
 Shape features are often extracted directly from the VOI in order to
 analyze its geometrical properties (such as the overall volume occupied
 by the tumor, its sphericity, its roughness or its fractal dimension).
 Those features also permitted the prediction of the response to
-treatment in previous studies {[}\textbf{ref 22 of HT report}{]}.
+treatment in previous studies \cite{Thawani2018}.
 
 Second order statistical features are meant to extract the textural
 properties of the volume, by considering the neighboring relationship
 between pixels. This will play an important role especially for the
 characterization of the heterogeneity of the tissues. This relation is
 captured by several descriptive matrices (\emph{GLCM}, \emph{GLRLM},
-\ldots{}) {[}\textbf{ref 21 of HT report}{]}.\\
+\ldots{}) \cite{Parekh2016}.\\
 Finally, higher order features allow the extraction of imaging features
 in various frequency domains (the Wavelet features are the most commonly
-used higher order features {[}\textbf{ref 22 of HT report}{]}).
+used higher order features \cite{Thawani2018}).
 
 \paragraph{Features Selection}\label{features-selection}
 
@@ -298,7 +303,7 @@ phase of the number of features is often required, either in a
 supervised manner (features are selected for their discriminant power in
 regards with the wanted task) or in non-supervised manner (the main
 objective is to suppress the redundant features without considering the
-different labels) {[}\textbf{ref 21 HT report}{]}.
+different labels) \cite{Parekh2016}.
 
 Among the supervised methods, one can distinguish the univariate ones,
 where the features are tested one by one depending on their contribution
@@ -319,14 +324,14 @@ classification ones (where models such as \emph{RF}: random forests or
 features in order to predict the wanted clinical criteria). Concerning
 the prediction of the survival, it is common to implement slightly
 different models such as the \emph{Kaplan-Meier} or the \emph{Cox
-Proportional Hazard} {[}\textbf{ref 23 HT report}{]}.
+Proportional Hazard} \cite{Oikonomou2018}.
 
 In the radiomics studies, one of the main goals is the stability of the
 features against the pre-treatment steps described above. In order to
 reach this objective, it is possible for the patients to undergo the
 medical imaging examinations several times (\emph{test-retest}), and the
 segmentations can be performed by several experts or even by the same
-expert several times {[}\textbf{ref 24 HT report}{]}.
+expert several times \cite{Griethuysen2017}.
 
 In summary, when dealing with classical radiomics pipelines, reaching
 the best results will often depend on the best combinations between the
@@ -347,8 +352,7 @@ quality of future \emph{HCR} work.
 In order to analyze the different methods implemented in the \emph{HCR}
 field, 15 studies performed on patients suffering from HCC and who
 underwent CT scan examination were reviewed. Initially, 23 primary liver
-cancer-related studies have been scanned in our review {[}\textbf{ref
-TAIGA}{]}, we then selected the 15 HCC-related ones.
+cancer-related studies have been scanned in our review \cite{Wakabayashi2019}, we then selected the 15 HCC-related ones.
 
 We will first describe the different targets of the studies and the
 details of the cohorts through the number of patients and the clinical
@@ -368,8 +372,7 @@ table
 \paragraph{Experimental setup}\label{experimental-setup}
 
 The vast majority of the studies were designed to predict the survival
-of the patients after surgery, or any other type of treatment
-{[}\textbf{Cozzi, Akai, Chen, Li, Banerjee, Segal, Zheng, Xia}{]}. In
+of the patients after surgery, or any other type of treatment \cite{Cozzi2017,Akai2018,Chen2017,Li2016,Banerjee2015,Segal2007,Zheng2018,Xia2018}. In
 clinical trials, the traditional way to evaluate the survival is through
 the OS (Overall Survival), which corresponds to the duration from either
 the date of diagnosis of the disease or the start of its treatment, to
@@ -381,23 +384,29 @@ recurrence of the disease.
 
 Other ways to evaluate the response to a given treatment were also
 evaluated in some of the reviewed studies, such as the presence or
-absence of recurrence {[}\textbf{Zhou, Zheng}{]}, the local control
-which assess the end of the growth of a tumor {[}\textbf{Cozzi \#1}{]},
-and other ways to compute the sensitivity to a treatment {[}\textbf{Kuo
-\#19, Li \#24}{]}.
+absence of recurrence \cite{Zhou2017a,Zheng2018}, the local control
+which assess the end of the growth of a tumor \cite{Cozzi2017},
+and other ways to compute the sensitivity to a treatment \cite{Kuo2007,Li2016}.
 
 Another important aspect that is often assessed by the reviewed studies
 is the physiological changes brought by the disease, such as the
 aggressive profile of the tumor, usually translated by the presence of
 \emph{MVI} (MicroVascular Invasion), and its association to genes
-expression {[}\textbf{Kuo, Banerjee, Renzulli, Segal, Peng, Bakr,
-Taouli}{]}.
+expression \cite{Kuo2007,Banerjee2015,Renzulli2016,Segal2007,Peng2018,Bakr2017,Taouli2017}.
 
 The entire 15 studies had a retrospective design, and the number of
-selected patients varied from 28 {[}\textbf{ref Bakr \#42}{]} to 319
-{[}\textbf{ref Zheng \#40}{]}, with a median of 125 patients per study.
+selected patients varied from 28 \cite{Bakr2017} to 319
+\cite{Zheng2018}, with a median of 125 patients per study, as illustrated in the figure \ref{HCR_studies_number_of_patients}.
 
-\includegraphics[width=4.41572in,height=2.72865in]{./images/image2.png}
+
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/image2}
+	\caption{Number of patients included in the reviewed HCR studies}
+	\label{HCR_studies_number_of_patients}
+\end{figure}
+
+
 
 The relatively low number of patients can be explained by the strong
 inclusion criteria set within the studies (size and number of lesions,
@@ -406,18 +415,15 @@ initial treatment, \ldots{})
 
 They were all built with data acquired on patients who underwent CT
 examination, except one, that decided to mix data obtained from both CT
-and MR examinations {[}\textbf{Taouli et al. \#45}{]}.
+and MR examinations \cite{Taouli2017}.
 
 Regarding the CT scan protocol, only one study decided to use images
-acquired before the injection of contrast medium {[}\textbf{ref Cozzi
-\#1}{]}, whereas two other studies used images acquired at only one
-phase (early arterial phase for \textbf{Raman et al. \#26}, and portal
-venous phase for \textbf{Li et al. \#24}), and the remaining studies
+acquired before the injection of contrast medium \cite{Cozzi2017}, whereas two other studies used images acquired at only one
+phase (early arterial phase for \cite{Raman2015}, and portal
+venous phase for \cite{Li2016}), and the remaining studies
 analyzed multiphase images. Among them, four studies utilized images
-acquired at both early arterial and portal venous phases {[}\textbf{ref
-Zhou \#2, Chen \#23, Kuo \#29 and Zheng \#40}{]}, while the rest were
-based on traditional triphasic images {[}\textbf{ref Akai, Banerjee,
-Renzulli, Segal, Peng, Bakr, Taouli and Xia}{]}. Concerning the
+acquired at both early arterial and portal venous phases \cite{Zhou2017a,Chen2017,Kuo2007,Zheng2018}, while the rest were
+based on traditional triphasic images \cite{Akai2018,Banerjee2015,Renzulli2016,Segal2007,Peng2018,Bakr2017,Taouli2017,Xia2018}. Concerning the
 acquisition protocols, early arterial phase images are most of the time
 acquired around 30s after the injection of contrast agent (between 22
 and 35s), and some studies used bolus tracking method to estimate the
@@ -440,13 +446,11 @@ The selection of the region/volume of interest and/or the assessment of
 the physiological characteristics of the tumor is often performed by one
 or multiple experienced radiologists.\\
 This step of the pipeline was performed by only a single expert in rare
-cases in the reviewed studies {[}\textbf{Xia, Akai}{]}, whereas it was
-usually performed by two experts {[}\textbf{Zhou, Chen, Li, Raman, Kuo,
-Renzulli, Segal, Zheng, Peng, Taouli}{]}.\\
+cases in the reviewed studies \cite{Xia2018,Akai2018}, whereas it was
+usually performed by two experts \cite{Zhou2017a,Chen2017,Li2016,Raman2015,Kuo2007,Renzulli2016,Segal2007,Zheng2018,Peng2018,Taouli2017}.\\
 When more than 1 expert is involved, the authors decided to implement
 ways for quantifying the inter and intra-observer variability, such as
-the \emph{ICC} (Intraclass Correlations Coefficient) {[}\textbf{Zheng,
-Li}{]}, or the Cohen k statistics {[}\textbf{Banerjee, Renzulli}{]}.
+the \emph{ICC} (Intraclass Correlations Coefficient) \cite{Zheng2018,Li2016}, or the Cohen k statistics \cite{Renzulli2016,Banerjee2015}.
 
 Regarding now the selection of the ROI, we can separate the reviewed
 studies by the type of features being extracted.
@@ -454,19 +458,16 @@ studies by the type of features being extracted.
 On one hand, when using imaging traits, it is common to use the whole
 tumor to perform the evaluation. For example when evaluating the
 vascular invasion, some features like the peritumoral enhancement need
-to be estimated globally {[}\textbf{Renzulli et al., Banerjee et al.,
-Segal et al., Kuo et al.}{]}.\\
+to be estimated globally \cite{Renzulli2016,Banerjee2015,Segal2007,Kuo2007}.\\
 On the other hand, when using computational features, the analysis can
 be performed on the whole tumor or on a single slice. Some studies
-decided to compute the features on the entire 3D ROI, as an example
-\textbf{Cozzi} \textbf{et al.} used the entire tumor independently on
-the tissues present within it, \textbf{Xia et al.} decided to separate
-areas based on their textural properties as depicted below, but the
+decided to compute the features on the entire 3D ROI, as an example Cozzi et al. used the entire tumor independently on
+the tissues present within it, Xia et al. decided to separate
+areas based on their textural properties as depicted in the figure \ref{XiaFig_subregions}, but the
 analysis remains global. Other studies placed everal ROIs all throughout
-the tumor (3 ROIs for \textbf{Bakr et al.} and from 5 to 10 for
-\textbf{Raman et al.}). However, the majority of the studies decided to
-place the ROI at the largest cross-sectional area {[}\textbf{Li, Chen,
-Zhou, Akai, Zheng}{]}.
+the tumor (3 ROIs for Bakr et al. and from 5 to 10 for
+Raman et al.). However, the majority of the studies decided to
+place the ROI at the largest cross-sectional area \cite{Li2016,Chen2017,Zhou2017a,Akai2018,Zheng2018}.
 
 \begin{figure}[ht!]
 \centering
@@ -477,6 +478,7 @@ tumor outlines on the original CT image. The second column shows the
 heatmaps of calculated local entropy on tumor images. The third column
 shows the three subregions marked with different colors after intratumor
 partitioning. \textbf{©Xia et al.} }
+\label{XiaFig_subregions}
 \end{figure}
 
 Note that some studies decided to compute the features using both the
@@ -491,7 +493,7 @@ to filter the images using different kernel sizes, in order to enhance
 different elements of the volumes such as the blood vessels for example.
 All reviewed studies that computed quantitative features filtered their
 images with a Laplacian of Gaussian algorithm with various sizes, as
-depicted below {[}\textbf{Akai et al.}{]}.
+depicted in the figure \ref{AkaiFig_Roi}.
 
 \begin{figure}[ht!]
 \centering
@@ -501,6 +503,7 @@ drawn on the tumor (a). Processed images using Laplacian of Gaussian
 filters with SSF of 2 mm (b), 4 mm (c), and 6 mm (d) were automatically
 generated. The images were displayed using a red or blue scale showing
 negative or positive pixels, respectively. \textbf{©Akai et al.}}
+\label{AkaiFig_Roi}
 \end{figure}
 
 \paragraph{Features selection}\label{features-selection-1}
@@ -513,17 +516,16 @@ going to rely on, quantitative or semantic.
 In the case of quantitative features, the reviewed studies often decided
 to focus on a single category of features (first-order, textural
 features, higher-order\ldots{}), thus obtaining a relative small number
-of features (27 for \textbf{Li et al.}, 32 for \textbf{Raman et al.}).
+of features (27 for Li et al., 32 for Raman et al.).
 However, despite choosing a specific category of features, this number
 can increase, when combining the native features with the spatial
-filter, and the different contrast enhanced phases, as in \textbf{Akai
-et al.} where a total 96 features are extracted from the initial 6
-histogram-based features.
+filter, and the different contrast enhanced phases, as in Akai
+et al. where a total 96 features are extracted from the initial 6
+histogram-based features \cite{Akai2018}.
 
 Some other studies decided to extract the maximum possible features by
 combining the previously mentioned group of features, and thus obtained
-300+ features, {[}\textbf{Zhou et al.}, \textbf{Peng et al., Bakr et
-al.}{]}. The problem in this case, often called ``\emph{curse of
+300+ features \cite{Zhou2017a,Peng2018,Bakr2017}. The problem in this case, often called ``\emph{curse of
 dimensionality}'', corresponds to a high number of features relative to
 the number of individuals, and that can cause some troubles when further
 training the predictable model.
@@ -532,7 +534,7 @@ When imaging traits are preferred to classical radiomics features, the
 number of extracted characteristics is generally below 10, with a high
 predominance of changes brought by the hepatocarcinogenesis, such as the
 presence of internal arteries, or the wash-in wash-out effect (example
-of imaging traits can be observed in the following figure). Even though
+of imaging traits can be observed in the figure \ref{Segal_imagingTraits} \& \ref{Taouli_imagingTraits}). Even though
 the number of extracted features is often small, they often correspond
 to absence or presence of physiological properties that are sometimes
 difficult to quantify and that will highly depend on the observer's
@@ -541,18 +543,14 @@ experience.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=1.13125in,height=2.82813in]{./images/image3.png}
-\caption{{[}\textbf{Segal et al.}{]}
-From top to bottom:
-Internal arteries
-Hypodense halo
-Textural heterogeneity}
-
+\caption{From top to bottom: Internal arteries, Hypodense halo, Textural heterogeneity, as illustrated by \textbf{©Segal et al.} \cite{Segal2007}}
+\label{Segal_imagingTraits}
 \end{figure}
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=4.67498in,height=2.86979in]{./images/image8.png}
-\caption{{[}\textbf{Taouli et al. - Figure 1}{]}
+\caption{\textbf{©Taouli et al.} \cite{Taouli2017}
 (a,b) wash-in/wash-out pattern and mosaic appearance, without capsule/
 pseudocapsule.
 (c) internal arteries (arrows)
@@ -563,6 +561,7 @@ pseudocapsule.
 (g) right portal vein invasion (dashed arrow)
 (h) extra-nodular growth anteriorly (dashed arrow)
 }
+\label{Taouli_imagingTraits}
 \end{figure}
 
 
@@ -573,21 +572,20 @@ predictive model.
 The vast majority of the reviewed studies decided to implement a
 logistical regression model in order to assess the correlation between
 features and the study endpoint. Among the existing methods,
-time-related approaches such as the Cox regression model {[}\textbf{Li,
-Banerjee, Zheng, Cozzi, Xia}{]} and the Kaplan-Meier survival analysis
-{[}\textbf{Segal, Chen, Akai, Xia}{]} are the most commonly used,
+time-related approaches such as the Cox regression model \cite{Li2016,Banerjee2015,Zheng2018,Cozzi2017,Xia2018} and the Kaplan-Meier survival analysis
+\cite{Segal2007,Chen2017,Akai2018,Xia2018} are the most commonly used,
 especially because those are historical ways to predict the survival of
 the patients.
 
 Different statistical approaches were used by the studies that tried to
 determine the link between selected features and study endpoints such as
 the \emph{LASSO} (Least Absolute Shrinkage and Selection Operator)
-algorithm {[}\textbf{Zhou, Peng, Bakr}{]}. In the other studies, other
-approaches were implemented, for example, \textbf{Raman et al.}
+algorithm \cite{Zhou2017a,Peng2018,Bakr2017}. In the other studies, other
+approaches were implemented, for example, Raman et al.
 performed a \emph{PCA} (Principal Components Analysis) followed by a
 \emph{MANOVA} (Multivariate Analysis Of VAriances) to create clusters
 among patients for the classification of hypervascular lesions, whereas
-\textbf{Renzulli et al.} evaluated the positive and negative predictive
+Renzulli et al. evaluated the positive and negative predictive
 values of the selected features against the microvascular invasion
 status of the patients.
 
