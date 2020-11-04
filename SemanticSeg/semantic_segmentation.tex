@@ -61,22 +61,23 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+\renewcommand{\baselinestretch}{1.75}
 
 \renewcommand{\arraystretch}{5}
+
+
+\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
+
 
 % set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
 
-\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}   % set the margins
-
 
 \newcommand{\pplfont}[1]{{\textbf{\fontfamily{ppl}\selectfont #1}}}
 
 \newcommand{\lmttfont}[1]{{\fontfamily{lmtt}\selectfont #1}}
-
-\date{}
 
 \begin{document}
 	
@@ -600,7 +601,7 @@
 	
 	
 	Beichel et al. used a graph-cut method to propose an initial liver
-	region which can interactively be segmented by the users \cite{Beichel2007}. The cost of
+	region which can interactively be segmented by the users \cite{Beichel2004}. The cost of
 	the graph cut segmentation is specified by taking region and boundary
 	properties into account. The region term evaluates the gray-level
 	similarity in the neighborhood of a given point and compares it to the
@@ -714,9 +715,9 @@
 	Statistical shape models on the other hand try to extract features of
 	the model instead of building an average map.
 	
-	They were first described by Cottes et al., who introduced the concept of Active Shape Models (ASM) which
+	They were first described by Cootes et al., who introduced the concept of Active Shape Models (ASM) which
 	are built from a set of segmented training images and consist of 2
-	parts, a geometrical model, and a local appearance model \cite{Cottes1995}. The
+	parts, a geometrical model, and a local appearance model \cite{Cootes1995}. The
 	geometrical model describes the shape and is represented by a PDM
 	(\emph{Point Distribution Model}), a dense collection of landmark points
 	on the surface of the object. Given the location of the landmarks for
@@ -928,7 +929,7 @@
 	\end{figure}
 	
 	Chartrand et al. started from a set of user-defined contours, and obtained an
-	initial shape using variational interpolation \cite{Chatrand2014}. Boundary points were then
+	initial shape using variational interpolation \cite{Chartrand2014}. Boundary points were then
 	extracted using a template matching method. Intensity profiles were
 	computed in a narrow band around the previously established boundary,
 	before a non-rigid registration scheme based on Laplacian mesh
@@ -950,11 +951,11 @@
 	co-occurrence matrices \cite{Li2014b}.
 	
 	Mostafa et al. proposed an artificial bee colony clustering technique to
-	segment the liver, which is then refined using morphological operations \cite{Mostofa2015}.
+	segment the liver, which is then refined using morphological operations \cite{Mostafa2015}.
 	The final step consists of a region growing method to enhance the
 	segmentation obtained previously.
 	Shi et al. started with a blood vessel shape initialization, and deformed
-	the liver shape using a region-specific deformable framework \cite{Shi2015}. The
+	the liver shape using a region-specific deformable framework \cite{Shi2016}. The
 	blood-vessel shape allows the algorithm to get a more accurate
 	initialization based on the patient specificities. Al-Shaikhli et al. proposed a level set formulation guided by a combined region-based and
 	voxel-wise cost function \cite{Al-Shaikhli2015}. For the global image term, textural features

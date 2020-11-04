@@ -1,52 +1,55 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[]{article}
 \usepackage{lmodern}
+\usepackage{geometry}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{geometry}
 \usepackage{fixltx2e} % provides \textsubscript
+\usepackage{hyperref}
+\usepackage{graphicx,grffile}
+\usepackage{tabularx}
+
+\usepackage{lscape}
+\usepackage{booktabs, multirow} % for borders and merged ranges
+\usepackage{soul}% for underlines
+\usepackage[table]{xcolor} % for cell colors
+\usepackage{changepage,threeparttable} % for wide tables
+\usepackage{cite}
+
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\usepackage{unicode-math}
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
+
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+	
+	\usepackage[]{microtype}
+	\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
-            pdftitle={Liver cancer},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\usepackage{longtable,booktabs}
-\usepackage{graphicx,grffile}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
 \IfFileExists{parskip.sty}{%
-\usepackage{parskip}
+	\usepackage{parskip}
 }{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
+	\setlength{\parindent}{0pt}
+	\setlength{\parskip}{6pt plus 2pt minus 1pt}
 }
+
+\hypersetup{
+	pdfborder={0 0 0},
+	breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
 % Redefines (sub)paragraphs to behave more like sections
 \ifx\paragraph\undefined\else
@@ -58,8 +61,23 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+\renewcommand{\baselinestretch}{1.75}
 
-\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}   % set the margins
+\renewcommand{\arraystretch}{5}
+
+
+\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
+
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\newcommand{\pplfont}[1]{{\textbf{\fontfamily{ppl}\selectfont #1}}}
+
+\newcommand{\lmttfont}[1]{{\fontfamily{lmtt}\selectfont #1}}
 
 
 \begin{document}
@@ -658,7 +676,6 @@ patients suffering from \emph{HCCs} when seeking for curation:
   cirrhosis have to be carefully selected to reduce the risk of
   postoperative liver failure \cite{Bruix2011,Llovet2012,Verslype2012}.
 \item
-  \begin{quote}
   \emph{Liver transplantation}, which mainly benefits patients who are
   not good candidates for surgical resection, and fits better those
   within the \emph{Milan criteria} (solitary tumor up to 5cm or less
@@ -672,10 +689,7 @@ patients suffering from \emph{HCCs} when seeking for curation:
   Some modifications have been done to the initial inclusion criteria
   for the transplant candidates after poor recurrence results were
   obtained \cite{Llovet2012}.
-  \end{quote}
-\item
-  \begin{quote}
-  Image-guided ablation (\emph{IGA}) is the most frequently used
+\item Image-guided ablation (\emph{IGA}) is the most frequently used
   therapeutic strategy but its efficacy is limited by the size of the
   tumor and its location.\\
   This technique belongs, just like resections, to primary line
@@ -699,66 +713,50 @@ patients suffering from \emph{HCCs} when seeking for curation:
   multiple overlapping ablation zones, a more accurate placement of the
   probes and an assessment of the results intraoperatively, thanks to
   image fusion. This new generation of techniques is called
-  ``\emph{stereotactic RFA}'' {[}\textbf{Bale et al. 2019, Laimer et al.
-  2019 - Perrodin et al. 2019}{]}.\\
+  ``\emph{stereotactic RFA}'' \cite{Perrodin2019,Bale2019,Laimer2020}.\\
   Therefore, the question whether to choose resection over \emph{RFA} is
-  still open {[}\textbf{Heimbach et al. 2017 - Bale et al. 2019}{]}.
-  \end{quote}
-\item
-  \begin{quote}
-  Transarterial Chemoembolization (\emph{TACE}), which has survival
+  still open \cite{Heimbach2018,Bale2019}.
+\item Transarterial Chemoembolization (\emph{TACE}), which has survival
   benefits in asymptomatic patients with multifocal disease without
-  vascular invasion or extrahepatic spread can also be considered
-  {[}\textbf{ref Fornet et al. 2018}{]}.\\
+  vascular invasion or extrahepatic spread can also be considered \cite{Forner2018}.\\
   \emph{TACE} can also be applied to patients in earlier stages, who are
   not suitable for the other therapeutic available treatments. This
   clinical situation is known as ``treatment stage migration'' and
   reflects a certain flexibility in the \emph{BCLC} clinical
-  interpretation {[}\textbf{Burrel et al, 2012}{]}.
-  \end{quote}
+  interpretation \cite{Burrel2012}.
 \end{itemize}
 
 The same staging systems are used for the patient follow-up, and can be
 supported by other metrics such as the \emph{RECIST} (standing for
 ``\emph{Response evaluation criteria in solid tumours''}) which assess
 the tumor response, but presents several limitations and has already
-been modified in the past to incorporate changes {[}\textbf{ref
-Eisenhauer et al. 2008}{]}.
+been modified in the past to incorporate changes \cite{Eisenhauer2008}.
 
 As explained here, general staging systems rely mainly on the macro
 changes caused by the disease, ignoring many histological measurements,
-such as the histological grade, depicted below, and defined following
+such as the histological grade, depicted in the figure \ref{HistologicalGrades}, and defined following
 the Edmonson-Steiner grading system, corresponding to the level of
-cellular differentiation {[}ref Edmonson 1954{]}:
+cellular differentiation \cite{EdmondsonHA1954}:
 
 \begin{itemize}
 \item
-  \begin{quote}
   G1: Well differentiated
-  \end{quote}
 \item
-  \begin{quote}
   G2: Moderately differentiated
-  \end{quote}
 \item
-  \begin{quote}
   G3: Poorly differentiated
-  \end{quote}
 \item
-  \begin{quote}
   G4: Undifferentiated
-  \end{quote}
 \end{itemize}
 
-\begin{longtable}[c]{@{}l@{}}
-\toprule
-\includegraphics[width=4.14503in,height=3.11935in]{./images/media/image11.png}\tabularnewline
-\midrule
-\endhead
-Histological grades as illustrated by Turdean et al. 2012~{[}ref Turdean
-et al. 2012{]}\tabularnewline
-\bottomrule
-\end{longtable}
+
+\begin{figure}[th!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/image7}
+\caption{Histological grades as illustrated by ©Turdean et al. \cite{Turdean2012}}
+\label{HistologicalGrades}
+\end{figure}
+
 
 Current methods to evaluate the tumor and to propose the best available
 treatment still suffer from a lot of limitations, especially because
@@ -771,7 +769,7 @@ enhanced to provide a subjective feedback to the clinicians, and help
 them with non-invasive tools to give to patients suffering from
 \emph{HCCs} the best chances of survival.
 
-\emph{(Add a short introduction to radiomics here)*}
+\textcolor{red}{(Add a short introduction to radiomics here)}
 
 
 \newpage
