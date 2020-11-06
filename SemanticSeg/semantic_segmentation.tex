@@ -85,7 +85,7 @@
 	
 	\subsection*{Introduction}
 	
-	As explained in the ``\emph{Medical Context}'' section, the liver is an
+	As explained in the \textbf{\textcolor{red}{Medical Context}} section, the liver is an
 	organ with a key function in the human body. Being a soft organ, it
 	presents a large variation in shape among the population (inter-patient
 	variation), and can also be subject to deformations due to respiratory
@@ -112,8 +112,7 @@
 		Evaluation Criteria in Solid Tumor} (RECIST) standard \cite{Eisenhauer2008, Ye2017}. A precise
 	volumetric segmentation of both the liver and its tumors is a
 	prerequisite in case of treatment planning (\emph{TARE}, \emph{TACE,
-		percutaneous thermal ablation, radiotherapy surgical resection,
-		SIRT\ldots{}}) \cite{Al-Nahhas2014, Yamada1983, Albain2009, Rossi96}. Associating liver and tumors
+		percutaneous thermal ablation, radiotherapy surgical resection,\ldots{}}) \cite{Al-Nahhas2014, Yamada1983, Albain2009, Rossi96}. Associating liver and tumors
 	segmentation allows the computation of the \emph{tumor burden}, which
 	has an importance in case of surgical resection, or when estimating the
 	efficiency of a given treatment \cite{Nordlinger1996, Jagannath1986, Gobbi2004, Bauknecht2010, Bornemann2007, Heussel2007, Kuhnigk2006, Puesken2010}.
@@ -138,7 +137,7 @@
 	\begin{figure}[!h]
 		\centering        
 		\includegraphics[width=0.7\linewidth]{./images/image37.png}
-		\caption{Interobserver variability as observed in \cite{Echegaray2015}}
+		\caption{Interobserver variability as illustrated by \textbf{©Echegaray et al.} \cite{Echegaray2015}}
 		\label{interobserver_var}
 	\end{figure} 
 	
@@ -149,7 +148,7 @@
 	semantic segmentation. We are then investigating the historical methods
 	developed to perform the semantic segmentation of the liver and/or liver
 	tumors, before presenting most recent advances brought by deep learning.
-	The \emph{classical }methods were often guided by manual interactions,
+	The ``classical'' methods were often guided by manual interactions,
 	and commonly implemented engineered features whereas deep learning
 	allowed relevant features to be learned directly from the input data.
 	
@@ -157,26 +156,7 @@
 	a small number of computed tomography images datasets have been publicly
 	available for liver tissue segmentation purposes. A table presenting
 	details of the publicly available datasets can be found in the table \ref{publicly_available_datasets}.
-	
-	\begin{landscape}
-		\begin{table}[!htp]\centering
-			\caption{Publicly available datasets}\label{publicly_available_datasets}
-			\scriptsize
-			\begin{tabular}{lrrrrrrrrrrrr}\toprule
-				\textbf{Name} &\textbf{\# Cases} &\textbf{\parbox{0.8cm}{Liver GT}} &\textbf{\parbox{1cm}{Liver Tumor GT}} &\textbf{\parbox{1cm}{Tumor Type}} &\textbf{Other GT} &\textbf{\# Experts} &\textbf{\parbox{1.5cm}{Volume size\\(pixels)}} &\textbf{\parbox{1.5cm}{Voxel size (mm)}} &\textbf{Challenge} &\textbf{\parbox{1cm}{Hidden Cases}} &\textbf{Phases} \\\midrule
-				3Dircad-01 &\textbf{20} &true &true &Undefined &\parbox{1cm}{Blood vessels }&1 &\parbox{1.5cm}{axial: 512x512\\z : 74 - 260}&\parbox{1.5cm}{axial:\\0.56 - 0.87\\z : 1 - 4}&- &- &Undefined \\
-				3Dircad-02 &\textbf{2} &true &true &FNH &- &1 &\parbox{1.5cm}{axial:\\ 512x512\\z : 167 - 219}&\parbox{1.5cm}{axial:\\ 0.96\\z : 1.8 - 2.4}&- &- &\parbox[r][][r]{0.7cm}{1 AR 1 PV}\\
-				Sliver07 &\textbf{30} &true &true &Undefined &- &1 &- &\parbox{1.5cm}{axial:\\0.55 - 0.8\\z : 1 - 3}&MICCAI07 &10 &PV \\
-				MIDAS &\textbf{4} &false &true & Undefined &- &5 &- &- &- &- & Undefined \\
-				LITS &\textbf{131} &true &true &Undefined &No &3 &\parbox{1.5cm}{axial:\\ 512x512\\z : 42 - 1026}&\parbox{1.5cm}{axial:\\0.56 - 1\\z : 0.45 - 6}&\parbox{1.2cm}{MICCAI17\\ISBI 2017}&70 &Undefined \\
-				TCIA &\textbf{97} &false &false &HCC &No &- &- &- &- &- &mixed\\
-				CHAOS &\textbf{40} & true &false &\textbf{\parbox{1.5cm}{Healthy Livers}} &No &3 &\parbox{1.5cm}{axial:\\512x512\\z: 77 - 105} &\parbox{1.5cm}{axial:\\0.7 - 0.8\\z : 3 - 3.2}&ISBI 2019 &- &PV \\
-				\parbox{0.8cm}{ImageClef Liver} &\textbf{50} &true &\parbox[r]{1cm}{true\\(Bounding\\Box)} &- &No &- &- & \parbox{1.5cm}{x: 190- 308\\y: 213-238\\z: 41 - 588} &ImageClef 2015 &10 & Undefined \\
-				\bottomrule
-			\end{tabular}
-		\end{table}
-	\end{landscape}
-	
+	\include{publicDatabase}
 	
 	Some of the available datasets have been launched by medical-related
 	institutions. IRCAD for example, provided both 3DIrcadb sets \cite{3DIrcadB}, with the first containing 20 abdominal CT
@@ -256,7 +236,7 @@
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image10}
-		\caption{Intensity based segmentation workflow used in \cite{Lim2006}}
+		\caption{Intensity based segmentation workflow used by \textbf{©Lim et al.}  \cite{Lim2006}}
 		\label{IntensityBasedLim}
 	\end{figure}
 	
@@ -275,7 +255,7 @@
 	\begin{figure} [ht!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image15}
-		\caption{Liver segmentation as described by Liu et al. \cite{Liu2005}}
+		\caption{Liver segmentation as described by \textbf{©Liu et al.} \cite{Liu2005}}
 		\label{LiuGVF}
 	\end{figure}
 	
@@ -311,7 +291,7 @@
 		\centering
 		\label{ForuzanFig3}
 		\includegraphics[width=0.7\linewidth]{images/image1}
-		\caption{Estimation of the liver ROI based on the anatomical rib position as described in \cite{Foruzan2009}}
+		\caption{Estimation of the liver ROI based on the anatomical rib position as described by \textbf{©Foruzan et al.} \cite{Foruzan2009}}
 	\end{figure}
 	
 	
@@ -355,7 +335,7 @@
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image19}
-		\caption{Liver segmentation pipeline after the placement of a seed at the estimated liver centroid position as detailed by Kumar et al. \cite{Kumar2013}}
+		\caption{Liver segmentation pipeline after the placement of a seed at the estimated liver centroid position as detailed by \textbf{©Kumar et al.} \cite{Kumar2013}}
 		\label{Kumar2013_Fig5}
 	\end{figure}
 	
@@ -415,7 +395,7 @@
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.5\linewidth]{images/image7}
-		\caption{Skin surface localization followed by the extraction of the ribs as described by Pan et al. \cite{Pan2001}}
+		\caption{Skin surface localization followed by the extraction of the ribs as described by \textbf{©Pan et al.} \cite{Pan2001}}
 		\label{Pan2001_Fig5}
 	\end{figure}
 	
@@ -470,7 +450,7 @@
 	\begin{figure} [ht!]
 		\centering
 		\includegraphics[width=0.5\linewidth]{images/image8}
-		\caption{Semi automatic segmentation pipeline as proposed by Wimmer et al. \cite{Wimmer2007}}
+		\caption{Semi automatic segmentation pipeline as proposed by \textbf{©Wimmer et al.} \cite{Wimmer2007}}
 		\label{Wimmer2007_Fig2}
 	\end{figure}
 	
@@ -527,7 +507,7 @@
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=0.5\linewidth]{images/image24}
-		\caption{The different steps of the segmentation process developed by Suzuki et al. \cite{Suzuki2010}}
+		\caption{The different steps of the segmentation process developed by \textbf{©Suzuki et al.} \cite{Suzuki2010}}
 		\label{Suzuki2010_Fig3}
 	\end{figure}
 	
@@ -571,7 +551,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image20}
-		\caption{Examples of failure caused by the GC algorithm as depicted by Grady et al. \cite{Grady2006}}
+		\caption{Examples of failure caused by the GC algorithm as depicted by \textbf{©Grady et al.} \cite{Grady2006}}
 		\label{Grady2006_Fig5}
 	\end{figure}
 	
@@ -595,7 +575,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image14}
-		\caption{Segmentation pipeline as detailed by Dong et al. \cite{Dong2016}}
+		\caption{Segmentation pipeline as detailed by \textbf{©Dong et al.} \cite{Dong2016}}
 		\label{Dong2016_Fig3}
 	\end{figure}
 	
@@ -650,7 +630,7 @@
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image34}
-		\caption{Example of control points distribution used in the MIAMI method as described by Park et al. \cite{Park2003}}
+		\caption{Example of control points distribution used in the MIAMI method as described by \textbf{©Park et al.} \cite{Park2003}}
 		\label{Park2003_Fig1}
 	\end{figure}
 	
@@ -752,7 +732,7 @@
 		\begin{minipage}{0.7\linewidth}
 			\includegraphics[width=\linewidth]{images/image18}
 		\end{minipage}
-		\caption{Evolution of boundary search in one example as described in Lamecker et al. \cite{Lamecker2004}}
+		\caption{Evolution of boundary search in one example as described in \textbf{©Lamecker et al.} \cite{Lamecker2004}}
 		\label{Lamecker2004_Fig9}
 	\end{figure}
 	
@@ -779,7 +759,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.5\linewidth]{images/image29}
-		\caption{Evolution of the surface mesh after the segmentation steps described by Zhang et al. \cite{Zhang2010}}
+		\caption{Evolution of the surface mesh after the segmentation steps described by \textbf{©Zhang et al.} \cite{Zhang2010}}
 		\label{Zhang2010_Fig5}
 	\end{figure}
 	
@@ -812,7 +792,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.4\linewidth]{images/image33}
-		\caption{Example of how the incorporation of the curvature improved the quality of the segmentation as reported by Erdt et al. \cite{Erdt2010}.}
+		\caption{Example of how the incorporation of the curvature improved the quality of the segmentation as reported by \textbf{©Erdt et al.} \cite{Erdt2010}.}
 		\label{Erdt2010_Fig3}
 	\end{figure}
 	
@@ -839,7 +819,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image38}
-		\caption{Division of the liver as described by Okada et al. \cite{Okada2008}}
+		\caption{Division of the liver as described by \textbf{©Okada et al.} \cite{Okada2008}}
 		\label{Okada2008_Fig1}
 	\end{figure}
 	
@@ -867,7 +847,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image21}
-		\caption{Example of errors obtained during the segmentation process as exposed by Saddi et al. \cite{Saddi2007}}
+		\caption{Example of errors obtained during the segmentation process as exposed by \textbf{©Saddi et al.} \cite{Saddi2007}}
 		\label{Saddi2007_Fig}
 	\end{figure}
 	
@@ -924,7 +904,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image4}
-		\caption{Results of the blood vessels enhancement initially performed by Maklad et al. \cite{Maklad2013}}
+		\caption{Results of the blood vessels enhancement initially performed by \textbf{©Maklad et al.} \cite{Maklad2013}}
 		\label{Maklad2013_Fig1}
 	\end{figure}
 	
@@ -991,7 +971,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image9}
-		\caption{Liver segmentation pipeline as described by Huang et al. \cite{Huang2014}.}
+		\caption{Liver segmentation pipeline as described by \textbf{©Huang et al.} \cite{Huang2014}.}
 		\label{Huang2014_Fig1}
 	\end{figure}
 	
@@ -1059,7 +1039,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image3}
-		\caption{Example of a FCN architecture as described by Bellver et al. \cite{Bellver2017}}
+		\caption{Example of a FCN architecture as described by \textbf{©Bellver et al.} \cite{Bellver2017}}
 		\label{Bellver_FCN}
 	\end{figure}
 	
@@ -1084,7 +1064,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image28}
-		\caption{U-Net architecture as originally implemented and described by Ronneberger et al. \cite{Ronneberger2015}}
+		\caption{U-Net architecture as originally implemented and described by \textbf{©Ronneberger et al.} \cite{Ronneberger2015}}
 		\label{U_Net_Figure}
 	\end{figure}
 	
@@ -1102,7 +1082,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.4\linewidth]{images/image6}
-		\caption{Residual connection as described by He et al. \cite{He2015}}
+		\caption{Residual connection as described by \textbf{©He et al.} \cite{He2015}}
 		\label{ResidualConnection_Fig}
 	\end{figure}
 	
@@ -1116,7 +1096,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image32}
-		\caption{DenseNet architecture as initially described by Huang et al. \cite{Huang2017}}
+		\caption{DenseNet architecture as initially described by \textbf{©Huang et al.} \cite{Huang2017}}
 		\label{DenseNet_Fig}
 	\end{figure}
 	
@@ -1130,7 +1110,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image35}
-		\caption{Cascaded liver and lesion segmentation architecture as initially implemented by Christ et al. \cite{Christ2017}}
+		\caption{Cascaded liver and lesion segmentation architecture as initially implemented by \textbf{©Christ et al.} \cite{Christ2017}}
 		\label{Cascade_Christ}
 	\end{figure}
 	
@@ -1143,7 +1123,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image27}
-		\caption{Custom cascaded architecture implemented by Bi et al. where the liver and lesions features are first extracted before being combined to produce the final segmentation map \cite{Bi2017}}
+		\caption{Custom cascaded architecture implemented by \textbf{©Bi et al.} where the liver and lesions features are first extracted before being combined to produce the final segmentation map \cite{Bi2017}}
 		\label{Bi2017_Fig2}
 	\end{figure}
 	
@@ -1156,7 +1136,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image17}
-		\caption{Architecture implemented by Vorontsov et al. where the liver and lesions features are computed separetely before being combined using a classifier \cite{Vorontsov2018}}
+		\caption{Architecture implemented by \textbf{©Vorontsov et al.} where the liver and lesions features are computed separetely before being combined using a classifier \cite{Vorontsov2018}}
 		\label{Vorontsov2018_Fig1}
 	\end{figure}
 	
@@ -1172,7 +1152,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image2}
-		\caption{Patch-wise architecture as detailed and described by Li et al. \cite{Li2015}}
+		\caption{Patch-wise architecture as detailed and described by \textbf{©Li et al.} \cite{Li2015}}
 		\label{Li2015_Patch_fig}
 	\end{figure}
 	
@@ -1204,7 +1184,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image30}
-		\caption{Full 3D architecture as detailed and implemented by Dou et al. \cite{Dou2016}}
+		\caption{Full 3D architecture as detailed and implemented by \textbf{©Dou et al.} \cite{Dou2016}}
 		\label{Dou2016_3Darchitecture}
 	\end{figure}
 	
@@ -1269,7 +1249,7 @@
 	\begin{figure}[th!]
 		\centering
 		\includegraphics[width=0.7\linewidth]{images/image25}
-		\caption{Example of lesion segmentation results, as reported by Bellver et al. \cite{Bellver2017}}
+		\caption{Example of lesion segmentation results, as reported by \textbf{©Bellver et al.} \cite{Bellver2017}}
 		\label{Bellver_predResults}
 	\end{figure}
 	
@@ -1368,20 +1348,7 @@
 	table \ref{xp_datasets}.
 	
 	
-	\begin{table}[!htp]\centering
-		\caption{Datasets used in our experiments}\label{xp_datasets}
-		\scriptsize
-		\begin{tabular}{lrrrrrrrrrrr}\toprule
-			\textbf{Db Name} & \textbf{\parbox{1.3cm}{Volume\\dimension}} & \textbf{\parbox{1cm}{Axial voxel size (mm)}} & \textbf{\parbox{1cm}{Slice Thickness (mm)}} & \textbf{\parbox{1.5cm}{Available contrast-enhanced phases}} & \textbf{\parbox{1cm}{Contains Tumor}} & \textbf{\parbox{0.9cm}{Tumor type}} & \textbf{\parbox{1.2cm}{Annotated (Liver)}} & \textbf{\parbox{1.2cm}{Annotated (Tumor)}} & \textbf{\parbox{1.6cm}{Annotated (Necrosis)}} & \textbf{\#Experts} \\
-			\midrule
-			\textbf{\lmttfont{TheraHCC-dB}} &104 2D slices &0.66 - 0.97 &0.7 - 1.25 &\parbox{1cm}{NECT\\AR\\PV}&Yes &HCC & true & true & true &4 \\
-			\textbf{\lmttfont{LITS-dB}} & 131  3D vol. & 0.55 - 1 &0.45 - 6 &\parbox{1.5cm}{Single phase images but mixed (AR \& PV)}&Yes &Mixed & true & true & false &3 \\
-			\textbf{\lmttfont{3DIrcad-dB}} & 15 3D vol. &0.57 - 0.87 &1.25 - 4 &\parbox{1.5cm}{Single phase images but mixed (AR \& PV)} &Yes &Mixed & true & true & false &- \\
-			\textbf{\lmttfont{TCIA-dB}} & 18 3D vol. &0.62 - 0.90 &2.5 - 7 &\parbox{1cm}{AR\\PV}&Yes&HCC & false & true & true &1 \\
-			\textbf{\lmttfont{G-dB}} & 79  3D vol. &0.58 - 0.98 &0.8 - 5 &\parbox{1cm}{AR\\PV}&Yes &HCC & false & true & false &1 \\
-			\bottomrule
-		\end{tabular}
-	\end{table}
+	\include{xp_datasets}
 	
 	As we can see in the table, and except for \textbf{\lmttfont{LITS-dB}} and \textbf{\lmttfont{3DIrcad-dB}}
 	(\textbf{\lmttfont{3DIrcad-dB}} being a subset of the \textbf{\lmttfont{LITS-dB}} \cite{Bilic2019}), they are all different in their construction. Differences can

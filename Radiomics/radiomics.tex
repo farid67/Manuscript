@@ -13,6 +13,8 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{paralist}
+\usepackage{rotating}
+\usepackage{ltxtable}
 
 \usepackage{lscape}
 \usepackage{booktabs, multirow} % for borders and merged ranges
@@ -365,11 +367,7 @@ studies, before proposing some tracks to improve the reproducibility and
 the performances of future radiomics work.
 
 Details concerning the experimental settings of the studies, the
-endpoints and the different endpoints can be found in the following
-table
-(\href{https://docs.google.com/spreadsheets/u/0/d/10EHNALN2_6ZavU7049n6CwTfJO_vd6WBod64u8YNbHg/edit}{\emph{link}}).
-
-\textcolor{red}{\textbf{Convert TABLE}}
+endpoints and the different endpoints can be found in the table \ref{tab:HCR_studies_details}.
 
 
 
@@ -598,10 +596,13 @@ status of the patients.
 The list of discriminant features per study is given in the tables \ref{tab:QuantitativeFeatures}
  \& \ref{tab:SemanticFeatures} , with a separation between quantitative and semantic features.
 
-\begin{table}{}
+\renewcommand{\arraystretch}{1}
+\begin{minipage}{17cm}
+\begin{threeparttable} 
 \caption{List of quantitative features used in the reviewed studies}
 \label{tab:QuantitativeFeatures}
-\begin{threeparttable} 
+\begin{tabularx}{8cm}{|X|}
+\hline
 \emph{First Order Statistics}
 \begin{itemize}
 \item Shape \cite{Cozzi2017}
@@ -614,22 +615,26 @@ The list of discriminant features per study is given in the tables \ref{tab:Quan
 \item Standard deviation \cite{Xia2018}
 \item Enhancement ratio \cite{Taouli2017}
 \item Tumor-Liver difference \cite{Taouli2017}
-\end{itemize}
+\end{itemize}\\
+\hline
 \emph{Second Order Statistics} 
 \begin{itemize}
 \item Gray Level matrices \cite{Peng2018,Zheng2018,Cozzi2017}
 \item Cluster prominence \cite{Xia2018}
-\end{itemize}
+\end{itemize}\\ \hline
 \emph{Higher Order Statistics}
 \begin{itemize}
 \item Wavelets \cite{Chen2017,Li2016,Bakr2017}
 \item Gabor \cite{Chen2017,Bakr2017}
-\end{itemize}
+\end{itemize}\\
+\hline
 \emph{Morphological features}
 \begin{itemize}
 \item Tumor margin volume \cite{Xia2018}
 \item Tumor size\tnote{1} \cite{Renzulli2016,Taouli2017}
-\end{itemize}
+\end{itemize}\\
+\hline
+\end{tabularx}
 \begin{tablenotes}
 \item[1] {Tumor size in the two studies is not given as the exact volume, but
 rather a classification of tumors in different categories (for example
@@ -637,28 +642,35 @@ the categories were smaller than 2cm, between 2 and 5 cm, and larger
 than 5 cm in Renzulli et al.\cite{Renzulli2016})} 
 \end{tablenotes}
 \end{threeparttable}
-\end{table}
-
-\begin{table}{}
+\hspace{0.5cm}
+\begin{threeparttable}
 \caption{List of semantic features used in the reviewed studies}
 \label{tab:SemanticFeatures}
+\begin{tabularx}{7.5cm}{|X|}
+\hline
 \emph{Two Traits Predictor of Venous Invasion}
 \begin{itemize}
 \item Internal arteries \cite{Renzulli2016,Kuo2007,Peng2018,Segal2007,Banerjee2015,Taouli2017}
 \item Hypoattenuating halos \cite{Renzulli2016,Peng2018,Segal2007,Banerjee2015}
-\end{itemize}
+\end{itemize} \\ \hline
 \emph{Intensity-related features}
 \begin{itemize}
 \item Peritumoral enhancement \cite{Renzulli2016}
 \item Presence of a Tumor-Liver difference \cite{Banerjee2015}
-\end{itemize}
+\end{itemize} \\ \hline
 \emph{Textural-related features}
 \begin{itemize}
 \item Non-smooth Tumor Margins \cite{Renzulli2016,Kuo2007,Peng2018}
 \item Infiltrative patterns \cite{Taouli2017}
 \item Mosaic appearance \cite{Taouli2017}
-\end{itemize}
-\end{table}
+\end{itemize} \\
+\hline
+\end{tabularx}
+\end{threeparttable}
+
+\end{minipage}
+\renewcommand{\arraystretch}{5}
+
 
 Concerning the studies based on quantitative features we can notice that
 first-order statistical features is the most common discriminant type,
@@ -704,10 +716,9 @@ penalty of 5 points when no validation at all is present).
 Our reviewed studies were evaluated in regards with the RQS, in
 consensus with a medical research fellow (Wakabayashi Taïga) \cite{Wakabayashi2019}.
 
-The different scores per study can be found in the following table
-(\href{https://docs.google.com/spreadsheets/u/0/d/10EHNALN2_6ZavU7049n6CwTfJO_vd6WBod64u8YNbHg/edit}{\emph{link}}).
+The details of the different scores per study are reported in the table \ref{tab:RQS_details}.
 
-\textcolor{red}{\textbf{CONVERT TABLE HERE}}
+\include{rqs_details}
 
 The mean obtained RQS by the reviewed studies was 8.73 +/- 5.57
 points, which corresponds to less than 23\% of the maximal possible
@@ -881,11 +892,11 @@ and DLR features \cite{Huynh2016}.
 Even though the number of studies targeting the liver is increasing, the
 vast majority of them can be categorized as HCR, and only a few
 are currently based on deep learning.
-
 The main reason behind that is the late emergence of deep learning and
 the recent outbreak of new architectures and concepts that are often
 first developed and evaluated in other fields than the medical imaging
-one (e.g. Residual Network, DenseNet, Capsule Net).
+one (e.g. Residual Network, DenseNet, Capsule Net).\\
+However, we have decided to review the first DLR-liver related studies, in order to understand how DL architectures can successfully be incorporated in a radiomics pipeline. We describe the study endpoints, the data preprocessing, the implementation and training strategies, before analyzing their performances. A more detailed analyze of the reviewed studies is available \href{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit#gid=0}{here}.
 
 \paragraph{Study Endpoint}\label{study-endpoint}
 
@@ -987,7 +998,7 @@ An illustration of this process can be found in the figure \ref{Yamada2019_Fig3}
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.9\linewidth]{images/image6}
-\caption{Illustration of the pre-training strategy adopted by ©Yamada et al. \cite{Yamada2019}}
+\caption{Illustration of the pre-training strategy adopted by \textbf{©Yamada et al.} \cite{Yamada2019}}
 \label{Yamada2019_Fig3}
 \end{figure}
 
