@@ -195,7 +195,7 @@
 	
 	\begin{figure}[!ht]
 		\centering
-		\includegraphics[width=0.5\linewidth]{images/image11}
+		\includegraphics[width=0.7\linewidth]{images/image11}
 		\caption{Histogram of the number of lesions per patient in the LITS dataset}
 		\label{NumberOfLesionsLits}
 	\end{figure}
@@ -214,11 +214,8 @@
 	experts.
 	Among the most utilized methods, we will first present those based on
 	the intensity of the voxels, before mentioning the ones requiring manual
-	interactions such as region growing or graph-theory based methods. Then,
-	we will introduce methods requiring prior shape knowledge such as
-	probabilistic atlases (PA) or statistical shape models (SSM) before
-	exposing the geometric deformable models that can be exploited to add
-	local constraints.
+	interactions such as region growing or graph-theory based methods. We will then introduce the geometric deformable models that can be exploited to add local constraints, before introducing methods requiring prior shape knowledge such as
+	probabilistic atlases (PA) or statistical shape models (SSM).
 	Finally, we will mention the different studies that are combining the
 	aforementioned methods.
 	
@@ -359,7 +356,7 @@
 	
 	Both geometric deformable models (aka active contours) and level set
 	based methods rely on boundary tracking to perform the segmentation.\\
-	The basic idea of \textbf{active contours} (introduced in 1988) is to
+	The basic idea of \emph{active contours} (introduced in 1988) is to
 	come from an initial contour and to deform it until it reaches the
 	contour of the object. The deformation function reaches its minimum when
 	the boundary of the object is found. The function used to deform the
@@ -400,7 +397,7 @@
 	\end{figure}
 	
 	
-	Wang et al. combined PA and level set to perform the segmentation of the liver \cite{Wang2016}. Training volumes were pre-processed before the liver region was
+	Wang et al. combined probabilistic atlas (PA) and level set to perform the segmentation of the liver \cite{Wang2016}. Training volumes were pre-processed before the liver region was
 	segmented, and stored with the denoised CT volumes. During the inference
 	phase, the different training denoised CT volumes are used to compute
 	the weighted PA for the current test patient. The liver ROI is then
@@ -1027,7 +1024,7 @@
 	The different DL studies launched for the liver tissue semantic
 	segmentation purpose share some common properties that will be exposed
 	hereafter. Details regarding the reviewed studies can be found in the
-	\textbf{Appendix}.
+	\textcolor{red}{\textbf{Appendix}}.
 	
 	\subsubsection*{FCN-based architectures}
 	
@@ -1471,7 +1468,7 @@
 	
 	\begin{figure}[th!]
 		\centering
-		\includegraphics[width=0.7\linewidth]{images/image16}
+		\includegraphics[width=0.9\linewidth]{images/image16}
 		\caption{\pplfont{PV-Lesion} network used to segment lesions within the liver with a PV image as input}
 		\label{CARS_PV_lesion_Fig}
 	\end{figure}
@@ -1489,7 +1486,7 @@
 	
 	\begin{figure}[th!]
 		\centering
-		\includegraphics[width=0.7\linewidth]{images/image23}
+		\includegraphics[width=0.9\linewidth]{images/image23}
 		\caption{\pplfont{AR-Full} refers to the network trained with AR images as input (values outside the liver are masked), and that outputs a label map, with parenchyma, active and necrotic parts annotated}
 		\label{CARS_ArFull_Fig}
 	\end{figure}
