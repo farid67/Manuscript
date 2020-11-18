@@ -94,8 +94,8 @@
 \subsection{Introduction}\label{introduction}
 
 So far, we proved that semantic segmentation of liver tissues can be
-performed using DL through robust CV training on both 3DIrcad-dB and
-TheraHCC-dB.
+performed using DL through robust CV training on both \lmttfont{3DIrcad-dB} and
+\lmttfont{TheraHCC-dB}.
 
 We also demonstrated that both a cascaded architecture and the use of
 multiphase information allows a better segmentation accuracy than using
@@ -117,8 +117,8 @@ response (such as the recurrence) were predicted (\textbf{see DLR section}).
 systems}\label{histological-hcc-grading-systems}
 
 Several types of histological grading systems exist, with the most
-frequent ones being ES 1954 \cite{EdmondsonHA1954}
-and WHO 2010 \cite{20113051318}. Differences between those two
+frequent ones being ES 1954 (Edmonson-Steiner) \cite{EdmondsonHA1954}
+and WHO 2010 (World Health Organization) \cite{20113051318}. Differences between these two
 grading systems are given in the figure \ref{fig:martins2017_table1}.
 
 \begin{figure}[th!]
@@ -129,16 +129,16 @@ grading systems are given in the figure \ref{fig:martins2017_table1}.
 \end{figure}
 
 Even if ES 1954 is the most widely used grading system, a lot of
-divergence in the assessment of the grade can be found in the different
+divergences in the assessment of the grade can be found in the different
 studies reviewed by Martins et al. \cite{Martins2017}.
 
-Some studies suggested that G2 is closer to G1 than to G3 \cite{Han2013,Zucman-Rossi2015}, therefore, a classification that separates
-both G1 and G2 in one group and G3 with potentially G4 if available in
-the other can be understood.\\
 The organization of the patients in different numbers of tiers (3 or 4)
 G1, G2, G3 and potentially G4, and the possible classification into low
 or high differentiation level reveals a high variability in the
-assessment of the histological grade, as seen in the figure \ref{fig:martins2017_figure2}
+assessment of the histological grade, as seen in the figure \ref{fig:martins2017_figure2}.
+As an example, some studies suggested that G2 is closer to G1 than to G3 \cite{Han2013,Zucman-Rossi2015}, therefore, a classification that separates
+both G1 and G2 in one group and G3 (with potentially G4 if available) in
+the other can be understood.\\
 
 
 \begin{figure}[th!]
@@ -151,19 +151,18 @@ assessment of the histological grade, as seen in the figure \ref{fig:martins2017
 
 
 This difference in the classification of the patients was also noticed
-by Han el al. \cite{Han2013} and detailed in the figure \ref{fig:han2013_table3}.
+by Han el al. \cite{Han2013} and detailed in the figure \ref{fig:han2013_table3}. They reviewed different articles that used the histological grade to
+predict the prognostic of the patients, and realized that no clear
+guidelines were given for tumor presenting regions with heterogeneous
+grades (two examples of heterogeneous histological HCC slices are given in the figure \ref{fig:pawlik_fig4}).
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.9\linewidth]{images/image9}
+\includegraphics[width=0.95\linewidth]{images/image9}
 \caption{Classification groups used by the studies reviewed by \textbf{©Han et al.} \cite{Han2013}}
 \label{fig:han2013_table3}
 \end{figure}
 
-They reviewed different articles that used the histological grade to
-predict the prognostic of the patients, and realized that no clear
-guidelines were given for tumor presenting regions with heterogeneous
-grades (examples of heterogeneous HCC histological slices given in the figure \ref{fig:pawlik_fig4}).
 
 \begin{figure}[th!]
 \centering
@@ -194,13 +193,13 @@ figure \ref{fig:martins2017_fig5}.
 
 
 It is common to differentiate between the \emph{clinical} and the
-\emph{pathological} grade, where clinical corresponds to the assessment
-performed preoperatively, and pathological\footnote{Important to distinguish from the pathological stage which mainly corresponds to the TNM.} corresponds to the evaluation
+\emph{pathological} grade, where the \emph{clinical} one corresponds to the assessment
+performed preoperatively, and the \emph{pathological}\footnote{Important to distinguish from the pathological stage which mainly corresponds to the TNM.} one corresponds to the evaluation
 of the sample collected during the surgery.
 
-Some studies even suggested that preoperative histological grades are
+Some studies even suggested that the preoperative histological grade is
 not accurate enough to be used as a prognostic factor, and that because
-of the high difference between NCB (needle core biopsy) grade and the
+of the high difference between the NCB (needle core biopsy) grade and the
 one obtained from the final surgical specimen (resulted from the
 analysis of samples collected during surgery). Pawlik et al.
 exposed the concordance in estimating both the clinical and the pathological grades, their results were detailed in the figure \ref{fig:pawlik_table3}.
@@ -219,7 +218,7 @@ from 1954 and the WHO from 2010. They both initially contain 4 groups,
 but differ in the features to consider and the way heterogeneous lesions
 are supposed to be classified. When different grades are encountered in
 the lesion specimen, ES 1954 recommends to consider the worst one,
-whereas WHO 2010 recommends to consider the most frequent one. New
+whereas WHO 2010 advices to consider the most frequent one. New
 grading systems were introduced lately in order to overcome these
 specific problems.
 
@@ -231,11 +230,11 @@ pipeline.
 \subsubsection{DLR based study to predict the histological HCC
 grade}\label{dlr-based-study-to-predict-the-histological-hcc-grade}
 
-To our knowledge, only one study tackled the estimation of the
+To our knowledge, only one study tackled the problem of estimating the
 histological grade of HCCs using a DL architecture, but with MR images
 as input \cite{Yang2019}.
 
-42 patients suffering from HCC were incorporated in their study,
+Yang et al. incorporated 42 patients suffering from HCC in their study,
 resulting in a total of 51 HCCs. Each lesion was analyzed by 2
 experienced pathologists who estimated their histological grade after
 microscopic examination (the lesions were classified as well, moderately
@@ -244,18 +243,17 @@ The extracted tissues were obtained through either biopsy (12 patients)
 or after surgical removal (2 liver transplants and 28 liver resection).
 All the 42 patients underwent pre-operative multiphasic MR imaging
 examinations and images were available at 5 different phases
-(Precontrast, late arterial, portal venous, equilibrium and delayed
+(precontrast, late arterial, portal venous, equilibrium and delayed
 phases). They obtained a dataset composed of 9 well, 7 poorly and 35 moderately
 differentiated HCCs.
 
-For each patient, a ROI was placed by one expert at the maximal
-cross-sectional area to entirely cover the tumor. The same ROI was
+For each patient, a ROI was placed by one expert at the maximal axial
+cross-sectional area to entirely cover the tumor. The ROI was
 copied in the 2 slices above and below the chosen one, to obtain a 3D
 volume. Intensities of each volume were normalized and 4D tensors were
-created for each patient so that each tensor had a 32x32x5x5 shape
-(32x32 corresponding to the resample axial ROI dimension, the third
-dimension being the number of retained slices where 2 slices above and
-below the chosen one were incorporated, and the last dimension being the
+created for each patient so that each tensor had a $ 32\times32\times5\times5 $ shape
+($ 32\times32 $ corresponding to the resample axial ROI dimension, the third
+dimension being the number of retained slices, and the last dimension being the
 dynamic temporal evolution of the ROI with the 5 phases).
 
 The used architecture is depicted in the figure \ref{fig:Yang2019_Figure2_MCF-3DCNN}. It first splits the 4D
@@ -264,7 +262,7 @@ tensors into 5 3D objects so that each slice is treated separately. Each
 fully connected layer. The features of each slice were then
 concatenated, before a second fully connected layer followed by a dense
 layer with a softmax activation function outputs the probability of
-belonging to each one of the three classes.
+belonging to each one of the three classes (well, moderately or poorly differentiated).
 
 \begin{figure}[th!]
 \centering
@@ -297,13 +295,11 @@ steps were performed by DL networks.
 \lmttfont{TCIA-dB} is the only open dataset where both tomographic images and
 histological grade ground truth are available. It originally only
 contained raw images without annotations, so an expert performed the
-delineations for both the tumor and the necrosis areas, but both were
-done on the PV images only.
+delineations for both the tumor and the necrosis areas on PV images only.
 
-In order to perform the prediction of the histological grade, the idea
+In order to perform the prediction of the histological grade, our idea
 is to use the imaging features retained for the liver tissue
-segmentation, especially those used to segment the tumor and the
-necrosis.
+segmentation, especially those used to segment tumoral structures.
 
 We believe that one easy way to extract relevant imaging features is to
 use those retained by the semantic segmentation networks, thus the
@@ -312,13 +308,18 @@ tissues, the more accurate the histological grade prediction will be.
 
 As explained previously, we proved that a cascaded architecture combined
 with the use of temporal contrast enhanced images allows a better
-delineation of liver tissues. Using temporal information can potentially
-improve the accuracy of the grade prediction, by exploiting the wash-in
+delineation of liver tissues. It has been proven that using temporal information can improve the accuracy of the grade prediction, by exploiting the wash-in
 wash-out specific features \cite{Okamoto2012}.
 
 To conduct our DLR study, we first performed a multiphasic
 semantic segmentation of the \lmttfont{TCIA-dB}, before predicting the
 histological grade.
+
+To achieve a multiphasic semantic segmentation of the liver tissues we
+have to ensure that both the liver and its internal structures such as
+the potential tumors are located at the same spatial position between
+the different CECT volumes.
+
 
 \subsubsection{Registration}\label{registration}
 
@@ -330,10 +331,7 @@ histological grade.
 \end{figure}
 
 
-To achieve a multiphasic semantic segmentation of the liver tissues we
-have to ensure that both the liver and its internal structures such as
-the potential tumors are located at the same spatial position between
-the different CECT volumes.
+
 
 One way to perform a registration is to implement a series of
 transformations (rigid or non-rigid) that will match a moving volume to
@@ -346,32 +344,32 @@ registering two CT volumes, one can either directly use both the entire
 volumes or constraints the registration to a specific area (aka mask).
 The liver being a soft organ, it easily moves with the respiratory
 motions, in order to reduce the effect of the neighboring parts of the
-abdomen, we have decided to restrict the computation of the symmetric
+abdomen, we have decided to restrict the computation of the similarity
 metrics to the dilated liver mask area so that the registration
 algorithm mainly focus on the gradient present along its borders.
 
-Therefore, the first step for the \lmttfont{TCIA-dB} registration is to perform a
+Consequently, the first step for the \lmttfont{TCIA-dB} registration is to perform a
 liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}).
 
 \subsubsection{TCIA-dB unsupervised liver
 segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
-In the available datasets (\textbf{ref table}), only \lmttfont{TheraHCC-dB} and
-\lmttfont{LITS-dB} contained liver expert's delineation.
+In the available datasets (\textcolor{red}{\textbf{ref table}}), only \lmttfont{TheraHCC-dB} and
+\lmttfont{LITS-dB} contained expert liver delineation.
 
 \lmttfont{TheraHCC-dB} contains annotations only on sparse slices across the liver,
 whereas \lmttfont{LITS-dB} contains full 3D pixel-wise liver annotation but it only
 contains monophase images, without any information regarding the
-acquisition phase.
+acquisition phase (AR, PV and potentially DELAY volumes are mixed in the dataset).
 Our experiments however showed that a liver segmentation network trained
 on sufficiently enough cases is able to perform the semantic
 segmentation of both AR and PV raw images independently.
 We trained our network called \pplfont{CECT-Liver} on the 131 volumes of the
-\lmttfont{LITS-dB} following using the same hyperparameters as the ones detailed
-previously. When testing the \pplfont{CECT-Liver} network on \lmttfont{TheraHCC-dB} we
-obtained a mean slice-wise DSC of 90.4 +/- 17.5 on the PV images and
-86.9 +/- 19.1 on the AR images. Those results, close to those obtained
-in our previous work using a CV approach, proved that \pplfont{CECT-Liver} can
+\lmttfont{LITS-dB} using the same hyperparameters as the ones detailed
+previously (See \textcolor{red}{\textbf{Semantic segmentation applied to the study of HCC}}). When testing the \pplfont{CECT-Liver} network on \lmttfont{TheraHCC-dB} we
+obtained a mean slice-wise DSC of $ 90.4 \pm 17.5 $ on the PV images and
+$ 86.9 \pm 19.1 $ on the AR images. Those results, close to those obtained
+in our previous work using a CV approach \cite{Ouhmich2019}, proved that \pplfont{CECT-Liver} can
 perform liver segmentation on both AR and PV unseen images.
 
 The \pplfont{CECT-Liver} network was also able to segment unseen volumes of the
@@ -407,8 +405,7 @@ Raw images, right : liver segmentation as overlay).}
 Once a robust liver segmentation was obtained, we implemented our
 registration pipeline.
 
-We have decided to implement the registration pipeline using ANTs
-(\textbf{cite ANTS mendeley}), since it has been already used for liver
+We have decided to implement the registration pipeline using ANTs \cite{avants2009advanced}, since it has already been used for liver
 CT scans registration \cite{Zhao2019,Zhao2020}.
 
 \subsubsection{TCIA-dB ANTs registration}\label{tcia-db-ants-registration}
@@ -416,8 +413,8 @@ CT scans registration \cite{Zhao2019,Zhao2020}.
 The classical ANTs registration pipeline is made of 3 steps. The first
 two steps consist of linear transformations, where a rigid
 transformation is first applied, followed by an affine transformation.
-The last one is generally a non-linear transformation. In our pipeline,
-we used a Syn (\emph{Standard Symmetric normalisation}) transform, which
+The last one is generally non-linear. In our pipeline,
+we used a Syn (\emph{Standard Symmetric normalisation}) transformation, which
 processes a gradient field, determining how each point of the space will
 shift \cite{Avants2008}.
 
@@ -440,19 +437,13 @@ expert annotations.
 \parbox{\textwidth}{
 \begin{enumerate}
 \item We initially resampled the AR volume so it has the same resolution as the corresponding PV volume.
-\item We performed the liver segmentation using CECT-Liver on both the PV and the AR\_resampled volumes in a slice\_wise manner with a classical post-processing consisting in applying a binary opening operation to the mask and conserving the big connected component (see green arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}). We obtained both PV\_liver\_mask and AR\_resampled\_liver\_mask volumes.
-\item We applied the registration using both dilated PV\_liver\_mask and AR\_resampled\_liver\_mask as registration masks (as depicted by the dashed blue arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}) (we used a dilated version of the liver mask with a SSE of 5cm when setting the registration mask in order to counter any error in the segmentation process, and to always have both the liver and its border included in the registration mask)
+\item We performed the liver segmentation using \pplfont{CECT-Liver} on both the PV and the resampled AR volumes in a slice-wise manner with a classical post-processing consisting in applying a binary opening operation to the mask and conserving the big connected component (see green arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}). We obtained a liver mask for both the PV and the resampled AR volumes.
+\item We applied the registration using both dilated version of the two masks obtained at the end of the second step as registration masks (as depicted by the dashed blue arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}) (we dilated the liver mask with a SSE of 5cm when setting the registration mask in order to counter any error in the segmentation process, and to always have both the liver and its border included in the registration mask)
 \item The registration allows us to obtain both a new registered arterial volume, a transformation matrix and a deformation field volume. In the axial plane, the obtained deformation fields tend to present high deformation at both the top and the bottom of the liver (which can be explained anatomically since they are surrounded by the air and will be more subject to deformation than central areas of the liver) whereas central areas of the liver present high deformation close to the border. Examples of obtained deformation fields at the end of the registration pipeline are depicted in the figure \ref{fig:deformationGridExamples}.
 \end{enumerate}}}
 \captionof{table}{Registration pipeline} \label{regisPipeline}
 \end{figure}
 
-
-%\begin{framed}
-%\begin{itemize} \captionof{table}{Registration pipeline} \label{regisPipeline}
-%
-%\end{itemize}
-%\end{framed}
 
 
 \begin{figure}
@@ -465,22 +456,24 @@ expert annotations.
 \begin{minipage}{0.7\linewidth}
 \includegraphics[width=\linewidth]{./images/TCIA_TCGA-DD-A11A_deformation_grid_slice68}
 \end{minipage}
-\caption{Example of deformation grid obtained after applying the registration pipeline depicted in the table \ref{regisPipeline}}
+\caption{Example of deformation grids obtained after applying the registration pipeline on \lmttfont{TCIA-dB} patients}
 \label{fig:deformationGridExamples}
 \end{figure}
 
 One way to assess the precision of the registration is to apply the
-transformation matrix to the initial AR\_resampled\_liver\_mask and to
-compute the DSC with the target PV\_liver\_mask. When applying this
+transformation matrix to the initial resampled AR liver mask and to
+compute the DSC with the target PV liver mask. When applying this
 evaluation, we obtained a mean patient-wise DSC of $ 92.8 \pm 3.8 $ at the
 end of the registration step on the \lmttfont{TCIA-dB}, sufficient to consider the
-registration as successful when compared to state-of-the-art
+registration as successful when compared with obtained by state-of-the-art
 registration methods applied to the liver \cite{Zhao2019}.
+
+The complete registration pipeline applied to the \lmttfont{TCIA-dB} is detailed in the table \ref{regisPipeline}.
 
 \subsubsection{TCIA-dB unsupervised multiphase tumor
 segmentation}\label{tcia-db-unsupervised-multiphase-tumor-segmentation}
 
-Once both the AR and PV volumes of the TCIA-dB were registered, and the
+Once both the AR and PV volumes of the \lmttfont{TCIA-dB} were registered, and the
 liver masks obtained, we built the second step of our cascaded
 architecture, dedicated to the multiphasic tumor segmentation. In order
 to train such a network, we created a multiphase (arterial and portal
@@ -488,16 +481,16 @@ venous) database where the temporal volumes of a given patient are
 registered and where segmentations of both the liver and tumor regions
 are available.
 \lmttfont{TheraHCC-dB} and \lmttfont{G-dB} were the only two datasets containing multiphasic
-images (as we can see in the \textbf{dataset table}, however
+images (as we can see in the \textcolor{red}{\textbf{dataset table}}, however
 \lmttfont{G-dB} initially contained ground truth annotation only for the tumors,
 with segmentations performed only on the AR phase images.
 Since \lmttfont{G-dB} contains more cases than \lmttfont{TheraHCC-dB}, we have decided to
 build our multiphasic tumor segmentation network on this dataset.
 However in order to train a tumor segmentation network, our cascaded
 architecture requires to have the liver segmentation mask as input for
-the second step (as depicted in this figure {[}\textbf{ref figure
-Cascade CARS}{]}), therefore we had to obtain the liver segmentation
-mask for the patients of the G-dB.
+the second step (as depicted in the figure \textcolor{red}{\textbf{ref figure
+Cascade CARS}}), therefore we had to obtain the liver segmentation
+mask for the patients of the \lmttfont{G-dB}.
 
 AR and PV volumes of the \lmttfont{G-dB} dataset were initially not registered so
 we applied the same registration pipeline as the one used for \lmttfont{TCIA-dB} (see table \ref{regisPipeline}). After applied the procedure to
@@ -507,13 +500,13 @@ transform the AR tumor mask to the PV space as depicted by the red and green das
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/GDB/GDB_registration_pipeline_vertical}
+\includegraphics[width=0.9\linewidth]{images/GDB/GDB_registration_pipeline_vertical}
 \caption{Illustration of the registration pipeline applied to \lmttfont{G-dB}. A similar approach as the one applied to \lmttfont{TCIA-dB} is performed to obtain the registered multiphase images. A final step is added here to transform both the tumor and the liver masks using the registration transformation matrix (red and green dashed arrows)}
 \label{fig:GDB_registration_pipeline_vertical}
 \end{figure}
 
-We then fused the liver and the tumor mask to obtain a multiclass
-segmentation mask that can fit both PV and the AR\_registered volumes, as depicted in the figure \ref{fig:gDbRegisteredPatient}.
+We then fused the liver and the tumor masks to obtain a multiclass
+segmentation mask that can fit both the PV and the registered AR volumes, as depicted in the figure \ref{fig:gDbRegisteredPatient}.
 
 \begin{figure}[ht!]
 \centering
@@ -541,23 +534,23 @@ segmentation mask that can fit both PV and the AR\_registered volumes, as depict
 
 We were able thanks to our cascaded architecture and a robust liver
 segmentation network to enhance the volumes present in \lmttfont{G-dB} that
-originally contained only tumor experts' annotations in AR volumes.
+originally contained only experts annotations for the tumor area on AR volumes.
 
 Once a complete database where both the liver and the tumor segmentation
 masks were available, and where AR and PV volumes were registered, we
 trained a robust multiphase tumor segmentation network.
 
 We trained both a \pplfont{DMP-Tumor} and a \pplfont{MPF-Tumor} segmentation network on the
-registered \lmttfont{G-dB} dataset, and evaluated them on the \lmttfont{TCIA-dB} which
+registered \lmttfont{G-dB} dataset, and evaluated them on \lmttfont{TCIA-dB} which
 contained expert tumor annotations. We evaluated both \pplfont{DMP} and \pplfont{MPF}
 architectures since no statistical differences were available when
 comparing results obtained for the tumor segmentation in our previous
 work on \lmttfont{TheraHCC-dB} \cite{Ouhmich2019}.
 
-We obtained a mean patient-wise DSC of $ 73.2 \pm 20.6 $ with \pplfont{MPF}
+After training both architectures with
+the same parameters, we obtained a mean patient-wise DSC of $ 73.2 \pm 20.6 $ with \pplfont{MPF}
 architecture versus $ 64.9 \pm 27.2 $ when using the \pplfont{DMP} when evaluating the
-models on the \lmttfont{TCIA-dB} patients, after training both architectures with
-the same parameters. An example of prediction on the \lmttfont{TCIA-dB} is
+models on the \lmttfont{TCIA-dB} patients. An example of prediction on the \lmttfont{TCIA-dB} is
 depicted in the figure \ref{fig:TCIAMultiphaseTumorPred}.
 
 \begin{figure}
@@ -572,9 +565,9 @@ depicted in the figure \ref{fig:TCIAMultiphaseTumorPred}.
 \begin{minipage}{0.3\linewidth}
 \includegraphics[width=\linewidth]{./images/image7.png}
 \end{minipage}
-\caption{\textbf{TODO: change the figure to better see the differences}
-Example of an image from the TCIA-dB, with the obtained predicted tumor
-segmentation using the MPF-Tumor segmentation network (left: raw,
+\caption{\textcolor{red}{\textbf{TODO: change the figure to better see the differences}}
+Example of an image from the \lmttfont{TCIA-dB}, with the obtained predicted tumor
+segmentation using the \pplfont{MPF-Tumor} segmentation network (left: raw,
 Middle: expert annotation, right: obtained segmentation)}
 \label{fig:TCIAMultiphaseTumorPred}
 \end{figure}
@@ -586,26 +579,25 @@ sufficient number of cases.
 We retained the \pplfont{MPF-Tumor} segmentation network since it performed
 significantly better than the \pplfont{DMP} one ($ p = 0.02 $ using a Wilcoxon signed
 paired rank test on the patient-wise DSC).
-We proved the benefit of the cascaded architecture since those results
+We confirmed the benefit of the cascaded architecture since those results
 were obtained using an architecture where the first network was trained
-on \lmttfont{LITS-dB} and the second was trained on \lmttfont{G-dB}. We were also able to use
+on \lmttfont{LITS-dB} and the second on \lmttfont{G-dB}. We were also able to use
 a monophase network for the first step and a multiphasic network for the
 second.
 This work proved the ability of deep learning (semantic segmentation
 network) combined with image processing (registration) to enhance and
-complete a weakly annotated database (both \lmttfont{TCIA-dB} and \lmttfont{G-dB} were
+complete weakly annotated databases (both \lmttfont{TCIA-dB} and \lmttfont{G-dB} were
 enhanced in the same way).
 
 Finally, we decided to keep only two stages in our cascaded architecture
 since the only available dataset with expert necrosis annotation was the
 \lmttfont{TheraHCC-dB}, containing only 7 patients. This small amount of cases
-combined with the aspect of \lmttfont{TheraHCC-dB} (only sparse slices are
+combined with the design of \lmttfont{TheraHCC-dB} (only sparse slices are
 annotated across the volume) might not be enough to precisely
 differentiate between the active and the necrotic part of the lesions on
 unseen cases. Moreover, the necrosis segmentation appears to be more
 sensitive than the tumor segmentation, especially because the necrosis
-requires annotations in both phases (in case of AR-PV volumes) since it
-can respond differently along the imaging acquisition.
+requires separate annotations in each phase (in case of AR and PV volumes) since necrotic tissues will respond differently to the evolution of contrast medium.
 
 \subsubsection{Prediction of the histological grade on
 TCIA-dB}\label{prediction-of-the-histological-grade-on-tcia-db}
@@ -616,47 +608,45 @@ histological grade prediction.
 \lmttfont{TCIA-dB} contains images from 18 patients, where 9 were diagnosed with a
 grade 3 (G3), 7 with a grade 2 (G2) and 2 with a grade 1 (G1). In order
 to obtain a balanced training dataset, it has been decided to split them
-into two groups, the first with G1 and G2 patients, and the second with
-G3 patients, as it has been done previously in the literature since G2
-was depicted as being closer to G1 than to G3 \cite{Han2013,Zucman-Rossi2015}. Patients from the first group (G1 and G2) were considered as
-having a low grade, whereas those from the second group have a high
-grade.
+into two groups, the first containing G1 and G2 patients, and the second containing G3 patients, as it has been done previously in the literature since G2
+was considered as being closer to G1 than to G3 \cite{Han2013,Zucman-Rossi2015}. Patients from the first group (G1 and G2) were considered as
+having a low grade (LG), whereas those from the second group have a high
+grade (HG).
 As explained previously, to train a network dedicated to predict the
 histological grade, we have decided to focus on what we called the
 relevant imaging semantic features.
 We therefore extracted the features from the second network of our
 cascaded architecture, to focus on the temporal behavior of the tumor.
 
-The retained network (\pplfont{MPF-Tumor} architecture \textbf{as depicted}
-\textbf{previously}) is made of 2 classical U-Net networks, where each
+The retained network (\pplfont{MPF-Tumor} architecture \textcolor{red}{\textbf{as depicted previously}}) is made of 2 classical U-Net networks, where each
 one of them takes either the AR or the PV image as input. We believe
 that the compressed information present in the bottleneck part of the
 network can be sufficient to encode the total information present in the
-network. Therefore, we extracted for each patient of the \lmttfont{TCIA-dB}, this
-encoded information in a slice-wise manner, represented by two 32x32x512
-features cube (one per phase in the \pplfont{MPF-Tumor} architecture) per slice
+image (the U-Net will work as an auto-encoder for the semantic information). Therefore, we extracted for each patient of the \lmttfont{TCIA-dB}, this
+encoded information in a slice-wise manner, represented by two $ 32\times32\times512 $
+features cubes (one per phase in the \pplfont{MPF-Tumor} architecture) per slice
 as depicted in the figure \ref{fig:MPF_Features_Selection}.
 
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/MPF_Features_Selection}
+\includegraphics[width=0.95\linewidth]{images/MPF_Features_Selection}
 \caption{Red and blue areas correspond to the bottleneck part of the U-Net
 network where the features extraction is performed. Each image is then
-represented as a 32x32x512 features cube.}
+represented as a $ 32\times32\times512 $ features cube.}
 \label{fig:MPF_Features_Selection}
 \end{figure}
 
 
-Before applying the extraction of the features, we decided to normalize
+Before applying the extraction of the features, we normalized
 the dimension of the different volumes of the dataset, so that each
 voxel measures $ 0.68\times0.68 $mm in the axial plane (because it corresponds to
 the resolution of the images used to train our semantic segmentation
-network), and volumes have a 2.5mm z-spacing (corresponding to the
+network), and that the volumes have a 2.5mm z-spacing (corresponding to the
 spacing of the majority of the PV volumes in \lmttfont{TCIA-dB}).
 
 We finally built an architecture responsible for the grade prediction.
-We focused only on the centrally located tumor slices, because the
+We focused only on the centrally located tumor slices, since the
 histological grade corresponds to a measurement of the evolution of the
 disease, which tends to have more physiological effects at the center of
 the tumor. Centrally located slices will therefore exhibit the highest
@@ -671,7 +661,7 @@ potential areas with a more advanced disease.
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/gradpredictionArchitecture}
+\includegraphics[width=0.9\linewidth]{images/gradpredictionArchitecture}
 \caption{Slice-wise histological grade prediction using both AR and PV retained semantic imaging features}
 \label{fig:gradpredictionArchitecture}
 \end{figure}
@@ -679,31 +669,31 @@ potential areas with a more advanced disease.
 
 
 The architecture depicted in the figure \ref{fig:gradpredictionArchitecture} works as a dimensionality
-reduction algorithm, where the first 1D Conv layers are dedicated to
+reduction algorithm, where the first 1D convolutional layers are dedicated to
 reduce the number of features initially present ($ 32\times32\times512 $). The
-dimensionality reduction step is performed for both phases separately,
+dimensionality reduction step is performed for each phase separately,
 before the remaining features are combined (simple addition in the
 features space).
 A final dense layer takes the remaining features as input and computes
-the probability to belong to each class thanks to softmax activation
-function (low vs high grade).
+the probability of belonging to each class thanks to a softmax activation
+function (LG vs HG).
 
 When training the network, we decided to consider that each
 centrally-located tumor slice of a given patient will have a higher
 probability of exhibiting the highest grade, which in this case
-corresponds to the observed patient-wise grade.
+corresponds to the observed patient-wise grade (ES1954 histological grading system \cite{EdmondsonHA1954}).
 
-Regarding the composition of TCIA-dB (9 high grade patients vs 9 low
+Knowing the composition of \lmttfont{TCIA-dB} (9 high grade patients vs 9 low
 grade ones), we performed a 9-fold CV training, so that each patient is
 at least present once in the testing set, and so that the training and
-the test sets contains both balanced the same number of patients per
+the test sets contains both the same number of patients per
 class (7 patients from each class in the training set and 1 patient from
 each class in the testing set).
 
-After testing several combinations for the hyperparameters, we have
+After testing several combinations for the hyperparameters, we
 fixed the number of retained features to 8 as depicted in the
 figure \ref{fig:gradpredictionArchitecture} (meaning that after the features dimensionality reduction,
-we obtained a $ 32\times32\times8 $ cube), and we considered a 2cm volume
+we obtained a $ 32\times32\times8 $ cube per phase), and we considered a 2cm volume
 (corresponding to 8 centrally located slices with a 2.5mm spacing) when
 training/testing our architecture.
 
