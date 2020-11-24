@@ -4,7 +4,7 @@ articles
 
 \section{First FCN papers}\label{first-fcn-papers}
 
-\subsection{Li et al. (2015)}\label{li-et-al.-2015}
+\subsection*{Li et al. (2015)}\label{li-et-al.-2015}
 
 The aim of the study was to perform tumor segmentation using a
 classification model with patches as input and convolutional layers
@@ -17,7 +17,7 @@ noticed that 17x17 patches were the one that reached the best accuracy.
 The CNN achieved slightly better performance than classical ML
 techniques built on hand-crafted features (AdaBoost, RF and SVM).
 
-\subsection{Ben-Cohen et al. (2016)}\label{ben-cohen-et-al.-2016}
+\subsection*{Ben-Cohen et al. (2016)}\label{ben-cohen-et-al.-2016}
 
 \textbf{Ben-Cohen et al. (2016)}, used the famous VGG-16 architecture to
 construct his own network. The dense layers were converted into
@@ -60,7 +60,7 @@ automatic segmentation leads to an improvement in FPC.
 They also conducted some synthetic experiments and realized that the
 network mostly relies on the gray level differences.
 
-\subsection{Christ et al. (2016)}\label{christ-et-al.-2016}
+\subsection*{Christ et al. (2016)}\label{christ-et-al.-2016}
 
 \textbf{Christ et al}, provided a cascaded architecture for the
 segmentation of both the liver and the potential lesions it contains.
@@ -93,7 +93,7 @@ They applied the same cross-validation learning on an internal database
 of 100 CT scans (Train: 60, Val: 20, Test: 20) and they reached a dice
 of 0.91 for the liver and 0.61 for the lesions.
 
-\subsection{Dou et al. (2016)}\label{dou-et-al.-2016}
+\subsection*{Dou et al. (2016)}\label{dou-et-al.-2016}
 
 In 2016, the first fully 3D neural network dedicated to the segmentation
 of the liver was developed by \textbf{Dou et al}. Their 3D CNN network
@@ -112,7 +112,7 @@ deeply-supervised mechanism. On the test set, the results were on par
 with state-of-the-art ``classical'' methods (level-set, shape-based
 model\ldots{}), but with a faster processing time.
 
-\subsection{Rafiei et al. (2018)}\label{rafiei-et-al.-2018}
+\subsection*{Rafiei et al. (2018)}\label{rafiei-et-al.-2018}
 
 3D convolutional layers were also used by \textbf{Rafiei et al (2018)}
 to perform the liver segmentation task. Their architecture incorporated
@@ -139,7 +139,7 @@ They slightly improved the results obtained by \textbf{Heinrich et al
 the average Dice), but with a high reduction of inference time
 (\textasciitilde{}1000s vs \textasciitilde{}60s)
 
-\subsection{Sun et al. (2017)}\label{sun-et-al.-2017}
+\subsection*{Sun et al. (2017)}\label{sun-et-al.-2017}
 
 \textbf{Sun et al.}, were the first in 2017 to use the multiphase
 information in a deep CNN for the lesion segmentation task by developing
@@ -163,7 +163,7 @@ liver in the image before fine-tuning it for the lesion segmentation. \\
 They finally proved by the obtained results, an improvement of the
 segmentation accuracy when using the multiphase information.
 
-\subsection{Frid-Adar et al. (2017)}\label{frid-adar-et-al.-2017}
+\subsection*{Frid-Adar et al. (2017)}\label{frid-adar-et-al.-2017}
 
 \textbf{Frid-Adar et al.} implemented a patch-based liver lesions
 detection method. Contrary to \textbf{Li et al. (2015)}, their main
@@ -210,7 +210,7 @@ Two challenges have been launched by ISBI and MICCAI, aiming to segment
 this database. Some of the top-ranked studies that participated have
 been reviewed since they shared some common specifications.
 
-\subsection{Li et al. (2017)}\label{li-et-al.-2017}
+\subsection*{Li et al. (2017)}\label{li-et-al.-2017}
 
 \textbf{Li et al. (2017)} combined both 2D and 3D information to get the
 final classification. They first trained a Residual Network to get a
@@ -240,7 +240,7 @@ improve the obtained results.\\
 Using the final architecture, they got a \textbf{Dice per case of 0.72
 and a Dice global of 0.82}.
 
-\subsection{Han et al. (2017)}\label{han-et-al.-2017}
+\subsection*{Han et al. (2017)}\label{han-et-al.-2017}
 
 \textbf{Han et al. (2017)} decided to combine the residual network and
 the UNet, by building a resnet-like network with UNet skip connections
@@ -265,7 +265,7 @@ probability value is less than a given threshold.\\
 The entire process allowed them to reach a \textbf{Dice per case of
 0.67.}
 
-\subsection{Yuan et al. (2017)}\label{yuan-et-al.-2017}
+\subsection*{Yuan et al. (2017)}\label{yuan-et-al.-2017}
 
 \textbf{Yuan et al. (2017)} proposed a hierarchical
 convolution-deconvolution neural network to carry out the segmentation
@@ -311,7 +311,7 @@ segmentation (Dice global of 0.967), \textbf{0.66} for tumor
 segmentation (Dice global of 0.82), and a root mean square error (RMSE)
 of \textbf{0.02} for tumor burden estimation.
 
-\subsection{Bellver et al. (2017)}\label{bellver-et-al.-2017}
+\subsection*{Bellver et al. (2017)}\label{bellver-et-al.-2017}
 
 The cascade paradigm was also the key element in the study of
 \textbf{Bellver et al. (2017)}.\\
@@ -345,7 +345,7 @@ only from the liver area helps the network.\\
 With their method, they obtained a Dice per case of \textbf{0.59} on the
 test set of LITS.
 
-\subsection{Chlebus et al. (2018)}\label{chlebus-et-al.-2018}
+\subsection*{Chlebus et al. (2018)}\label{chlebus-et-al.-2018}
 
 \textbf{Chlebus et al. (2018)} submitted their results to both ISBI and
 MICCAI challenges while targeting only the lesion segmentation. In their
@@ -370,7 +370,7 @@ Among the several hand-crafted features, the most relevant one for
 detecting the FP were shape-based features as long the distance from the
 object to the boundary.
 
-\subsection{Kaluva et al. (2018)}\label{kaluva-et-al.-2018}
+\subsection*{Kaluva et al. (2018)}\label{kaluva-et-al.-2018}
 
 \textbf{Kaluva et al. (2018)} proposed to build their model with the
 DenseNet architecture as a basis. The DenseNet is constructed such that
@@ -404,7 +404,7 @@ that were located outside the predicted liver.\\
 On the 70 volumes of the hidden set (LIST) the average Dice for the
 liver was \textbf{0.91} and \textbf{0.72} for the lesions.
 
-\subsection{Bi et al. (2017)}\label{bi-et-al.-2017}
+\subsection*{Bi et al. (2017)}\label{bi-et-al.-2017}
 
 \textbf{Bi et al. (2017)} also developed a cascaded architecture where a
 first ResNet segment both the liver and the lesion, and the second one
@@ -427,7 +427,7 @@ notable between their cascaded version and the classical ResNet. They
 finally obtained a Dice of \textbf{0.64} for the segmentation of the
 lesions.
 
-\subsection{Vorontsov et al. (2018)}\label{vorontsov-et-al.-2018}
+\subsection*{Vorontsov et al. (2018)}\label{vorontsov-et-al.-2018}
 
 \textbf{Voronstov et al. (2018)} decided also to use a cascaded
 architecture where two U-Net-like networks were combined, but they
@@ -461,7 +461,7 @@ slightly under-segmented.\\
 They finally obtained a Dice per case of \textbf{0.66} for the lesions
 and of \textbf{0.95} for the liver.
 
-\subsection{Bilic et al. (2019) LITS
+\subsection*{Bilic et al. (2019) LITS
 Review}\label{bilic-et-al.-2019-lits-review}
 
 The majority of the papers that were submitted for these 2 challenges
@@ -518,7 +518,7 @@ segmenting the small lesions.
 
 \section{New hybrid techniques}\label{new-hybrid-techniques}
 
-\subsection{Jin et al. (2018)}\label{jin-et-al.-2018}
+\subsection*{Jin et al. (2018)}\label{jin-et-al.-2018}
 
 \textbf{Jin et al. (2018)} proposed a network that integrated both U-Net
 and attention residual mechanism to proceed the segmentation of both the
