@@ -3,20 +3,18 @@
 \newgeometry{top=5mm, left=5mm, right=5mm, bottom=10mm, footskip=5mm, headsep=10mm}
 
 \begin{landscape}
-\begin{table}[!htp]\centering
-	\caption{Datasets used in our experiments}\label{xp_datasets}
-	\scriptsize
-	\begin{tabular}{l|p{2cm}p{1.5cm}p{1.6cm}p{3cm}p{1.5cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}}\toprule
-		\textbf{Db Name} & \textbf{Volume\newline dimension} & \textbf{Axial voxel size (mm)} & \textbf{Slice Thickness (mm)} & \textbf{Available contrast-enhanced phases} & \textbf{Contains Tumor} & \textbf{Tumor type} & \textbf{Liver GT} & \textbf{Tumor GT} & \textbf{Necrosis GT}& \textbf{\#Experts} \\
+\scriptsize
+	\begin{longtable}{l|p{2cm}p{1.5cm}p{1.6cm}p{3cm}p{1.5cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}}\toprule
+		\textbf{Db Name} & \textbf{Db retained number of cases} & \textbf{Axial voxel size (mm)} & \textbf{Slice Thickness (mm)} & \textbf{Available contrast-enhanced phases} & \textbf{Contains Tumor} & \textbf{Tumor type} & \textbf{Liver  Ground truth} & \textbf{Tumor Ground truth} & \textbf{Necrosis Ground truth}& \textbf{\#Experts} \\
 		\midrule
-		\textbf{\lmttfont{TheraHCC-dB}} &104 2D slices &0.66-0.97 &0.7-1.25 &NECT, AR \&PV&Yes &HCC & true & true & true &4 \\
-		\textbf{\lmttfont{LITS-dB}} & 131  3D vol. & 0.55-1 &0.45-6 &Single phase images but mixed (AR \& PV)&Yes &Mixed & true & true & false &3 \\
-		\textbf{\lmttfont{3DIrcad-dB}} & 15 3D vol. &0.57-0.87 &1.25-4 &Single phase images but mixed (AR \& PV) &Yes &Mixed & true & true & false &- \\
-		\textbf{\lmttfont{TCIA-dB}} & 18 3D vol. &0.62-0.90 &2.5-7 &AR\&PV&Yes&HCC & false & true & true &1 \\
+		\textbf{\lmttfont{TheraHCC-dB}} &104 2D slices &0.66-0.97 &0.7-1.25 &NECT, AR \& PV&Yes &HCC & true & true & true &4 \\
+		\textbf{\lmttfont{LITS-dB}}& 131  3D vol. & 0.55-1 &0.45-6 &Single phase images but mixed (AR \& PV)&Yes &Mixed & true & true & false &3 \\
+		\textbf{\lmttfont{3DIrcad-dB}}\footnote{Subset of the 3DIrcad-01 presented in the table \ref{publicly_available_datasets} where only the 15 volumes with liver tumors were retained} & 15 3D vol. &0.57-0.87 &1.25-4 &Single phase images but mixed (AR \& PV) &Yes &Mixed & true & true & false &- \\
+		\textbf{\lmttfont{TCIA-dB}} \footnote{Subset of the one presented in the table \ref{publicly_available_datasets} where only the 18 exploitable volumes with both AR and PV phases were retained} & 18 3D vol. &0.62-0.90 &2.5-7 &AR\&PV&Yes&HCC & false & true & true &1 \\
 		\textbf{\lmttfont{G-dB}} & 79  3D vol. &0.58-0.98 &0.8-5 &AR\&PV&Yes &HCC & false & true & false &1 \\
 		\bottomrule
-	\end{tabular}
-\end{table}
+		\caption{Datasets used in our experiments (NECT: Non-Enhanced Contrast CT, AR: Arterial, PV: Portal Venous)}\label{xp_datasets}
+	\end{longtable}
 \end{landscape}
 
 \renewcommand{\arraystretch}{5}
