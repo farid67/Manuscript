@@ -1,98 +1,15 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[]{article}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-\usepackage{hyperref}
-\usepackage{graphicx,grffile}
-\usepackage{tabularx}
-
-\usepackage{lscape}
-\usepackage{booktabs, multirow} % for borders and merged ranges
-\usepackage{soul}% for underlines
-\usepackage[table]{xcolor} % for cell colors
-\usepackage{changepage,threeparttable} % for wide tables
-\usepackage{cite}
-
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
-\usepackage{unicode-math}
-\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\fi
-
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-	
-	\usepackage[]{microtype}
-	\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-
-\IfFileExists{parskip.sty}{%
-	\usepackage{parskip}
-}{% else
-	\setlength{\parindent}{0pt}
-	\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-
-\hypersetup{
-	pdfborder={0 0 0},
-	breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-\renewcommand{\baselinestretch}{1.75}
-
-\renewcommand{\arraystretch}{5}
-
-
-\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
-
-
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-
-
-\newcommand{\pplfont}[1]{{\textbf{\fontfamily{ppl}\selectfont #1}}}
-
-\newcommand{\lmttfont}[1]{{\fontfamily{lmtt}\selectfont #1}}
-
-
-\begin{document}
-\section*{Liver cancer}
+\chapter{Liver cancer} \label{liverCancer}
 
 
 In this section, we will describe the anatomical properties of the liver
 and the major public health problem caused by liver cancers. This
 section allows us to see the potential value brought by our work
 regarding the treatment of liver cancer.
-After a small introduction about the different types of liver cancers,
+After a brief introduction about the different types of liver cancers,
 we will focus on the most common primary one: the \textbf{Hepatocellular
-Carcinoma}. We will review its risk factors, and the way it develops in
+Carcinoma}. We will review its risk factors, and the way it progresses in
 the liver, before exposing the different invasive or non-invasive ways
-to establish a clear diagnosis of the disease. Finally we present the
+to establish the diagnosis of the disease. Finally, we present the
 different staging systems and treatments available to provide the better
 chance of survival to the diseased patients. A precise description of
 the different stages of the disease and the subsequent pathological
@@ -104,29 +21,29 @@ synthesis of several proteins, and playing a major role during the
 digestion, particularly with the production of bile that is further
 stored in the gallbladder. It is also essential for the breakdown of
 numerous hormones, and it has a central position in the human blood flow
-system with its unique dual blood supply, being one of the 3 only portal
+system with its unique dual blood supply, being one of the three only portal
 systems of the human body and the only venous one.
 
-Being a key organ, the liver can suffer from various pathologies, which
+The liver can suffer from various pathologies, which
 include liver cancer, that is now considered as a major public health
-challenge with its high incidence and mortality rates. In their latest
-statistical report, the World Health Organization ranked it as the fifth
+challenge due to its high incidence and mortality rates. In their latest
+statistical report in 2019, the World Health Organization (\ac{who}) ranked it as the fifth
 cancer type in terms of incidence with about 841,000 new cases annually,
 and as the fourth cause of cancer-related deaths worldwide, with about
 782,000 annual deaths. Mortality and incidence rates are between 2 and 3
 times higher among men than women in most regions of the world, making
-it the second type of cancer in terms of deaths for males \cite{F.Bray2018a}. More details about the complete incidence and mortality rates are illustrated in both the figure \ref{fig:cancerNewCases} \& \ref{fig:cancerMortality}. \\
+it the second type of cancer in terms of deaths for males \cite{F.Bray2018a}. More details about incidence and mortality rates are illustrated in both the figure \ref{fig:cancerNewCases} \& \ref{fig:cancerMortality}. \\
 
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/cancerNewCases}
-\caption{Estimated number of new cases in 2018, worlwide, both sexes, all ages, as described by the WHO \cite{OMS}}
+\caption{Incidence per cancer type in 2018, worldwide, both sexes, all ages, as described by the WHO \cite{OMS}}
 \label{fig:cancerNewCases}
 \end{figure}
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/cancerMortality}
-\caption{Estimated number of deaths in 2018, worldwide, both sexes, all ages, as described by the WHO \cite{OMS}}
+\caption{Estimated number of cancer-related deaths, per type of cancer in 2018, worldwide, both sexes, all ages, as described by the WHO \cite{OMS}}
 \label{fig:cancerMortality}
 \end{figure}
 
@@ -138,10 +55,8 @@ the breast, and some parts of the digestive system, such as the colon,
 with the colorectal cancer being the main source of extrahepatic
 metastases \cite{Hoyer2012a, Sahani2014}.
 Even though secondary liver cancers are more frequent than primary ones,
-we have decided to focus on the latter to analyze the entire process
-from the appearance of the malignant cells to the physiological changes.
-Indeed, analyzing secondary liver cancers requires a complete
-understanding of the alterations in the primary site that led to it.
+we have decided to focus on the latter since it is easier to understand the entire process
+from the appearance of the malignant cells to the physiological changes. Apprehending secondary liver cancers might require to analyze the primary site, something that is beyond the scope of our research work.
 Primary liver cancers comprise hepatocellular carcinoma (HCC),
 intrahepatic cholangiocarcinoma (iCCA), mixed hepatocellular
 cholangiocarcinoma (HCC-CCA) and other rare tumors, notably
@@ -159,16 +74,16 @@ The high incidence of HCC among the primary liver cancers and future collaborati
 this specific cancer type. We will now detail its risk factors,
 development, diagnosis methods and treatment techniques.
 
-\subsection*{Hepatocellular Carcinoma}\label{hepatocellular-carcinoma}
+\section{Hepatocellular Carcinoma}\label{hepatocellular-carcinoma}
 
-\subsubsection*{Risk factors}\label{risk-factors}
+\subsection{Risk factors}\label{risk-factors}
 
 The main reason leading to HCC is the cirrhotic status of the
 liver, but its development is often related to the presence of other
 chronic liver diseases.
 Its incidence is heterogeneous worldwide because of the variable
 prevalence of risk factors: most cases occurring in sub-Saharan Africa
-and eastern Asia are associated with HBV and aflatoxin B1
+and eastern Asia are associated with HBV and aflatoxin B1\footnote{toxin that can readily on foods and that has been classified as carcinogen by the International Agency for Research on Cancer}
 exposure. In the USA, Europe and Japan, Hepatitis C (HCV) and the
 excessive alcohol consumption are the main risk factors \cite{Forner2018}. 
 Other risk factors include the presence of NAFLD (\emph{Non Alcoholic-Fatty Liver
@@ -192,9 +107,9 @@ Diabetes has also been identified as an independent risk factor for HCC
 \cite{Forner2018}, especially types 2 diabetes \cite{Noto2010,Wideroff1997,El-Serag2004,Davila2005,Inoue2006}.
 
 
-\subsubsection*{Development}\label{development}
+\subsection{Development}\label{development}
 
-\paragraph{Cells of origin of liver cancer}\label{cells-of-origin-of-liver-cancer}
+\subsubsection{Cells of origin of liver cancer}\label{cells-of-origin-of-liver-cancer}
 
 The basic hepatic cells are divided into parenchymal (hepatocytes, which
 constitute between 60 and 80\% of the total liver mass, and
@@ -205,7 +120,7 @@ cells) \cite{Sia2017}.
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/image8}
-\caption{Structure of the liver lobule and location of candidate cell of origin of liver cancer. Intrahepatic organization of the liver lobule and the localization of hepatic cells that form liver tumors. Different types of cancer (ie, HCC, iCCA, mixed HCC-iCCA) can originate in the liver, depending on the transformation event and the cell type undergoing neoplastic transformation. Hepatic stem or progenitor cells are believed to reside within the most terminal branches of the biliary tree (referred to as canals of Hering). Upon injury, hepatocytes can undergo reversible ductal metaplasia and dedifferentiate into hepatocyte- derived progenitor-like cells. \textbf{©Sia et al.} \cite{Sia2017}}
+\caption{Structure of the liver lobule and location of candidate cell of origin of liver cancer. Different types of cancer (ie, HCC, iCCA, mixed HCC-iCCA) can originate in the liver, depending on the transformation event and the cell type undergoing neoplastic transformation. \textbf{©Sia et al.} \cite{Sia2017}}
 \label{Sia2017_Fig2}
 \end{figure}
 The two main primary liver cancers types, HCC and iCCA
@@ -229,7 +144,7 @@ This latest hypothesis is the one that we will describe in the
 following, and we will focus specifically on the development of
 HCCs.
 
-\paragraph{Hepatocarcinogenesis}\label{hepatocarcinogenesis}
+\subsubsection{Hepatocarcinogenesis}\label{hepatocarcinogenesis}
 
 The main process behind the evolution of HCC is called
 \emph{hepatocarcinogenesis}, which is
@@ -252,7 +167,8 @@ differentiated ones.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/image4}
-\caption{Schematic drawing illustrates typical changes in intranodular hemodynamics and OATP expression during multistep hepatocarcinogenesis. As shown, multistep hepatocarcinogenesis is characterized by successive selection and expansion of less-differentiated subnodules within more well differentiated parent nodules. The subnodules grow and eventually replace (blue arrows) the parent nodules. Progressed HCCs show expansile growth (red arrows) and characteristically are encapsulated with fibrous septa. Earlier nodules lack these structures and show replacing growth. During hepatocarcinogenesis, the density of portal triads diminishes while the density of unpaired arteries increases. \textbf{©Choi et al. \cite{Choi2014}}}
+\caption{Schematic drawing illustrates typical changes in intranodular hemodynamics and OATP (\emph{Organic anionic
+  transporting polypeptides}) expression during multistep hepatocarcinogenesis. As shown, multistep hepatocarcinogenesis is characterized by successive selection and expansion of less-differentiated subnodules within more well differentiated parent nodules. The subnodules grow and eventually replace (blue arrows) the parent nodules. Progressed HCCs show expansile growth (red arrows) and characteristically are encapsulated with fibrous septa. Earlier nodules lack these structures and show replacing growth. During hepatocarcinogenesis, the density of portal triads diminishes while the density of unpaired arteries increases. \textbf{©Choi et al. \cite{Choi2014}}}
 \label{Choi2014_Fig1}
 \end{figure}
 
@@ -269,6 +185,8 @@ hepatocarcinogenesis'' \cite{Taguchi2002}.
 \caption{HCC can develop inside MRNs (\emph{MacroRegenerative Nodules}). This type of carcinogenesis is called nodule in nodule. However, most HCCs develop outside MRNs, and precancerous lesions can be identified in areas of large and small cell dysplasia or irregular regeneration (de novo carcinogenesis). \textbf{©Trevisani et al. \cite{Trevisani2008a}}}
 \label{Trevisani2008_Fig2}
 \end{figure}
+
+\paragraph{The different stages of the hepatocarcinogenesis}
 
 As depicted in the figure \ref{Trevisani2008_Fig2}, hepatocarcinogenesis is composed of
 several steps, where each stage presents specific characteristics:
@@ -315,6 +233,8 @@ several steps, where each stage presents specific characteristics:
   of several independent liver tumors originating from a primary tumor \cite{Trevisani2008a}, knowing that patients with
   HCC are at higher risk of developing new tumors.
 \end{itemize}
+
+\paragraph{Physiological changes brought by the hepatocarcinogenesis}
 
 These several steps defining hepatocarcinogenesis are most of the time
 accompanied by some pathophysiological alterations:
@@ -393,7 +313,7 @@ Worth noting that early HCCs are not concerned by this phenomenon
 \item
   Diminution in the expression of \emph{	OATP Transporters}. Some of
   these transporters belonging to the OATP (\emph{Organic anionic
-  transporting polypeptides)} group are thought to be responsible for
+    transporting polypeptides)} group are thought to be responsible for
   the uptake of two hepatobiliary-specific gadolinium-based contrast
   agents, namely the gadoxetate disodium and gadobenate dimeglumine.\\
   Their expression level tends to be inversely proportional to the
@@ -440,9 +360,9 @@ or less aggressive tumor, or even to multiple tumors, need to be
 assessed as early as possible to provide the best treatment available to
 the patient in order to increase its chances of survival.
 
-\subsubsection*{Diagnosis}\label{diagnosis}
+\subsection{Diagnosis}\label{diagnosis}
 
-\paragraph{Biopsy}\label{biopsy}
+\subsubsection{Biopsy}\label{biopsy}
 
 One of the standard ways to determine or confirm the cause and the stage
 of liver disease, as well as to inform treatment decisions and establish
@@ -455,6 +375,15 @@ clinicians providing the clinical context to complete the histologic
 interpretation, and some external blood markers such as the AFP
 (\emph{Alpha-FetoProtein}) level can be incorporated to attest the presence of
 a malignant mass \cite{Bai2017a, Heimbach2018}.
+
+Histological slice grading system was introduced by Edmonson-Steiner and corresponds to the level of cellular differentiation. 4 different groups were initially created and illustrated in the figure \ref{HistologicalGrades}.
+
+\begin{figure}[th!]
+\centering
+\includegraphics[width=0.7\linewidth]{images/image7}
+\caption{Histological grades as illustrated by \textbf{©Turdean et al. \cite{Turdean2012}}, G1: Well differentiated, G2: Moderately differentiated, G3: Poorly differentiated, G4: Undifferentiated}
+\label{HistologicalGrades}
+\end{figure}
 
 This method however suffers from several limitations. Sampling errors
 are common, as reported by a study where laparoscopic biopsy samples,
@@ -470,19 +399,19 @@ activity and fat burden that suffered from a high inter and
 intraobserver variability \cite{Bedossa1994}.
 Moreover, being a surgical gesture, the biopsy can suffer from adverse
 events going from simple pain to death in some rare cases \cite{Rockey2009, Castera2001, Seeff2010, Piccinino1986}. Finally, they happen to be costly since
-they involve an expert gastroenterologist or radiologist, a pathologist,
+they involve an expert gastroenterologist or interventional radiologist, a pathologist,
 and need to be performed in facilities with adequate equipment.
 
 Even though biopsy is still used to evaluate the degree of fibrosis or
 cirrhosis, primary liver cancers are now most often diagnosed on the
 basis of imaging studies alone in clinical practice. Recent advancements
-in medical imaging enable the radiologist to discern the cause of focal
+in medical imaging enable the radiologist to discern the advancement of focal
 liver lesions on the basis of vascularity and physiological features,
 especially through multiphasic, contrast-enhanced, cross-sectional
 imaging (either computed tomography \emph{CT}, or magnetic resonance
 \emph{MR}).
 
-\paragraph{CT and MR imaging}\label{ct-and-mr-imaging}
+\subsubsection{CT and MR imaging}\label{ct-and-mr-imaging}
 
 As explained previously, hepatocarcinogenesis is a long process that can
 render the tumor very aggressive, and the more the disease evolves, the
@@ -564,7 +493,7 @@ the preconstrast one. They are also useful for patients with iron-rich
 nodules to detect hyper attenuation before injection of contrast agent,
 thus avoiding misinterpretation of arterial phase enhancement.\\
 In addition to these classical vascular phases, examinations performed
-with MR imaging usually include other phases such as the T1-weighted
+with MR imaging usually include other sequences such as the T1-weighted
 in-phase, the T2-weighted fast-spin-echo and some diffusion-weighted
 sequences.\\
 
@@ -615,7 +544,7 @@ by the creation of several clinical criteria that helped the
 radiologists to take decisions concerning the treatment choice,
 depending mainly on the characteristics of the tumor.
 
-\subsubsection*{Staging \& Treatment}\label{staging-treatment}
+\subsection{Staging \& Treatment}\label{staging-treatment}
 
 One of the most widely used criteria for the assessment of HCCs
 is the BCLC (\emph{Barcelona Clinic Liver Cancer}) staging system, recently refined by Llovet et al. in
@@ -633,7 +562,7 @@ overall level of functioning of the patient \cite{Oken1982}.
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/image9}
+\includegraphics[width=0.8\linewidth]{images/BCLC}
 \caption{BCLC staging classification, as illustrated by Llovet et al. \textbf{©Llovet et al. \cite{Llovet2008}}}
 \label{BCLC_llovet}
 \end{figure}
@@ -642,7 +571,7 @@ overall level of functioning of the patient \cite{Oken1982}.
 
 These criteria were developed to support previous staging systems such
 as the TNM (\emph{Tumor-Node-Metastases}) as depicted in the figure \ref{TNM}, that was introduced and refined by
-the AJCC, and it incorporated some independent work such as the
+the AJCC (American Joint Committee on Cancer), and it incorporated some independent work such as the
 \emph{Milan criteria} which concerns only a specific subtype of the
 TNM staging system \cite{Mazzaferro1996}.
 
@@ -723,7 +652,7 @@ patients suffering from HCCs when seeking for curation:
   interpretation \cite{Burrel2012}.
 \end{itemize}
 
-The same staging systems are used for the patient follow-up, and can be
+The same standards are used for the patient follow-up, and can be
 supported by other metrics such as the RECIST (standing for
 ``\emph{Response evaluation criteria in solid tumours''}) which assess
 the tumor response, but presents several limitations and has already
@@ -731,28 +660,7 @@ been modified in the past to incorporate changes \cite{Eisenhauer2008}.
 
 As explained here, general staging systems rely mainly on the macro
 changes caused by the disease, ignoring many histological measurements,
-such as the histological grade, depicted in the figure \ref{HistologicalGrades}, and defined following
-the Edmonson-Steiner grading system, corresponding to the level of
-cellular differentiation \cite{EdmondsonHA1954}:
-
-\begin{itemize}
-\item
-  G1: Well differentiated
-\item
-  G2: Moderately differentiated
-\item
-  G3: Poorly differentiated
-\item
-  G4: Undifferentiated
-\end{itemize}
-
-
-\begin{figure}[th!]
-\centering
-\includegraphics[width=0.7\linewidth]{images/image7}
-\caption{Histological grades as illustrated by \textbf{©Turdean et al. \cite{Turdean2012}}}
-\label{HistologicalGrades}
-\end{figure}
+such as the histological grade \cite{EdmondsonHA1954}.
 
 
 Current methods to evaluate the tumor and to propose the best available
@@ -762,15 +670,22 @@ also because of the discrete staging systems that are used in a clinical
 routine.
 
 The main hypothesis of our research work is that medical images can be
-enhanced to provide a subjective feedback to the clinicians, and help
+enhanced to provide an objective feedback to the clinicians, and help
 them with non-invasive tools to give to patients suffering from
 HCCs the best chances of survival.
 
-\textcolor{red}{(Add a short introduction to radiomics here)}
+%\textbf{\textcolor{red}{(Add a short introduction to radiomics here)}}
+The radiomics concept has been introduced to overcome these issues, by providing an objective evaluation of the medical images at a finer scale than the one used by the medical experts during their visual inspection. 
+It was designed to non-invasively obtain predictive or prognostic models, in order for example to assess the tumor response to a treatment, the recurrence after surgery or predict the type of tumors.
+Radiomics studies comes with several prerequisites such as the need to respect ethical considerations regarding patient data privacy, or the standardization of the databases \cite{Tang2018}.
+Since its creation, the radiomics field underwent several modifications in its conception to the extent that two different branches are now distinguishable: the hand-crafted radiomics (HCR) and the deep learning radiomics (DLR).
+The key concepts of the radiomics pipeline and differences between the two existing branches will be discussed in the next chapter.
+%One important aspect related with the radiomics field is the difficulty to get access to the data, especially because they have to respect ethical considerations regarding patient data privacy, 
+
+%Desc générale : analyse information dans l’image, qu’est-ce qu’on prédit (foie, réponse, récurrence, type de tumeur, …)
+%Plus fin que radiologue
+%(section courte pour introduire la suite)
+%BDD est la difficulté RGPD : ano patient, data normalisé, base de données consistantes, biais des bases (ethnie) (papier blanc de Gallix Tang)
+%2 vagues de radiomics
 
 
-\newpage
-\bibliographystyle{unsrt}
-\bibliography{../biblio}
-
-\end{document}

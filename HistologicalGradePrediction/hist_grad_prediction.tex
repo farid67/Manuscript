@@ -1,97 +1,8 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[]{article}
-\usepackage{lmodern}
-\usepackage{threeparttable}
-\usepackage{geometry}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-\usepackage{hyperref}
-\usepackage{graphicx,grffile}
-\usepackage{tabularx}
-\usepackage{longtable}
-\usepackage{paralist}
-\usepackage{rotating}
-\usepackage{ltxtable}
-\usepackage{caption}
-\usepackage{enumitem}
-\usepackage{framed}
-
-\usepackage{lscape}
-\usepackage{booktabs, multirow} % for borders and merged ranges
-\usepackage{soul}% for underlines
-\usepackage[table]{xcolor} % for cell colors
-\usepackage{changepage,threeparttable} % for wide tables
-\usepackage{cite}
-
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
-\usepackage{unicode-math}
-\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\fi
-
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-	
-	\usepackage[]{microtype}
-	\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-
-\IfFileExists{parskip.sty}{%
-	\usepackage{parskip}
-}{% else
-	\setlength{\parindent}{0pt}
-	\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-
-\hypersetup{
-	pdfborder={0 0 0},
-	breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-\renewcommand{\baselinestretch}{1.75}
-
-\renewcommand{\arraystretch}{5}
 
 
-\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
+\chapter{Deep Radiomics for histological grade prediction}
 
-
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-
-
-\newcommand{\pplfont}[1]{{\textbf{\fontfamily{ppl}\selectfont #1}}}
-
-\newcommand{\lmttfont}[1]{{\fontfamily{lmtt}\selectfont #1}}
-
-\begin{document}
-
-\section{Deep Radiomics for histological grade predicion}
-
-\subsection{Introduction}\label{introduction}
+\section{Introduction}\label{introduction}
 
 So far, we proved that semantic segmentation of liver tissues can be
 performed using DL through robust CV training on both \lmttfont{3DIrcad-dB} and
@@ -110,10 +21,10 @@ Indeed, this task appears to be more challenging than previous DLR
 liver-related work where either the type of FFL or the treatment
 response (such as the recurrence) were predicted (\textbf{see DLR section}).
 
-\subsection{Histological HCC grade in the literature
+\section{Histological HCC grade in the literature
 }\label{histological-hcc-grade-in-the-literature}
 
-\subsubsection{Histological HCC grading
+\subsection{Histological HCC grading
 systems}\label{histological-hcc-grading-systems}
 
 Several types of histological grading systems exist, with the most
@@ -227,7 +138,7 @@ problem of predicting the histological grade of HCCs through a DL
 architecture with medical images, before presenting our own automatic DL
 pipeline.
 
-\subsubsection{DLR based study to predict the histological HCC
+\subsection{DLR based study to predict the histological HCC
 grade}\label{dlr-based-study-to-predict-the-histological-hcc-grade}
 
 To our knowledge, only one study tackled the problem of estimating the
@@ -290,7 +201,7 @@ We have decided to tackle the same issue, but we implemented a fully
 automatic pipeline where both the segmentation and the grade prediction
 steps were performed by DL networks.
 
-\subsection{Experimental workflow}\label{experimental-workflow}
+\section{Experimental workflow}\label{experimental-workflow}
 
 \lmttfont{TCIA-dB} is the only open dataset where both tomographic images and
 histological grade ground truth are available. It originally only
@@ -321,7 +232,7 @@ the potential tumors are located at the same spatial position between
 the different CECT volumes.
 
 
-\subsubsection{Registration}\label{registration}
+\subsection{Registration}\label{registration}
 
 \begin{figure}[th!]
 \centering
@@ -351,7 +262,7 @@ algorithm mainly focus on the gradient present along its borders.
 Consequently, the first step for the \lmttfont{TCIA-dB} registration is to perform a
 liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}).
 
-\subsubsection{TCIA-dB unsupervised liver
+\subsection{Unsupervised liver
 segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
 In the available datasets (\textcolor{red}{\textbf{ref table}}), only \lmttfont{TheraHCC-dB} and
@@ -408,7 +319,7 @@ registration pipeline.
 We have decided to implement the registration pipeline using ANTs \cite{avants2009advanced}, since it has already been used for liver
 CT scans registration \cite{Zhao2019,Zhao2020}.
 
-\subsubsection{TCIA-dB ANTs registration}\label{tcia-db-ants-registration}
+\subsection{ANTs registration}\label{tcia-db-ants-registration}
 
 The classical ANTs registration pipeline is made of 3 steps. The first
 two steps consist of linear transformations, where a rigid
@@ -470,7 +381,7 @@ registration methods applied to the liver \cite{Zhao2019}.
 
 The complete registration pipeline applied to the \lmttfont{TCIA-dB} is detailed in the table \ref{regisPipeline}.
 
-\subsubsection{TCIA-dB unsupervised multiphase tumor
+\subsection{Unsupervised multiphase tumor
 segmentation}\label{tcia-db-unsupervised-multiphase-tumor-segmentation}
 
 Once both the AR and PV volumes of the \lmttfont{TCIA-dB} were registered, and the
@@ -599,8 +510,7 @@ unseen cases. Moreover, the necrosis segmentation appears to be more
 sensitive than the tumor segmentation, especially because the necrosis
 requires separate annotations in each phase (in case of AR and PV volumes) since necrotic tissues will respond differently to the evolution of contrast medium.
 
-\subsubsection{Prediction of the histological grade on
-TCIA-dB}\label{prediction-of-the-histological-grade-on-tcia-db}
+\subsection{Prediction of the histological grade}\label{prediction-of-the-histological-grade-on-tcia-db}
 
 After obtaining the final cascaded architecture, we built our network responsible for the
 histological grade prediction.
@@ -733,9 +643,3 @@ provide a map of the best biopsy sites that will further be necessary in
 the clinical practice to either evaluate the progression of the disease
 or its prognosis.
 
-
-\newpage
-\bibliographystyle{unsrt}
-\bibliography{../biblio}
-
-\end{document}

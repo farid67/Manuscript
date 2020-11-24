@@ -2,22 +2,20 @@
 \setlength{\tabcolsep}{8pt}
 \newgeometry{top=5mm, left=5mm, right=5mm, bottom=10mm, footskip=5mm, headsep=10mm}
 \begin{landscape}
-	\begin{table}[!htp]\centering
+	\scriptsize
+	\begin{longtable}{l|p{1cm}p{1cm}p{1.5cm}p{1.5cm}p{2cm}p{1.2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{1cm}p{2cm}}\toprule
+		\textbf{Name} &\textbf{\#Cases} &\textbf{Liver GT} &\textbf{Tumor GT} &\textbf{Tumor Type} &\textbf{Other GT} &\textbf{\#Experts} &\textbf{Volume size\newline(pixels)} &\textbf{Voxel size \newline (mm)} &\textbf{Challenge} &\textbf{Hidden\newline Cases} &\textbf{Phases} \\\midrule
+		\textbf{3Dircad-01} &\textbf{20} &true &true &Undefined &Blood vessels&1 &axial: 512x512\newline z : 74 - 260&axial:0.56 - 0.87\newline z: 1 - 4&- &- &Undefined \\
+		\textbf{3Dircad-02} &\textbf{2} &true &true &FNH &- &1 &axial: 512x512\newline z: 167 - 219&axial: 0.96\newline z: 1.8 - 2.4&- &- &1 AR\newline 1 PV\\
+		\textbf{Sliver07} &\textbf{30} &true &true &Undefined &- &1 &- &axial: 0.55 - 0.8\newline z: 1 - 3&MICCAI07 &10 &PV \\
+		\textbf{MIDAS} &\textbf{4} &false &true & Undefined &- &5 &- &- &- &- & Undefined \\
+		\textbf{LITS} &\textbf{131} &true &true &Undefined &No &3 &axial: 512x512\newline z: 42 - 1026&axial:0.56 - 1\newline z: 0.45 - 6&MICCAI17\newline ISBI 2017&70 &Undefined \\
+		\textbf{TCIA} &\textbf{97}\footnote{CT and/or MR images volumes} &false &false &HCC &No &- & axial:512x512 \newline z: 26 - 192 & axial: 0.58 - 0.98 \newline z: 0.8 - 5 &- &- &mixed\\
+		\textbf{CHAOS} &\textbf{40} & true &false &\textbf{Healthy \newline Livers}&No &3 &axial: 512x512\newline z: 77 - 105&axial: 0.7 - 0.8\newline z: 3 - 3.2&ISBI 2019 &- &PV \\
+		\textbf{ImageClef Liver}&\textbf{50} &true &true\newline (Bounding Box) &- &No &- & x: 190- 308\newline y: 213-238\newline z: 41 - 588& axial: 0.68 - 1.01 \newline z: 0.40 - 2.5 &ImageClef 2015 &10 & Undefined \\
+		\bottomrule
 		\caption{Publicly available datasets}\label{publicly_available_datasets}
-		\scriptsize
-		\begin{tabular}{l|p{1cm}p{1cm}p{1.5cm}p{1.5cm}p{2cm}p{1.2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{1cm}p{2cm}}\toprule
-			\textbf{Name} &\textbf{\#Cases} &\textbf{Liver GT} &\textbf{Tumor GT} &\textbf{Tumor Type} &\textbf{Other GT} &\textbf{\#Experts} &\textbf{Volume size\newline(pixels)} &\textbf{Voxel size \newline (mm)} &\textbf{Challenge} &\textbf{Hidden\newline Cases} &\textbf{Phases} \\\midrule
-			\textbf{3Dircad-01} &\textbf{20} &true &true &Undefined &Blood vessels&1 &axial: 512x512\newline z : 74 - 260&axial:0.56 - 0.87\newline z: 1 - 4&- &- &Undefined \\
-			\textbf{3Dircad-02} &\textbf{2} &true &true &FNH &- &1 &axial: 512x512\newline z: 167 - 219&axial: 0.96\newline z: 1.8 - 2.4&- &- &1 AR\newline 1 PV\\
-			\textbf{Sliver07} &\textbf{30} &true &true &Undefined &- &1 &- &axial: 0.55 - 0.8\newline z: 1 - 3&MICCAI07 &10 &PV \\
-			MIDAS &\textbf{4} &false &true & Undefined &- &5 &- &- &- &- & Undefined \\
-			\textbf{LITS} &\textbf{131} &true &true &Undefined &No &3 &axial: 512x512\newline z: 42 - 1026&axial:0.56 - 1\newline z: 0.45 - 6&MICCAI17\newline ISBI 2017&70 &Undefined \\
-			\textbf{TCIA} &\textbf{97} &false &false &HCC &No &- & axial:512x512 \newline z: 26 - 192 & axial: 0.58 - 0.98 \newline z: 0.8 - 5 &- &- &mixed\\
-			\textbf{CHAOS} &\textbf{40} & true &false &\textbf{Healthy \newline Livers}&No &3 &axial: 512x512\newline z: 77 - 105&axial: 0.7 - 0.8\newline z: 3 - 3.2&ISBI 2019 &- &PV \\
-			\textbf{ImageClef Liver}&\textbf{50} &true &true\newline (Bounding Box) &- &No &- & x: 190- 308\newline y: 213-238\newline z: 41 - 588& axial: 0.68 - 1.01 \newline z: 0.40 - 2.5 &ImageClef 2015 &10 & Undefined \\
-			\bottomrule
-		\end{tabular}
-	\end{table}	
+	\end{longtable}
 \end{landscape}
 \renewcommand{\arraystretch}{5}
 \newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
