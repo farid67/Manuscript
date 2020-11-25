@@ -1,0 +1,407 @@
+\chapter{Radiomics features}\label{appendix---radiomicsFeatures}
+
+Here we detail the different formula to compute the radiomics features, as they are described by PyRadiomics (more details can be found online (\url{https://pyradiomics.readthedocs.io/en/latest/}).
+
+\newcommand*\mean[1]{\overline{#1}}
+
+\section{First-order statistics}
+
+Let:
+\begin{itemize}
+\item $X$ be a set of $N_{P}$ voxels included in the ROI,
+\item 
+ $P\left(i\right)$ be the first order histogram with $N_{g}$ discrete intensity levels, where $N_{g}$ is the number of non-zero bins,
+\item $p\left(i\right)$ be the normalized first order histogram and equal to$\frac{P\left(i\right)}{N_{P}}$.
+\end{itemize}
+We can now define the following features: \\
+\textbf{1. Energy:}\\
+$\textit{energy}=\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}$\\
+\textbf{2. Total Energy}\\
+$\textit{totalenergy}=V_{\textit{voxel}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}$ \\
+\textbf{3. Entropy:}\\
+$\textit{entropy}=-\sum _{i=1}^{N_{g}}p\left(i\right)log_{2}\left(p\left(i\right)+\epsilon \right)$ \\
+Here, $\epsilon $ is an arbitrarily small positive number (${\approx}$2.2${\times}$10$^{-16}$) \\
+\textbf{4. Minimum:}\\
+$\textit{minimum}=min \left(X\right)$\\
+\textbf{5. 10}$^{\mathbf{th}}$ \textbf{Percentile}\\
+The 10$^{\mathrm{th}}$ percentile of $X$, a robust alternative to the minimum gray-value.\\
+\textbf{6. 90}$^{\mathbf{th}}$ \textbf{Percentile}\\
+The 90$^{\mathrm{th}}$ percentile of $X$, a robust alternative to the maximum gray-value. \\
+\textbf{7. Maximum:}\\
+The maximum gray level intensity within the ROI.\\
+$\textit{maximum}=max \left(X\right)$\\
+\textbf{8. Mean:}\\
+The average gray level intensity within the ROI.\newline
+$mean=\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}X\left(i\right)$\\
+\textbf{9. Median:}\\
+The median gray level intensity within the ROI.\\
+\textbf{10.} \textbf{Interquartile Range:}\\
+$\textit{interquartilerange}=P_{75}-P_{25}$
+Here $P_{25}$ and $P_{75}$ {are the 25}$^{\mathrm{th}}${and 75}$^{\mathrm{th}}$ {percentile of the image array, respectively.}
+\textbf{11. Range:}\newline
+The range of gray values in the ROI.\\
+$\textit{range}=max\left(X\right)-min \left(X\right)$\\
+\textbf{12. Mean Absolute Deviation (MAD):}\\
+MAD is the mean distance of all intensity values from the Mean Value of the image array.\\
+$MAD=\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left| X\left(i\right)-\mean{X}\right| $\\
+{Where} $\mean{X}$ {is the mean of} $X$\\
+\textbf{13.} \textbf{Robust Mean Absolute Deviation (rMAD):}\\
+$rMAD=\frac{1}{N_{10-90}}\sum _{i=1}^{N_{10-90}}\left| X_{10-90}\left(i\right)-\mean{X}_{10-90}\right| $\\
+\textbf{14. Root Mean Square (RMS):}\\
+$RMS=\sqrt{\frac{\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}}{N_{P}}}$\\
+Here, $c$ is an optional value which shifts the intensities to prevent negative values in $X$. This ensures that voxels with the lowest gray values contribute the least to RMS, instead of voxels with gray level intensity closest to 0.\\
+\textbf{15. Standard Deviation}\\
+$\textit{standarddeviation}=\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}$\\
+{Standard Deviation measures the amount of variation or dispersion from the Mean Value. By definition, standard deviation =}$\sqrt{\textit{variance}}$.\\
+{\textbf{16. Skewness:}}
+$\textit{skewness}=\frac{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}N}\left(X\left(i\right)-\mean{X}\right)^{3}}{\left(\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\right)^{3}}$\\
+{where} $\mean{X}${is the mean of} $X$.\\
+\textbf{17. Kurtosis:}\\
+$\textit{kurtosis}=\frac{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{4}}{\left(\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\right)^{2}}$\\
+{Where} $\mean{X}${is the mean of} $X$.\\
+{Kurtosis is a measure of the “peakedness” of the distribution of values in the image ROI. A higher kurtosis implies that the mass of the distribution is concentrated towards the tail(s) rather than towards the mean. A lower kurtosis implies the reverse: that the mass of the distribution is concentrated towards a spike near the Mean value.}\\
+{\textbf{18. Variance:}}\\
+$\textit{variance}=\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}$\\
+\textbf{19. Uniformity:}\\
+$\textit{uniformity}=\sum _{i=1}^{N_{g}}P\left(i\right)^{2}$
+
+
+
+\section{Gray Level Co-occurrence Matrix (GLCM) Features}
+
+A normalized GLCM is defined as $P\left(i,j;\delta ,\alpha \right)$, a matrix with size $N_{g}\times N_{g}$ describing the second-order joint probability function of an image, where the $\left(i,j\right)^{th}$ element represents the number of times the combination of intensity levels $i$ and $j$ occur in two pixels in the image, that are separated by a distance of $\delta $ pixels in direction $\alpha $. The distance $\updelta$ from the center voxel is defined as the distance according to the infinity norm. For $\updelta$=1, this results in 2 neighbors for each of 13 angles in 3D (26-connectivity).
+
+Let:
+\begin{itemize}
+\item $\epsilon $ be an arbitrarily small positive number (${\approx}$2.2${\times}$10$^{-16}$)
+\item $P\left(i,j\right)$ be the co-occurence matrix for an arbitrary$\delta $ and $\alpha $, ,
+\item $p\left(i,j\right)$ be the normalized co-occurence matrix and equal to$\frac{P\left(i,j\right)}{\sum P\left(i,j\right)}$,
+\item $N_{g}$ be the number of discrete intensity levels in the image,
+\item $p_{x}\left(i\right)=\sum _{j=1}^{N_{g}}P\left(i,j\right)$ be the marginal row probabilities,
+\item $p_{y}\left(i\right)=\sum _{i=1}^{N_{g}}P\left(i,j\right)$ be the marginal column probabilities,
+\item $\mu _{x}$ be the mean gray level intensity of $p_{x}$,
+\item $\mu _{y}$ be the mean gray level intensity of $p_{y}$,
+\item $\sigma _{x}$ be the standard deviation of $p_{x}$,
+\item $\sigma _{y}$ be the standard deviation of $p_{y}$,
+\item $p_{x+y}\left(k\right)=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}P\left(i,j\right)$, where $i+j=k$, and $k=2,3,\ldots ,2N_{g}$,
+\item $p_{x-y}\left(k\right)=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}P\left(i,j\right)$, where $\left| i-j\right| =k$, and $k=0,1,\ldots ,N_{g}-1$,
+\item $HX=-\sum _{i=1}^{N_{g}}p_{x}\left(i\right)log_{2}\left[p_{x}\left(i\right)+\epsilon \right]$ be the entropy of $p_{x}$,
+\item $HY=-\sum _{i=1}^{N_{g}}p_{y}\left(i\right)log_{2}\left[p_{y}\left(i\right)+\epsilon \right]$ be the entropy of $p_{y}$,
+\item$HXY=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}P\left(i,j\right)log_{2}\left[P\left(i,j\right)+\epsilon \right]$ be the entropy of $P\left(i,j\right)$,
+\item $HXY1=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}P\left(i,j\right)log_{2}\left(p_{x}\left(i\right)p_{y}\left(j\right)+\epsilon \right)$,
+\item $HXY2=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p_{x}\left(i\right)p_{y}\left(j\right)log_{2}\left(p_{x}\left(i\right)p_{y}\left(j\right)+\epsilon \right)$
+\end{itemize}
+We can now define the following features: \\
+\textbf{1. Autocorrelation}\\
+$\textit{autocorrelation}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}ijp\left(i,j\right)$\\
+\textbf{2. Joint Average}\\
+$\textit{jointaverage}=\mu x=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p\left(i,j\right)i$\\
+\textbf{3. Cluster Prominence:}\\
+$\textit{clusterprominence}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{4}p\left(i,j\right)$\\
+\textbf{4. Cluster Shade:}\\
+$\textit{clustershade}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{3}p\left(i,j\right)$\\
+\textbf{5. Cluster Tendency:}\\
+$\textit{clustertendency}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{2}p\left(i,j\right)$\\
+\textbf{6. Contrast:}\\
+$\textit{contrast}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i-j\right)^{2}p\left(i,j\right)$\\
+Contrast is a measure of the local intensity variation, favoring values away from the diagonal $\left(i=j\right)$. A larger value correlates with a greater disparity in intensity values among neighboring voxels.\\
+\textbf{7. Correlation:}\\
+$\textit{correlation}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}ijp\left(i,j\right)-\mu _{x}\mu _{y}}{\sigma _{x}\left(i\right)\sigma _{y}\left(j\right)}$\\
+\textbf{8. Difference Average:}\\
+$\textit{differenceaverage}=\sum _{k=0}^{N_{g}-1}kp_{x-y}\left(k\right)$\\
+\textbf{9. Difference Entropy:}\\
+$\textit{differenceentropy}=\sum _{k=0}^{N_{g}-1}p_{x-y}\left(k\right)log_{2}\left(p_{x-y}\left(k\right)+\epsilon \right)$\\
+\textbf{10. Difference Variance:}\\
+$\textit{differencevariance}=\sum _{k=0}^{N_{g}-1}{\left(k-DA\right)^{2}}p_{x-y}\left(k\right)$\\
+\textbf{11. Joint Energy:}\\
+$\textit{jointenergy}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(p\left(i,j\right)\right)^{2}$\\
+\textbf{12.} \textbf{Joint Entropy:}\\
+$\textit{jointentropy}=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p\left(i,j\right)log_{2}\left(p\left(i,j\right)+\epsilon \right)$\\
+\textbf{13. Informal Measure of Correlation (IMC) 1:}\\
+$IMC1=\frac{HXY-HXY1}{\max \left\{HX,HY\right\}}$\\
+\textbf{14. Informal Measure of Correlation (IMC) 2:}\\
+$IMC2=\sqrt{1-e^{-2\left(HXY2-HXY\right)}}$\\
+\textbf{15. Inverse Difference Moment (IDM)}\\
+$IDM=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left| i-j\right| ^{2}}$\\
+\textbf{16. Maximal Correlation Coefficient (MCC)}\\
+$MCC=\sqrt{\textit{secondlargesteigenvalueofQ}}$\\
+$Q\left(i,j\right)=\sum _{k=0}^{N_{g}}\frac{p\left(i,k\right)p\left(j,k\right)}{p_{x}\left(i\right)p_{y}\left(k\right)}$\\
+\textbf{17. Inverse Difference Moment Normalized (IDMN):}\\
+$IDMN=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left(\frac{\left| i-j\right| ^{2}}{{N_{g}}^{2}}\right)}$\\
+\textbf{18. Inverse Difference (ID):}\\
+$ID=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left| i-j\right| }$\\
+\textbf{19. Inverse Difference Normalized (IDN):}\\
+$IDN=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left(\frac{\left| i-j\right| }{N_{g}}\right)}$\\
+\textbf{20. Inverse Variance:}\\
+$\textit{inversevariance}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{\left| i-j\right| ^{2}} ,i\neq j $\\
+\textbf{21. Maximum Probability:}\\
+$\textit{maximumprobability}=\max \left(p\left(i,j\right)\right)$\\
+\textbf{22. Sum Average:}\\
+$\sum \textit{average}=\sum _{k=2}^{2N_{g}}\left(kp_{x+y}\left(k\right)\right)$\\
+\textbf{23. Sum Entropy:}\\
+$\sum \textit{entropy}=-\sum _{k=2}^{2N_{g}}p_{x+y}\left(k\right)log_{2}\left(p_{x+y}\left(k\right)+\epsilon \right)$\\
+\textbf{24. Sum of Squares:}\\
+$\sum \textit{squares}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i-\mu _{x}\right)^{2}p\left(i,j\right)$
+
+
+\section{Gray Level Run Length Matrix (GLRLM) Features}
+
+A GLRLM quantifies gray level runs, which are defined as the length in number of pixels, of consecutive pixels that have the same gray level value. In a gray level run length matrix $P\left(i,j\vee \theta \right)$, the $\left(i,j\right)^{th}$element describes the number of runs with gray level $i$ and length $j$ occur in the image along angle $\theta $.
+
+Let:
+\begin{itemize}
+\item$N_{g}$ be the number of discreet intensity values in the image,
+\item$N_{r}$ be the number of discreet run lengths in the image,
+\item$N_{p}$ be the number of voxels in the image,
+\item$N_{z}\left(\theta \right)$ be the number of runs in the image along angle $\theta $, which is equal to $\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}P\left(i,j\vee \theta \right)$, and $1\leq N_{z}\left(\theta \right)\leq N_{p}$,
+\item$P\left(i,j\vee \theta \right)$ be the run length matrix for an arbitrary direction$\theta $,
+\item$p\left(i,j\vee \theta \right)$ be the normalized run length matrix, defined as$p\left(i,j|\theta \right)=\frac{P\left(i,j\vee \theta \right)}{N_{z}\left(\theta \right)}$,
+\end{itemize}
+
+We can now define the following features: \\
+\textbf{1. Short Run Emphasis (SRE):}\\
+$SRE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}\frac{P\left(i,j\vee \theta \right)}{j^{2}}}{N_{z}\left(\theta \right)}$\\
+\textbf{2. Long Run Emphasis (LRE):}\\
+$LRE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}j^{2}P\left(i,j\vee \theta \right)}{N_{z}\left(\theta \right)}$\\
+\textbf{3. Gray Level Non-Uniformity (GLN):}\\
+$GLN=\frac{\sum _{i=1}^{N_{g}}\left(\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)\right)^{2}}{N_{z}\left(\theta \right)}$\\
+\textbf{4. Gray Level Non-Uniformity Normalized (GLNN):}\\
+$GLNN=\frac{\sum _{i=1}^{N_{g}}\left(\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)\right)^{2}}{{N_{z}}\left(\theta \right)^{2}}$\\
+\textbf{5. Run Length Non-Uniformity (RLN):}\\
+$RLN=\frac{\sum _{j=1}^{N_{r}}\left(\sum _{i=1}^{N_{g}}P\left(i,j\vee \theta \right)\right)^{2}}{N_{z}\left(\theta \right)}$\\
+\textbf{6. Run Length Non-Uniformity Normalized (RLNN):}\\
+$RLNN=\frac{\sum _{j=1}^{N_{r}}\left(\sum _{i=1}^{N_{g}}P\left(i,j\vee \theta \right)\right)^{2}}{{N_{z}}\left(\theta \right)^{2}}$\\
+RLNN measures the similarity of run lengths throughout the image, with a lower value indicating more homogeneity among run lengths in the image. This is the normalized version of the RLN formula.\\
+\textbf{7. Run Percentage (RP):}\\
+$RP=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}\frac{P\left(i,j\vee \theta \right)}{N_{p}}$\\
+\textbf{8. Gray Level Variance (GLV):}\\
+$GLV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)\left(i-\mu \right)^{2}$
+Here,$\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)i$\\
+\textbf{9. Run Variance (RV):}\\
+$RV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)\left(j-\mu \right)^{2}$\\
+Here,$\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)j$\\
+\textbf{10. Run Entropy (RE):}\\
+$RE =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}p\left(i,j\vee \theta \right)log_{2}\left(p\left(i,j\vee \theta \right)+\epsilon \right)$\\
+Here, $\epsilon $ is an arbitrarily small positive number (${\approx}$2.2${\times}$10$^{-16}$)\\
+\textbf{11. Low Gray Level Run Emphasis (LGLRE):}\\
+$\textit{LGLRE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}\frac{P\left(i,j\vee \theta \right)}{i^{2}}}{N_{z}\left(\theta \right)}$\\
+\textbf{12. High Gray Level Run Emphasis (HGLRE):}\\
+$\textit{HGLRE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}i^{2}P\left(i,j\vee \theta \right)}{N_{z}\left(\theta \right)}$\\
+\textbf{13. Short Run Low Gray Level Emphasis (SRLGLE):}\\
+$\textit{SRLGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}\frac{P\left(i,j\vee \theta \right)}{i^{2}j^{2}}}{N_{z}\left(\theta \right)}$\\
+\textbf{14. Short Run High Gray Level Emphasis (SRHGLE):}\\
+$\textit{SRHGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}\frac{P\left(i,j\vee \theta \right)i^{2}}{j^{2}}}{N_{z}\left(\theta \right)}$\\
+\textbf{15. Long Run Low Gray Level Emphasis (LRLGLE):}\\
+$\textit{LRLGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}\frac{P\left(i,j\vee \theta \right)j^{2}}{i^{2}}}{N_{z}\left(\theta \right)}$\\
+\textbf{16. Long Run High Gray Level Emphasis (LRHGLE):}\\
+$\textit{LRHGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{r}}P\left(i,j\vee \theta \right)i^{2}j^{2}}{N_{z}\left(\theta \right)}$
+
+\textbf{\textit{Gray Level Size Zone Matrix (GLSZM) Features}}
+
+A GLSZM describes the amount of homogeneous connected areas within the volume, of a certain size and intensity, thereby describing tumor heterogeneity at a regional scale. A voxel is considered connected if the distance is 1 according to the infinity norm (26-connected region in 3D). In a GLSZM $P\left(i,j\right)$, the $\left(i,j\right)^{th}$element equals the number of zones with gray level $i$ and size $j$ appear in image. Contrary to GLCM and GLRLM, the GLSZM is rotation independent, with only one matrix calculated for all directions in the ROI. The mathematical formulas that define the GLSZM features correspond to the definitions of features extracted from the GLRLM.
+
+Let:
+
+ $N_{g}$ be the number of discreet intensity values in the image, 
+
+    $N_{s}$ be the number of discreet zone sizes in the image,
+
+  $N_{p}$ be the number of voxels in the image,
+
+$N_{z}$ be the number of zones in the ROI, which is equal to $\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}P\left(i,j\right)$, and $1\leq N_{z}N_{z}\leq N_{p}$
+
+$P\left(i,j\right)$ be the size zone matrix,
+
+$p\left(i,j\right)$ be the normalized size zone matrix, defined as $p\left(i,j\right)=\frac{P\left(i,j\right)}{N_{z}}$.
+
+\textbf{1. Small Area Emphasis (SAE):}
+
+$SAE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}\frac{P\left(i,j\right)}{j^{2}}}{N_{z}}$
+
+\textbf{2. Large Area Emphasis (LAE):}
+
+$LAE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}P\left(i,j\right)j^{2}}{N_{z}}$
+
+\textbf{3. Gray Level Non-Uniformity (GLN):}
+
+$GLN=\frac{\sum _{i=1}^{N_{g}}\left(\sum _{j=1}^{N_{s}}P\left(i,j\right)\right)}{N_{z}}^{2}$
+
+GLN measures the variability of gray-level intensity values in the image, with a lower value indicating more homogeneity in intensity values.
+
+\textbf{4. Gray Level Non-Uniformity Normalized (GLNN):}
+
+$GLNN=\frac{\sum _{i=1}^{N_{g}}\left(\sum _{j=1}^{N_{s}}P\left(i,j\right)\right)}{{N_{z}}^{2}}^{2}$
+
+GLNN measures the variability of gray-level intensity values in the image, with a lower value indicating a greater similarity in intensity values. This is the normalized version of the GLN formula.
+
+\textbf{5. Size-Zone Non-Uniformity (SZN):}
+
+$SZN=\frac{\sum _{j=1}^{N_{s}}\left(\sum _{i=1}^{N_{g}}P\left(i,j\right)\right)}{N_{z}}^{2}$
+
+\textbf{6. Size-Zone Non-Uniformity Normalized (SZNN):}
+
+$SZNN=\frac{\sum _{j=1}^{N_{s}}\left(\sum _{i=1}^{N_{g}}P\left(i,j\right)\right)}{{N_{z}}^{2}}^{2}$
+
+\textbf{7. Zone Percentage (ZP):}
+
+$ZP=\frac{N_{z}}{N_{p}}$
+
+\textbf{8. Gray Level Variance (GLV):}
+
+$GLV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)\left(i-\mu \right)^{2}$
+
+Here,$\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)i$
+
+\textbf{9. Zone Variance (ZV):}
+
+$ZV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)\left(j-\mu \right)^{2}$
+
+Here,$\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)j$
+
+\textbf{10. Zone Entropy (ZE):}
+
+$ZE=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)log_{2}\left[p\left(i,j\right)+\epsilon \right]$
+
+Here, $\epsilon $ is an arbitrarily small positive number (${\approx}$2.2${\times}$10$^{-16}$)
+
+\textbf{11. Low Gray Level Zone Emphasis (LGLZE):}
+
+$\textit{LGLZE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}\frac{P\left(i,j\right)}{i^{2}}}{N_{z}}$
+
+\textbf{12. High Gray Level Zone Emphasis (HGLZE):}
+
+$\textit{HGLZE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}i^{2}P\left(i,j\right)}{N_{z}}$
+
+\textbf{13. Small Area Low Gray Level Emphasis (SALGLE):}
+
+$\textit{SALGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}\frac{P\left(i,j\right)}{i^{2}j^{2}}}{N_{z}}$
+
+\textbf{14. Small Area High Gray Level Emphasis (SAHGLE):}
+
+$\textit{SAHGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}\frac{P\left(i,j\right)i^{2}}{j^{2}}}{N_{z}}$
+
+\textbf{15. Large Area Low Gray Level Emphasis (LALGLE):}
+
+$\textit{LALGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}\frac{P\left(i,j\right)j^{2}}{i^{2}}}{N_{z}}$
+
+\textbf{16. Large Area High Gray Level Emphasis (LAHGLE):}
+
+$\textit{HGLZE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}i^{2}j^{2}P\left(i,j\right)}{N_{z}}$
+
+\textbf{\textit{Gray Level Dependence Matrix (GLDM) Features}}
+
+A Gray Level Dependence Matrix (GLDM) quantifies gray level dependencies in an image. A gray level dependency is defined as the number of connected voxels within distance $\delta $ that are dependent on the center voxel. A neighboring voxel with gray level $j$ is considered dependent on center voxel with gray level $i$ if $\left| i-j\right| \leq \alpha $. In a gray level dependence matrix $P\left(i,j\right)$ the $\left(i,j\right)^{th}$ element describes the number of times a voxel with gray level $i$ with $j$ dependent voxels in its neighborhood appears in image.
+
+Let:
+
+ $N_{g}$ be the number of discreet intensity values in the image, 
+
+ $N_{d}$ be the number of discreet dependency sizes in the image,
+
+   $N_{z}$ be the number of dependency zones in the image, which is equal to $\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}P\left(i,j\right)$
+
+$P\left(i,j\right)$ be the dependence matrix,
+
+$p\left(i,j\right)$ be the normalized dependence matrix, defined as $p\left(i,j\right)=\frac{P\left(i,j\right)}{N_{z}}$.
+
+\textbf{1. Small Dependence Emphasis (SDE):}
+
+$SDE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}\frac{P\left(i,j\right)}{i^{2}}}{N_{z}}$
+
+A measure of the distribution of small dependencies, with a greater value indicative of smaller dependence and less homogeneous textures.
+
+\textbf{2. Large Dependence Emphasis (LDE):}
+
+$LDE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}P\left(i,j\right)j^{2}}{N_{z}}$
+
+\textbf{3. Gray Level Non-Uniformity (GLN):}
+
+$GLN=\frac{\sum _{i=1}^{N_{g}}\left(\sum _{j=1}^{N_{d}}P\left(i,j\right)\right)^{2}}{N_{z}}$
+
+\textbf{4. Dependence Non-Uniformity (DN):}
+
+$DN=\frac{\sum _{j=1}^{N_{d}}\left(\sum _{i=1}^{N_{g}}P\left(i,j\right)\right)^{2}}{N_{z}}$
+
+\textbf{5. Dependence Non-Uniformity Normalized (DNN):}
+
+$DN=\frac{\sum _{j=1}^{N_{d}}\left(\sum _{i=1}^{N_{g}}P\left(i,j\right)\right)^{2}}{{N_{z}}^{2}}$
+
+\textbf{6. Gray Level Variance (GLV):}
+
+$GLV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}p\left(i,j\right)\left(i-\mu \right)^{2},\textit{where}\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}ip\left(i,j\right)$
+
+\textbf{7. Dependence Variance (DV):}
+
+$DV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}p\left(i,j\right)\left(j-\mu \right)^{2},\textit{where}\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}jp\left(i,j\right)$
+
+\textbf{8. Dependence Entropy (DE):}
+
+$\textit{DependenceEntropy}=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}p\left(i,j\right)log_{2}\left[p\left(i,j\right)+\epsilon \right]$
+
+\textbf{9. Low Gray Level Emphasis (LGLE):}
+
+$LGLE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}\frac{P\left(i,j\right)}{i^{2}}}{N_{z}}$
+
+\textbf{10. High Gray Level Emphasis (HGLE):}
+
+$HGLE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}P\left(i,j\right)i^{2}}{N_{z}}$
+
+\textbf{11. Small Dependence Low Gray Level Emphasis (SDLGLE):}
+
+$\textit{SDLGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}\frac{P\left(i,j\right)}{i^{2}j^{2}}}{N_{z}}$
+
+\textbf{12. Small Dependence High Gray Level Emphasis (SDHGLE):}
+
+Measures the joint distribution of small dependence with higher gray-level values.
+
+\textbf{13. Large Dependence Low Gray Level Emphasis (LDLGLE):}
+
+$\textit{LDLGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}\frac{P\left(i,j\right)i^{2}}{j^{2}}}{N_{z}}$
+
+\textbf{14. Large Dependence High Gray Level Emphasis (LDHGLE):}
+
+$\textit{LDHGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}P\left(i,j\right)i^{2}j^{2}}{N_{z}}$
+
+\textbf{\textit{Neigbouring Gray Tone Difference Matrix (NGTDM) Features}}
+
+A NGTDM quantifies the difference between a gray value and the average gray value of its neighbours within distance $\delta $. The sum of absolute differences for gray level $i$ is stored in the matrix. Let $X_{gl}$ be a set of segmented voxels and $x_{gl}\left(j_{x},j_{y},j_{z}\right)\in X_{gl}$ be the gray level of a voxel at postion $\left(j_{x},j_{y},j_{z}\right)$, then the average gray level of the neigbourhood is:
+
+$A_{i}=A\left(j_{x},j_{y},j_{z}\right)$
+
+$\frac{1}{W}\sum _{k_{x}=-\delta }^{\delta }\sum _{k_{y}=-\delta }^{\delta }\sum _{k_{z}=-\delta }^{\delta }x_{gl}\left(j_{x}+k_{x},j_{y}+k_{y},j_{z}+k_{z}\right)$
+
+$\textit{where}\left(k_{x},k_{y},k_{z}\right)\neq \left(0,0,0\right)\wedge x_{gl}\left(j_{x}+k_{x},j_{y}+k_{y},j_{z}+k_{z}\right)\in X_{gl}$
+
+Here, $W$ is the number of voxels in the neighbourhood that are also in $X_{gl}$.
+
+\textbf{1. Coarseness:}
+
+$\textit{Coarseness}=\frac{1}{\sum _{i=1}^{N_{g}}p_{i}s_{i}}$
+
+\textbf{2. Contrast:}
+
+$\textit{Contrast}=\left(\frac{1}{N_{g,p}\left(N_{g,p}-1\right)}\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p_{i}p_{j}\left(i-j\right)^{2}\right)\left(\frac{1}{N_{v,p}}\sum _{i=1}^{N_{g}}s_{i}\right),\textit{where}p_{i}\neq 0,p_{j}\neq 0$
+
+\textbf{3. Busyness:}
+
+$\begin{array}{c}
+\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}ip_{i}-jp_{j}\vee ,\textit{where}p_{i}\neq 0,p_{j}\neq 0\\
+\textit{Busyness}=\frac{\sum _{i=1}^{N_{g}}{p_{i}}s_{i}}{}
+\end{array}$
+
+\textbf{4.} \textbf{Complexity:}
+
+$\begin{array}{c}
+\sum _{j=1}^{N_{g}}i-j\vee \frac{{p_{i}}s_{i}+{p_{j}}s_{j}}{p_{i}+p_{j}},\textit{where}p_{i}\neq 0,p_{j}\neq 0\\
+\textit{Complexity}=\frac{1}{N_{v,p}}\sum _{i=1}^{N_{g}}
+\end{array}$
+
+\textbf{5. Strength:}
+
+$\textit{Strength}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(p_{i}+p_{j}\right)\left(i-j\right)^{2}}{\sum _{i=1}^{N_{g}}s_{i}},\textit{where}p_{i}\neq 0,p_{j}\neq 0$
+
+\textbf{Type3. Wavelet-based features:} \textbf{first-order statistics and texture of wavelet decompositions}
+
+Wavelet-based features were derived from wavelet decompositions of the original CT images using the “Coiflet 1” wavelet function. Each image was filtered using either a high band-pass filter (H) or low-band pass filter (L) in x, y and z directions, yielding 8 different combinations of decompositions. The wavelet decompositions of the original image \textit{X} were labeled as \textit{X}$_{LLL}$, \textit{X}$_{LLH}$, \textit{X}$_{LHL}$, \textit{X}$_{HLL}$, \textit{X}$_{LHH}$, \textit{X}$_{HHL}$, \textit{X}$_{HLH}$, and \textit{X}$_{HHH}$.
+
+
