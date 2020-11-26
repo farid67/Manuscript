@@ -90,8 +90,8 @@ remains an open problem.\\
 They obtained a Dice of 0.93, increased at 0.94 after applying the 3D
 CRF, for the liver segmentation, and a Dice of 0.56 for the lesions.
 They applied the same cross-validation learning on an internal database
-of 100 CT scans (Train: 60, Val: 20, Test: 20) and they reached a dice
-of 0.91 for the liver and 0.61 for the lesions.
+of 100 CT scans (Train: 60, Val: 20, Test: 20) and they reached a mean dice
+of \textbf{0.91} for the liver and \textbf{0.61} for the lesions.
 
 \subsection*{Dou et al. (2016)}\label{dou-et-al.-2016}
 
@@ -237,8 +237,8 @@ and this hypothesis was confirmed by the prediction results (improvement
 of 0.89 points for the Dice per case, and 0.3 points for the Dice
 global). They also proved that the hybrid features help the network
 improve the obtained results.\\
-Using the final architecture, they got a \textbf{Dice per case of 0.72
-and a Dice global of 0.82}.
+Using the final architecture, they got a mean dice per case of \textbf{0.72}
+and a dice global of \textbf{0.82}.
 
 \subsection*{Han et al. (2017)}\label{han-et-al.-2017}
 
@@ -262,8 +262,8 @@ segmentation in order to get finer details from the liver and its
 lesions. A post-processing step was employed so that connected
 components considered as lesions will be removed if the maximal
 probability value is less than a given threshold.\\
-The entire process allowed them to reach a \textbf{Dice per case of
-0.67.}
+The entire process allowed them to reach a mean dice per case of
+\textbf{0.67}.
 
 \subsection*{Yuan et al. (2017)}\label{yuan-et-al.-2017}
 
@@ -524,7 +524,7 @@ segmenting the small lesions.
 and attention residual mechanism to proceed the segmentation of both the
 liver and the lesions.\\
 The residual attention mechanism has been introduced in 2017 by
-\href{https://arxiv.org/pdf/1704.06904.pdf}{\textbf{\emph{Wang et al.}}}
+Wang et al. \cite{Wang2017}
 to perform image classification, with the idea that attention mechanism
 can help the network focusing on specific parts of the image.\\
 The study from Jin et al. was the first to use the attention mechanism
