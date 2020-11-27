@@ -9,10 +9,10 @@ diagnostic imaging. The biopsy, as detailed earlier, suffers from a lot of drawb
 remains an invasive procedure, with a high cost in terms of resources,
 and does not consider the tumor heterogeneity. The diagnostic imaging on the other hand, is not invasive, provides
 information about the tumor shape, the growth over the time, and is less
-prone to bias due to tissue heterogeneity.\\
+prone to bias due to tissue heterogeneity.
+The biopsy remains the only available ground truth since diagnosis imaging still suffer from the medical expert subjectivity. In our work, we are trying to prove that medical images can be used to improve the visual inspection of the medical expert and at long-term replace invasive procedure such as the biopsy.\\
 The recent improvements in the medical imaging field allow acquisition
-of data being more and more relevant, thus enabling a better estimation
-of the phenotypical characteristics of the patients. In the case of brain imaging, the augmentation of contrast, on MR
+of data enabling a better characterization of the patients phenotype. In the case of brain imaging, the augmentation of contrast, on MR
 images, thanks to the injection of contrast agents such as
 gadolinium-based agents (method mentioned before) is an important
 technique for the evaluation of brain and liver tumors \cite{Drevelegas2011,Zhou2014,Thian2013}. This tool allows a delineation of large tumors and an
@@ -23,15 +23,13 @@ the tissue within the same tumor (active vs necrotic part of the tumor)
 Support brought by the innovations in the medical imaging field have
 been demonstrated on other organs such as the liver \cite{Davnall2012}, the breast \cite{Koolen2012} or the colon
 \cite{Sahani2014} with a consequent benefit in terms of
-diagnosis.However, even though the advancements in the medical imaging fields has
+diagnosis. However, even though the advancements in the medical imaging fields have
 allowed these performances, the interpretation of the medical images
 remains subjective and not quantitative. In order to correctly provide a
-diagnosis that will not depend on the observer, one can extract and use
-characteristics previously difficult, even impossible to distinguish
-with the naked eye.
+diagnosis it is necessary to transform images into mineable high-dimensional data.
 
 Introduced in the 80s, CAD (\emph{Computer Assisted Diagnosis}) tools
-were the first to implement this method, to establish a link between the
+were the first to establish a link between the
 imaging features and the biological characteristics of the patients
 \cite{Doi2007}. In order to go along with those new systems, standards were introduced
 such as the one created by the WHO (\emph{World Health Organization}) 
@@ -56,30 +54,29 @@ where the extraction should be performed \cite{Gillies2016}
 or even by prediction when a biopsy is helpful or not \cite{Liu2016}.\\
 Compared to the above-mentioned criteria based on a naked-eye examination,
 we are now able to rely on a computer to analyse the gray-levels at a
-finer scale. Therefore, two approaches exist, the HCR (\emph{Hand-Crafted
+finer scale. Therefore, two approaches exist, the \ac{hcr} (\emph{Hand-Crafted
 Radiomics}) based on mathematical engineered features, relying on the
 textural, intensity and shape based properties of the volume of interest, and
-the DLR (\emph{Deep-Learning radiomics}), where the retained features
-will directly be computed from the input data without any prior
+the \ac{dlr} (\emph{Deep-Learning radiomics}), where the extracted features
+is estimated from the input data without any prior
 knowledge.
 
 \section{Handcrafted Radiomics }\label{handcrafted-radiomics}
 
-In this section we will describe the HCR pipeline, by first
+In this section we will describe the \ac{hcr} pipeline, by first
 exposing the different steps of the classical workflow, before analyzing
-the different studies that used HCR on patients suffering from
+the different studies that used \ac{hcr} on patients suffering from
 HCCs. We will conclude with the different improvements that
-should be brought to enhance the power of radiomics.
+should be brought to enhance the predictive value of radiomics.
 
-A conventional radiomics workflow (based on HCR features) starts
+A conventional radiomics workflow (based on \ac{hcr} features) starts
 with the acquisition and the reconstruction of medical images, followed
 by the segmentation of those images, which is a critical step since
-HCR features are extracted from the segmented sections, and many
-tissues do not have distinct boundaries \cite{Gillies2016}. 
-Once the different areas segmented, the features are
+\ac{hcr} features are extracted from organs or lesions having indistinct borders \cite{Gillies2016}. 
+Once the different areas were segmented, the features are
 extracted and quantified, and a statistical analysis is performed to
 select only the most relevant one. The final step consists in building a
-model that will use the selected features to perform the wanted task,
+model that use the selected features to perform the wanted task,
 which is often either the tumor characterization or its prognosis. The
 pipeline is illustrated in the figure below \ref{Scrivener2016_Fig1}.
 
@@ -93,18 +90,20 @@ pipeline is illustrated in the figure below \ref{Scrivener2016_Fig1}.
 
 
 We will now describe these different steps, before analyzing recent
-state-of-the-art HCR studies, before establishing a list of
+state-of-the-art \ac{hcr} studies, before establishing a list of
 measures needed to be taken in order to improve the quality and the
 reproducibility of future radiomics works.
 
 \subsection{HCR workflow}\label{hcr-workflow}
+
+\subsubsection{Image acquisition and reconstruction}\label{image-acquisition-and-reconstruction}
 
 As explained previously (see chapter \ref{liverCancer}), ultrasonography (US) is the recommended
 modality as primary imaging test for surveillance. If the surveillance
 is positive, CT or MR examinations are performed for the diagnosis and
 the staging of the disease. For the reasons exposed previously, namely
 the availability, and its robustness when compared to MRI, we will focus
-on HCR studies based on CT imaging data.\\
+on \ac{hcr} studies based on CT imaging data.\\
 Without entering into the details of how a CT scan works, we can assume
 that performances of the CT imaging depend mainly on some settings such
 as the slice thickness, the capability for projecting the density
@@ -129,7 +128,7 @@ commonly extracted from images only.
 
 \subsubsection{Segmentation}\label{segmentation}
 
-Historically, the segmentation was performed manually, hence, sensitive
+Historically, the segmentation was performed manually, hence, prone
 to the inter- and intra-observer variability, as depicted below in the figure \ref{Bakr_Fig2}.
 %\begin{figure}[th!]
 %	\centering
@@ -146,14 +145,17 @@ to the inter- and intra-observer variability, as depicted below in the figure \r
 \end{figure}
 
 
-To reduce this bias, semi-automatic segmentation techniques were
+To reduce this bias, automatic segmentation techniques were
 developed. These techniques based on the intensity of the pixels suffer from the
 fact that the intensity of the pixels, in the case of abdominal organs,
 is often close from one organ to another. On the other hand, models
 based on statistical representations often require the computation of an energy
 function, that can involve a large number of parameters, thus being
 difficult to compute and optimize (more details concerning the liver semantic 
-segmentation techniques are given in the chapter \ref{SegSemantic}.\\
+segmentation techniques are given in the chapter \ref{SegSemantic}).\\
+
+\subsubsection{Features}\label{features}
+
 Once the volume of interest is delineated, different features can be
 extracted. On one hand, features can be chosen a priori for their
 ability to translate the physiological behavior expected by the
@@ -166,29 +168,25 @@ example the vascular or cellular density \cite{Cao2006,Zhou2014}.
 However, a prior knowledge is not always available for the wanted
 task, therefore, the alternative is to extract a huge quantity of
 features and to determine the most relevant one by using for example
-some machine learning algorithms.
-
-\subsubsection{Features}\label{features}
-
+some machine learning algorithms.\\
 Features can be regrouped into different categories depending on their
 statistical order (first, second or higher order). For the features
-belonging to the first statistical order, the volume of interest is
-transformed into an histogram, and different values are computed such as
+belonging to the first statistical order, the intensities of the volume of interest are 
+summarized by an histogram, and different values are computed such as
 the uniformity or the entropy. Even though these features are often
-sensitive to the acquisition settings such as the slice thickness or
-even the way the histogram is computed, they permitted the prediction of
+sensitive to the acquisition settings and by the way the histogram is computed, they already permitted the prediction of
 the malignancy of breast lesions \cite{Parekh2016}.\\
-Shape features are often extracted directly from the VOI in order to
-analyze its geometrical properties (such as the overall volume occupied
-by the tumor, its sphericity, its roughness or its fractal dimension).
-Those features also permitted the prediction of the response to
-treatment in previous studies \cite{Thawani2018}.\\
 Second order statistical features are meant to extract the textural
 properties of the volume, by considering the neighboring relationship
 between pixels. This will play an important role especially for the
 characterization of the heterogeneity of the tissues. This relation is
-captured by several descriptive matrices (GLCM, GLRLM,
+captured by several descriptive matrices (\ac{glcm}, GLRLM,
 \ldots{}) \cite{Parekh2016}.\\
+Shape features are often extracted directly from the \ac{voi} in order to
+analyze its geometrical properties (such as the overall volume occupied
+by the tumor, its sphericity, its roughness or its fractal dimension).
+Those features also permitted the prediction of the response to
+treatment in previous studies \cite{Thawani2018}.\\
 Finally, higher order features allow the extraction of imaging features
 in various frequency domains (the Wavelet features are the most commonly
 used higher order features \cite{Thawani2018}).
@@ -196,27 +194,26 @@ used higher order features \cite{Thawani2018}).
 \subsubsection{Features Selection}\label{features-selection}
 
 As listed here, a large quantity of features can be extracted and they
-tend sometimes to be highly correlated, which in some cases can cause
-overfitting during the creation of a predictive model. A diminution
-phase of the number of features is often required, either in a
+tend sometimes to be highly correlated. The important number of extracted features can often cause
+overfitting during the creation of a predictive model. A features reduction
+phase is often required, either in a
 supervised manner (features are selected for their discriminant power in
 regards with the wanted task) or in non-supervised manner (the main
 objective is to suppress the redundant features without considering the
 different labels) \cite{Parekh2016}.\\
 Among the supervised methods, one can distinguish the univariate ones,
 where the features are tested one by one depending on their contribution
-to the wanted task (Wilcoxon or Fisher test), from the multivariate
+to the final decision (Wilcoxon or Fisher test), from the multivariate
 where the features are regrouped into subsets before being tested
-against the output class.\\
-Unsupervised methods (such as the PCA: \emph{principal component
-analysis}) are less prone to overfitting since they do not consider the
-label of the data, but their main goal is to reduce the dimensionality
-of the features space.\\
+against the output class (such as the Wrapper or the Embedded methods).\\
+Unsupervised methods (such as the \ac{pca}: \emph{principal component
+analysis}) do not consider the label of the data and try 
+to reduce the dimensionality of the features space, however the new principal component are difficult to interpret.\\
 Once the number of features is reduced, the next step is to construct a
 predictive model, by using either clustering methods (patients are
-regrouped based on a metric depending on the retained features) or
+regrouped based on a metric depending on the retained features, but their label can not be inferred from the clustering) or
 classification ones (where models such as RF: \emph{random forests} or
-SVM: \emph{support vector machines} are trained from the selected
+\ac{svm}: \emph{support vector machines} are trained from the selected
 features in order to predict the wanted clinical criteria). Concerning
 the prediction of the survival, it is common to implement slightly
 different models such as the \emph{Kaplan-Meier} or the \emph{Cox
@@ -236,15 +233,15 @@ features and the method implemented to create the model.
 Every modification on the cited steps can have a huge impact on the
 predictable performances of the created model.
 
-In the next section, we will analyze the different HCR studies
+In the next section, we will analyze the different \ac{hcr} studies
 performed on patients suffering from HCC and who underwent CT
 examination. We will first describe the different choices made in each
 step of the classical pipeline, before presenting ways to improve the
-quality of future HCR work.
+quality of future \ac{hcr} work.
 
-\subsection{HCR applied to the HCC}\label{hcr-applied-to-the-liver}
+\subsection{\ac{hcr} applied to the HCC}\label{hcr-applied-to-the-liver}
 
-In order to analyze the different methods implemented in the HCR
+In order to analyze the different methods implemented in the \ac{hcr}
 field, we reviewed 15 studies performed on patients suffering from HCC and who
 underwent CT scan examination. Initially, 23 primary liver
 cancer-related studies have been scanned in our review \cite{Wakabayashi2019}, 
@@ -302,16 +299,16 @@ as illustrated in the figure \ref{HCR_studies_number_of_patients}.
 
 
 
-The relatively low number of patients can be explained by the strong
+The relatively low number of patients can be explained by the stringent
 inclusion criteria set by the studies (size and number of lesions,
 baseline imaging examination within a given period of time before
 initial treatment, \ldots{})\\
-They were all built with data acquired on patients who underwent CT
+They were all built with data from patients who underwent CT
 examination, except one, that decided to mix data obtained from both CT
 and MR examinations \cite{Taouli2017}.
 
 Regarding the CT scan protocol, only one study decided to use images
-acquired before the injection of contrast medium \cite{Cozzi2017}, whereas two other studies used images acquired at only one
+acquired before the injection of contrast agent \cite{Cozzi2017}, whereas two other studies used images acquired at only one
 phase (early arterial phase for \cite{Raman2015}, and portal
 venous phase for \cite{Li2016}), and the remaining studies
 analyzed multiphase images. Among them, four studies utilized images
@@ -326,41 +323,39 @@ after the injection, and the delayed images obtained during an even
 larger interval (between 90 and 300s after the injection).\\
 Knowing that images are the key elements in the computation process of
 the radiomics features, this high variation within the acquisition
-protocols is the first reason why the standard HCR pipeline
+protocols is the first reason why the standard \ac{hcr} pipeline
 should be standardized.
 
 Once the images acquired, the following step consists in selecting the
 region of interest to compute the features, or evaluate the
 physiological properties of the lesions to the naked eye.
 
-\subsubsection{ROI selection}\label{roi-selection}
+\subsubsection{ROI selection and features extraction}\label{roi-selection}
 
 The selection of the region/volume of interest and/or the assessment of
 the physiological characteristics of the tumor is often performed by one
-or multiple experienced radiologists.\\
+or multiple experienced radiologists.
 This step of the pipeline was performed by only a single expert in rare
 cases in the reviewed studies \cite{Xia2018,Akai2018}, whereas it was
-usually performed by two experts \cite{Zhou2017a,Chen2017,Li2016,Raman2015,Kuo2007,Renzulli2016,Segal2007,Zheng2018,Peng2018,Taouli2017}.\\
+usually performed by two experts \cite{Zhou2017a,Chen2017,Li2016,Raman2015,Kuo2007,Renzulli2016,Segal2007,Zheng2018,Peng2018,Taouli2017}.
 When more than one expert is involved, the authors decided to implement
 ways for quantifying the inter and intra-observer variability, such as
 the ICC (\emph{Intraclass Correlations Coefficient}) \cite{Zheng2018,Li2016}, or the Cohen-k statistics \cite{Renzulli2016,Banerjee2015}.
-
-Regarding now the selection of the ROI, we can separate the reviewed
-studies by the type of features being extracted.\\
-On one hand, when using imaging traits, it is common to use the whole
-tumor to perform the evaluation. For example when evaluating the
+Regarding now the selection of the \ac{roi}, we can separate the reviewed
+studies by the type of features being extracted.
+On one hand, when using imaging traits corresponding to visual inspection of the tumor characteristics, it is common to use the whole tumor to perform the evaluation. For example when evaluating the
 vascular invasion, some features like the peritumoral enhancement need
-to be estimated globally \cite{Renzulli2016,Banerjee2015,Segal2007,Kuo2007}.\\
+to be estimated globally \cite{Renzulli2016,Banerjee2015,Segal2007,Kuo2007}.
 On the other hand, when using computational features, the analysis can
 be performed on the whole tumor or on a single slice. Some studies
-decided to compute the features on the entire 3D ROI, as an example
+decided to compute the features on the entire 3D \ac{roi}, as an example
  Cozzi et al. \cite{Cozzi2017} used the entire tumor independently on
 the tissues present within it , Xia et al. \cite{Xia2018} decided to separate
 areas based on their textural properties  as depicted in the figure \ref{XiaFig_subregions}, but the
-analysis remains global. Other studies placed several ROIs all throughout
-the tumor (3 ROIs for Bakr et al. and from 5 to 10 for
+analysis remains global. Other studies placed several \ac{roi}s all throughout
+the tumor (3 \ac{roi}s for Bakr et al. and from 5 to 10 for
 Raman et al.). However, the majority of the studies decided to
-place the ROI at the largest cross-sectional area \cite{Li2016,Chen2017,Zhou2017a,Akai2018,Zheng2018}.
+place the \ac{roi} at the largest cross-sectional area \cite{Li2016,Chen2017,Zhou2017a,Akai2018,Zheng2018}.
 
 \begin{figure}[ht!]
 \centering
@@ -378,19 +373,19 @@ Note that some studies decided to compute the features using both the
 entire volume and the slice-wise approach (e.g. Taouli et al. \cite{Taouli2017}
 evaluated imaging traits globally and computed the ratio using a
 slice-wise fashion, Peng et al. \cite{Peng2018} did the same in their study by
-computing features using an ROI placed at the largest-cross sectional
+computing features using an \ac{roi} placed at the largest-cross sectional
 area, and evaluating imaging traits globally).\\
 Worth mentioning that before the computation of features, it is common
 to filter the images using different kernel sizes, in order to enhance
 different elements of the volumes such as the blood vessels for example.
 All reviewed studies that computed quantitative features filtered their
-images with a Laplacian of Gaussian algorithm with various sizes, as
+images with a Laplacian of Gaussian algorithm to extract features of specific sizes, as
 depicted in the figure \ref{AkaiFig_Roi}.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=3.50110in,height=3.51334in]{./images/image15.png}
-\caption{ Screenshot of the CT texture analysis software. A polygonal ROI was
+\caption{ Screenshot of the CT texture analysis software. A polygonal \ac{roi} was
 drawn on the tumor (a). Processed images using Laplacian of Gaussian
 filters with SSF of 2 mm (b), 4 mm (c), and 6 mm (d) were automatically
 generated. The images were displayed using a red or blue scale showing
@@ -400,7 +395,7 @@ negative or positive pixels, respectively. \textbf{©Akai et al.} \cite{Akai2018
 
 \subsubsection{Features selection}\label{features-selection-1}
 
-Once the ROI delineated and pre-processed, the following step consists
+Once the \ac{roi} delineated and pre-processed, the following step consists
 in extracting the features, and as explained previously, the choice on
 which features to extract depends on the type of features the study is
 going to rely on, quantitative or semantic.
@@ -464,16 +459,14 @@ The vast majority of the reviewed studies decided to implement a
 logistical regression model in order to assess the correlation between
 features and the study endpoint. Among the existing methods,
 time-related approaches such as the Cox regression model \cite{Li2016,Banerjee2015,Zheng2018,Cozzi2017,Xia2018} and the Kaplan-Meier survival analysis
-\cite{Segal2007,Chen2017,Akai2018,Xia2018} are the most commonly used,
-especially because these are historical ways to predict the survival of
-the patients.
+\cite{Segal2007,Chen2017,Akai2018,Xia2018} are the most commonly used.
 
 Different statistical approaches were used by the studies that tried to
 determine the link between selected features and study endpoints such as
 the LASSO (\emph{Least Absolute Shrinkage and Selection Operator})
 algorithm \cite{Zhou2017a,Peng2018,Bakr2017}. In the other studies, other
 approaches were implemented, for example, Raman et al.
-performed a PCA followed by a
+performed a \ac{pca} followed by a
 MANOVA (\emph{Multivariate Analysis Of VAriances}) to create clusters
 among patients for the classification of hypervascular lesions, whereas
 Renzulli et al. evaluated the positive and negative predictive
@@ -513,7 +506,7 @@ the experimental settings and their reproducibility remain questionable.
 
 In 2017, Lambin et al. \cite{Lambin2017} who remains one of the founders of the
 radiomics fields \cite{Lambin2012} published a study
-proposing a way to rethink the HCR pipeline and assess the robustness of
+proposing a way to rethink the \ac{hcr} pipeline and assess the reproducibility of
 future radiomics studies . This
 assessment is performed thanks to the RQS (\emph{Radiomics Quality
 Score}), which evaluates a total of 16 components with various weights.
@@ -533,7 +526,7 @@ The mean obtained \ac{rqs} by the reviewed studies was 8.73 +/- 5.57
 points, which corresponds to less than 23\% of the maximal possible
 score, and only one study obtained a more than 50\% of the maximum
 points, which translates the lack of robustness of the current
-HCR state-of-the-art studies applied to the HCC.
+\ac{hcr} state-of-the-art studies applied to the HCC.
 
 The figure \ref{RQS_points_per_criteria} allows us to see the most respected criteria in regards
 with the RQS guidelines.
@@ -564,26 +557,41 @@ studies is to fulfill the maximum possible criteria introduced by the
 RQS standard, and to use standard ways to compute the
 quantitative features, thanks to open-source libraries such as
 pyradiomics \cite{VanGriethuysen2017}. Another way is to reduce as much
-as possible the impact of human-based interpretation in the HCR
+as possible the impact of human-based interpretation in the \ac{hcr}
 workflow. This can be done by replacing the hand-crafted annotations,
 and the engineered process of features computation and selection by a
 standardized, automated and data-driven pipeline, similar to what is
-performed in more recent DLR studies.
+performed in more recent \ac{dlr} studies.
 
 \section{Deep Learning Radiomics}\label{deep-learning-radiomics}
 
-In this section we will first present the differences between the
-HCR and the DLR strategies, before describing in detail
-the DLR concept. We will then present the different reviewed
-studies tackling liver-related problems using a DLR approach. We
+In this section we will first present the value brought by the deep learning in the medical imaging field, before focusing on the differences between the
+\ac{hcr} and the \ac{dlr} strategies. We will then describe in detail
+the \ac{dlr} concept before presenting the different reviewed
+studies tackling liver-related problems using a \ac{dlr} approach. We
 will outline the different steps of their pipelines such as the use of
 multiphasic images, the way they incorporated experts' annotations and
 their choice regarding the deep network architectures.
 
-\subsection{Difference between HCR and
-DLR}\label{difference-between-hcr-and-dlr}
+\subsection{\ac{dl} applied to the medical imaging}
 
-Being a young field, radiomics starts to mature when applied to several
+The main breakthrough brought by \ac{dl} was its ability to detect
+morphological properties in images only by using the pixel intensities
+as input, whereas traditional machine learning methods often required
+sophisticated hand-crafted features to achieve descent results \cite{Litjens2017, Suzuki2017}. Deep learning networks achieved
+state-of-the-art results in many medical-related applications among
+which classification, localization, detection, registration and
+segmentation \cite{Ker2017}. Even with a small number of
+training cases, those performances were realized thanks to architecture
+choice, data augmentation or transfer learning \cite{Zheng2018, Hu2018}.
+As exposed previously, the automatic segmentation of the tumors brings a
+volumetric information, that is more powerful than the diameter only,
+and that allows to compute the tumor burden, which has an importance
+when estimating the efficiency of a given treatment \cite{Gobbi2004, Bornemann2007, Heussel2007, Kuhnigk2006, Puesken2010, Bauknecht2010}.\\
+
+\subsection{Difference between HCR and DLR}\label{difference-between-hcr-and-dlr}
+
+Being a recent field, radiomics starts to mature when applied to several
 organs such as the lungs or the breast, but it still struggles when
 applied to the liver, especially because of the scarcity of available
 data and the complexity of its anatomy.
@@ -592,7 +600,7 @@ always rely on hand crafted features.
 The main limitation observed is the lack of reproducibility originating
 from engineered features, that sometimes result from complex processes
 which can be difficult to imitate, and often fail to work on different
-databases. HCR rely on manual or semi-automatic expert annotations, which
+databases. \ac{hcr} rely on manual or semi-automatic expert annotations, which
 often require a complex and time-consuming process, that also provide
 several constraints, such as the poor inter-expert reproducibility.
 The extracted features are not necessarily relevant to encode the
@@ -603,7 +611,7 @@ between features extraction, selection and the statistical analysis used
 to reach the wanted target.\\
 Those limitations, and the rise of new computational resources
 associated with the emergence of deep learning techniques allowed the
-development of a new branch in the radiomics field, called DLR
+development of a new branch in the radiomics field, called \ac{dlr}
 (Deep-Learning Radiomics) \cite{Afshar2018}.
 
 \subsection{DLR workflow}\label{dlr-workflow}
@@ -613,8 +621,8 @@ deep-learning process, avoiding a manual extraction.
 A neural network can be trained to generate the most relevant features.
 These features can either be kept in the network for the final
 pathological target prediction, or used as input in a different model
-(such as a SVM or a RF).
-Compared to the HCR, no prior knowledge is required, and the
+(such as a \ac{svm} or a RF).
+Compared to the \ac{hcr}, no prior knowledge is required, and the
 features can be extracted in an end-to-end manner, using only the raw
 images as input, and without necessarily providing any segmentation. It
 has also been demonstrated that performances of those networks increase
@@ -622,12 +630,12 @@ with the size of the training dataset \cite{Cheng2016}.
 Eliminating the segmentation phase when evaluating the diagnosis, allows
 to reduce the workload of experts, and provides a solution to the
 observer-dependency.
-When training DLR networks, the original image can be combined
+When training \ac{dlr} networks, the original image can be combined
 with the segmentation or any other pre-processed step result such as the
 gradient image for example \cite{Sun2017a} to improve
 the relevance of the extracted features.
 
-Generally, DLR studies can be classified depending on the type of
+Generally, \ac{dlr} studies can be classified depending on the type of
 input used, the training strategy or the type of architecture chosen to
 extract the features.\\
 As input, deep radiomics networks can consider 2D slices independently,
@@ -642,11 +650,12 @@ examination of the patient \cite{Shen2016}, but here
 again the question regarding the normalization of the input can be
 raised. \\
 Once the type of input is chosen, the studies differ depending on the
-training strategy. The networks can be trained \emph{from scratch} using
-only the available data or a pre-existing architecture can be utilized.
+type of network and the training strategy utilized. 
+The networks can be trained \emph{from scratch} using
+only the available data or a pre-trained architecture can be fine-tuned.
 In the first case, the obtained network will be specific to the wanted
 task, but this specialization can also lead to troubles such as
-overfitting or the sensitivity to imbalanced data.
+overfitting or the sensitivity to class imbalance.
 The impact of those problematics can be limited with the help of data
 augmentation (use of existing data to generate new artificial samples) \cite{Kumar2017}, multi-task training (where the
 number of parameters is limited by the training of several task using
@@ -654,8 +663,8 @@ the same network) or the
 incorporation of the proportion of each class present in the data when
 building the cost function \cite{Jamaludin2016}.
 The other strategy consists in using an architecture pre-trained most of
-the time on natural images, and then re-train only a specific part on
-the wanted task \cite{Echaniz2017,Huynh2016,Paul2016}. It
+the time on natural images, and then re-train only a specific part 
+using the desired dataset \cite{Echaniz2017,Huynh2016,Paul2016}. It
 is worth noting that this type of training constrains the pipeline to be
 slice-wise since existing architectures are often pre-trained on 2D
 images.\\
@@ -671,41 +680,43 @@ components can also be implemented (RNN: \emph{Recurrent Neural Networks}, LSTM:
 \emph{Capsule Net}). Their goal is to get rid of the limitations caused
 by the input format that need to be fixed, and by the difficulty to
 consider an entire 3D volume during the training \cite{Azizi2018}.
-In the unsupervised case, the objective is to let the extracted features
-be responsible for the data distribution, so that new cases can be
-created following this distribution. The most commonly used architecture
+In the unsupervised case, the objective is to learn the data distribution,
+so that new data from the same distribution can be generated. 
+The most commonly used architecture
 in this case is the \emph{auto-encoder}, made up with a part that
 contracts the information (encoder), in order that the most useful one
 is conserved to regenerate the original data (decoder). Auto-encoder can
 be built on top of convolutional layers \cite{Echaniz2017}, 
 or trained with the aim of being insensitive to the noise
-added to the input data \cite{Sun2017a,Kim2016}. Following the same principles which are to reconstruct the
+added to the input data (\emph{denoising auto-encoder})\cite{Sun2017a,Kim2016}. 
+Following the same principles which are to reconstruct the
 original input data using only the most relevant features, some studies
-implemented DBN (\emph{Deep Belief Networks}) \cite{Sun2017a} or Deep Boltzmann Machines \cite{Suk2014}.
+implemented other type of generative models such as the 
+DBN (\emph{Deep Belief Networks}) \cite{Sun2017a} or Deep Boltzmann Machines \cite{Suk2014}.
 
 Some studies are referred to as hybrid, when features are combined with
 other sources of data (combination of different modalities 
 \cite{Oikonomou2018} or association with clinical
-data such as genomic data \cite{Emaminejad2016}, or
+data such as genomic data \cite{Emaminejad2016}), or
 when only a part of the pipeline implements deep learning methods,
-either for the extraction of the features \cite{Paul2016} or when the decision is taken with a fusion between HCR
-and DLR features \cite{Huynh2016}.
+either for the extraction of the features \cite{Paul2016} or when the decision is taken with a fusion between \ac{hcr}
+and \ac{dlr} features \cite{Huynh2016}.
 
-\subsection{DLR applied to the liver}\label{dlr-applied-to-the-liver}
+\subsection{\ac{dlr} applied to the liver}\label{dlr-applied-to-the-liver}
 
 Even though the number of studies targeting the liver is increasing, the
-vast majority of them can be categorized as HCR, and only a few
+vast majority of them can be categorized as \ac{hcr}, and only a few
 are currently based on deep learning.
 The main reason behind that is the late emergence of deep learning and
 the recent outbreak of new architectures and concepts that are often
 first developed and evaluated in other fields than the medical imaging
 one (e.g. Residual Network, DenseNet, Capsule Net).\\
-However, we have decided to review the first DLR-liver related studies, in order to understand how DL architectures can successfully be incorporated in a radiomics pipeline. We describe the study endpoints, the data preprocessing, the implementation and training strategies, before analyzing their performances. A more detailed analysis of the reviewed studies is available in the following \href{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit#gid=0}{link} \footnote{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit\#gid=0}.
+However, we have decided to review the first \ac{dlr}-liver related studies, in order to understand how \ac{dl} architectures can successfully be incorporated in a radiomics pipeline. We describe the study endpoints, the data preprocessing, the implementation and training strategies, before analyzing their performances. A more detailed analysis of the reviewed studies is available in the following \href{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit#gid=0}{link} \footnote{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit\#gid=0}.
 
 \subsubsection{Study Endpoint}\label{study-endpoint}
 
-Within the reviewed DLR studies, the majority of them are
-targeting a diagnosis, either the classification of FLLs (\emph{Focal
+Within the reviewed \ac{dlr} studies, the majority of them are
+targeting a characterization of the tumor, either the classification of \ac{fll}s (\emph{Focal
 Liver Lesions}) \cite{Yamada2019,Wang2018,Yasaka2018,Liang2018} or the estimation of the fibrosis
 stage \cite{Yasaka2018a}, when two of them focused on the
 response to treatments, either for recurrence after resection \cite{WANG2019} or the response after TACE (\emph{TransArterial ChemoEmbolization})\cite{Peng2020}.\\
@@ -721,18 +732,18 @@ there is no consensus about the delay between the injection of the
 contrast agent and the acquisition of the different phases. They tend to
 prefer triphasic acquisition, with images acquired before the injection
 of contrast agent, at early arterial phase and a third phase, either
-portal venous \cite{WANG2019,Wang2018,Liang2018} or a delayed one \cite{Yamada2019, Yasaka2018}. Peng et al. decided to get rid of the NECT
+portal venous \cite{WANG2019,Wang2018,Liang2018} or a delayed one \cite{Yamada2019, Yasaka2018}. Peng et al. decided to get rid of the \ac{nect}
 (\emph{Non-Enhanced CT}) phase, but still chose a triphasic acquisition
-(AR, PV, DELAY).
+(\ac{ar}, \ac{pv}, DELAY).
 
 \subsubsection{Image processing pipeline}\label{image-processing-pipeline}
 
 Concerning the image processing pipeline, the data used to train the
 deep networks are most commonly selected via placement of a bounding box
 by the experts around the hepatic lesion, before a registration between
-the different phases in case of multiphasic acquisition to counter the
+the different phases in case of multiphasic acquisition to compensate the
 effects of body motion and/or breathing.\\
-The manual placement of the \emph{ROIs} is usually done by one or more
+The manual delineation of the \emph{\ac{roi}s} is usually done by one or more
 experts on the raw image \cite{Yamada2019,Wang2018,Yasaka2018a,Yasaka2018,WANG2019}, and only
 one study decided to perform an automatic segmentation of both the
 parenchyma and the lesion with the application of a random-walker
@@ -740,10 +751,10 @@ algorithm, before being checked by experts \cite{Liang2018}.
 When the method is based on a 2D approach, selected images are
 often those presenting the maximal cross-sectional proportion of the
 lesions, except one study targeting the estimation of the fibrosis
-stage, that centered the ROI so it displayed the ventral aspect
+stage, that centered the \ac{roi} so it displayed the ventral aspect
 of the liver \cite{Yasaka2018a}. Only one study
 incorporated 3D information in their pipeline, but they also started the
-placement of the VOI with the slice presenting the maximal
+placement of the \ac{voi} with the slice presenting the maximal
 proportion of tumor, and extended it to adjacent slices \cite{Yang2019}.\\
 After placing a bounding box, the images are registered either manually \cite{Yamada2019,WANG2019,Wang2018} or
 via the application of a non rigid registration with anatomical constraints \cite{Liang2018}. No real registration was mentioned for
@@ -767,25 +778,23 @@ those of the networks trained with misregistered data \cite{Yamada2019}.
 
 It is worth noting that some studies performed their analysis on cropped or
 resized JPEG images \cite{Yasaka2018,Yasaka2018a,WANG2019}. 
-This choice might cause loss of data, since JPEG images are encoded with 
-256 values in each one of the RGB channel whereas 
-the raw data is used elsewhere with the precise HU intensities.
-
-\subsubsection{Training strategies}\label{training-strategies}
-
+This choice might cause loss of data whereas the raw images are used elsewhere with the native HU intensities.\\
 Finally, in the reviewed studies, only two of them combined images with
 clinical data \cite{Yasaka2018a,WANG2019}, whereas the other only used image data, which is
-apprehensible because clinical data are often difficult to retrieve,
+comprehensible because clinical data are often difficult to retrieve,
 and can also be difficult to integrate in a deep network, as illustrated
 in the figure \ref{Wang2019_Fig2}.
-
-
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.7\linewidth]{images/image5}
 \caption{Illustration given by \textbf{©Wang et al.} of the different tested deep networks where raw images are combined with the clinical data \cite{WANG2019}}
 \label{Wang2019_Fig2}
 \end{figure}
+
+
+\subsubsection{Architecture choice}\label{architecure-choice}
+
+
 
 The reviewed studies differ mainly in the way they built their deep
 architecture.
@@ -848,14 +857,14 @@ the different studies need to resample their inputs to fulfill those
 requirements, which can sometimes affect the performances of the
 network, whereas custom architectures allow a usage of custom sizes 
 \cite{Liang2018,Yasaka2018,Yasaka2018a}. However, 
-the size of the lesions or other extracted ROI is often different 
+the size of the lesions or other extracted \ac{roi} is often different 
 from one patient to the other, therefore, this problem is still open.\\
 One way to render the deep networks robust to those changes is through
-data augmentation. Yasaka et al. for example trained the network
+multiscale training. Yasaka et al. for example trained the network
 with patches cropped at different resolutions from the initial lesion
-ROI after application of standard geometrical transformations
+\ac{roi} after application of standard geometrical transformations
 such as rotation or shift \cite{Yasaka2018}. The same
-process of extracting different patches from an initial ROI is performed
+process of extracting different patches from an initial \ac{roi} is performed
 by two other studies, where the goal is also to balance the different
 classes \cite{Yasaka2018a,Peng2020}.\\
 The networks are then usually trained in a cross validation fashion \cite{Yamada2019,Yasaka2018,Yasaka2018a,WANG2019}, or validated on external datasets \cite{Peng2020} to be less affected by the effect of randomness, and to
@@ -865,13 +874,13 @@ be less prone to overfitting.
 
 Regarding their performances on their testing sets, the different
 studies concluded first that fine tuning allows an improvement in the
-accuracy of the DLR network, when compared to training from
+accuracy of the \ac{dlr} network, when compared to training from
 scratch (e.g. Wang et al. reported an improvement from 83.7 to 91.2\%
-regarding the classification accuracy of their model when using a
+regarding the FLL type classification accuracy of their model when using a
 pre-trained network) \cite{Wang2018,Yamada2019}. Several studies also demonstrated that multiphase images
-increase the performances or the DLR networks, when compared to
+increase the performances or the \ac{dlr} networks, when compared to
 single phase input only \cite{Yasaka2018}. Instead of
-training the DLR networks only with images, it is possible to
+training the \ac{dlr} networks only with images, it is possible to
 combine them with clinical data which can be difficult to collect, and
 challenging to integrate in a deep architecture, but are proven to
 improve the accuracy of the networks in some cases \cite{WANG2019}.\\
@@ -908,8 +917,11 @@ encode the pathological features of the disease. For the rest of the
 pipeline, no real consensus exists but several strategies are
 implemented especially to compensate for the small size of the
 databases. Worth also noting that the reviewed studies correspond to the
-first DLR liver-related applications, therefore, they tend to tackle the
-less complex problems such as the FLLs classification. With future
-improvements regarding DL applied to the medical imaging field, and with
-more publicly available data, the next DLR liver-related studies will be
-ready to tackle more complex challenges.
+first \ac{dlr} liver-related applications, therefore, they tend to tackle the
+less complex problems such as the \ac{fll}s classification. With future
+improvements regarding \ac{dl} applied to the medical imaging field, and with
+more publicly available data, the next \ac{dlr} liver-related studies will be
+ready to tackle more complex challenges.\\
+In our research work, we conducted a study aiming for the histological grade prediction, 
+consequently, we designed a pipeline following the aforementioned conclusions. 
+The key element in our work was an automatic cascaded liver and tumor segmentation performed on registered dynamic CECT images.

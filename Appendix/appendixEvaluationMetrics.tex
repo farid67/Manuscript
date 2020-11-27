@@ -1,0 +1,26 @@
+\chapter{Evaluation metrics}\label{appendix---Evaluation Metrics}
+
+Here we detail the most commonly used evaluation metrics.
+
+\section{Overlap measures}
+
+Dice and Jaccard are defined as follow:\\
+\[Dice(A,B) = \frac{2\left| A \cap B \right|}{\left|A\right| + \left|B\right|},\qquad Jaccard(A,B) = \frac{ \left|A\right| \cap \left|B\right|}{ \left|A \cup B\right|}\]\\
+Volume overlap error (VOE) :\\
+\[VOE(A,B)= 1-\frac{\left|A \cap B\right|}{\left|A\cup B\right|}\] \\
+Relative volume difference (RVD), corresponding to an asymmetric measure and defined as follow: \\
+\[RVD(A,B)=\frac{\left|B\right|-\left|A\right|}{\left|A\right|}\] \\
+
+
+
+\section{Surface Distance Metrics}
+
+This type of metric evaluate the quality of the segmentation by measuring the distance between the surfaces of reference and the predicted areas.
+
+Let $ S(A) $ denote the set of surface voxels of $ A $, the shortest distance between an arbitrary voxel $ v $ and $ S(A) $ will be defined as :\\
+\[d(v, S(A)) = \min_{s_A \in S(A)} \left|\left| v - s_A \right|\right|, \text{where } \left|\left|.\right|\right| \text{corresponds to the Euclidean distance}.\] \\
+We can compute the following metrics :\\
+The Average Symmetric Surface Distance (ASD):\\
+\[\text{ASD} = \frac{1}{\left|S(A)\right| + \left|S(B)\right|} \left( \sum_{s_A \in S(A)} d(s_A, S(B)) + \sum_{s_B \in S(B)} d(s_B, S(A)) \right)\] \\
+The Maximum symmetric surface distance(MSD): \\
+\[MSD(A,B)=max{\left\{{max}_{s_A \in S(A)} d(s_A, S(B)), {max}_{s_B \in S(B)} d(s_B, S(A))\right\}}\]

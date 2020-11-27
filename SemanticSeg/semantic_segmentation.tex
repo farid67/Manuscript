@@ -4,6 +4,42 @@
 
 \section{Introduction}
 
+
+%{Medical value brought by liver tissue segmentation}
+The automatic segmentation of the tumors allows the computation 
+of the entire tumor volume, which corresponds to a better predictor when
+compared to the diameter only, according to the \emph{Response
+	Evaluation Criteria in Solid Tumor} (\ac{recist}) standard \cite{Eisenhauer2008, Ye2017}. A precise
+volumetric segmentation of both the liver and its tumors is a
+prerequisite in case of treatment planning, (\emph{TARE}, \emph{\ac{tace},
+	percutaneous thermal ablation, radiotherapy surgical resection,\ldots{}}) especially to adjust the treatment procedures to the volume of the lesions\cite{Al-Nahhas2014, Yamada1983, Albain2009, Rossi96}. Associating liver and tumors
+segmentation allows the computation of the \emph{tumor burden}\footnote{proportion of the liver affected by cancer}, which
+has an importance in case of surgical resection, or when estimating the
+efficiency of a given treatment \cite{Nordlinger1996, Jagannath1986, Gobbi2004, Bauknecht2010, Bornemann2007, Heussel2007, Kuhnigk2006, Puesken2010}.
+
+%{Problems related to the lack of data}
+Relying on human expert
+delineations currently corresponds to the most common way to assess
+segmentation methods \cite{Bilic2019}, although it does not correspond 
+to a true gold standard \cite{Heimann2009} and often requires several experts to segment the
+different structures for reducing the operator-dependent bias \cite{Echegaray2015, Moltz2009}.\\
+In order to compare digitally obtained segmentations with the expert
+outputs, different metrics have been implemented over time (see section \ref{appendix---Evaluation Metrics}). However, as
+explained above, manually segmenting the liver and its different
+structures is a tedious, time-consuming (up to 90 minutes per patient
+\cite{Gotra2017}) and operator-dependent task, as seen in the figure \ref{interobserver_var}.
+Furthermore, the constitution of an open database needs to respect
+several ethical aspects, and the patient data privacy. This is the main
+reason why only a small number of samples have been publicly released
+over time.
+
+\begin{figure}[!h]
+	\centering        
+	\includegraphics[width=0.7\linewidth]{./images/interObs1}
+	\caption{Interobserver variability: For each metastasis, the whole lesion volume and the largest axial cross-section were segmented by two readers. a Purple line (reader 1) versus yellow line (reader 2) contouring. The largest two-dimensional (2D) region of interest (\ac{roi}) of the main lesion was confronted with two circular \ac{roi}s, one inside the metastasis and one outside it. b Purple line (reader 1) 2D versus yellow line (smallest circular \ac{roi} inclusive of the whole lesion) versus azure line (largest circular \ac{roi} completely inside the lesion). \textbf{©Rizzetto et al. \cite{Rizzetto2020}}}
+	\label{interobserver_var}
+\end{figure} 
+
 As explained in the chapter \ref{liverCancer}, the liver is an
 organ with a key function in the human body. Being a soft organ, it
 presents a large variation in shape among the population (inter-patient
@@ -24,60 +60,19 @@ enhancement) and shapes (non-smooth margins, hypoattenuating halos,
 \ldots{}). All these reasons cause the automatic or semi-automatic
 segmentation of the liver and its structures to be challenging.
 
-%In this section, we will briefly present the medical value brought by an automatic segmentation of the liver and its internal structures, before raising the issue related to the scarcity of publicly available liver CT datasets with associated experts annotations. 
+%In this section, we will briefly present the medical value brought by an automatic segmentation of the liver and its internal structures, before raising the issue related to the scarcity of publicly available liver \ac{ct} datasets with associated experts annotations. 
 %We will then introduce the classical semantic segmentation techniques based mainly on traditional computer vision and machine
 %learning methods, before presenting the improvements brought by the deep learning which has the ability to extract relevant features in a data-driven manner.
 %Finally, we will expose our semantic segmentation experiments where the best performances were obtained by stacking several specialized networks with temporal images as input.
 
-In this section, we are first covering the different publicly available datasets as long
+
+
+In this chapter, we are first covering the different publicly available datasets as long
 as the different challenges launched to increase interest in liver
 semantic segmentation. We are then investigating the first methods
 developed to perform the semantic segmentation of the liver and/or liver
-tumors, before presenting most recent advances brought by deep learning (DL).
-The hand-crafted feature based methods were often guided by manual interactions,
-and commonly implemented engineered features whereas deep learning
-allowed relevant features to be learned directly from the input data.
-Finally, we  expose our semantic segmentation experiments where 
-the best performances were obtained by stacking several 
-specialized networks with dynamic contrast-enhanced images as input.
+tumors, before presenting most recent advances brought by deep learning (\ac{dl}).
 
-
-%{Medical value brought by liver tissue segmentation}
-The automatic segmentation of the tumors allows the computation 
-of the entire tumor volume, which corresponds to a better predictor when
-compared to the diameter only, according to the \emph{Response
-	Evaluation Criteria in Solid Tumor} (RECIST) standard \cite{Eisenhauer2008, Ye2017}. A precise
-volumetric segmentation of both the liver and its tumors is a
-prerequisite in case of treatment planning, (\emph{TARE}, \emph{TACE,
-	percutaneous thermal ablation, radiotherapy surgical resection,\ldots{}}) especially to adjust the treatment procedures to the volume of the lesions\cite{Al-Nahhas2014, Yamada1983, Albain2009, Rossi96}. Associating liver and tumors
-segmentation allows the computation of the \emph{tumor burden}\footnote{proportion of the liver affected by cancer}, which
-has an importance in case of surgical resection, or when estimating the
-efficiency of a given treatment \cite{Nordlinger1996, Jagannath1986, Gobbi2004, Bauknecht2010, Bornemann2007, Heussel2007, Kuhnigk2006, Puesken2010}.
-
-%{Problems related to the lack of data}
-
-Relying on human expert
-delineations currently corresponds to the most common way to assess
-segmentation methods \cite{Bilic2019}, although it does not correspond 
-to a true gold standard \cite{Heimann2009} and often requires several experts to segment the
-different structures for reducing the operator-dependent bias \cite{Echegaray2015, Moltz2009}.\\
-In order to compare digitally obtained segmentations with the expert
-outputs, different metrics have been implemented over time (see
-``\emph{Semantic Segmentation Metrics}'' in Appendix). However, as
-explained above, manually segmenting the liver and its different
-structures is a tedious, time-consuming (up to 90 minutes per patient
-\cite{Gotra2017}) and operator-dependent task, as seen in the figure \ref{interobserver_var}.
-Furthermore, the constitution of an open database needs to respect
-several ethical aspects, and the patient data privacy. This is the main
-reason why only a small number of samples have been publicly released
-over time.
-
-\begin{figure}[!h]
-	\centering        
-	\includegraphics[width=0.7\linewidth]{./images/interObs1}
-	\caption{Interobserver variability: For each metastasis, the whole lesion volume and the largest axial cross-section were segmented by two readers. a Purple line (reader 1) versus yellow line (reader 2) contouring. The largest two-dimensional (2D) region of interest (ROI) of the main lesion was confronted with two circular ROIs, one inside the metastasis and one outside it. b Purple line (reader 1) 2D versus yellow line (smallest circular ROI inclusive of the whole lesion) versus azure line (largest circular ROI completely inside the lesion). \textbf{©Rizzetto et al. \cite{Rizzetto2020}}}
-	\label{interobserver_var}
-\end{figure} 
 
 \section{Publicly available datasets \& open challenges}
 
@@ -86,24 +81,24 @@ a small number of computed tomography images datasets have been publicly
 available for liver tissue segmentation purposes. A table presenting
 details of the publicly available datasets can be found in the table \ref{publicly_available_datasets}.
 
-\include{publicDatabase}
+\input{publicDatabase}
 
 Some of the available datasets have been launched by medical-related
-institutions. IRCAD (\emph{Research Institute Against Digestive Cancer})for example, provided both 3DIrcadb sets \cite{3DIrcadB}, with the first containing 20 abdominal CT
+institutions. IRCAD (\emph{Research Institute Against Digestive Cancer})for example, provided both 3DIrcadb sets \cite{3DIrcadB}, with the first containing 20 abdominal \ac{ct}
 scans, where 15 of the patients suffered from liver tumor, and the
-second containing only 2 CT scans with patients suffering from FNH
+second containing only 2 \ac{ct} scans with patients suffering from FNH
 (\emph{Focal Nodular Hyperplasia}).
 The \emph{National library of Medicine} (NLM) offered the MIDAS dataset
-containing annotated pathological CT scans from 4 patients \cite{MIDAS} whereas the cancer imaging archive (TCIA)
+containing annotated pathological \ac{ct} scans from 4 patients \cite{MIDAS} whereas the cancer imaging archive (TCIA)
 proposed a set of 97 unlabeled volumes from patients suffering from
-hepatocellular carcinoma (HCC) \cite{Clark2013}. \\
+hepatocellular carcinoma (\ac{hcc}) \cite{Clark2013}. \\
 Thanks to the different segmentation challenges launched throughout the
 time, some other sets have been provided and offered real benchmarks.
 The \emph{Segmentation of the Liver} (Sliver'07) was organized in
-conjunction with MICCAI 2007 and offered 40 CT volumes \cite{VanGinneken2007}, where 30
+conjunction with MICCAI 2007 and offered 40 \ac{ct} volumes \cite{VanGinneken2007}, where 30
 volumes were available during the challenge, and 10 hidden cases were
 used to evaluate the proposed methods. In 2015 the Image Clef challenge
-offered 50 CT scans with expert annotations \cite{ImageClef}, whereas 201 volumes have been provided by the organizers
+offered 50 \ac{ct} scans with expert annotations \cite{ImageClef}, whereas 201 volumes have been provided by the organizers
 of both ISBI and MICCAI in 2017 for the \emph{Liver Tumor Segmentation}
 (LITS) benchmark \cite{Bilic2019}. In 2019 the organizer of ISBI
 further granted access to 40 cases for the \emph{Combined (CT-MR)
@@ -159,7 +154,7 @@ interactions such as region growing or graph-theory based methods. We will
 then introduce the geometric deformable models that can be exploited to add 
 local constraints, before introducing methods 
 requiring prior shape knowledge such as
-probabilistic atlases (PA) or statistical shape models (SSM).
+probabilistic atlases (\ac{pa}) or statistical shape models (\ac{ssm}).
 Finally, we will mention the different studies that combined the
 aforementioned methods with the addition of machine learning based steps.
 %The studies included in this section were applied on the segmentation of either the liver alone, its potential tumors, or both, however we decided to separate them based on the used methods instead of focusing on the segmentation task, since the majority of the mentioned methods can fit both the tasks, but they were initially dedicated to the segmentation of the liver 
@@ -194,7 +189,7 @@ on prior knowledge such as location or textural properties.
 Liu et al. \cite{Liu2005}, developed a method to segment the liver by first detecting the potential
 contour implementing a Canny Edge detector algorithm, modified by the
 template liver position obtained via thresholding. A Gradient Vector
-Flow (GVF) field computation is used by the snake algorithm to obtain an
+Flow (\ac{gvf}) field computation is used by the snake algorithm to obtain an
 accurate liver boundary detection. The final segmentation is obtained
 semi-automatically by asking the user to select the slices where the
 segmentation gave accurate results, and propagate this segmentation
@@ -215,10 +210,10 @@ distribution and reduce the noise. Adaptive multi-modal threshold is
 then applied to find the intensity range of the contrast enhanced liver.
 The left partial histogram threshold (LPTH) algorithm is then
 implemented to detect the liver and remove neighboring organs, before
-morphological operations are performed to refine the candidate ROI.
+morphological operations are performed to refine the candidate \ac{roi}.
 Kim et al. \cite{Kim2007}, obtained a rough segmentation of the liver by comparing the gray
 level dynamic of the test patient with gray-level distributions obtained
-from liver ROIs in the training dataset. The ROI is refined using
+from liver \ac{roi}s in the training dataset. The \ac{roi} is refined using
 watershed transform followed by anatomical constraints such as the
 presence of smooth boundaries.
 Campadelli et al. \cite{Campadelli2009}, proposed a new fully automatic liver segmentation
@@ -228,7 +223,7 @@ particular the liver which corresponds to the biggest connected
 component found between the different organs. The liver region is
 further refined using a region growing method to ensure 3D consistency.
 Foruzan et al. \cite{Foruzan2009}, computed the liver intensity range using
-expected-maximisation (EM) algorithm, and applied thresholding operation
+expected-maximisation (\ac{em}) algorithm, and applied thresholding operation
 in a bounding box constrained by the position of the ribs and the heart
 as illustrated in figure \ref{ForuzanFig3}. The final candidate region of interest is then
 refined by anatomical constraints such as liver anatomy and assumed
@@ -237,7 +232,7 @@ intensity range.
 \begin{figure} [ht!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/Foruzan2009_Fig3}
-	\caption{Estimation of the liver ROI based on the anatomical rib position as described by \textbf{©Foruzan et al. \cite{Foruzan2009}}}
+	\caption{Estimation of the liver \ac{roi} based on the anatomical rib position as described by \textbf{©Foruzan et al. \cite{Foruzan2009}}}
 	\label{ForuzanFig3}
 \end{figure}
 
@@ -262,7 +257,7 @@ proposed to define the original seed region by considering a set of rules
 such as the intensity range of the liver or its
 anatomical position relative to the heart.
 Susomboon et al. \cite{Susomboon2007} decided to partition the abdominal region via intensity-based
-EM algorithm to find the distribution of soft tissues in the whole
+\ac{em} algorithm to find the distribution of soft tissues in the whole
 volume. The liver region used as seed was further isolated using
 quad-tree decomposition and textural features.
 Kumar et al. \cite{Kumar2013}, proposed a region growing method to segment the liver where the
@@ -324,11 +319,11 @@ normal direction. The negative values correspond to voxels belonging to
 the liver regions, and positive values to the outside. This paradigm was
 first implemented by
 Pan and Dawant \cite{Pan2001}, who used the level set technique for the automatic segmentation of liver
-in CT scans. They realized that the classical formulation can not
+in \ac{ct} scans. They realized that the classical formulation can not
 accurately handle cases where weak boundaries are present in noisy or
 non-uniform images. Therefore, they decided to use an accumulative
 curvature-dependent speed function that would depend on the front past
-history. In order to be compliant with abdominal CT scans segmentation,
+history. In order to be compliant with abdominal \ac{ct} scans segmentation,
 a priori anatomical knowledge was added to the process by considering
 the distance from the liver to the skin and the ribs. Initial detection
 of the skin and the ribs is illustrated in the figure \ref{Pan2001_Fig5}.
@@ -341,17 +336,17 @@ of the skin and the ribs is illustrated in the figure \ref{Pan2001_Fig5}.
 \end{figure}
 
 
-Wang et al. \cite{Wang2016} combined probabilistic atlas (PA) and level set to perform the segmentation of the liver. Training volumes were pre-processed before the liver region was
-segmented, and stored with the denoised CT volumes. During the inference
-phase, the different training denoised CT volumes are used to compute
-the weighted PA for the current test patient. The liver ROI is then
-extracted using the weighted PA, and improved by estimating 5 different
+Wang et al. \cite{Wang2016} combined probabilistic atlas (\ac{pa}) and level set to perform the segmentation of the liver. Training volumes were pre-processed before the liver region was
+segmented, and stored with the denoised \ac{ct} volumes. During the inference
+phase, the different training denoised \ac{ct} volumes are used to compute
+the weighted \ac{pa} for the current test patient. The liver \ac{roi} is then
+extracted using the weighted \ac{pa}, and improved by estimating 5 different
 regions (heart, liver, right kidney, spleen and bone). Finally, a
 combined shape-intensity model is generated from the training samples,
 and used to refine the mask by level-set based segmentation.\\
 Garamendi et al \cite{Garamendi2007}, proposed to segment the liver using a
 geometric level set method. After manually placing a circle in the liver
-region to segment, different candidates ROI were iteratively obtained by
+region to segment, different candidates \ac{roi} were iteratively obtained by
 computed gray-level properties inside and outside the given region, and
 shifting the boundary by looking at local information around the border
 pixels. This procedure is repeated until the border stabilizes.
@@ -361,15 +356,15 @@ properties of the patient such as the position of the rib cage, the
 heart and the lungs. K-means clustering is added to reduce the variation
 present in the candidate surface by detecting blood vessels, remaining
 heart tissues, the liver, the kidney and the tumors. Finally, active
-contour is used based on GVF (\emph{gradient vector flow}) combined with
+contour is used based on \ac{gvf} (\emph{gradient vector flow}) combined with
 a distance transform formulation which detects the liver boundary based on
 the mask obtained for the previous slice .
-Furukawa et al. \cite{Furukawa2007} combined rough segmentation based on MAP estimation and
+Furukawa et al. \cite{Furukawa2007} combined rough segmentation based on \ac{map} estimation and
 level set method to achieve liver segmentation. To perform the rough
 segmentation, the lungs are initially segmented and used to normalize
 the different images. The liver as long as 3 other components
 (right-kidney, heart and other tissues/organs or muscles) are segmented
-using MAP with a PA as reference. Active contours are used to refine the
+using \ac{map} with a \ac{pa} as reference. Active contours are used to refine the
 segmentation by re-using the definition provided by Catelles et al. and
 adding a term based on the distance to the human body contours.\\ 
 Lee et al. \cite{Lee2007} computed a speed image through a fast marching algorithm, by
@@ -381,10 +376,10 @@ level-set based contour is controlled by the initial speed image values
 and by the curvature. Vessels near the liver boundary can be added to
 the final map using a rolling ball algorithm.
 Wimmer et al. \cite{Wimmer2007} semi-automatically segmented the liver by extending 2D
-cross-sectional annotations, in 3D using RBF and applied a level set
+cross-sectional annotations, in 3D using \ac{rbf} and applied a level set
 technique to refine the obtained volume. The initial area is obtained by
 manually performing 2 cross-sectional segmentations per axis, and
-extending them in 3D via RBF after sampling some points along the given
+extending them in 3D via \ac{rbf} after sampling some points along the given
 contours, as depicted in the figure \ref{Wimmer2007_Fig2}.
 The level set reconstruction surface was then used to refine the
 obtained shape. The function used takes into account the points
@@ -416,15 +411,15 @@ and their boundary profile is computed. A probability is assigned to
 each point by considering the learned appearance model. Candidates
 points are projected back to the zero level set, and the points with the
 highest probability are kept. The obtained probability map is used in
-GVF (\emph{Gradient Vector Flow}) to get the best contour.\\
+\ac{gvf} (\emph{Gradient Vector Flow}) to get the best contour.\\
 Massoptier and Casciaro used a patch-based intensity approach to distinguish
 hepatic tissues from other abdominal organs, and refine the obtained
-boundary by implementing active contour with GVF. The liver segmentation
+boundary by implementing active contour with \ac{gvf}. The liver segmentation
 was followed by a liver lesions segmentation via k-means clustering \cite{Massoptier2008}. Wimmer et al. \cite{Wimmer2009} built later a shape model based on nonparametric density
 estimates. The appearance model is obtained by computing profiles for
 points in a narrow band along the zero-level set boundary. To evaluate
 the boundary probability for the points present in the narrow-band, they
-used a kNN classifier. A region model built upon a cascade of
+used a \ac{knn} classifier. A region model built upon a cascade of
 classifiers is implemented to complete the boundary model, and prevent
 it to stop at local extremum. Finally, a shape model based on Parzen
 density estimation constrains the level set evolution. Song et al. \cite{Song2009} pre-segmented the liver using an edge detector, and
@@ -436,7 +431,7 @@ graph-based optimal surface fitting scheme to remove possible false
 positives and the remaining part is used as initialization for the level
 set evolution.\\
 Suzuki et al. \cite{Suzuki2010} preprocessed the image via anisotropic diffusion
-filtering to reduce the noise on the CT images, and combined it with a
+filtering to reduce the noise on the \ac{ct} images, and combined it with a
 scale-specific gradient magnitude filter to enhance the liver
 boundaries. The obtained image is handled by experts to put seed points
 for the fast marching level-set algorithm. Next to the boundary
@@ -449,7 +444,7 @@ The different steps of their method is depicted in the figure \ref{Suzuki2010_Fi
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/Suzuki2010_Fig3}
-	\caption{The different steps of the segmentation process developed by \textbf{©Suzuki et al. \cite{Suzuki2010}}: (a) Original CT image. (b) Anisotropic diffusion noise reduction. (c) Scale-specific gradient magnitude calculation. (d) Nonlinear grayscale conversion. (e) Geodesic active contour segmentation.}
+	\caption{The different steps of the segmentation process developed by \textbf{©Suzuki et al. \cite{Suzuki2010}}: (a) Original \ac{ct} image. (b) Anisotropic diffusion noise reduction. (c) Scale-specific gradient magnitude calculation. (d) Nonlinear grayscale conversion. (e) Geodesic active contour segmentation.}
 	\label{Suzuki2010_Fig3}
 \end{figure}
 
@@ -475,7 +470,7 @@ segmentation was introduced by Boykov et al. to propose an alternative to bounda
 
 \subsection{Graph-theory based methods}
 
-The random walker algorithm, which was introduced by Grady et al. \cite{Grady2006} and the Graph Cut (GC) method correspond to
+The random walker algorithm, which was introduced by Grady et al. \cite{Grady2006} and the Graph Cut (\ac{gc}) method correspond to
 semi-automatic\footnote{can be fully automatic in some cases} methods where the user provides seeds for both the
 background and the region to segment. They both interpret pixels of the
 image as nodes on a graph where edges represent adjacency between
@@ -483,14 +478,14 @@ pixels. The weights on the edges correspond to the similarity between
 adjacent pixels \footnote{The random walker will compute, 
 for each unlabeled pixel, the highest probability 
 that a random walker reaches the first labeled pixel 
-whereas the GC will try to find the optimal cut for the entire image 
+whereas the \ac{gc} will try to find the optimal cut for the entire image 
 considering all the labeled seed, thus being more likely 
 to fail in case of weak boundaries \cite{Grady2006}}.
 
-The GC will then try to find the minimum cost function between all
+The \ac{gc} will then try to find the minimum cost function between all
 possible cuts on the graph to separate the object from its background.
 
-GC often suffers from the ``small cut'' problem where only the seeds are
+\ac{gc} often suffers from the ``small cut'' problem where only the seeds are
 separated from the rest of the image, whereas the random walker method
 does not suffer from this problem since it is not aiming for the
 smallest boundary, as represented in the figure \ref{Grady2006_Fig5}.
@@ -542,7 +537,7 @@ Dong et al. \cite{Dong2016} proposed a random walker implementation where adjace
 considered as prior knowledge when segmenting the liver and the spleen in the current slice. Two
 slices are chosen so that they present the largest cross sectional area
 of both the liver and the spleen. Seeds are manually placed on these
-slices and updated on adjacent slices via GMM (\emph{Gaussian Mixture
+slices and updated on adjacent slices via \ac{gc} (\emph{Gaussian Mixture
 	Model}) and intensity constraints through \emph{Narrow Band
 	Thresholding} (NBT), before the modified random walker segment the organs in a
 slice-wise fashion. Details of the execution can be found in the figure
@@ -551,7 +546,7 @@ slice-wise fashion. Details of the execution can be found in the figure
 \begin{figure}[th!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/Dong2016_Fig3_v2}
-	\caption{Segmentation Pipeline detailed by \textbf{©Dong et al. \cite{Dong2016}}: (a) The segmented liver (red) and spleen (green) of the previous slice; (b) The current slice; (c) Candidate pixel by applying a threshold to the GMM; (d) The rough objects (red and green) and background (blue) seed points; (e) The fine seed points using the NBT method; (f) The segmentation results}
+	\caption{Segmentation Pipeline detailed by \textbf{©Dong et al. \cite{Dong2016}}: (a) The segmented liver (red) and spleen (green) of the previous slice; (b) The current slice; (c) Candidate pixel by applying a threshold to the \ac{gc}; (d) The rough objects (red and green) and background (blue) seed points; (e) The fine seed points using the NBT method; (f) The segmentation results}
 	\label{Dong2016_Fig3}
 \end{figure}
 
@@ -563,7 +558,7 @@ properties into account. The region term evaluates the gray-level
 similarity in the neighborhood of a given point and compares it to the
 intensity of the seed points. The boundary term is computed from the
 local gradient information.
-Massoptier and Casciaro \cite{Massoptier2007}, introduced a GC method initialized by an adaptive
+Massoptier and Casciaro \cite{Massoptier2007}, introduced a \ac{gc} method initialized by an adaptive
 threshold to perform the liver segmentation. The thresholding was implemented by detecting the most likely
 liver intensity based on patch partition of the abdominal slices. The
 energy function took both a region and a boundary-based term into
@@ -574,7 +569,7 @@ function including a local term, a boundary term and a shape-based term
 computed from the gradient of the initial region.\\
 The key part of graph cut methods is to define a relevant energy
 function, which can sometimes be difficult.\\
-Probabilistic atlases (PA) and Statistical Shape Models (SSM) both
+Probabilistic atlases (\ac{pa}) and Statistical Shape Models (\ac{ssm}) both
 utilize prior information on the liver. The main goal of those
 techniques is to improve the segmentation by not relying only on the
 gray-level distribution since it was proven not to be sufficient,
@@ -622,7 +617,7 @@ depicted in the figure \ref{Zhou2006_Fig4}.
 \begin{figure}[th!]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/Zhou2006_Fig4}
-	\caption{Example of liver segmentation with the different slices results as described by \textbf{Zhou et al. \cite{Zhou2006}}: (a) original CT image (1 coronal slice), (b) liver atlas, (c) P(B) : liver probability on spatial location, (d) P(C|B) : liver probability on density, (e) P(A) : liver probability, (f) liver segmentation result (1 coronal slice), (g) ground truth of liver (3-D view), (h) liver segmentation result (3-D view)}
+	\caption{Example of liver segmentation with the different slices results as described by \textbf{Zhou et al. \cite{Zhou2006}}: (a) original \ac{ct} image (1 coronal slice), (b) liver atlas, (c) P(B) : liver probability on spatial location, (d) P(C|B) : liver probability on density, (e) P(A) : liver probability, (f) liver segmentation result (1 coronal slice), (g) ground truth of liver (3-D view), (h) liver segmentation result (3-D view)}
 	\label{Zhou2006_Fig4}
 \end{figure}
 
@@ -635,7 +630,7 @@ deformed using its corresponding mean deformation field. And finally the
 obtained images are averaged on their intensities to obtain the atlas.
 Van Rikxoort et al. \cite{Rikxoort2007} decided to first find the vertical range that most likely
 contains the liver by looking at HU values covering the lungs and
-extract slices above them. They trained a kNN classifier with both gray
+extract slices above them. They trained a \ac{knn} classifier with both gray
 level features (obtained from both the gradient computation and the
 Gaussian derivatives at various scales), positional features through the
 coordinates in the liver space, and an additional feature obtained by
@@ -654,12 +649,12 @@ patient as reference.
 
 In those different studies, the segmentation method applied is often
 related to the way the atlas is created. Therefore Park et al. decided to complete the segmentation step by incorporating the
-atlas information in a bayesian framework which combines MAP and EM,
+atlas information in a bayesian framework which combines \ac{map} and \ac{em},
 with gray level distribution as basis \cite{Park2003}. The segmentation is then refined
 using a MRF (\emph{Markov Random Field}) regularization step. In the
 other studies, non-rigid or elastic registration is performed from the
 atlas to the target case \cite{Slagmolen2007, Linguraru2009, Li2010}, after constraining the input, using either manually defined
-ROI around the liver \cite{Slagmolen2007}, or analyzing the gaussian intensity distribution to
+\ac{roi} around the liver \cite{Slagmolen2007}, or analyzing the gaussian intensity distribution to
 remove irrelevant parts \cite{Li2010}.
 
 \subsection{Statistical Shape Models}
@@ -668,20 +663,20 @@ Statistical shape models on the other hand try to extract features of
 the model instead of building an average map.
 
 They were first described by Cootes et al. \cite{Cootes1995}, 
-who introduced the concept of Active Shape Models (ASM) which
+who introduced the concept of Active Shape Models (\ac{asm}) which
 are built from a set of segmented training images and consist of two
 parts, a geometrical model, and a local appearance model. The
-geometrical model describes the shape and is represented by a PDM
+geometrical model describes the shape and is represented by a \ac{pdm}
 (\emph{Point Distribution Model}), a dense collection of landmark points
 on the surface of the object. Given the location of the landmarks for
 each training case, a principal component model can be built in order to
 approximate all valid shapes. The local appearance model describing the
 boundary, is used as an additional one to detect the modeled shape in
 the new image. It is based on the local gray value appearance around the
-boundary. A PCA or a kNN model can be used to determine the possible
+boundary. A \ac{pca} or a \ac{knn} model can be used to determine the possible
 profiles at each landmark. The model is then guided by internal
 forces that should keep the shape of the deformable model similar to the
-one of the underlying SSM, and external forces that drive the deformable
+one of the underlying \ac{ssm}, and external forces that drive the deformable
 surface towards the best fit to the data.
 
 To perform the segmentation of the liver, Montagnat and Delingette \cite{Montagnat1997} followed 
@@ -698,14 +693,14 @@ search. The evolution of the boundary search for one example can be seen in the 
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.6\linewidth]{images/Lamecker2004_Fig9}
-	\caption{Evolution of boundary search in one example as described in \textbf{©Lamecker et al. \cite{Lamecker2004}}: At each of the six steps the model at its current position and shape is shown as a 3D surface. Below each surface one axial slice with the intersection line of the surface is displayed. Step 1: initial positioning of the mean model in the CT data such that the upper borders of the bounding boxes match. Step 2: result of the initial optimization of the position parameters. Step 3-5: results of the combined position and shape optimization with increasing number of shape modes (3, 9, 21). Step 6: final result (42 shape modes)}
+	\caption{Evolution of boundary search in one example as described in \textbf{©Lamecker et al. \cite{Lamecker2004}}: At each of the six steps the model at its current position and shape is shown as a 3D surface. Below each surface one axial slice with the intersection line of the surface is displayed. Step 1: initial positioning of the mean model in the \ac{ct} data such that the upper borders of the bounding boxes match. Step 2: result of the initial optimization of the position parameters. Step 3-5: results of the combined position and shape optimization with increasing number of shape modes (3, 9, 21). Step 6: final result (42 shape modes)}
 	\label{Lamecker2004_Fig9}
 \end{figure}
 
 
 Heimann et al. \cite{Heimann2007} used an evolutionary algorithm to create a population of
 possible liver shape configurations and evaluated all the population members
-using a local appearance model based on a kNN-classifier utilizing the
+using a local appearance model based on a \ac{knn}-classifier utilizing the
 profiles.  Saddi et al. \cite{Saddi2007} constrained the boundary of the liver to fit the
 global-shape learned from the training samples, and refined it locally
 using a template-matching algorithm. For both problems, they used the
@@ -762,36 +757,36 @@ segmentation results are depicted in the figure \ref{Erdt2010_Fig3}.
 \end{figure}
 
 
-A common drawback of SSMs is their lack of flexibility. To combat this
-limitation, some studies combined the SSM with a free form deformation
-step to achieve better performances. For example, Kainmüller et al. \cite{Kainmueller2007} built a SSM based on a PCA analysis of the given shapes
+A common drawback of \ac{ssm}s is their lack of flexibility. To combat this
+limitation, some studies combined the \ac{ssm} with a free form deformation
+step to achieve better performances. For example, Kainmüller et al. \cite{Kainmueller2007} built a \ac{ssm} based on a \ac{pca} analysis of the given shapes
 present in the training dataset, and to add flexibility to the model, a
 free-form deformation step based on the computation of 3-vector fields
 was conducted. During the deformation, they considered the general
 intensity distribution of the liver, the local displacements and they
 also tried to preserve the shape features of the initial model.\\
-Okada et al. \cite{Okada2008} combined both PA and SSM in their study to segment the liver. The PA was
+Okada et al. \cite{Okada2008} combined both \ac{pa} and \ac{ssm} in their study to segment the liver. The \ac{pa} was
 constructed from the different training cases by first registering the
 volumes to a standardized patient space using non-rigid registration of
 the abdominal cavity. The registration target was defined by experts
 describing the standard position and shape of the liver. The atlas was
 then computed by averaging the binary registered liver masks. The
-multilevel shape model (ML-SSM) is obtained by dividing the liver shape
-recursively into patches, and performing a PCA for each one of them. An
-example of construction of ML-SSM can be seen in the figure \ref{Okada2008_Fig1}.
+multilevel shape model (ML-\ac{ssm}) is obtained by dividing the liver shape
+recursively into patches, and performing a \ac{pca} for each one of them. An
+example of construction of ML-\ac{ssm} can be seen in the figure \ref{Okada2008_Fig1}.
 For each test case, the atlas was combined with the gray-level
 distribution of the patient to obtain an initial liver region. A shape
-model was then built from this area and the ML-SSM is employed to
+model was then built from this area and the ML-\ac{ssm} is employed to
 segment the different patches, by adding an adhesive constraint to
 eliminate inconsistencies between adjacent patches. They later improved
-the efficiency of their method by constructing the PA hierarchically,
+the efficiency of their method by constructing the \ac{pa} hierarchically,
 where the different structures are constrained by the shape of the organ
 in the next highest hierarchy level. Three levels were handled, the
 abdominal cavity, the liver, and finally both the vena cava \& the
-gallbladder. They extended the ML-SSM to an organ-based relationship and
-defined the MO-SSM (Multi-Organ SSM) \cite{Okada2008}. The MO-SSM is constructed by combining ML-SSM for the
+gallbladder. They extended the ML-\ac{ssm} to an organ-based relationship and
+defined the MO-\ac{ssm} (Multi-Organ \ac{ssm}) \cite{Okada2008}. The MO-\ac{ssm} is constructed by combining ML-\ac{ssm} for the
 different organs of interest. As a result they improved the accuracy in
-the regions concerned by the MO-SSM.
+the regions concerned by the MO-\ac{ssm}.
 
 \begin{figure}[th!]
 	\centering
@@ -801,7 +796,7 @@ the regions concerned by the MO-SSM.
 \end{figure}
 
 
-Apart from the lack of flexibility, SSMs suffer from a low number of
+Apart from the lack of flexibility, \ac{ssm}s suffer from a low number of
 training samples, and also hardly deal with low contrast between the
 liver and its surrounding or within the liver directly \cite{Saddi2007, Lamecker2004}. Examples of those limitations are depicted in the figure \ref{Saddi2007_Fig}.
 
@@ -815,7 +810,7 @@ liver and its surrounding or within the liver directly \cite{Saddi2007, Lamecker
 \subsection{Methods integrating machine learning based steps}
 
 Some studies decided to combine the aforementioned techniques with the introduction of
-machine learning methods such as shallow neural networks or SVM
+machine learning methods such as shallow neural networks or \ac{svm}
 (\emph{Support Vector Machine}) to segment the liver and potentially its tumor.\\
 Tsai and Tanashi \cite{Tsai1994} used a neural network based on regional histogram to get
 a rough liver segmentation. Several post-processing steps were added,
@@ -835,14 +830,14 @@ Freiman et al. \cite{Freiman2008} applied a multi-resolution, multi-class smooth
 classification followed by morphological adjustments and an active
 contour refinement for the segmentation of the liver. The classification
 was performed by iteratively looking at liver and potential tumor
-gray-level distributions. MAP rule is applied for the two classes. The
+gray-level distributions. \ac{map} rule is applied for the two classes. The
 liver region is adjusted using morphological operations, before an
 active contour refinement step based on gray-level intensity gives the
 final segmentation.
 Freiman et al. \cite{Freiman2011} further proposed a method for the semi-automatic segmentation of
-liver tumors, where a SVM classification is employed to separate healthy
+liver tumors, where a \ac{svm} classification is employed to separate healthy
 and tumorous tissues. A 3D energy function is then applied using
-affinity constraints to get the final VOI.
+affinity constraints to get the final \ac{voi}.
 Florin et al. \cite{Florin2007} proposed a shape model to segment the liver, that will describe the shape
 variations only using a small number of key slices. This model, called Sparse Information Model, consists of key slices that are selected to be
 sufficient so when combined with an interpolation function, the 3D
@@ -900,7 +895,7 @@ the liver shape using a region-specific deformable framework \cite{Shi2016}. The
 blood-vessel shape allows the algorithm to get a more accurate
 initialization based on the patient specificities. Al-Shaikhli et al. \cite{Al-Shaikhli2015} proposed a level set formulation guided by a combined region-based and
 voxel-wise cost function. For the global image term, textural features
-(GLCM) as long as intensity-based and volume properties were computed.
+(\ac{glcm}) as long as intensity-based and volume properties were computed.
 Initialization is performed based on prior knowledge about liver
 geometry and intensity distribution. The local information is
 represented by the shape prior obtained from a hierarchical patch-based
@@ -909,23 +904,23 @@ then iteratively calculated to get the liver boundary.
 Xu et al. \cite{Xu2015} performed a multi-organ segmentation via context learning
 followed by SIMPLE atlas selection (\emph{Selective and Iterative Method
 	for Performance Level Estimation}). Context-Learning was done via
-intensity distribution analysis with a GMM. The different organs were modelised by several atlases using
+intensity distribution analysis with a \ac{gc}. The different organs were modelised by several atlases using
 the SIMPLE method. During inference the different organs segmentations
 were fused using joint level fusion before a final abdominal
 segmentation can be obtained.
 
 Wang et al. \cite{Wang2015b} learned the liver shape model from a set of training
-samples, by implementing a Sparse Shape Composition (SSC). When
+samples, by implementing a Sparse Shape Composition (\ac{ssc}). When
 segmenting a new case, they first initialized the liver boundary that is
 then used to construct a rough polygonal mesh representation of the
 liver. The mesh is finally refined via homotopy-based optimization using
-the SSC as reference.
+the \ac{ssc} as reference.
 Huang et al. \cite{Huang2014} first localized the liver using a trained AdaBoost
 classifier where image features (intensity based and contextual
 information) were treated as input. The liver was then registered using
-the SSM incorporating all training shapes in combination with a kNN
+the \ac{ssm} incorporating all training shapes in combination with a \ac{knn}
 classification. A Free-form deformation is finally applied to refine the
-segmentation using the SSM to compute forces applied to the mesh. The
+segmentation using the \ac{ssm} to compute forces applied to the mesh. The
 entire pipeline is depicted in the figure \ref{Huang2014_Fig1}.
 
 
@@ -941,13 +936,13 @@ Anter et al. \cite{Anter2014} first detected the liver boundary using fuzzy c-me
 clustering based on the gray level local distribution, then refined the
 liver segmentation map via connected component analysis. Conze et al. \cite{Conze2017} semi-interactively performed 
 the segmentation of the parenchyma, and the separation between 
-the active and the necrotic part of the lesions on multiphase CT images.
-Images were registered between the different phases using PV phase images as reference, and
+the active and the necrotic part of the lesions on multiphase \ac{ct} images.
+Images were registered between the different phases using \ac{pv} phase images as reference, and
 supervoxels\footnote{group of voxels sharing the same textural properties}
 were computed at different scales using a SLIC (simple linear iterative clustering ) 
-algorithm on PV phase images. A random forest was trained 
+algorithm on \ac{pv} phase images. A random forest was trained 
 on a set of retained supervoxels, and used to get a label prediction. 
-They proved the value of using dynamic CECT and implementing 
+They proved the value of using dynamic \ac{cect} and implementing 
 hierarchical multi-scale supervoxels to better segment the liver tissues.\\
 It has been proven that methods relying only on intensity are not robust
 enough to produce acceptable results especially when dealing with some
@@ -964,7 +959,8 @@ pathological livers, often presenting irregular shape or intensity
 patterns.
 Recently, deep learning has changed the way of comprehending different
 computer vision related problems, especially in the medical imaging
-field, where state-of-the-art methods rely now on these techniques.
+field, where ,for example, state-of-the-art semantic segmentation 
+methods rely now on these techniques.
 
 %\emph{Worth also noting that performances were increased for the lesions
 %	segmentation, when performed on a restricted liver enveloppe, thus
@@ -972,48 +968,29 @@ field, where state-of-the-art methods rely now on these techniques.
 
 \section{Deep Learning based semantic segmentation methods}
 
-\subsection{DL applied to the medical imaging}
+\subsection{State-of-the-art \ac{dl} pipelines} \label{subsection:StateOfTheArtDlImplementations}
 
-The main breakthrough brought by DL was its ability to detect
-morphological properties in images only by using the pixel intensities
-as input, whereas traditional machine learning methods often required
-sophisticated hand-crafted features to achieve descent results \cite{Litjens2017, Suzuki2017}. Deep learning networks achieved
-state-of-the-art results in many medical-related applications among
-which classification, localization, detection, registration and
-segmentation \cite{Ker2017}. Even with a small number of
-training cases, those performances were realized thanks to architecture
-choice, data augmentation or transfer learning \cite{Zheng2018, Hu2018}.
-As exposed previously, the automatic segmentation of the tumors brings a
-volumetric information, that is more powerful than the diameter only,
-and that allows to compute the tumor burden, which has an importance
-when estimating the efficiency of a given treatment \cite{Gobbi2004, Bornemann2007, Heussel2007, Kuhnigk2006, Puesken2010, Bauknecht2010}.\\
-In this regard, several studies have been conducted to perform automatic
-liver and liver lesions segmentation.
-
-
-\subsection{State-of-the-art DL implementations} \label{subsection:StateOfTheArtDlImplementations}
-
-The different DL studies introduced for the liver tissue semantic
+The different \ac{dl} studies introduced for the liver tissue semantic
 segmentation purpose share some common properties that will be exposed
-hereafter. We will fist detail the different types of DL architectures that have been developed to perform this task, before introducing the sequential segmentation concept shared by almost all of the reviewed studies. The details regarding the networks input type, the training strategies, and the inference schemes were then discussed.
+hereafter. We will fist detail the different types of \ac{dl} architectures that have been developed to perform this task, before introducing the sequential segmentation concept shared by almost all of the reviewed studies. The details regarding the networks input type, the training strategies, and the inference schemes were then discussed.
 Details regarding the reviewed studies can be found in the appendix \ref{detailed-analysis-of-the-dl-semantic-segmentation-reviewed-articles}.
 
-\subsubsection{FCN-based architectures}
+\subsubsection{\ac{fcn}-based architectures}
 
-The use of fully convolutional networks (FCN) was quickly democratized,
+The use of fully convolutional networks (\ac{fcn}) was quickly democratized,
 and popular imaging-related architectures such as VGG-16 or AlexNet
-were transformed to FCNs by replacing dense layers with convolution
+were transformed to \ac{fcn}s by replacing dense layers with convolution
 layers \cite{Ben-Cohen, Bellver2017}. An illustration of the resulting architecture is given in the figure \ref{Bellver_FCN}. 
 
 \begin{figure}[th!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/image3}
-	\caption{Example of a FCN architecture implemented to perform the liver tumor segmentation task, as described by \textbf{©Bellver et al. \cite{Bellver2017}}}
+	\caption{Example of a \ac{fcn} architecture implemented to perform the liver tumor segmentation task, as described by \textbf{©Bellver et al. \cite{Bellver2017}}}
 	\label{Bellver_FCN}
 \end{figure}
 
 
-The FCN allows an architecture to predict as output an object having the
+The \ac{fcn} allows an architecture to predict as output an object having the
 same size as the input. Those architectures were perfectly suitable for
 the required segmentation tasks.\\
 The most recent studies showed a predominance for U-Net like networks \cite{Vorontsov2018, Yuan2017}. The U-Net was
@@ -1128,16 +1105,16 @@ Later, Frid-Adar et al. \cite{Frid-adar2017} also implemented a patch-based
 segmentation, but by separating \emph{non-lesion} patches on whether
 they are located in the \emph{liver interior} or in the \emph{liver
 	boundary}. The classification was performed through a multi-scale
-approach, followed by a CNN-based FP reduction step.\\
+approach, followed by a CNN-based \ac{fp} reduction step.\\
 However, the majority of the studies implemented a slice-by-slice
 segmentation \cite{Chlebus2018, Kaluva2018, Bi2017}, whereas some others chose to introduce volumetric
 consistency by using 3 or sometimes 5 adjacent slices as input in a
 2.5D-manner \cite{Han2017, Yuan2017, Bellver2017}.\\
 Worth noting that only a few studies incorporated 3D layers in
 their architecture, such as Li et al. who computed 3D
-inter-slice features in 12-slices blocks all along the different CT
+inter-slice features in 12-slices blocks all along the different \ac{ct}
 scans \cite{Li2018}. Rafiei et al. \cite{Rafiei2018} decided to incorporate 3D layers only in
-the encoding part of their \emph{3D-2D-FCN} model. The connection
+the encoding part of their \emph{3D-2D-\ac{fcn}} model. The connection
 between the encoding part and the decoding part was done by custom
 \emph{skip connections} to concatenate the middle slice of the 3D volume
 with its corresponding 2D features map in the decoding part. Dou
@@ -1154,7 +1131,7 @@ problem \cite{Dou2016}. Details of their network are given in the figure \ref{Do
 
 Concerning the incorporation of temporal information, Sun et
 al. were the first to utilize multiphase information during the
-DL-driven automatic segmentation of liver lesions \cite{Sun2017}. One FCN network per
+\ac{dl}-driven automatic segmentation of liver lesions \cite{Sun2017}. One \ac{fcn} network per
 channel was trained to extract features before they were merged through
 a features fusion layer.
 
@@ -1198,13 +1175,13 @@ The vast majority of the studies applied a post-processing step to
 refine the obtained liver segmentation by extracting the largest
 connected component \cite{Li2018, Han2017, Yuan2017, Bellver2017, Kaluva2018}. They
 also often took advantage of the cascade paradigm where lesions
-activations outside of the predicted liver can be removed \cite{Li2018, Yuan2017, Vorontsov2018}. In other studies, the reduction of the FP
+activations outside of the predicted liver can be removed \cite{Li2018, Yuan2017, Vorontsov2018}. In other studies, the reduction of the \ac{fp}
 (\emph{False Positives}) was done through an additional classifier
 filtering the different lesions candidates. Chelbus et al. \cite{Chlebus2018} for
 example implemented an object based random forest classifier,
 Bellver et al. proposed a patch-based lesion detector as
 depicted in the figure \ref{Bellver_predResults} \cite{Bellver2017}, whereas Frid-Adar et al. integrated an
-additional CNN designed to detect FP \cite{Frid-adar2017}.
+additional CNN designed to detect \ac{fp} \cite{Frid-adar2017}.
 
 \begin{figure}[th!]
 	\centering
@@ -1230,10 +1207,10 @@ differently oriented images \cite{Vorontsov2018}.
 \subsubsection{Conclusion}
 
 As exposed previously, no real consensus can be found to design a
-generic DL-related liver tissue semantic segmentation method. However,
+generic \ac{dl}-related liver tissue semantic segmentation method. However,
 the state-of-the-art studies share some common properties such as their
 cascaded architecture, the use of both pre- and post-processing or the
-use of FCN-based networks as basis.
+use of \ac{fcn}-based networks as basis.
 The different teams that participated in either the MICCAI17 or ISBI17
 LITS challenge were reviewed by the organizers, who came to the same
 conclusions \cite{Bilic2019}.
@@ -1241,19 +1218,19 @@ They also realized that the best tumor-segmentation results were
 obtained for large lesions, and within a specific lesion-liver HU
 difference interval (a difference between -10 and -60).
 They also noticed that top-ranked methods used some 3D approaches in
-their architecture\textbf{,} showing perspectives to capture the whole
+their architecture, showing perspectives to capture the whole
 volume context in the future. They are planning to organize again the same
 type of competition in the future, by particularly providing multiple
 ground truths and potentially splitting the lesion segmentation task
 into large and small lesions, since current methods still struggle in
 segmenting the small lesions.
 
-More recent DL-related studies have been using publicly available
+More recent \ac{dl}-related studies have been using publicly available
 databases such as LITS as a way to compare themselves to
 state-of-the-art methods. As a matter of facts, the key common elements
 that have been proposed previously served as a basis for new studies.
 
-In the following section, we will present our experiments that were conducted to automatically perform the semantic segmentation of the liver and its potential tumors. Inspired by the above mentioned work, a sequential architecture consisting of several specialized networks was trained by considering the dynamic of the liver thanks to contrast-enhanced CT images. 
+In the following section, we will present our experiments that were conducted to automatically perform the semantic segmentation of the liver and its potential tumors. Inspired by the above mentioned work, a sequential architecture consisting of several specialized networks was trained by considering the dynamic of the liver thanks to contrast-enhanced \ac{ct} images. 
 % Copy in Perspectives
 
 
@@ -1272,466 +1249,466 @@ In the following section, we will present our experiments that were conducted to
 %an avenue for the improvement of the automatic liver and tumors
 %segmentation tasks \cite{Chen2019}.
 
-
-\section{Semantic segmentation applied to the study of HCC}
-
-As explained previously, state-of-the-art deep learning techniques allow
-modern hardware to perform automatic segmentation of both the liver and
-its structures with a precision close to the one obtained by the experts
-themselves.
-In this section, we will first describe the implemented
-networks and the different used datasets, before presenting the experiments.
-As described previously, no real consensus was made regarding the
-design of the DL-related semantic segmentation studies, so we decided to
-launch several experiments on selected datasets to determine the impact
-of the training strategies on the performances of the networks.
-After selecting an optimal set of hyperparameters, we evaluated the
-advantages brought by a cascaded architecture, and the way to implement
-it, before describing the way to incorporate the multiphase information
-in our architecture.
-The results and the conclusions of this work were presented in the
-literature \cite{Ouhmich2019}.
-
-
-\subsection{Motivations}
-
-We implemented different architectures to validate the hypothesis that
-current deep networks can perform automatic delineation of both the
-liver and its tumors. We also proved that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network thanks the specific wash-in wash-out mechanism. 
-The features computed by the deep networks will further be used in a
-radiomics purpose.
-It it worth noting that we are the first to automatically delineate HCC on multiphase CT images using a DL architecture.
-
-
-
-\subsection{Cascaded architecture}
-
-Even though no consensus was made regarding existing methods, we noticed that
-several studies implemented a sequential pipeline that can be modeled as
-cascaded architecture. The cascade consists in several networks trained
-to perform a specific simpler task, and that are sequentially connected, to
-provide a final annotation map. In our case, the goal is the
-segmentation of the liver and its internal structures with the
-differentiation between parenchyma, and both the active and the necrotic
-parts of the hepatic tumor.
-Our cascade will consequently be composed of 3 networks, as depicted
-in the figure \ref{CARS_Cascade}. The first one will be specialized to segment the liver in
-abdominal axial slices, the second will delineate the contours of the
-tumor in the predicted liver ROI, whereas the final one will
-differentiate between active and necrotic parts within the obtained
-tumor ROI \cite{Ouhmich2019}.
-Each one of the given networks will share the same \emph{U-Net}
-architecture.
-
-\begin{figure}[th!]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/image26}
-	\caption{Cascaded network: The first network takes as input a CT image and segments the liver. The resulting segmentation map is used to remove non-liver pixels in the input data of the second network which performs the segmentation of lesions. The last network segments the necrosis within the lesions. The three binary masks are combined in the final segmentation map.}
-	\label{CARS_Cascade}
-\end{figure}
-
-
-\subsection{U-Net network}
-
-As a basis architecture, we have decided to implement \emph{U-Net} like
-networks because it has been previously used for the semantic
-segmentation task, and has proven to give good results even with a
-small number of training samples. \\
-The original \emph{U-Net} architecture was developed by Ronneberger et
-al. \cite{Ronneberger2015} and initially designed for the
-delineation of cells in microscopic images. As detailed previously, the
-network can be divided into two subparts, a contraction one where the
-information contained within the images is compressed, through the
-extraction of high to low level features, and a decoding part where the
-compressed information is used to reconstruct a high resolution
-segmentation. The architecture was initially composed of 19
-convolutional layers, with a rectified linear unit function as
-activation. The input image had an initial size of $ 512\times512 $ pixels, and
-at each stage of the encoding part, 2 convolutional layers are stacked
-with an increased number of filters. The initial pair of convolution
-layers used 64 filters each, whereas the final stage of the encoding
-stage used 1024 filters. After each pair of convolutional layers, a max
-pooling layer is applied to halve the spatial dimension of the features
-maps. As a result, a $ 30\times30\times1024 $ features map is produced at the
-bottleneck of the network. This representation is then reformatted in
-the decoding part to obtain a segmentation map with a size equivalent to
-the one of the input image. In order to increase the spatial dimension
-of the features maps, Up-Convolutional layers are implemented. It is worth
-noting that the number of filters used in each of the pair of
-convolutional layers is decreased from the bottleneck to the final layer
-of the network. The last convolutional layers will map the obtained
-features to the final number of dimensions of the segmentation maps,
-which will correspond to the number of classes to predict. The final
-layer implements a softmax function, to simulate a prediction of
-appartenance to each one of the output class.
-
-In comparison to the original architecture, we have implemented
-zero-padding convolutions to preserve the image size and obtain a
-segmentation map with the same spatial dimension as the input image. We
-conserved the same settings as in the original architecture concerning
-the number of filters to use at each stage, starting with a pair of
-convolutions of 64 filters each, and reaching a $ 32\times32\times1024 $ features map
-in the bottleneck part of the network. \\
-The same naming-system as in our study will be used
-here \cite{Ouhmich2019}. Single-phase elementary networks will be referred to by both the
-input phase and the segmentation target, as an example, \pplfont{PV-Lesion} will
-refer to the network responsible for the segmentation of the lesion,
-with PV phase images as input. The complete \emph{U-Net}
-architecture for this specific elementary network is depicted in the figure \ref{CARS_PV_lesion_Fig}.
-
-\begin{figure}[th!]
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/PV_Lesion}
-	\caption{\pplfont{PV-Lesion} network used to segment lesions within the liver with a PV image as input}
-	\label{CARS_PV_lesion_Fig}
-\end{figure}
-
-
-In order to evaluate the improvements brought by the cascaded
-architecture, we also trained the original \emph{U-Net} architecture to
-perform simultaneously the whole internal tissues segmentation task. The
-same naming system as previously will be used where ``Full'' corresponds
-to the simultaneous segmentation task, thus, \pplfont{AR-Full} will refer to the
-network dedicated to the segmentation of both the parenchyma, the active
-and the necrotic part of the lesions simultaneously, with AR
-images as input. An illustration of the network is given in the figure
-\ref{CARS_ArFull_Fig}.
-
-\begin{figure}[th!]
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/image23}
-	\caption{\pplfont{AR-Full} refers to the network trained with AR images as input (values outside the liver are masked), and that outputs a label map, with parenchyma, active and necrotic parts annotated}
-	\label{CARS_ArFull_Fig}
-\end{figure}
-
-
-\subsection{Multiphase information}
-
-Only the AR and PV phases were considered in the
-multiphase networks because NECT phase images do not provide enough
-inter-tissue contrast. \\
-In order to incorporate the multiphase information in our pipeline, we
-investigated 2 different strategies. The first one, referred to as DMP (Dimensional MultiPhase), consists in concatenating both the
-AR and PV images as input to the network (see figure \ref{CARS_DMP_Full_Fig}).
-The second one referred to as MPF (MultiPhase Fusion), consists
-in performing both the encoding and the decoding separately for each
-phase, before merging the output maps (simple addition on the obtained
-features maps), as depicted in the figure \ref{CARS_MPF_Full_Fig}.
-
-\begin{figure}[th!]
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/image28}
-	\caption{\pplfont{DMP-Full} network that combines the AR and the PV images as an input to segment the parenchyma and both the active and the necrotic parts of the lesions. Here, the two channels are considered as features for the first layer}
-	\label{CARS_DMP_Full_Fig}
-\end{figure}
-
-
-\begin{figure}[th!]
-	\centering
-	\includegraphics[width=0.9\linewidth]{images/image36}
-	\caption{\pplfont{MPF-Full} network: initially, AR and PV images are processed separately. The resulting maps are merged (by simple addition) at the end}
-	\label{CARS_MPF_Full_Fig}
-\end{figure}
-
-
-
-
-
-\subsection{Datasets}
-
-The different datasets used in our research work are detailed in the
-table \ref{xp_datasets}.
-
-\include{xp_datasets}
-
-As we can see in the table, and except for \textbf{\lmttfont{LITS-dB}} and \textbf{\lmttfont{3DIrcad-dB}}
-(\textbf{\lmttfont{3DIrcad-dB}} being a subset of the \textbf{\lmttfont{LITS-dB}} \cite{Bilic2019}), they are all different in their construction. Differences can
-be found on the annotated areas (chosen sparse slices or entire 3D
-volumes) and on the annotated tissues that can be found in the dataset
-(some of them only contain ground truth annotations for the liver and
-the tumors it might contain such as \textbf{\lmttfont{LITS-dB}}, whereas some others contain
-only ground truth annotation for the tumor such as \textbf{\lmttfont{TCIA-dB}}). Another
-crucial difference concerns the contrast enhanced phases available in
-each dataset (\textbf{\lmttfont{LITS-dB}} contains only single phase images whereas \textbf{\lmttfont{TCIA-dB}},
-\textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{G-dB}} present multiphasic images). \\
-To prove the ability of the deep learning to perform the automatic
-segmentation of both the liver and its internal tissues, such as the
-parenchyma and both the active and the necrotic part of the tumor, we
-first performed our experiments on \textbf{\lmttfont{TheraHCC-dB}} since this database was
-previously used for the same task \cite{Conze2017}, because it
-presents multiphase images and finally because this is the only
-available dataset with complete ground truth for both liver parenchyma,
-active and necrotic part of the tumors. \\
-\textbf{\lmttfont{TheraHCC-dB}} is composed of images from seven patients, all suffering
-from \emph{HCC} and who underwent CECT (Contrast-Enhanced
-Computed Tomography) examinations, resulting in a total of 13 CT
-sequences. \\
-More details about the standard CECT examination protocol can be
-found in the chapter \ref{ct-and-mr-imaging}. In our case, images were acquired at 4 different
-moments: one before the injection of the contrast medium (NECT:
-Non Enhanced CT) , and the 2 others after the injection to reflect both
-the arterial (AR) (\textasciitilde{}20-25s after injection) and
-the portal venous (PV) phases (\textasciitilde{}60-70s after
-injection).\\
-Eight regularly sampled slices across each one the 13 sequences were
-segmented by 4 experts, resulting in 104 labeled slices. \\
-The segmentation maps obtained from each one the 4 experts were fused
-using the STAPLE algorithm to reach a consensus map \cite{Warfield2004}.
-
-
-\subsection{Experiments}
-
-\subsubsection{Data pre-processing}
-
-The first task to implement in this study was the inter-phase
-registration so that environmental effects, such as respiratory motions,
-will not affect the performances of the networks, and to ensure that a
-given voxel is at the exact same position for the different CECT
-volumes of a patient. The registration was performed using a
-diffeomorphic deformable registration algorithm, where the PV
-images were used as reference, since they contained the original expert
-annotations \cite{Avants2008, Conze2017, Ben-Cohen, Christ2017}. \\
-Another bias that can affect the deep semantic segmentation networks
-training is the heterogeneous image sizes and voxel resolutions present
-within the training images.
-To avoid this bias, it has been decided to scale them so that they all
-have a $ 512\times512 $ axial size \footnote{Either cropping or padding was performed so that the images have the same size} and an isotropic voxel resolution of $ 0.97 \text{mm}^2 $. \\
-The data normalization is another aspect that needs to be considered
-before feeding the images in the deep network. In order to reduce the
-effect of extreme values from regions present in the tomographic images
-(such as the bones or the air), and to enhance the intensity of the
-liver voxels, we first clipped the \emph{HU} values to be in the range
-$ \left[-100, 400\right] $ , corresponding to the most commonly 
-observed liver intensities range. The retained intensities were finally mapped to
-the interval $ \left[0, 1\right]$ \footnote{DL studies usually tend to perform 
-data standardization but here HU values are already normalized. 
-The used range helps us to avoid potential bias caused by images acquired at a delayed phase with a different contrast}.
-
-\subsubsection{Training}
-
-In order to validate our hypotheses, we have decided to first run
-experiments on the \lmttfont{3DIrcad-dB} to set the most crucial hyperparameters
-such as the learning rate, the decay, the depth of the network or the
-type and the amount of data augmentation.
-The selection process is detailed in the \textbf{Appendix}, and here is the list of the chosen hyperparameters:
-
-\begin{itemize}
-	\item Lr: 1e-4
-	\item Decay: 1e-4
-	\item Number of epochs: 20
-	\item Optimizer: Adam
-	\item Number of filters at bottleneck: 1024
-	\item Input image size: 512
-	\item Data augmentation
-	\begin{itemize}
-		\item Rotations in the interval $ \left[0, 40\right] $
-		\item Translations with shift in the interval $ \left[-0.1, 0.1\right] $
-		\item Horizontal and vertical flips
-	\end{itemize}
-	\item Augmentation factor: 20
-\end{itemize}
-
-When transferring those settings to the \textbf{\lmttfont{TheraHCC-dB}}, 
-we implemented both translation and the addition of gaussian
-noise in the training since it slightly improved the performances.
-
-In order to remove any bias, the same set of hyperparameters has been
-used for both the \pplfont{\{.\}-Liver}, \pplfont{\{.\}-Lesion}, \pplfont{\{.\}-Necrosis} and
-\pplfont{\{.\}-Full} networks when training the \textbf{\lmttfont{TheraHCC-dB}}, regardless of the
-type of input (single phase or multiphase).
-
-\subsubsection{Experiments and results}
-
-Mean DSCs were computed in a slice-wise fashion for each target class. 
-The different methods were statistically compared using the Wilcoxon 
-signed paired rank tests, since slice-wise DSCs did not follow a normal distribution. 
-We first compared \pplfont{\{NECT, AR, PV, DMP, MPF\}-Liver} networks
- to evaluate which phase allows better liver segmentation. 
- We then trained \pplfont{\{NECT, AR, PV, DMP, MCF\}-Lesion} and  \pplfont{\{NECT, AR, PV, DMP, MCF\}-Necrosis} networks separately on the \lmttfont{TheraHCC-dB} by masking all values outside the liver using ground truth annotations in order to assess whether multiphase information is really useful for the segmentation. The results are given in table \ref{SingleVsMult}.
-
-Multiphase performed significantly better than single-phase for segmenting the liver (DMP vs PV, $P=0.001$; DMP vs AR, $P=0.005$, DMP vs NECT, $P<0.001$) and the active part of the lesions (DMP vs PV, $P<0.001$; DMP vs AR, $P=0.003$; DMP vs NECT, $P<0.001$). When comparing single-phase alone, PV achieved significantly better DSCs than AR or NECT for all the segmentation tasks except for the liver segmentation. When comparing multiphase methods, DMP carries out significantly better than MPF for the segmentation of the liver (DMP vs MPF, $P=0.004$), the parenchyma (DMP vs MPF, $P<0.001$) and the active part of the lesions (DMP vs MPF, $P=0.005$).
-
-Since both DMP-Lesion and DMP-Necrosis led to the best results, we combined them in a cascade as explained before, and compared it to both \pplfont{\{NECT, AR, PV, DMP, MPF\}-Full} networks. We evaluated them in terms of liver tissue classification performance on images where the values outside the ground truth liver area were masked. The mean DSCs are reported in table \ref{FullvsCascade}. Examples of segmentation results are given in figure \ref{CompareFullCascade}. \\
-
-
-\renewcommand{\arraystretch}{1}
-
-\begin{table}
-\caption{Segmentation results using single-phase vs multiphase methods on \lmttfont{TheraHCC-dB}.}
-\begin{tabular}{llccccc}
-\cline{1-7}
-\multicolumn{1}{l}{Input}& \multicolumn{1}{l}{Target} & \multicolumn{5}{l}{Network} \\
-\cline{3-7}
-\multicolumn{1}{c}{}& \multicolumn{1}{c}{} & \multicolumn{1}{c}{\pplfont{NECT}} & \multicolumn{1}{c}{\pplfont{AR}} & \multicolumn{1}{c}{\pplfont{PV}} & \multicolumn{1}{c}{\pplfont{DMP}} & \multicolumn{1}{c}{\pplfont{MPF}} \\
-\cline{1-7}
-Raw CT & Liver & 81.1 $\pm$ 27.7 & 89.5 $\pm$ 13.2 & 88.7 $\pm$ 11.4 & $\mathbf{89.9 \pm 15.6}$ & 88.2 $\pm$ 16.0 \\
-True liver mask & Parenchyma & 86.5 $\pm$ 13.7 & 82.5 $\pm$ 18.6 & 88.7 $\pm$ 15.4 & $\mathbf{90.5 \pm 13.2}$ & 86.9 $\pm$ 17.8 \\
-True liver mask & Lesion & 77.4 $\pm$ 24.1 & 77.4 $\pm$ 20.2 & 87.8 $\pm$ 9.7 & $\mathbf{88.5 \pm 11.7}$ & 86.6 $\pm$ 10.3 \\
-
-True lesion mask & Necrosis & 67.5 $\pm$ 15.5 & 69.7 $\pm$ 16.3  & 77.8 $\pm$ 12.4 & 78.5 $\pm$ 13.3 & $\mathbf{78.8 \pm 11.7}$ \\
-True lesion mask & Active Tumor & 65.6 $\pm$ 20.4 & 63.9 $\pm$ 22.6 & 71.6 $\pm$ 20.7 & $\mathbf{75.5 \pm 17.4}$ & 73.2 $\pm$ 18.6 \\
-\cline{1-7}
-\end{tabular}
-\label{SingleVsMult}
-\end{table}
-
-
-
-\begin{table}
-\caption{Segmentation results using \pplfont{\{$ \cdot$\}-Full} vs cascaded architectures on \lmttfont{TheraHCC-dB}.}
-\begin{tabular}{lcccccc}
-\cline{1-7}
-\multicolumn{1}{l}{Target} & \multicolumn{6}{l}{Network} \\
-\cline{2-7}
-\multicolumn{1}{c}{}& \multicolumn{1}{c}{\pplfont{NECT-Full}} & \multicolumn{1}{c}{\pplfont{AR-Full}} & \multicolumn{1}{c}{\pplfont{PV-Full}} & \multicolumn{1}{c}{\pplfont{DMP-Full}} & \multicolumn{1}{c}{\pplfont{MPF-Full}} &
-\multicolumn{1}{c}{Cascaded DMP}\\
-\cline{1-7}
-Parenchyma & 85.3 $\pm$ 14.9 & 84.1 $\pm$ 17.9 & 87.0 $\pm$ 19.0  & 82.9 $\pm$ 19.7 & 87.9 $\pm$ 15.9 & $\mathbf{90.5 \pm 13.2}$\\
-Necrosis & 62.6 $\pm$ 18.6 & 63.5 $\pm$ 21.5 & 75.7 $\pm$ 14.4 & 73.7 $\pm$ 14.1 & 75.6 $\pm$ 13.4 & $\mathbf{75.8 \pm 15.1}$ \\
-Active Tumor & 42.2 $\pm$ 24.0 & 43.2 $\pm$ 26.1 & 53.5 $\pm$ 24.2 & 51.3 $\pm$ 25.6 & 52.0 $\pm$ 23.3 & $\mathbf{59.6 \pm 22.5}$ \\
-\cline{1-7}
-\end{tabular}
-\label{FullvsCascade}
-\end{table}
-
-The results highlighted that the cascaded version performed significantly better than \pplfont{\{$ \cdot$\}-Full} networks for segmenting the active part of the lesion (Cascaded DMP vs \pplfont{PV-Full}, $P = 0.001$).
-The resulting segmentation maps allow us to estimate the necrosis rate (which will be the ratio between the necrotic and the tumor areas). This metric is commonly used for diagnosis and prognosis of the treatment outcome. In this configuration\footnote{after using the liver expert GT as mask for the first step}, our workflow provided estimates of this valuable biomarker with a mean error rate of 13.0 \%, which is accurate enough for clinical application. \\
-
-When compared with another study that have been using a different dataset composed of MR images, we achieved slightly better segmentation results \cite{Zhang}.
-We evaluated our method on the same database used in \cite{Conze2017}, where a manual expert interaction was required for the segmentation phase, which is not the case in the present deep learning approach. To allow fair comparison, the evaluation was conducted on the areas where all the experts reached an agreement as in \cite{Conze2017}. The mean patient-wise segmentation DSCs are depicted in table \ref{ComparisionConze}. Our method enabled a better segmentation of the lesions and both necrotic and active parts. Therefore, we were able to predict the patient-wise necrosis rate with a slightly better precision. 
-
-\begin{table}
-\caption{Average patient-wise segmentation DSCs (on full agreement expert area) with the semi-interactive approach of \cite{Conze2017} and the cascaded DMP method}
-\begin{tabular}{lcc}
-\hline
-& Semi-interactive method \cite{Conze2017} & ours \\
-\hline
-Parenchyma & \textbf{93.7 $\pm$ 3.4} & 92.2 $\pm$ 4.7 \\
-Lesion & 90.7 $\pm$ 6 & \textbf{91.8 $\pm$ 4} \\
-Necrosis & 83.0 $\pm$ 12.9 & \textbf{83.6 $\pm$ 11.7} \\
-Active Tumor & 75.2 $\pm$ 10.9 & \textbf{82.0 $\pm$ 6.4} \\
-Necrosis rate error & 7.84 $\pm$ 4.4 & \textbf{7.10 $\pm$ 1.4} \\
-\hline
-\end{tabular}
-\label{ComparisionConze}
-\end{table}
-
-\begin{figure}[!ht]
-\centering
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/1_21_orig_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_2_orig_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_8_orig_resized}
-\end{minipage}
-\vspace{-0.2cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/1_21_gt_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_2_gt_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_8_gt_resized}
-\end{minipage} 
-\vspace{-0.2cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/1_21_FullDMP_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_2_FullDMP_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_8_FullDMP_resized}
-\end{minipage} 
-\vspace{-0.2cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/1_21_Cascade_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_2_Cascade_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics[width=\linewidth]{./images/5_8_Cascade_resized}
-\end{minipage} 
-\caption{From top to bottom : Raw images with HU values inside the liver, Ground truth, \pplfont{DMP-Full} segmentation, Cascaded DMP segmentation}
-\label{CompareFullCascade}
-\end{figure}
-
-
-We finally combined the \pplfont{DMP-Liver}, the \pplfont{DMP-Lesion} and \pplfont{DMP-Necrosis} networks in a cascaded fashion, as described in the figure \ref{CARS_Cascade}. This allowed us to perform a fully automatic segmentation of the raw (unmasked) CT images. We reached average slice-wise DSCs of 78.3 $\pm$ 22.1 for the segmentation of the parenchyma, 50.6 $\pm$ 24.6  for the segmentation of the active part, and 68.1 $\pm$ 23.2 for the necrotic part of the lesions. We also provided a necrosis rate per patient with a mean error of 15.9\% when compared to expert necrosis rate estimation \footnote{Here the estimation is performed on the raw images in an automatic fashion}. Examples of fully automatic segmentation results are given in figure \ref{FullAutoSeg}.
-
-\begin{figure}[!ht]
-   \centering
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/1_7_raw_new_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/2_3_raw_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/5_4_raw_resized}
-\end{minipage}
-\vspace{-0.2cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/1_7_gt_new_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/2_3gt_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/5_4_gt_resized}
-\end{minipage} 
-\vspace{-0.2cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/1_7_FullAuto_new_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/2_3_FullAuto_resized}
-\end{minipage} \hspace{-0.3cm}
-\begin{minipage}{4cm}
-\includegraphics*[width=\linewidth]{./images/5_4_FullAuto_resized}
-\end{minipage} 
-\caption{From top to bottom : Raw images, ground truth and results of the fully automatic segmentation of liver tissue}
-\label{FullAutoSeg}
-\end{figure}
-
-
-\renewcommand{\baselinestretch}{1.75}
-\renewcommand{\arraystretch}{5}
-
-\subsubsection{Conclusions}
-
-When comparing results obtained by the specialized networks, we proved
-that the addition of the multiphase information provided better
-segmentation results than when only single phase images are used.
-Statistically significant improvement was obtained for the segmentation
-of both the liver and the active part of the tumors.
-
-We also investigated the performances of the single phase networks, and
-noticed that the PV phase was the one providing the best results,
-where significant improvement was obtained for all the segmentation
-tasks, except for the liver segmentation.
-
-Regarding the internal liver tissues segmentation, the elementary
-networks providing the best results were the \pplfont{DMP-Lesion} 
-and \pplfont{DMP-Necrosis} ones. When combined in a cascaded way, 
-they performed better than each one of the \pplfont{\{.\}-Full} architecture, 
-with a statistically significant improvement
-for the segmentation of the active part of the lesions, meaning that 
-combining several specialized networks together is more efficient 
-than training a single network addressing all tasks simultaneously.
-
-With the same experimental conditions, our solution provided a better
-accuracy for the segmentation of the lesions, and for both their active
-and the necrotic parts, than the one obtained using a semi-automatic
-technique with expert interaction \cite{Ouhmich2019,Conze2017}. We also
-obtained equivalent results than those from a similar study considering
-MR images as input \cite{Zhang2018}.
-
-We concluded that the combination of multiphase registered images used in a 
-cascaded architecture allows us to automatically perform the semantic segmentation of liver tissues.
-
+%
+%\section{Semantic segmentation applied to the study of HCC}
+%
+%As explained previously, state-of-the-art deep learning techniques allow
+%modern hardware to perform automatic segmentation of both the liver and
+%its structures with a precision close to the one obtained by the experts
+%themselves.
+%In this section, we will first describe the implemented
+%networks and the different used datasets, before presenting the experiments.
+%As described previously, no real consensus was made regarding the
+%design of the \ac{dl}-related semantic segmentation studies, so we decided to
+%launch several experiments on selected datasets to determine the impact
+%of the training strategies on the performances of the networks.
+%After selecting an optimal set of hyperparameters, we evaluated the
+%advantages brought by a cascaded architecture, and the way to implement
+%it, before describing the way to incorporate the multiphase information
+%in our architecture.
+%The results and the conclusions of this work were presented in the
+%literature \cite{Ouhmich2019}.
+%
+%
+%\subsection{Motivations}
+%
+%We implemented different architectures to validate the hypothesis that
+%current deep networks can perform automatic delineation of both the
+%liver and its tumors. We also proved that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network thanks the specific wash-in wash-out mechanism. 
+%The features computed by the deep networks will further be used in a
+%radiomics purpose.
+%It it worth noting that we are the first to automatically delineate \ac{hcc} on multiphase \ac{ct} images using a \ac{dl} architecture.
+%
+%
+%
+%\subsection{Cascaded architecture}
+%
+%Even though no consensus was made regarding existing methods, we noticed that
+%several studies implemented a sequential pipeline that can be modeled as
+%cascaded architecture. The cascade consists in several networks trained
+%to perform a specific simpler task, and that are sequentially connected, to
+%provide a final annotation map. In our case, the goal is the
+%segmentation of the liver and its internal structures with the
+%differentiation between parenchyma, and both the active and the necrotic
+%parts of the hepatic tumor.
+%Our cascade will consequently be composed of 3 networks, as depicted
+%in the figure \ref{CARS_Cascade}. The first one will be specialized to segment the liver in
+%abdominal axial slices, the second will delineate the contours of the
+%tumor in the predicted liver \ac{roi}, whereas the final one will
+%differentiate between active and necrotic parts within the obtained
+%tumor \ac{roi} \cite{Ouhmich2019}.
+%Each one of the given networks will share the same \emph{U-Net}
+%architecture.
+%
+%\begin{figure}[th!]
+%	\centering
+%	\includegraphics[width=0.7\linewidth]{images/image26}
+%	\caption{Cascaded network: The first network takes as input a \ac{ct} image and segments the liver. The resulting segmentation map is used to remove non-liver pixels in the input data of the second network which performs the segmentation of lesions. The last network segments the necrosis within the lesions. The three binary masks are combined in the final segmentation map.}
+%	\label{CARS_Cascade}
+%\end{figure}
+%
+%
+%\subsection{U-Net network}
+%
+%As a basis architecture, we have decided to implement \emph{U-Net} like
+%networks because it has been previously used for the semantic
+%segmentation task, and has proven to give good results even with a
+%small number of training samples. \\
+%The original \emph{U-Net} architecture was developed by Ronneberger et
+%al. \cite{Ronneberger2015} and initially designed for the
+%delineation of cells in microscopic images. As detailed previously, the
+%network can be divided into two subparts, a contraction one where the
+%information contained within the images is compressed, through the
+%extraction of high to low level features, and a decoding part where the
+%compressed information is used to reconstruct a high resolution
+%segmentation. The architecture was initially composed of 19
+%convolutional layers, with a rectified linear unit function as
+%activation. The input image had an initial size of $ 512\times512 $ pixels, and
+%at each stage of the encoding part, 2 convolutional layers are stacked
+%with an increased number of filters. The initial pair of convolution
+%layers used 64 filters each, whereas the final stage of the encoding
+%stage used 1024 filters. After each pair of convolutional layers, a max
+%pooling layer is applied to halve the spatial dimension of the features
+%maps. As a result, a $ 30\times30\times1024 $ features map is produced at the
+%bottleneck of the network. This representation is then reformatted in
+%the decoding part to obtain a segmentation map with a size equivalent to
+%the one of the input image. In order to increase the spatial dimension
+%of the features maps, Up-Convolutional layers are implemented. It is worth
+%noting that the number of filters used in each of the pair of
+%convolutional layers is decreased from the bottleneck to the final layer
+%of the network. The last convolutional layers will map the obtained
+%features to the final number of dimensions of the segmentation maps,
+%which will correspond to the number of classes to predict. The final
+%layer implements a softmax function, to simulate a prediction of
+%appartenance to each one of the output class.
+%
+%In comparison to the original architecture, we have implemented
+%zero-padding convolutions to preserve the image size and obtain a
+%segmentation map with the same spatial dimension as the input image. We
+%conserved the same settings as in the original architecture concerning
+%the number of filters to use at each stage, starting with a pair of
+%convolutions of 64 filters each, and reaching a $ 32\times32\times1024 $ features map
+%in the bottleneck part of the network. \\
+%The same naming-system as in our study will be used
+%here \cite{Ouhmich2019}. Single-phase elementary networks will be referred to by both the
+%input phase and the segmentation target, as an example, \pplfont{\ac{pv}-Lesion} will
+%refer to the network responsible for the segmentation of the lesion,
+%with \ac{pv} phase images as input. The complete \emph{U-Net}
+%architecture for this specific elementary network is depicted in the figure \ref{CARS_PV_lesion_Fig}.
+%
+%\begin{figure}[th!]
+%	\centering
+%	\includegraphics[width=0.9\linewidth]{images/PV_Lesion}
+%	\caption{\pplfont{\ac{pv}-Lesion} network used to segment lesions within the liver with a \ac{pv} image as input}
+%	\label{CARS_PV_lesion_Fig}
+%\end{figure}
+%
+%
+%In order to evaluate the improvements brought by the cascaded
+%architecture, we also trained the original \emph{U-Net} architecture to
+%perform simultaneously the whole internal tissues segmentation task. The
+%same naming system as previously will be used where ``Full'' corresponds
+%to the simultaneous segmentation task, thus, \pplfont{AR-Full} will refer to the
+%network dedicated to the segmentation of both the parenchyma, the active
+%and the necrotic part of the lesions simultaneously, with AR
+%images as input. An illustration of the network is given in the figure
+%\ref{CARS_ArFull_Fig}.
+%
+%\begin{figure}[th!]
+%	\centering
+%	\includegraphics[width=0.9\linewidth]{images/image23}
+%	\caption{\pplfont{AR-Full} refers to the network trained with AR images as input (values outside the liver are masked), and that outputs a label map, with parenchyma, active and necrotic parts annotated}
+%	\label{CARS_ArFull_Fig}
+%\end{figure}
+%
+%
+%\subsection{Multiphase information}
+%
+%Only the \ac{ar} and \ac{pv} phases were considered in the
+%multiphase networks because \ac{nect} phase images do not provide enough
+%inter-tissue contrast. \\
+%In order to incorporate the multiphase information in our pipeline, we
+%investigated 2 different strategies. The first one, referred to as DMP (Dimensional MultiPhase), consists in concatenating both the
+%AR and \ac{pv} images as input to the network (see figure \ref{CARS_DMP_Full_Fig}).
+%The second one referred to as MPF (MultiPhase Fusion), consists
+%in performing both the encoding and the decoding separately for each
+%phase, before merging the output maps (simple addition on the obtained
+%features maps), as depicted in the figure \ref{CARS_MPF_Full_Fig}.
+%
+%\begin{figure}[th!]
+%	\centering
+%	\includegraphics[width=0.9\linewidth]{images/image28}
+%	\caption{\pplfont{DMP-Full} network that combines the AR and the \ac{pv} images as an input to segment the parenchyma and both the active and the necrotic parts of the lesions. Here, the two channels are considered as features for the first layer}
+%	\label{CARS_DMP_Full_Fig}
+%\end{figure}
+%
+%
+%\begin{figure}[th!]
+%	\centering
+%	\includegraphics[width=0.9\linewidth]{images/image36}
+%	\caption{\pplfont{MPF-Full} network: initially, AR and \ac{pv} images are processed separately. The resulting maps are merged (by simple addition) at the end}
+%	\label{CARS_MPF_Full_Fig}
+%\end{figure}
+%
+%
+%
+%
+%
+%\subsection{Datasets}
+%
+%The different datasets used in our research work are detailed in the
+%table \ref{xp_datasets}.
+%
+%\input{xp_datasets}
+%
+%As we can see in the table, and except for \textbf{\lmttfont{LITS-dB}} and \textbf{\lmttfont{3DIrcad-dB}}
+%(\textbf{\lmttfont{3DIrcad-dB}} being a subset of the \textbf{\lmttfont{LITS-dB}} \cite{Bilic2019}), they are all different in their construction. Differences can
+%be found on the annotated areas (chosen sparse slices or entire 3D
+%volumes) and on the annotated tissues that can be found in the dataset
+%(some of them only contain ground truth annotations for the liver and
+%the tumors it might contain such as \textbf{\lmttfont{LITS-dB}}, whereas some others contain
+%only ground truth annotation for the tumor such as \textbf{\lmttfont{TCIA-dB}}). Another
+%crucial difference concerns the contrast enhanced phases available in
+%each dataset (\textbf{\lmttfont{LITS-dB}} contains only single phase images whereas \textbf{\lmttfont{TCIA-dB}},
+%\textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{G-dB}} present multiphasic images). \\
+%To prove the ability of the deep learning to perform the automatic
+%segmentation of both the liver and its internal tissues, such as the
+%parenchyma and both the active and the necrotic part of the tumor, we
+%first performed our experiments on \textbf{\lmttfont{TheraHCC-dB}} since this database was
+%previously used for the same task \cite{Conze2017}, because it
+%presents multiphase images and finally because this is the only
+%available dataset with complete ground truth for both liver parenchyma,
+%active and necrotic part of the tumors. \\
+%\textbf{\lmttfont{TheraHCC-dB}} is composed of images from seven patients, all suffering
+%from \emph{HCC} and who underwent \ac{cect} (Contrast-Enhanced
+%Computed Tomography) examinations, resulting in a total of 13 \ac{ct}
+%sequences. \\
+%More details about the standard \ac{cect} examination protocol can be
+%found in the chapter \ref{ct-and-mr-imaging}. In our case, images were acquired at 4 different
+%moments: one before the injection of the contrast medium (\ac{nect}:
+%Non Enhanced \ac{ct}) , and the 2 others after the injection to reflect both
+%the arterial (\ac{ar}) (\textasciitilde{}20-25s after injection) and
+%the portal venous (\ac{pv}) phases (\textasciitilde{}60-70s after
+%injection).\\
+%Eight regularly sampled slices across each one the 13 sequences were
+%segmented by 4 experts, resulting in 104 labeled slices. \\
+%The segmentation maps obtained from each one the 4 experts were fused
+%using the STAPLE algorithm to reach a consensus map \cite{Warfield2004}.
+%
+%
+%\subsection{Experiments}
+%
+%\subsubsection{Data pre-processing}
+%
+%The first task to implement in this study was the inter-phase
+%registration so that environmental effects, such as respiratory motions,
+%will not affect the performances of the networks, and to ensure that a
+%given voxel is at the exact same position for the different \ac{cect}
+%volumes of a patient. The registration was performed using a
+%diffeomorphic deformable registration algorithm, where the \ac{pv}
+%images were used as reference, since they contained the original expert
+%annotations \cite{Avants2008, Conze2017, Ben-Cohen, Christ2017}. \\
+%Another bias that can affect the deep semantic segmentation networks
+%training is the heterogeneous image sizes and voxel resolutions present
+%within the training images.
+%To avoid this bias, it has been decided to scale them so that they all
+%have a $ 512\times512 $ axial size \footnote{Either cropping or padding was performed so that the images have the same size} and an isotropic voxel resolution of $ 0.97 \text{mm}^2 $. \\
+%The data normalization is another aspect that needs to be considered
+%before feeding the images in the deep network. In order to reduce the
+%effect of extreme values from regions present in the tomographic images
+%(such as the bones or the air), and to enhance the intensity of the
+%liver voxels, we first clipped the \emph{HU} values to be in the range
+%$ \left[-100, 400\right] $ , corresponding to the most commonly 
+%observed liver intensities range. The retained intensities were finally mapped to
+%the interval $ \left[0, 1\right]$ \footnote{\ac{dl} studies usually tend to perform 
+%data standardization but here HU values are already normalized. 
+%The used range helps us to avoid potential bias caused by images acquired at a delayed phase with a different contrast}.
+%
+%\subsubsection{Training}
+%
+%In order to validate our hypotheses, we have decided to first run
+%experiments on the \lmttfont{3DIrcad-dB} to set the most crucial hyperparameters
+%such as the learning rate, the decay, the depth of the network or the
+%type and the amount of data augmentation.
+%The selection process is detailed in the \textbf{Appendix}, and here is the list of the chosen hyperparameters:
+%
+%\begin{itemize}
+%	\item Lr: 1e-4
+%	\item Decay: 1e-4
+%	\item Number of epochs: 20
+%	\item Optimizer: Adam
+%	\item Number of filters at bottleneck: 1024
+%	\item Input image size: 512
+%	\item Data augmentation
+%	\begin{itemize}
+%		\item Rotations in the interval $ \left[0, 40\right] $
+%		\item Translations with shift in the interval $ \left[-0.1, 0.1\right] $
+%		\item Horizontal and vertical flips
+%	\end{itemize}
+%	\item Augmentation factor: 20
+%\end{itemize}
+%
+%When transferring those settings to the \textbf{\lmttfont{TheraHCC-dB}}, 
+%we implemented both translation and the addition of gaussian
+%noise in the training since it slightly improved the performances.
+%
+%In order to remove any bias, the same set of hyperparameters has been
+%used for both the \pplfont{\{.\}-Liver}, \pplfont{\{.\}-Lesion}, \pplfont{\{.\}-Necrosis} and
+%\pplfont{\{.\}-Full} networks when training the \textbf{\lmttfont{TheraHCC-dB}}, regardless of the
+%type of input (single phase or multiphase).
+%
+%\subsubsection{Experiments and results}
+%
+%Mean \ac{dsc}s were computed in a slice-wise fashion for each target class. 
+%The different methods were statistically compared using the Wilcoxon 
+%signed paired rank tests, since slice-wise \ac{dsc}s did not follow a normal distribution. 
+%We first compared \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Liver} networks
+% to evaluate which phase allows better liver segmentation. 
+% We then trained \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MCF\}-Lesion} and  \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MCF\}-Necrosis} networks separately on the \lmttfont{TheraHCC-dB} by masking all values outside the liver using ground truth annotations in order to assess whether multiphase information is really useful for the segmentation. The results are given in table \ref{SingleVsMult}.
+%
+%Multiphase performed significantly better than single-phase for segmenting the liver (DMP vs \ac{pv}, $P=0.001$; DMP vs \ac{ar}, $P=0.005$, DMP vs \ac{nect}, $P<0.001$) and the active part of the lesions (DMP vs \ac{pv}, $P<0.001$; DMP vs \ac{ar}, $P=0.003$; DMP vs \ac{nect}, $P<0.001$). When comparing single-phase alone, \ac{pv} achieved significantly better \ac{dsc}s than \ac{ar} or \ac{nect} for all the segmentation tasks except for the liver segmentation. When comparing multiphase methods, DMP carries out significantly better than MPF for the segmentation of the liver (DMP vs MPF, $P=0.004$), the parenchyma (DMP vs MPF, $P<0.001$) and the active part of the lesions (DMP vs MPF, $P=0.005$).
+%
+%Since both DMP-Lesion and DMP-Necrosis led to the best results, we combined them in a cascade as explained before, and compared it to both \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Full} networks. We evaluated them in terms of liver tissue classification performance on images where the values outside the ground truth liver area were masked. The mean \ac{dsc}s are reported in table \ref{FullvsCascade}. Examples of segmentation results are given in figure \ref{CompareFullCascade}. \\
+%
+%
+%\renewcommand{\arraystretch}{1}
+%
+%\begin{table}
+%\caption{Segmentation results using single-phase vs multiphase methods on \lmttfont{TheraHCC-dB}.}
+%\begin{tabular}{llccccc}
+%\cline{1-7}
+%\multicolumn{1}{l}{Input}& \multicolumn{1}{l}{Target} & \multicolumn{5}{l}{Network} \\
+%\cline{3-7}
+%\multicolumn{1}{c}{}& \multicolumn{1}{c}{} & \multicolumn{1}{c}{\pplfont{\ac{nect}}} & \multicolumn{1}{c}{\pplfont{\ac{ar}}} & \multicolumn{1}{c}{\pplfont{\ac{pv}}} & \multicolumn{1}{c}{\pplfont{DMP}} & \multicolumn{1}{c}{\pplfont{MPF}} \\
+%\cline{1-7}
+%Raw \ac{ct} & Liver & 81.1 $\pm$ 27.7 & 89.5 $\pm$ 13.2 & 88.7 $\pm$ 11.4 & $\mathbf{89.9 \pm 15.6}$ & 88.2 $\pm$ 16.0 \\
+%True liver mask & Parenchyma & 86.5 $\pm$ 13.7 & 82.5 $\pm$ 18.6 & 88.7 $\pm$ 15.4 & $\mathbf{90.5 \pm 13.2}$ & 86.9 $\pm$ 17.8 \\
+%True liver mask & Lesion & 77.4 $\pm$ 24.1 & 77.4 $\pm$ 20.2 & 87.8 $\pm$ 9.7 & $\mathbf{88.5 \pm 11.7}$ & 86.6 $\pm$ 10.3 \\
+%
+%True lesion mask & Necrosis & 67.5 $\pm$ 15.5 & 69.7 $\pm$ 16.3  & 77.8 $\pm$ 12.4 & 78.5 $\pm$ 13.3 & $\mathbf{78.8 \pm 11.7}$ \\
+%True lesion mask & Active Tumor & 65.6 $\pm$ 20.4 & 63.9 $\pm$ 22.6 & 71.6 $\pm$ 20.7 & $\mathbf{75.5 \pm 17.4}$ & 73.2 $\pm$ 18.6 \\
+%\cline{1-7}
+%\end{tabular}
+%\label{SingleVsMult}
+%\end{table}
+%
+%
+%
+%\begin{table}
+%\caption{Segmentation results using \pplfont{\{$ \cdot$\}-Full} vs cascaded architectures on \lmttfont{TheraHCC-dB}.}
+%\begin{tabular}{lcccccc}
+%\cline{1-7}
+%\multicolumn{1}{l}{Target} & \multicolumn{6}{l}{Network} \\
+%\cline{2-7}
+%\multicolumn{1}{c}{}& \multicolumn{1}{c}{\pplfont{\ac{nect}-Full}} & \multicolumn{1}{c}{\pplfont{\ac{ar}-Full}} & \multicolumn{1}{c}{\pplfont{\ac{pv}-Full}} & \multicolumn{1}{c}{\pplfont{DMP-Full}} & \multicolumn{1}{c}{\pplfont{MPF-Full}} &
+%\multicolumn{1}{c}{Cascaded DMP}\\
+%\cline{1-7}
+%Parenchyma & 85.3 $\pm$ 14.9 & 84.1 $\pm$ 17.9 & 87.0 $\pm$ 19.0  & 82.9 $\pm$ 19.7 & 87.9 $\pm$ 15.9 & $\mathbf{90.5 \pm 13.2}$\\
+%Necrosis & 62.6 $\pm$ 18.6 & 63.5 $\pm$ 21.5 & 75.7 $\pm$ 14.4 & 73.7 $\pm$ 14.1 & 75.6 $\pm$ 13.4 & $\mathbf{75.8 \pm 15.1}$ \\
+%Active Tumor & 42.2 $\pm$ 24.0 & 43.2 $\pm$ 26.1 & 53.5 $\pm$ 24.2 & 51.3 $\pm$ 25.6 & 52.0 $\pm$ 23.3 & $\mathbf{59.6 \pm 22.5}$ \\
+%\cline{1-7}
+%\end{tabular}
+%\label{FullvsCascade}
+%\end{table}
+%
+%The results highlighted that the cascaded version performed significantly better than \pplfont{\{$ \cdot$\}-Full} networks for segmenting the active part of the lesion (Cascaded DMP vs \pplfont{\ac{pv}-Full}, $P = 0.001$).
+%The resulting segmentation maps allow us to estimate the necrosis rate (which will be the ratio between the necrotic and the tumor areas). This metric is commonly used for diagnosis and prognosis of the treatment outcome. In this configuration\footnote{after using the liver expert \ac{gt} as mask for the first step}, our workflow provided estimates of this valuable biomarker with a mean error rate of 13.0 \%, which is accurate enough for clinical application. \\
+%
+%When compared with another study that have been using a different dataset composed of MR images, we achieved slightly better segmentation results \cite{Zhang}.
+%We evaluated our method on the same database used in \cite{Conze2017}, where a manual expert interaction was required for the segmentation phase, which is not the case in the present deep learning approach. To allow fair comparison, the evaluation was conducted on the areas where all the experts reached an agreement as in \cite{Conze2017}. The mean patient-wise segmentation \ac{dsc}s are depicted in table \ref{ComparisionConze}. Our method enabled a better segmentation of the lesions and both necrotic and active parts. Therefore, we were able to predict the patient-wise necrosis rate with a slightly better precision. 
+%
+%\begin{table}
+%\caption{Average patient-wise segmentation \ac{dsc}s (on full agreement expert area) with the semi-interactive approach of \cite{Conze2017} and the cascaded DMP method}
+%\begin{tabular}{lcc}
+%\hline
+%& Semi-interactive method \cite{Conze2017} & ours \\
+%\hline
+%Parenchyma & \textbf{93.7 $\pm$ 3.4} & 92.2 $\pm$ 4.7 \\
+%Lesion & 90.7 $\pm$ 6 & \textbf{91.8 $\pm$ 4} \\
+%Necrosis & 83.0 $\pm$ 12.9 & \textbf{83.6 $\pm$ 11.7} \\
+%Active Tumor & 75.2 $\pm$ 10.9 & \textbf{82.0 $\pm$ 6.4} \\
+%Necrosis rate error & 7.84 $\pm$ 4.4 & \textbf{7.10 $\pm$ 1.4} \\
+%\hline
+%\end{tabular}
+%\label{ComparisionConze}
+%\end{table}
+%
+%\begin{figure}[!ht]
+%\centering
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/1_21_orig_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_2_orig_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_8_orig_resized}
+%\end{minipage}
+%\vspace{-0.2cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/1_21_gt_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_2_gt_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_8_gt_resized}
+%\end{minipage} 
+%\vspace{-0.2cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/1_21_FullDMP_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_2_FullDMP_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_8_FullDMP_resized}
+%\end{minipage} 
+%\vspace{-0.2cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/1_21_Cascade_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_2_Cascade_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics[width=\linewidth]{./images/5_8_Cascade_resized}
+%\end{minipage} 
+%\caption{From top to bottom : Raw images with HU values inside the liver, Ground truth, \pplfont{DMP-Full} segmentation, Cascaded DMP segmentation}
+%\label{CompareFullCascade}
+%\end{figure}
+%
+%
+%We finally combined the \pplfont{DMP-Liver}, the \pplfont{DMP-Lesion} and \pplfont{DMP-Necrosis} networks in a cascaded fashion, as described in the figure \ref{CARS_Cascade}. This allowed us to perform a fully automatic segmentation of the raw (unmasked) \ac{ct} images. We reached average slice-wise \ac{dsc}s of 78.3 $\pm$ 22.1 for the segmentation of the parenchyma, 50.6 $\pm$ 24.6  for the segmentation of the active part, and 68.1 $\pm$ 23.2 for the necrotic part of the lesions. We also provided a necrosis rate per patient with a mean error of 15.9\% when compared to expert necrosis rate estimation \footnote{Here the estimation is performed on the raw images in an automatic fashion}. Examples of fully automatic segmentation results are given in figure \ref{FullAutoSeg}.
+%
+%\begin{figure}[!ht]
+%   \centering
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/1_7_raw_new_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/2_3_raw_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/5_4_raw_resized}
+%\end{minipage}
+%\vspace{-0.2cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/1_7_gt_new_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/2_3gt_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/5_4_gt_resized}
+%\end{minipage} 
+%\vspace{-0.2cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/1_7_FullAuto_new_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/2_3_FullAuto_resized}
+%\end{minipage} \hspace{-0.3cm}
+%\begin{minipage}{4cm}
+%\includegraphics*[width=\linewidth]{./images/5_4_FullAuto_resized}
+%\end{minipage} 
+%\caption{From top to bottom : Raw images, ground truth and results of the fully automatic segmentation of liver tissue}
+%\label{FullAutoSeg}
+%\end{figure}
+%
+%
+%\renewcommand{\baselinestretch}{1.75}
+%\renewcommand{\arraystretch}{5}
+%
+%\subsubsection{Conclusions}
+%
+%When comparing results obtained by the specialized networks, we proved
+%that the addition of the multiphase information provided better
+%segmentation results than when only single phase images are used.
+%Statistically significant improvement was obtained for the segmentation
+%of both the liver and the active part of the tumors.
+%
+%We also investigated the performances of the single phase networks, and
+%noticed that the \ac{pv} phase was the one providing the best results,
+%where significant improvement was obtained for all the segmentation
+%tasks, except for the liver segmentation.
+%
+%Regarding the internal liver tissues segmentation, the elementary
+%networks providing the best results were the \pplfont{DMP-Lesion} 
+%and \pplfont{DMP-Necrosis} ones. When combined in a cascaded way, 
+%they performed better than each one of the \pplfont{\{.\}-Full} architecture, 
+%with a statistically significant improvement
+%for the segmentation of the active part of the lesions, meaning that 
+%combining several specialized networks together is more efficient 
+%than training a single network addressing all tasks simultaneously.
+%
+%With the same experimental conditions, our solution provided a better
+%accuracy for the segmentation of the lesions, and for both their active
+%and the necrotic parts, than the one obtained using a semi-automatic
+%technique with expert interaction \cite{Ouhmich2019,Conze2017}. We also
+%obtained equivalent results than those from a similar study considering
+%MR images as input \cite{Zhang2018}.
+%
+%We concluded that the combination of multiphase registered images used in a 
+%cascaded architecture allows us to automatically perform the semantic segmentation of liver tissues.
+%
