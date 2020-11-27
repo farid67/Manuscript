@@ -1,23 +1,37 @@
 \chapter{Introduction}
 
+\section{Context}
 This research work is part of the RADIAL project, carried out by the
 institute for minimally invasive surgery from Strasbourg (IHU), where
 one of the objectives is to improve the treatment and the prevention of
 liver cancer.\\
 Being the second leading cause of cancer-related death worldwide, liver
 cancer is considered as a major public health challenge.\\
+Current ways to characterize the liver cancer are either invasive, 
+through the extraction of tissues samples or non-invasive, typically 
+through interpretation of medical images.\\
+%radiomics
+Radiomics is a new field developed in the early 2010s to extract the encoded information within medical images in order to provide a more objective and image-guided assessment of the disease.\\
+Conventional radiomics however suffers from a lot of limitations such as the hand-crafted design of the extracted features or the computation of characteristics only in a manually defined region or volume of interest. Deep learning changed the way to apprehend several medical imaging related problematics thanks to its ability to detect
+morphological properties in images only by using the pixel intensities
+as input. The radiomics field was impacted by this new set of algorithms, and a new branch of radiomics was created, where the definition of the region of interest and/or the extraction of features are performed using deep learning approaches.
+
+\section{Contributions}
+In our work we will present strategies to automatically provide characterization of the liver tumors.
+Often performed manually, the delineations of the tumors can suffer from various bias, such as the inter and intra-observer variability, or its undefined borders leading to errors when diagnosing, classifying or staging the liver cancer. Therefore, we present a robust automatic pipeline to perform semantic segmentation of liver tumors using both the power of deep cascaded networks architecture and the incorporation of dynamic contrast-enhanced information. We proved the value of our cascaded architecture by providing missing annotations in a weakly-annotated multiphase CT datasets using our approach.
+To characterize the tumors, we tackled the histological grade prediction and proposed a deep radiomics pipeline which used relevant semantic imaging features to assess the grade in a slice-wise fashion.
+
+\section{Outline of the thesis}
 We present the different types of liver cancers, and particularly the
 hepatocellular carcinoma (\ac{hcc}), which will be the main topic of our work.
 We describe the different steps of hepatocarcinogenesis, which
 transforms healthy hepatic tissues into cancerous ones, by analyzing the
-evolution of the cells and the associated pathological changes.\\
+evolution of the cells and the associated pathological changes. 
 In case of suspected cancer, the current ways to establish a diagnosis 
 are either through extraction and inspection of tissue samples or 
-non-invasively by analyzing medical images. 
-We outline the different modalities usually exploited to establish a
+non-invasively by analyzing medical images.  We outline the different modalities usually exploited to establish a
 diagnosis, and focus on the computed tomography (\ac{ct}) for the rest of this
-research work.\\
-We first present the different imaging modalities available to perform a
+research work.  We first present the different imaging modalities available to perform a
 diagnosis, before detailing the two branches of the radiomics field. We
 review liver radiomics studies and focus on the deep learning radiomics
 branch for its ability to extract features directly from the input without 
@@ -25,8 +39,7 @@ necessary requiring any prior knowledge . We present our multiphase
 cascaded architecture to segment the liver and
 its tumor, before applying this to weakly annotated datasets. We finally
 use extracted features from our multiphase architecture to predict the
-histological grade.\\
-
+histological grade. \\
 The analysis of medical images is commonly performed by the naked eye,
 but technological advances allow the creation of computer assisted
 diagnosis tools to investigate the link between imaging features 
@@ -34,10 +47,10 @@ and biological characteristics.
 We present the radiomics technique allowing the extraction of
 quantitative features from images. The conventional pipeline is based on 
 engineered features, thus considering the conventional radiomics pipeline as
-hand-crafted, hence the name of \emph{\ac{hcr}} (Hand-Crafted Radiomics).\\
+hand-crafted, hence the name of \emph{\ac{hcr}} (Hand-Crafted Radiomics).
 To depict the lack of reproducibility present in the vast majority of
 the \emph{\ac{hcr}}-liver related studies, we expose the conclusions of our
-review where \emph{\ac{rqs}} (Radiomics Quality Score) were analyzed.\\
+review where \emph{\ac{rqs}} (Radiomics Quality Score) were analyzed. \\
 The emergence of deep learning (\ac{dl}) allows creation of algorithms where
 features are learned directly from the raw images without extra information. 
 The radiomics field benefited from the development of DL, and a new branch 
