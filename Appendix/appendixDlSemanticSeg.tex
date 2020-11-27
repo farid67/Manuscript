@@ -12,10 +12,10 @@ introduced early in the network to recognize low-level features. A patch
 was considered as positive if at least 50\% of its pixels are tumoral.
 Five different patch sizes were tested to train a CNN dedicated to
 perform a binary classification between tumoral and non-tumoral labels.
-Using cross-validation on a DB containing 26 CECT volumes, it was
+Using cross-validation on a DB containing 26 \ac{cect} volumes, it was
 noticed that 17x17 patches were the one that reached the best accuracy.
 The CNN achieved slightly better performance than classical ML
-techniques built on hand-crafted features (AdaBoost, RF and SVM).
+techniques built on hand-crafted features (AdaBoost, RF and \ac{svm}).
 
 \subsection*{Ben-Cohen et al. (2016)}\label{ben-cohen-et-al.-2016}
 
@@ -24,7 +24,7 @@ construct his own network. The dense layers were converted into
 convolutional layers, especially the output classification layer that
 was removed and replaced by a 1x1 convolutional layer with 2 channels
 for a pixel-wise classification. The remaining layers were distributed
-in a FCN-8s-like architecture allowing to combine low-layer information
+in a \ac{fcn}-8s-like architecture allowing to combine low-layer information
 with high-layer information. They also decided to provide not only one
 slice as input, but 3 successive slices (namely \emph{2.5D input}) to
 help the network retrieve the 3D information. The output of the network
@@ -50,12 +50,12 @@ dice of 0.89 (note that only a slight improvement was obtained thanks to
 the 2.5D input: 0.88 vs 0.89).\\
 The accuracy of the lesion detection model was compared to both a
 patch-based approach where 17x17 patches were sampled within the liver,
-and a sparsity-based model. The FCN achieved better results than the
+and a sparsity-based model. The \ac{fcn} achieved better results than the
 other two methods reaching a FPC of 0.74.\\
 When using the entire cascaded architecture, they realized that the
 automatic liver segmentation often doesn't include darker borders, and
-that those pixels could further be classified as FP, so the fully
-automatic segmentation leads to an improvement in FPC.
+that those pixels could further be classified as \ac{fp}, so the fully
+automatic segmentation leads to an improvement in \ac{fp}C.
 
 They also conducted some synthetic experiments and realized that the
 network mostly relies on the gray level differences.
@@ -66,8 +66,8 @@ network mostly relies on the gray level differences.
 segmentation of both the liver and the potential lesions it contains.
 Their motivations were similar since they believed that the network in
 the first step will learn filters specific to the detection and the
-segmentation of the liver in an abdominal axial CT image, while
-considering that the liver ROI will help reduce the number of FP for the
+segmentation of the liver in an abdominal axial \ac{ct} image, while
+considering that the liver \ac{roi} will help reduce the number of \ac{fp} for the
 lesion segmentation task. The U-Net architecture introduced by
 \textbf{Ronneberger et al} which was used as a basis, was chosen for its
 ability to combine low and high-level features through so-called
@@ -90,7 +90,7 @@ remains an open problem.\\
 They obtained a Dice of 0.93, increased at 0.94 after applying the 3D
 CRF, for the liver segmentation, and a Dice of 0.56 for the lesions.
 They applied the same cross-validation learning on an internal database
-of 100 CT scans (Train: 60, Val: 20, Test: 20) and they reached a mean dice
+of 100 \ac{ct} scans (Train: 60, Val: 20, Test: 20) and they reached a mean dice
 of \textbf{0.91} for the liver and \textbf{0.61} for the lesions.
 
 \subsection*{Dou et al. (2016)}\label{dou-et-al.-2016}
@@ -143,16 +143,16 @@ the average Dice), but with a high reduction of inference time
 
 \textbf{Sun et al.}, were the first in 2017 to use the multiphase
 information in a deep CNN for the lesion segmentation task by developing
-a so-called multi-channel fully convolutional networks (MC-FCN). To
-implement the architecture, they transformed the AlexNet to a FCN by
+a so-called multi-channel fully convolutional networks (MC-\ac{fcn}). To
+implement the architecture, they transformed the AlexNet to a \ac{fcn} by
 converting fully connected layers into convolutional layers. They
 started by training their architecture with images from the different
 phases separately, then they realized that the weights were very
-different from one phase to another. So they built the MC-FCN so it can
+different from one phase to another. So they built the MC-\ac{fcn} so it can
 take 512x512x3 volumes as input, where each channel corresponds to a
 different phase. The 3 channels were separated early in the network by a
 so-called \emph{slice layer}, before feature extraction was performed
-for each phase using the FCN. Finally, a feature fusion layer is
+for each phase using the \ac{fcn}. Finally, a feature fusion layer is
 employed to merge the information from the different phases, and the
 output is cropped to 512x512x2. \\
 They tried to perform the segmentation of the lesions within the liver,
@@ -172,7 +172,7 @@ in the liver interior or in the liver boundary. They proposed to
 classify the patches into lesion and non-lesion categories, where lesion
 patches include lesion-boundary patches, and non-lesion patches contain
 both normal-interior patches and normal-boundary patches. An additional
-step was added to reduce the number of FP, with a binary classification
+step was added to reduce the number of \ac{fp}, with a binary classification
 CNN trained only on lesion patches and normal-boundary patches. \\
 They also decided to use two different scales to capture fine (20x20)
 and global spatial information (50x50), before concatenating the
@@ -183,7 +183,7 @@ Intensity was shifted so they all share the same mean intensity. \\
 140 000 patches per class were used for the training, and 2
 initialisation schemes were tested: a training from scratch, and a
 fine-tuning after training the network on the Cifar-10 dataset. The
-network was tested on a database containing 132 CT scans, with a total
+network was tested on a database containing 132 \ac{ct} scans, with a total
 of 498 metastases. Images were first resampled to get a 0.71-fixed
 spacing, which corresponded to the finest available spacing in the
 dataset. They confirmed the improvement brought by the separation of the
@@ -199,7 +199,7 @@ where the goal was to have a standard database with a sufficient amount
 of humanly annotated data to assess the quality of a given model to
 perform one or multiple tasks, among which, the liver segmentation, the
 tumor segmentation and detection, and the tumor burden estimation. \\
-The dataset contains a total of 201 CT scans, acquired in 7 different
+The dataset contains a total of 201 \ac{ct} scans, acquired in 7 different
 hospitals, and reviewed by 3 independent radiologists. The visible (131
 volumes) and the hidden part (70 volumes) were separated so that each
 institution has the same proportion on both sides. \\
@@ -251,7 +251,7 @@ The first step of their model consisted of getting a coarse liver
 segmentation, before being refined in the second step which also
 segmented the lesions it may contain.\\
 A weighted cross-entropy loss function with empirically chosen weights
-was implemented to train the network. The entire CT slices resampled to
+was implemented to train the network. The entire \ac{ct} slices resampled to
 a fixed resolution of 1x1x2.5 mm³ were used to train the liver
 segmentation, whereas only liver slices with their original resolution
 were utilized for the lesions segmentation step.\\
@@ -298,7 +298,7 @@ The inference was achieved by extracting the slices from the predicted
 liver area, and applying the prediction with the second network. The
 same post-processing step was implemented to conserve the 3D
 consistency.\\
-In order to train the last network, the liver VOI was extracted as
+In order to train the last network, the liver \ac{voi} was extracted as
 previously, but by keeping the original resolution to avoid losing small
 details. The training was completed using only lesion slices, and an
 additional image was added beside the original image, where intensity
@@ -306,7 +306,7 @@ difference between lesion and liver voxels was enhanced via 3D regional
 histogram equalization.\\
 During the inference, all activations outside the predicted liver were
 removed.\\
-Their method achieved average DSCs of \textbf{0.96} for liver
+Their method achieved average \ac{dsc}s of \textbf{0.96} for liver
 segmentation (Dice global of 0.967), \textbf{0.66} for tumor
 segmentation (Dice global of 0.82), and a root mean square error (RMSE)
 of \textbf{0.02} for tumor burden estimation.
@@ -318,7 +318,7 @@ The cascade paradigm was also the key element in the study of
 The main architecture they used was the DRIU (deep retinal image
 understanding), consisting of VGG16 backbone with last Dense Layers
 replaced by a convolutional layer. The network was pre-trained on the ImageNet dataset, before fine-tuned
-with CT images having intensity clipped to the range {[}-150, 250{]} and
+with \ac{ct} images having intensity clipped to the range {[}-150, 250{]} and
 further normalized.
 To train the network, the weighted binary cross entropy (BCE) was
 implemented in order to deal with class balancing. When training the
@@ -328,7 +328,7 @@ inside the liver region when computing the weights of their loss
 function. Each one of the networks were trained with 2.5D input to
 exploit the 3D information.
 After executing both the liver and lesions segmentation, they developed
-a lesion detector to reduce the number of FP. A patch-based approach was
+a lesion detector to reduce the number of \ac{fp}. A patch-based approach was
 used for the training of the detector, with patches of 80x80 pixels
 sampled through the liver (having at least 25\% overlap with the liver),
 and classified as positive if at least 50 pixels of the region belong to
@@ -340,7 +340,7 @@ last classification layer by a binary-classification layer
 A post-processing invoking a fully-connected 3D CRF model was further
 called to refine the obtained regions.\\
 Their results proved that the detector helps the network to reduce the
-number of FP, and also confirmed that learning to segment the lesions
+number of \ac{fp}, and also confirmed that learning to segment the lesions
 only from the liver area helps the network.\\
 With their method, they obtained a Dice per case of \textbf{0.59} on the
 test set of LITS.
@@ -356,18 +356,18 @@ manual annotations from another expert.\\
 resolution levels with additional short skip connections dedicated to
 the segmentation of tumors only were trained on the LITS database. The
 loss function considered only the voxels belonging to the liver. In
-order to reduce the number of FP, an additional step was added where
+order to reduce the number of \ac{fp}, an additional step was added where
 hand-crafted features were computed on the 3D objects obtained after the
 segmentation step. In order to assess the performance of the neural
 network, a human (MTRA: medical-technical radiology assistant) was asked
 to segment the LITS dataset. The dice per case between MTRA and LITS was
-0.70. The neural network reached a DSC of 0.51 on the LITS (4.6
-FP/case). After using the classifier, the Dice was improved to 0.58, and
-the number of FP was reduced to 0.7/case. They finally reached a dice
+0.70. The neural network reached a \ac{dsc} of 0.51 on the LITS (4.6
+\ac{fp}/case). After using the classifier, the Dice was improved to 0.58, and
+the number of \ac{fp} was reduced to 0.7/case. They finally reached a dice
 per case of \textbf{0.68} for the lesion and \textbf{0.96} for the
 liver.\\
 Among the several hand-crafted features, the most relevant one for
-detecting the FP were shape-based features as long the distance from the
+detecting the \ac{fp} were shape-based features as long the distance from the
 object to the boundary.
 
 \subsection*{Kaluva et al. (2018)}\label{kaluva-et-al.-2018}
@@ -382,7 +382,7 @@ After each dense block, a Transition Down (TD) layer is introduced to
 reduce the spatial dimensionality of the feature maps.
 Their cascaded model consisted of 2 steps, one specified on the liver
 segmentation, and the second one on the lesions segmentation.
-To train the liver segmentation network, the original CT images were
+To train the liver segmentation network, the original \ac{ct} images were
 downsampled to 256x256 pixels before normalizing HU intensities clamped
 to the range {[}-100, 300{]}.
 No downsampling was performed when training the lesions segmentation
@@ -468,7 +468,7 @@ The majority of the papers that were submitted for these 2 challenges
 share some common properties, and they were reviewed by the organizers
 themselves in \textbf{Bilic et al. (2019)}.\\
 They started with a reminder about the composition of the database,
-where the 201 total CT scans were acquired in 7 different hospitals, and
+where the 201 total \ac{ct} scans were acquired in 7 different hospitals, and
 reviewed by 3 independent radiologists. The visible (131 volumes) and
 the hidden part (70 volumes) were separated so that each institution has
 the same proportion on both sides.\\
@@ -498,7 +498,7 @@ techniques, they reported the extraction of connected components, the
 removal of lesions activation outside of the liver, the fill of
 erroneous holes in the lesions shape via morphological operations, the
 application of connected CRF, or the use of a classifier (such as Random
-Forest) to detect the FP.\\
+Forest) to detect the \ac{fp}.\\
 Ensemble learning was also applied by the top-ranked methods, either via
 axis-related networks, the combination of different rescaled input data,
 or the use of different networks trained in a CV-manner.\\
@@ -532,7 +532,7 @@ for semantic segmentation purpose.\\
 Their model contained 3 stages, the first one to get a coarse liver
 segmentation from 2D images, the second one to refine the obtained
 volume of interest using a 3D architecture, and the last one to segment
-tumors from the precise liver VOI.\\
+tumors from the precise liver \ac{voi}.\\
 Each network was built according to the U-Net shape but using residual
 blocks as key components. The combination of both residual blocks and
 attention mechanism allows the network to learn on deep architectures,

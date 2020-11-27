@@ -109,19 +109,23 @@
 
 \tableofcontents
 
-%\printacronyms[include-classes=abbrev,name=Abbreviations]
+\newpage
+\printacronyms[include-classes=abbrev,name=Abbreviations]
+\newpage
 
 \subimport{Introduction/}{introduction}
 \subimport{MedicalContext/}{medical_context}
 \subimport{Radiomics/}{radiomics}
 \subimport{SemanticSeg/}{semantic_segmentation}
-\subimport{HistologicalGradePrediction/}{hist_grad_prediction}
+%\subimport{HistologicalGradePrediction/}{hist_grad_prediction}
+\subimport{Contributions/}{contributions}
 \subimport{Perspectives/}{perspectives}
 \subimport{Conclusion/}{conclusion}
 \begin{appendices}
 \subimport{Appendix/}{appendixDlSemanticSeg}
 \subimport{Appendix/}{appendixHyperparam}
 \subimport{Appendix/}{appendixRadFeatures}
+\subimport{Appendix/}{appendixEvaluationMetrics}
 \end{appendices}
 
 \newpage

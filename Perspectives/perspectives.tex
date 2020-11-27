@@ -3,24 +3,24 @@
 Several axes of improvement can be considered regarding our research work.
 We will discuss potential improvements to bring to the 
 semantic segmentation of liver tumors, before raising issues regarding
-the current standards for dynamic CECT acquisition and their impact to 
-future multiphasic CT-based radiomics studies.
-Finally we present ways to incorporate our work in other DLR-liver related 
+the current standards for dynamic \ac{cect} acquisition and their impact to 
+future multiphasic \ac{ct}-based radiomics studies.
+Finally we present ways to incorporate our work in other \ac{dlr}-liver related 
 studies, by encouraging for the creation of open and precisely 
-annotated CECT datasets.
+annotated \ac{cect} datasets.
 %When performing a hand-crafted or a deep radiomics study, we still
 %believe that the key part will be the area selection preceding the
 %computation of the radiomics features.
 
 \section{Semantic Segmentation}
 
-As discussed before, the HCR paradigm requires manual experts
+As discussed before, the \ac{hcr} paradigm requires manual experts
 segmentations, and several studies already discussed the inter- and
 intra-observer variability present among the obtained delineations. This
 variability is translated in the quality of the retained features, which
 tend not to be robust enough when evaluating the predictive 
 strength of the model.\\
-The DLR paradigm allows the segmentation to be made automatically, thus
+The \ac{dlr} paradigm allows the segmentation to be made automatically, thus
 reducing the number of potential biases. The automatic segmentation, as
 performed in our research work, however requires a high number of
 training cases to offer a realistic delineation of the targeted tissues.\\
@@ -29,14 +29,14 @@ network responsible for the segmentation of the liver and a second
 dedicated only to detect the tumor within the obtained liver mask is
 currently the method allowing to obtain the most accurate results.
 State-of-the-art liver segmentation methods currently allow us to reach
-annotations similar to those obtained by the experts with mean DSC often
+annotations similar to those obtained by the experts with mean \ac{dsc} often
 above 0.95-0.96. We believe that there is no real need to improve the
 liver segmentation in the future, and that more interest needs to be
 shown in tumor and other liver tissues segmentation.
 
 Regarding the segmentation of liver tumors, current state-of-the-art
 results were obtained thanks to post-processing steps such as false
-positives (FP) filtering method to reduce the number of
+positives (\ac{fp}) filtering method to reduce the number of
 objects misclassified as lesions.
 It might be that current semantic segmentation architectures still lack the
 ability to discriminate between real lesions and other areas of the liver sharing the
@@ -103,7 +103,7 @@ tumors segmentation tasks \cite{Chen2019}.
 
 In our research work, the key element is the extraction of features
 from dynamic contrast-enhanced images. However, it has been very
-difficult to collect dynamic CECT based images, since only a few
+difficult to collect dynamic \ac{cect} based images, since only a few
 publicly available datasets contain this type of volume. \\
 There is a huge room for improvement regarding this specific type of
 dataset. It has been mentioned in the chapter \ref{liverCancer}, that the
@@ -143,7 +143,7 @@ injection of the contrast medium and the acquisition.
 In our research work, we have decided to implement an histogram
 specification algorithm to ``normalize'' images from a given phase. The
 first step requires to compute a mean histogram per phase (which requires to
-have a sufficient amount of CT images correctly labeled), before
+have a sufficient amount of \ac{ct} images correctly labeled), before
 transforming the volumes of a given patient to match the obtained mean
 histogram, as depicted in the figure \ref{fig:specif}.
 
@@ -177,13 +177,13 @@ address the problem of small mis-registration when only one ground truth
 segmentation map is shared by all the available phases images.
 
 One long-term objective could be to create, with the help of
-radiological experts, a dataset containing registered multiphase CT
+radiological experts, a dataset containing registered multiphase \ac{ct}
 volumes with expert annotations performed following the aforementioned
 protocol.
 
 \section{Deep Radiomics}
 
-Regarding our DLR study, we believe that the prediction of the
+Regarding our \ac{dlr} study, we believe that the prediction of the
 histological grade can be improved. \\
 As an example we advocate for a grade prediction at a finer
 scale, but it will require to know the exact position of the extracted
@@ -199,8 +199,8 @@ We are considering the relevant imaging features as being the
 ones extracted from the bottleneck part of our U-Net network but other
 techniques such as the auto-encoder could be investigated to better
 extract the relevant information from the raw images, or from the
-retained features. We could have also incorporated clinical
-data (AFP levels, age, \ldots{}) in our pipeline, however such data are
+retained features. We could have also incorporate clinical
+data (\ac{afp} levels, age, \ldots{}) in our pipeline, however such data are
 often difficult to retrieve, and challenging to combine with imaging
 features, consequently, we decided to focus only on images in the
 current work.\\
@@ -209,7 +209,7 @@ histological grade, we believe that the existing grading systems have to
 be standardized by considering more criteria than just the worst or the
 most frequent grade present in the histological slices, which is
 currently the case.\\
-Our DLR architecture obtained promising results for the prediction of
+Our \ac{dlr} architecture obtained promising results for the prediction of
 the histological grade, but we believe that the same architecture can be
 adapted to focus on other tasks, such as the prediction of
 recurrence after treatment using longitudinal studies.
