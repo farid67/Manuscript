@@ -1,4 +1,4 @@
-\chapter{Contributions}\label{contributions}
+\chapter{Histological grade prediction via automatic liver tumors segmentation}\label{contributions_xp}
 
 
 In this chapter we present the experimental results of our work.
@@ -37,11 +37,12 @@ literature \cite{Ouhmich2019}.
 
 We implemented different architectures to validate the hypothesis that
 current deep networks can perform automatic delineation of both the
-liver and its tumors. We also proved that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network thanks to the specific wash-in wash-out mechanism. Finally, we proved the ability of our cascaded architecture to provide additional annotations in weakly annotated datasets.
-The features computed by the deep networks will further be used in a
-radiomics purpose.
+liver and its tumors. 
+The wash-in wash-out being an important characteristic of the tumor, we decided to design an architecture that will try to extract features encoding this specific information. We wanted to prove that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network, therefore, we compared results obtained using single and multi-phase networks. \\
+We built several architectures to confirm that the cascaded approach corresponds to the best paradigm when dealing with small multiphase datasets.
+Finally, we proved the ability of our cascaded architecture to provide additional annotations in weakly annotated datasets.\\
 It it worth noting that we are the first to automatically 
-delineate \ac{hcc} on multiphase \ac{ct} images using a \ac{dl} architecture.
+delineate \ac{hcc} on multiphase \ac{ct} images using a \ac{dl} architecture, and that features computed by the our architecture will further be used in a radiomics purpose to predict the histological grade.
 
 
 
@@ -66,7 +67,7 @@ architecture.
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{../SemanticSeg/images/image26}
+	\includegraphics[width=0.7\linewidth]{../SemanticSeg/images/Cascade2}
 	\caption{Cascaded network: The first network takes as input a \ac{ct} image and segments the liver. The resulting segmentation map is used to remove non-liver pixels in the input data of the second network which performs the segmentation of lesions. The last network segments the necrosis within the lesions. The three binary masks are combined in the final segmentation map.}
 	\label{CARS_Cascade}
 \end{figure}
@@ -117,7 +118,7 @@ The same naming-system as in our study will be used
 here \cite{Ouhmich2019}. Single-phase elementary networks will be referred to by both the
 input phase and the segmentation target, as an example, \pplfont{\ac{pv}-Lesion} will
 refer to the network responsible for the segmentation of the lesion,
-with \ac{pv} phase images as input. The complete \emph{U-Net}
+with \ac{pv} (Portal Venous) phase images as input. The complete \emph{U-Net}
 architecture for this specific elementary network is depicted in the figure \ref{CARS_PV_lesion_Fig}.
 
 \begin{figure}[th!]
@@ -721,8 +722,7 @@ depicted in figure \ref{fig:TCIAMultiphaseTumorPred}.
 \begin{minipage}{0.3\linewidth}
 \includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image7.png}
 \end{minipage}
-\caption{\textcolor{red}{\textbf{TODO: change the figure to better see the differences}}
-Example of an image from the \textbf{\lmttfont{TCIA-dB}}, with the obtained predicted tumor
+\caption{Example of an image from the \textbf{\lmttfont{TCIA-dB}}, with the obtained predicted tumor
 segmentation using the \pplfont{MPF-Tumor} segmentation network (left: raw,
 middle: expert annotation, right: obtained segmentation)}
 \label{fig:TCIAMultiphaseTumorPred}
@@ -952,7 +952,7 @@ histological grade of 15 patients among 18, as detailed in the table \ref{tab:co
 when at least half of the retained slices were annotated with the
 correct \ac{gt} class).
 When considering a slice-wise prediction, we were able to correctly
-predict \textbf{\textasciitilde{}74\%} of the slices.
+predict \textbf{\textasciitilde{}74\%} of the slices.\\
 \renewcommand{\arraystretch}{2}
 \begin{table}[!htp]\centering
 \caption{Confusion matrix regarding the patient-wise  histological grade prediction}\label{tab:confusion_matrix}
@@ -961,7 +961,7 @@ predict \textbf{\textasciitilde{}74\%} of the slices.
 \cline{3-4}
 \multicolumn{2}{c|}{}&LG&HG&\multicolumn{1}{c}{\textit{Total}}\\
 \cline{2-4}
-\multirow{2}{*}{\textbf{Predicted grade}}& LG & 7 & 1 & 8\\
+\multirow{2}{*}{\textbf{Predicted grade}}& LG & \textbf{7} & 1 & \textbf{8}\\
 \cline{2-4}
 & HG & 2 & 8 & 10 \\
 \cline{2-4}
@@ -976,6 +976,9 @@ allows us to visually focus on the heterogeneous regions that are
 crucial when needing to establish a diagnosis. Our pipeline can also
 provide a map of the best biopsy sites that will further be necessary in
 the clinical practice to either evaluate the progression of the disease
-or its prognosis.
-
+or its prognosis.\\
+We successfully proved that multiphase images incorporated in a cascaded architecture corresponds to the best combination when performing semantic segmentation of liver and its tumors. Moreover, our preliminary results proved that imaging features extracted from our cascaded multiphase segmentation architecture were relevant enough to be incorporated in a deep radiomics pipeline for the histological grade prediction. 
+Our semantic segmentation results outperformed those reported on the same database using an ensemble classifier and requiring expert interactions during the segmentation process.
+Our histological grade prediction results were on par with the ones reported by the only study performing histological grade prediction but using a different dataset composed of MR images and using manually drawn regions of interest.\\
+In the following section we present the different axes of improvement to improve the present work.
 

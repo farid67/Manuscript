@@ -1,7 +1,7 @@
 \chapter{Introduction}
 
 \section{Context}
-This research work is part of the RADIAL project, carried out by the
+This research work is part of the RADIAL (RADiomics Image Analysis of the Liver) project, carried out by the
 institute for minimally invasive surgery from Strasbourg (IHU), where
 one of the objectives is to improve the treatment and the prevention of
 liver cancer.\\
@@ -17,9 +17,10 @@ morphological properties in images only by using the pixel intensities
 as input. The radiomics field was impacted by this new set of algorithms, and a new branch of radiomics was created, where the definition of the region of interest and/or the extraction of features are performed using deep learning approaches.
 
 \section{Contributions}
-In our work we will present strategies to automatically provide characterization of the liver tumors.
+In our work we present strategies to automatically provide characterization of the liver tumors.
+We detailed our review presenting current liver-related hand-crafted radiomics studies and proposed different ways to improve their reproducibility.
 Often performed manually, the delineations of the tumors can suffer from various bias, such as the inter and intra-observer variability, or its undefined borders leading to errors when diagnosing, classifying or staging the liver cancer. Therefore, we present a robust automatic pipeline to perform semantic segmentation of liver tumors using both the power of deep cascaded networks architecture and the incorporation of dynamic contrast-enhanced information. We proved the value of our cascaded architecture by providing missing annotations in a weakly-annotated multiphase CT datasets using our approach.
-To characterize the tumors, we tackled the histological grade prediction and proposed a deep radiomics pipeline which used relevant semantic imaging features to assess the grade in a slice-wise fashion.
+To characterize the tumors, we tackled the automatic histological grade prediction and we were the first to propose a deep radiomics pipeline which used relevant semantic imaging features to assess the grade in a slice-wise fashion.
 
 \section{Outline of the thesis}
 We present the different types of liver cancers, and particularly the
@@ -35,7 +36,7 @@ research work.  We first present the different imaging modalities available to p
 diagnosis, before detailing the two branches of the radiomics field. We
 review liver radiomics studies and focus on the deep learning radiomics
 branch for its ability to extract features directly from the input without 
-necessary requiring any prior knowledge . We present our multiphase 
+necessary requiring any prior knowledge. We present our multiphase 
 cascaded architecture to segment the liver and
 its tumor, before applying this to weakly annotated datasets. We finally
 use extracted features from our multiphase architecture to predict the

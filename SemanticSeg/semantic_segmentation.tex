@@ -937,7 +937,7 @@ clustering based on the gray level local distribution, then refined the
 liver segmentation map via connected component analysis. Conze et al. \cite{Conze2017} semi-interactively performed 
 the segmentation of the parenchyma, and the separation between 
 the active and the necrotic part of the lesions on multiphase \ac{ct} images.
-Images were registered between the different phases using \ac{pv} phase images as reference, and
+Images were registered between the different phases using \ac{pv} (Portal Venous) phase images as reference, and
 supervoxels\footnote{group of voxels sharing the same textural properties}
 were computed at different scales using a SLIC (simple linear iterative clustering ) 
 algorithm on \ac{pv} phase images. A random forest was trained 
@@ -1230,7 +1230,7 @@ databases such as LITS as a way to compare themselves to
 state-of-the-art methods. As a matter of facts, the key common elements
 that have been proposed previously served as a basis for new studies.
 
-In the following section, we will present our experiments that were conducted to automatically perform the semantic segmentation of the liver and its potential tumors. Inspired by the above mentioned work, a sequential architecture consisting of several specialized networks was trained by considering the dynamic of the liver thanks to contrast-enhanced \ac{ct} images. 
+In the following section, we will present our experiments that were conducted to automatically perform the semantic segmentation of the liver and its potential tumors. Inspired by the above mentioned work, a sequential architecture consisting of several specialized networks was trained by considering the dynamic of the liver thanks to contrast-enhanced \ac{ct} images. The relevant features computed by our deep cascaded multiphase architecture will subsequently be extracted to predict the histological grade.
 % Copy in Perspectives
 
 
