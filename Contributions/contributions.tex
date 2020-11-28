@@ -37,8 +37,7 @@ literature \cite{Ouhmich2019}.
 
 We implemented different architectures to validate the hypothesis that
 current deep networks can perform automatic delineation of both the
-liver and its tumors. 
-The wash-in wash-out being an important characteristic of the tumor, we decided to design an architecture that will try to extract features encoding this specific information. We wanted to prove that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network, therefore, we compared results obtained using single and multi-phase networks. \\
+liver and its tumors. The wash-in wash-out being an important characteristic of the tumor (see chapter \ref{liverCancer}), we decided to design an architecture that will try to extract features encoding this specific information. We wanted to prove that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network, therefore, we compared results obtained using single and multi-phase networks. \\
 We built several architectures to confirm that the cascaded approach corresponds to the best paradigm when dealing with small multiphase datasets.
 Finally, we proved the ability of our cascaded architecture to provide additional annotations in weakly annotated datasets.\\
 It it worth noting that we are the first to automatically 
@@ -247,13 +246,13 @@ the interval $ \left[0, 1\right]$ \footnote{\ac{dl} studies usually tend to perf
 data standardization but here HU values are already normalized. 
 The used range helps us to avoid potential bias caused by images acquired at a delayed phase with a different contrast}.
 
-\subsubsection{Training}
+\subsubsection{Training}\label{sem-seg-training}
 
 In order to validate our hypotheses, we have decided to first run
 experiments on the \lmttfont{3DIrcad-dB} to set the most crucial hyperparameters
 such as the learning rate, the decay, the depth of the network or the
 type and the amount of data augmentation.
-The selection process is detailed in the chapter \ref{appendix---hyperparameters-selection}, and here is the list of the chosen hyperparameters:
+The selection process is detailed in the appendix \ref{appendix---hyperparameters-selection}, and here is the list of the chosen hyperparameters:
 
 \begin{itemize}
 	\item Lr: 1e-4
@@ -622,10 +621,10 @@ The registration allows us to obtain both a new registered arterial volume, a tr
 One way to assess the precision of the registration is to apply the
 transformation matrix to the initial resampled \ac{ar} liver mask and to
 compute the \ac{dsc} with the target \ac{pv} liver mask. When applying this
-evaluation, we obtained a mean patient-wise \ac{dsc} of $ 92.8 \pm 3.8 $ at the
+evaluation, we obtained a mean patient-wise \ac{dsc} of $ 92.8 \pm 3.8 $ between the target \ac{pv} and the registered \ac{ar} liver masks at the
 end of the registration step on the \textbf{\lmttfont{TCIA-dB}}, sufficient to consider the
 registration as successful when compared with those obtained by state-of-the-art
-registration methods applied to the liver \cite{Zhao2019}.
+registration methods applied to the liver (where mean liver masks dices obtained after a subject-to-subject registration varied between 0.96 and 0.91 when applied to respectively the SLIVER and the LITS datasets) \cite{Zhao2019}.
 
 The complete registration pipeline applied to the \textbf{\lmttfont{TCIA-dB}} is detailed in the table \ref{regisPipeline}.
 
@@ -766,10 +765,10 @@ We decided to extract relevant imaging features from our multiphase cascaded sem
 to perform the prediction of histological grade.
 The prediction of the histological grade of the tumor was rarely studied, since only one study
 used deep learning tools to perform this task but with MR images as
-input \cite{Yang2019}.
+input \cite{Yang2019} (see section \ref{ct-and-mr-imaging} to get more details on both modalities and our choice to focus on \ac{ct} imaging).
 Indeed, this task appears to be more challenging than previous \ac{dlr}
 liver-related work where either the type of \ac{fll} or the treatment
-response (such as the recurrence) were predicted (\textbf{see section \ref{deep-learning-radiomics}}).\\
+response (such as the recurrence) were predicted (see section \ref{deep-learning-radiomics}), however, being able to perform such a prediction could highly improve the automatic characterization of liver tumors, as seen in the section \ref{histological-hcc-grading-systems}.\\
 We will now focus on the only study in the literature that tackled the
 problem of predicting the histological grade of \ac{hcc}s through a \ac{dl}
 architecture with medical images, before presenting our own automatic \ac{dl}
@@ -953,9 +952,17 @@ when at least half of the retained slices were annotated with the
 correct \ac{gt} class).
 When considering a slice-wise prediction, we were able to correctly
 predict \textbf{\textasciitilde{}74\%} of the slices.\\
+An example of prediction performed on one patient of the \lmttfont{TCIA-dB} with a high grade can be observed in the figure \ref{fig:Slice_hist_grad_prediction}. It has been observed that the classification confidence was often correlated with the distance to the center of the tumor, where central tumor slices where correctly classified with a higher probability than distant slices, that were either classified with a lower confidence, or even misclassified. The quality of the semantic segmentation also often guided the accuracy of the prediction, as seen in the figure \ref{fig:Slice_hist_grad_prediction}.
+\begin{figure}[th!]
+\centering
+\includegraphics[width=0.9\linewidth]{HistologicalGradePrediction/images/Slice_hist_grad_prediction}
+\caption{Example of slice-wise histological grade prediction. We globally observed that the confidence was correlated with the absolute position to the center, and that the quality of the semantic segmentation is a prerequisite to extract relevant features. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side, and tumor segmentation heatmap in the right side), two are correctly segmented and their histological grade was correctly predicted whereas one of them contained mis-segmented areas leading to a mis-classification of the histological grade.}
+\label{fig:Slice_hist_grad_prediction}
+\end{figure}
+
 \renewcommand{\arraystretch}{2}
 \begin{table}[!htp]\centering
-\caption{Confusion matrix regarding the patient-wise  histological grade prediction}\label{tab:confusion_matrix}
+\caption{Confusion matrix regarding the patient-wise histological grade prediction}\label{tab:confusion_matrix}
 \begin{tabular}{l|l|c|c|c}
 \multicolumn{2}{c}{}&\multicolumn{2}{c}{\textbf{True grade}}&\\
 \cline{3-4}
@@ -965,7 +972,7 @@ predict \textbf{\textasciitilde{}74\%} of the slices.\\
 \cline{2-4}
 & HG & 2 & 8 & 10 \\
 \cline{2-4}
-\multicolumn{1}{c}{} & \multicolumn{1}{c}{\textit{Total}} & \multicolumn{1}{c}{9} & \multicolumn{1}{c}{9} & \multicolumn{1}{c}{18}\\
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{\textit{Total}} & \multicolumn{1}{c}{\textbf{9}} & \multicolumn{1}{c}{9} & \multicolumn{1}{c}{18}\\
 \end{tabular}
 \end{table}
 \renewcommand{\arraystretch}{5}

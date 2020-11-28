@@ -6,7 +6,7 @@ selection}\label{appendix---hyperparameters-selection}
 
 In this chapter, we reported the experiments that we run on the
 \lmttfont{3DIrcad-dB} to find the best sets of hyperparameters for the tumor
-segmentation networks.
+segmentation networks. Results were reported here to allow better readability in of our complete semantic segmentation work (see chapter \ref{sem-seg-training})
 
 Here is the list of hyperparameters to set in our case:
 
@@ -33,7 +33,7 @@ Here is the list of hyperparameters to set in our case:
 Several techniques exist for the determination of the best set of
 hyperparameters, such as the grid search or the bayesian hyperparameters
 optimization. However given the number of hyperparameters and the time
-required to perform one training, it would have been too costly to
+required to perform one training \footnote{Evaluating one set of hyperparameters can take up to 48h using a single our networks implemented using Keras with a Tensorflow backend and trained on a single NVIDIA GTX 1070 graphics card with 8 GB VRAM.}, it would have been too costly to
 implement those techniques that better suits small architectures and
 less complex problems, so we have decided to follow an heuristic
 approach to find the best set of parameters.\\
@@ -85,9 +85,8 @@ features will still be discriminant in our deep radiomics approach for
 the grade classification if the aspect of the internal liver tissues is
 changed.
 We have performed for each of the following experiments a 5-Fold
-Cross-Validation training on the \lmttfont{3DIrcad-dB}, and the reported results
-correspond to the mean slice-wise dice for the given region (
-parenchyma or lesion). 
+Cross-Validation training on the \lmttfont{3DIrcad-dB} (see table \ref{xp_datasets} for more details), and the reported results
+correspond to the mean slice-wise dice for the given region (parenchyma or lesion). 
 
 
 %\section{Parenchyma - Tumor Network Hyperparameters
@@ -115,7 +114,7 @@ Here are the results obtained with the following fixed parameters:
 \end{itemize}
 
 \begin{table}[!htp]\centering
-\caption{Parenchyma segmentation results}
+\caption{Parenchyma segmentation results (mean slice-wise \% Dsc)}
 \scriptsize
 \begin{tabular}{lrrrrrrr}\toprule
  & &\multicolumn{5}{c}{\textbf{Decay}} \\\cmidrule{3-7}
@@ -129,7 +128,7 @@ Here are the results obtained with the following fixed parameters:
 
 
 \begin{table}[!htp]\centering
-\caption{Tumor segmentation results}
+\caption{Tumor segmentation results (mean slice-wise \% Dsc)}
 \scriptsize
 \begin{tabular}{lrrrrrrr}\toprule
 & &\multicolumn{5}{c}{\textbf{Decay}} \\\cmidrule{3-7}
@@ -143,7 +142,7 @@ Here are the results obtained with the following fixed parameters:
 
 Since those two metrics are highly related to the number of voxels of
 each class, we decided in order to combine them to incorporate the
-number of voxels of each one of the two classes to create a new metric
+number of voxels of each one of the two classes to create a new weighted metric
 that will help us select the best networks.
 
 \begin{table}[!htp]\centering
@@ -185,7 +184,7 @@ Here are the reported results for both the segmentation of the
 parenchyma and the tumor when changing the depth of the network:
 
 \begin{table}[!htp]\centering
-\caption{Parenchyma segmentation results}
+\caption{Parenchyma segmentation results (mean slice-wise \% Dsc)}
 \scriptsize
 \begin{tabular}{lrrrrrr}\toprule
 & &\multicolumn{4}{c}{\textbf{\# Bottleneck filters}} \\\cmidrule{3-6}
@@ -199,7 +198,7 @@ $ 10^{-4} $ &$ 10^{-5} $ &89.7 &92.6 &89.9 &93.6 \\
 \end{table}
 
 \begin{table}[!htp]\centering
-\caption{Tumor segmentation results}
+\caption{Tumor segmentation results (mean slice-wise \% Dsc)}
 \scriptsize
 \begin{tabular}{lrrrrrr}\toprule
 & &\multicolumn{4}{c}{\textbf{\# Bottleneck filters}} \\\cmidrule{3-6}
@@ -227,7 +226,7 @@ $ 10^{-4} $ &$ 10^{-5} $ &16.0 &22.6 &18.9 &29.3 \\
 \end{table}
 
 We can see that a too large network depth can cause problems, probably
-because the size of the training dataset is too small.
+because the size of the training dataset is too small (potential overfitting).
 
 For the next experiments, we have decided to fix the learning rate to
 \textbf{1e-4} and the decay to \textbf{1e-4}, with a number of filters
@@ -264,7 +263,7 @@ hyperparameters are fixed as follow:
 We first investigated the value brought by translations during the data
 augmentation process, by changing the shift from large to small deltas.
 
-Here are the results for each of the chosen sets:
+Here are the results for each of the chosen sets (mean slice-wise \% Dsc, expect for the weighted combined metric):
 
 \begin{longtable}[c]{@{}llll@{}}
 \toprule
@@ -293,7 +292,7 @@ vertically, thus a maximum of 2 images can be generated for a given
 initial image.
 
 Here are the results obtained when generating only flipped images during
-the data augmentation process:
+the data augmentation process (mean slice-wise \% Dsc, expect for the weighted combined metric)::
 
 \begin{longtable}[c]{@{}llll@{}}
 \toprule
@@ -302,7 +301,7 @@ the data augmentation process:
 \midrule
 \endhead
 No Augm. & 94.2 & 27.6 & 30.9\tabularnewline
-\textbf{TRUE} & \textbf{94.7} & \textbf{31.6} &
+\textbf{With Flip} & \textbf{94.7} & \textbf{31.6} &
 \textbf{34.7}\tabularnewline
 \bottomrule
 \end{longtable}
@@ -316,7 +315,7 @@ When applying rotation, we have to carefully choose the angles used
 during the rotation since too small angles can cause overfitting and too
 large angles can be useless because representing unrealistic data.
 
-Here are the results obtained for the chosen rotation sets:
+Here are the results obtained for the chosen rotation sets (mean slice-wise \% Dsc, expect for the weighted combined metric)::
 
 \begin{longtable}[c]{@{}cccc@{}}
 \toprule
@@ -372,7 +371,7 @@ next experiments.
 
 We first investigated what happened when both augmentation functions are
 combined, by incrementally increasing the augmentation factor, and
-reported the results hereafter:
+reported the results hereafter (mean slice-wise \% Dsc, expect for the weighted combined metric)::
 
 \begin{longtable}[c]{@{}ccccc@{}}
 \toprule

@@ -159,14 +159,13 @@ annotated \ac{cect} datasets.
 
 \subsection{Semantic Segmentation}
 
-As discussed before, the \ac{hcr} paradigm requires manual experts
+As discussed before, the \ac{hcr} paradigm often requires manual experts
 segmentations, and several studies already discussed the inter- and
 intra-observer variability present among the obtained delineations. This
 variability is translated in the quality of the retained features, which
 tend not to be robust enough when evaluating the predictive 
 strength of the model.\\
-The \ac{dlr} paradigm allows the segmentation to be made automatically, thus
-reducing the number of potential biases. The automatic segmentation, as
+The \ac{dlr} paradigm allows one or multiple steps of the radiomics pipeline to be implemented with deep learning approaches. We decided to focus on the segmentation step and performed it automatically thanks to deep neural networks, thus reducing the number of potential biases. The automatic segmentation, as
 performed in our research work, however requires a high number of
 training cases to offer a realistic delineation of the targeted tissues.\\
 In the case of liver tumors, a cascaded architecture stacking a first
@@ -342,13 +341,15 @@ patch-wise semantic segmentation network needs to be improved.
 
 We are considering the relevant imaging features as being the
 ones extracted from the bottleneck part of our U-Net network but other
-techniques such as the auto-encoder could be investigated to better
+types of auto-encoders could be investigated to better
 extract the relevant information from the raw images, or from the
 retained features. We could have also incorporate clinical
-data (\ac{afp} levels, age, \ldots{}) in our pipeline, however such data are
+data (\ac{afp} (Alpha-FetoProtein) levels, age, \ldots{}) in our pipeline, however such data are
 often difficult to retrieve, and challenging to combine with imaging
 features, consequently, we decided to focus only on images in the
 current work.\\
+It is worth also noting that the current registration steps still suffers from limitation
+essentially because it performed using the predicted liver masks as registrations masks. However, the automatic liver delineations is not perfect, and therefore this can result in slightly misregistered volumes. Therefore, we advocate an incorporation of an automatic deep learning based registration step in our \ac{dlr} pipeline, or a workflow requiring no registration at all (for example by considering features learned in each phase separately and combining them for the grade prediction).\\
 If more interest is shown in the future towards the prediction
 histological grade, we believe that the existing grading systems have to
 be standardized by considering more criteria than just the worst or the
