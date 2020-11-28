@@ -37,7 +37,7 @@ The average gray level intensity within the \ac{roi}.\newline
 The median gray level intensity within the \ac{roi}.\\
 \textbf{10.} \textbf{Interquartile Range:}\\
 \[\textit{interquartilerange}=P_{75}-P_{25}\]\\
-Here $P_{25}$ and $P_{75}$ {are the 25}$^{\mathrm{th}}${and 75}$^{\mathrm{th}}$ {percentile of the image array, respectively.}
+Here $P_{25}$ and $P_{75}$ {are the 25}$^{\mathrm{th}}${and 75}$^{\mathrm{th}}$ {percentile of the image array, respectively.}\\
 \textbf{11. Range:}\newline
 The range of gray values in the \ac{roi}.\\
 \[\textit{range}=max\left(X\right)-min \left(X\right)\]\\
@@ -55,10 +55,11 @@ Here, $c$ is an optional value which shifts the intensities to prevent negative 
 {Standard Deviation measures the amount of variation or dispersion from the Mean Value. By definition, standard deviation =}$\sqrt{\textit{variance}}$.\\
 {\textbf{16. Skewness:}}
 \[\textit{skewness}=\frac{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}N}\left(X\left(i\right)-\mean{X}\right)^{3}}{\left(\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\right)^{3}}\]\\
-{where } $\mean{X}${is the mean of} $X$.\\
+{where } $\mean{X}${ is the mean of} $X$.\\
+Skewness measures the asymmetry of the distribution of values about their mean value.\\
 \textbf{17. Kurtosis:}\\
 \[\textit{kurtosis}=\frac{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{4}}{\left(\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\right)^{2}}\]\\
-{Where } $\mean{X}${is the mean of} $X$.\\
+{Where } $\mean{X}${ is the mean of} $X$.\\
 {Kurtosis is a measure of the “peakedness” of the distribution of values in the image \ac{roi}. A higher kurtosis implies that the mass of the distribution is concentrated towards the tail(s) rather than towards the mean. A lower kurtosis implies the reverse: that the mass of the distribution is concentrated towards a spike near the Mean value.}\\
 {\textbf{18. Variance:}}\\
 \[\textit{variance}=\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}\]\\
@@ -228,7 +229,7 @@ GLNN measures the variability of gray-level intensity values in the image, with 
 \[ZP=\frac{N_{z}}{N_{p}}\]\\
 \textbf{8. Gray Level Variance (GLV):}\\
 \[GLV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)\left(i-\mu \right)^{2}\]\\
-Here,$\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)i$\\
+Here, $\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)i$\\
 \textbf{9. Zone Variance (ZV):}\\
 \[ZV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)\left(j-\mu \right)^{2}\]\\
 Here,$\mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{s}}p\left(i,j\right)j$\\
