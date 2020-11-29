@@ -952,11 +952,11 @@ when at least half of the retained slices were annotated with the
 correct \ac{gt} class).
 When considering a slice-wise prediction, we were able to correctly
 predict \textbf{\textasciitilde{}74\%} of the slices.\\
-An example of prediction performed on one patient of the \lmttfont{TCIA-dB} with a high grade can be observed in the figure \ref{fig:Slice_hist_grad_prediction}. It has been observed that the classification confidence was often correlated with the distance to the center of the tumor, where central tumor slices where correctly classified with a higher probability than distant slices, that were either classified with a lower confidence, or even misclassified. The quality of the semantic segmentation also often guided the accuracy of the prediction, as seen in the figure \ref{fig:Slice_hist_grad_prediction}.
+An example of prediction performed on one high grade patient of the \lmttfont{TCIA-dB} can be observed in the figure \ref{fig:Slice_hist_grad_prediction}. It has been observed that the classification confidence was often correlated with the distance to the center of the tumor, where central tumor slices where correctly classified with a higher probability than distant slices, which were either classified with a lower confidence, or even misclassified. The quality of the semantic segmentation also often guided the accuracy of the prediction, as seen in the figure \ref{fig:Slice_hist_grad_prediction}.
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.9\linewidth]{HistologicalGradePrediction/images/Slice_hist_grad_prediction}
-\caption{Example of slice-wise histological grade prediction. We globally observed that the confidence was correlated with the absolute position to the center, and that the quality of the semantic segmentation is a prerequisite to extract relevant features. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side, and tumor segmentation heatmap in the right side), two are correctly segmented and their histological grade was correctly predicted whereas one of them contained mis-segmented areas leading to a mis-classification of the histological grade.}
+\caption{Example of slice-wise histological grade prediction. We globally observed that the confidence was correlated with the relative position to the center, and that the quality of the semantic segmentation is a prerequisite to extract relevant features. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side, and tumor segmentation heatmap in the right side), two are correctly segmented and their histological grade was correctly predicted whereas one of them contained mis-segmented areas leading to a mis-classification of the histological grade.}
 \label{fig:Slice_hist_grad_prediction}
 \end{figure}
 
@@ -968,9 +968,9 @@ An example of prediction performed on one patient of the \lmttfont{TCIA-dB} with
 \cline{3-4}
 \multicolumn{2}{c|}{}&LG&HG&\multicolumn{1}{c}{\textit{Total}}\\
 \cline{2-4}
-\multirow{2}{*}{\textbf{Predicted grade}}& LG & \textbf{7} & 1 & \textbf{8}\\
+\multirow{2}{*}{\textbf{Predicted grade}}& LG & \textbf{7} & 1 & 8\\
 \cline{2-4}
-& HG & 2 & 8 & 10 \\
+& HG & 2 & \textbf{8} & 10 \\
 \cline{2-4}
 \multicolumn{1}{c}{} & \multicolumn{1}{c}{\textit{Total}} & \multicolumn{1}{c}{\textbf{9}} & \multicolumn{1}{c}{9} & \multicolumn{1}{c}{18}\\
 \end{tabular}
