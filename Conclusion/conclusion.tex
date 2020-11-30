@@ -89,8 +89,8 @@ validated the hypothesis that the use of multiphase information allows a
 better accuracy than single phased based networks for each task,
 with significant difference obtained for the segmentation of the liver
 (mean \ac{dsc} of $ 89.9 \pm 15.6 $ for the multiphase network \emph{vs} $ 89.5 \pm
-13.2 $ for the best single phase network) and the active part of the
-lesions (mean \ac{dsc} of $ 75.5 \pm 17.4 $ \emph{vs} $ 71.6 \pm 20.7 $).\\
+13.2 $ for the best single phase network, $p = 0.005$) and the active part of the
+lesions (mean \ac{dsc} of $ 75.5 \pm 17.4 $ \emph{vs} $ 71.6 \pm 20.7 $, $p = 0.001$).\\
 Regarding single phase networks, the \emph{\ac{pv}} phase was the one
 allowing the most accurate segmentation, with significant difference vs
 \emph{\ac{ar}} and \emph{\ac{nect}} for the segmentation of the parenchyma (mean
@@ -127,7 +127,8 @@ We predicted the grade for central tumor slices, and after a CV
 training, we correctly predicted 74\% of them. When considering the
 patient histological grade as being the most frequent one in the central
 tumor slices, we were able to correctly classify 15 patients over the 18
-of the dataset.\\
+of the dataset. Regarding the small number of patients involved in the study,
+the results that we presented are only preliminary and further studies are required to confirm them.\\
 As a conclusion, our research work is the first to propose a fully
 automatic \emph{\ac{dlr}} pipeline with multiphase images as input. Our
 strategy is dedicated to small databases where the entire annotations
@@ -355,7 +356,7 @@ histological grade, we believe that the existing grading systems have to
 be standardized by considering more criteria than just the worst or the
 most frequent grade present in the histological slices, which is
 currently the case.\\
-Our \ac{dlr} architecture obtained promising results for the prediction of
+Our \ac{dlr} architecture obtained promising preliminary results for the prediction of
 the histological grade, but we believe that the same architecture can be
 adapted to focus on other tasks, such as the prediction of
 recurrence after treatment using longitudinal studies.
