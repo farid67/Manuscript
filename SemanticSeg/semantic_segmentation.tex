@@ -421,7 +421,7 @@ points in a narrow band along the zero-level set boundary. To evaluate
 the boundary probability for the points present in the narrow-band, they
 used a \ac{knn} classifier. A region model built upon a cascade of
 classifiers is implemented to complete the boundary model, and prevent
-it to stop at local extremum. Finally, a shape model based on Parzen
+it from stopping at local extremum. Finally, a shape model based on Parzen
 density estimation constrains the level set evolution. Song et al. \cite{Song2009} pre-segmented the liver using an edge detector, and
 refined the segmentation with a curvature-based level set algorithm .
 Three B-splines surface models are built knowing the position of the
@@ -1025,7 +1025,7 @@ features are not lost.
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.4\linewidth]{images/image6}
+	\includegraphics[width=0.4\linewidth]{images/He2015_Fig2}
 	\caption{Residual connection as described by \textbf{©He et al. \cite{He2015}}}
 	\label{ResidualConnection_Fig}
 \end{figure}
@@ -1039,8 +1039,8 @@ needed to be kept \cite{Huang2017}. Example of DenseNet
 architecture built for a classification task is depicted in the figure \ref{DenseNet_Fig}.
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.9\linewidth]{images/image32}
-	\caption{DenseNet architecture as initially described by \textbf{©Huang et al. \cite{Huang2017}}}
+	\includegraphics[width=0.9\linewidth]{images/Huang2017_Fig2}
+	\caption{A deep DenseNet with three dense blocks. The layers between two adjacent blocks are referred to as transition layers and change feature-map sizes via convolution and pooling. As described by \textbf{©Huang et al. \cite{Huang2017}}}
 	\label{DenseNet_Fig}
 \end{figure}
 
@@ -1066,7 +1066,7 @@ categorical classification, as illustrated in the figure \ref{Bi2017_Fig2} \cite
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{images/image27}
+	\includegraphics[width=0.7\linewidth]{images/Bi2017_Fig2}
 	\caption{Custom cascaded architecture implemented by \textbf{©Bi et al. \cite{Bi2017}} where the liver and lesions features are first extracted before being combined to produce the final segmentation map }
 	\label{Bi2017_Fig2}
 \end{figure}
@@ -1080,7 +1080,7 @@ adjacent slices to get a segmentation of the middle slice.
 \begin{figure}[th!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/image17}
-	\caption{Architecture implemented by \textbf{©Vorontsov et al. \cite{Vorontsov2018}} where the liver and lesions features are computed separately before being combined using a classifier }
+	\caption{Architecture implemented by \textbf{©Vorontsov et al. \cite{Vorontsov2018}} where the liver and lesions features are computed separately before being combined using a classifier.}
 	\label{Vorontsov2018_Fig1}
 \end{figure}
 
@@ -1185,8 +1185,8 @@ additional CNN designed to detect \ac{fp} \cite{Frid-adar2017}.
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{images/image25}
-	\caption{Example of lesion segmentation results, as reported by \textbf{©Bellver et al. \cite{Bellver2017}}}
+	\includegraphics[width=0.5\linewidth]{images/Bellver2017_Fig2}
+	\caption{Results of the lesion detection network. Blue and red lines indicate the liver and lesion ground truth, respectively. Yellow and green lines are the segmentation results for liver and lesion. The light blue bounding boxes are the windows detected as having a lesion. All positive pixels at the output of the segmentation network will be removed if they disagree with the results of lesion detection, as reported by \textbf{©Bellver et al. \cite{Bellver2017}}}
 	\label{Bellver_predResults}
 \end{figure}
 

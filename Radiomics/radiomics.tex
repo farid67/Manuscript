@@ -58,7 +58,7 @@ finer scale. Therefore, two approaches exist, the \ac{hcr} (\emph{Hand-Crafted
 Radiomics}) based on mathematical engineered features, relying on the
 textural, intensity and shape based properties of the volume of interest, and
 the \ac{dlr} (\emph{Deep-Learning radiomics}), where the extracted features
-is estimated from the input data without any prior
+are estimated from the input data without any prior
 knowledge.
 
 \section{Handcrafted Radiomics }\label{handcrafted-radiomics}
@@ -809,13 +809,13 @@ is to recycle an architecture trained on a huge dataset such as
 ImageNet, freeze the weights of the early layers (responsible for the
 high levels features), adjust and train the last layers on the current
 database to be more specific.
-An illustration of this process can be found in the figure \ref{Yamada2019_Fig3}.
+An illustration of this process can be found in the figure \ref{Wang2018_Fig3}.
 
 \begin{figure}[th!]
 \centering
 \includegraphics[width=0.9\linewidth]{images/image6}
-\caption{Illustration of the pre-training strategy adopted by \textbf{©Yamada et al.} \cite{Yamada2019}}
-\label{Yamada2019_Fig3}
+\caption{Illustration of the pre-training strategy adopted by \textbf{©Wang et al.} \cite{Wang2018}}
+\label{Wang2018_Fig3}
 \end{figure}
 
 
@@ -827,7 +827,7 @@ in the figure \ref{Yasaka2018_Fig2}.
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/image10}
+\includegraphics[width=0.7\linewidth]{images/yasaka2018}
 \caption{Architecture used by \textbf{©Yasaka et al.} where the features are first extracted through convolutional layers before the prediction is performed using fully connected layers. \cite{Yasaka2018}}
 \label{Yasaka2018_Fig2}
 \end{figure}
