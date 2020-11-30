@@ -169,7 +169,7 @@ features maps), as depicted in the figure \ref{CARS_MPF_Full_Fig}.
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.9\linewidth]{../SemanticSeg/images/image36}
+	\includegraphics[width=0.9\linewidth]{../SemanticSeg/images/MPF_Full_8M_Resized_Font}
 	\caption{\pplfont{MPF-Full} network: initially, AR and \ac{pv} images are processed separately. The resulting maps are merged (by simple addition) at the end}
 	\label{CARS_MPF_Full_Fig}
 \end{figure}
@@ -277,7 +277,7 @@ In order to remove any bias, the same set of hyperparameters has been
 used for both the \pplfont{\{.\}-Liver}, \pplfont{\{.\}-Lesion}, \pplfont{\{.\}-Necrosis} and
 \pplfont{\{.\}-Full} networks when training the \textbf{\lmttfont{TheraHCC-dB}}, regardless of the
 type of input (single phase or multiphase). \\
-The same set of hyperparameters was used to train both liver and lesions segmentation networks on repectively the \textbf{\lmttfont{LITS-dB}} and the \textbf{\lmttfont{G-dB}}.
+The same set of hyperparameters was used to train both liver and lesions segmentation networks on respectively the \textbf{\lmttfont{LITS-dB}} and the \textbf{\lmttfont{G-dB}}.
 
 We first present the results obtain when performing the semantic segmentation of liver tissues on the \textbf{\lmttfont{TheraHCC-dB}}, before applied the resulting architecture to provide additional annotations to both \textbf{\lmttfont{TCIA-dB}} and \textbf{\lmttfont{G-dB}}.
 
@@ -507,7 +507,7 @@ The liver being a soft organ, it easily moves with the respiratory
 motions, in order to reduce the effect of the neighboring parts of the
 abdomen, we have decided to restrict the computation of the similarity
 metrics to the dilated liver mask area so that the registration
-algorithm mainly focus on the gradient present along its borders.
+algorithm mainly focuses on the gradient present along its borders.
 
 Consequently, the first step for the \textbf{\lmttfont{TCIA-dB}} registration is to perform a
 liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCIA_pipeline_vertical2}).

@@ -17,7 +17,7 @@ We can define the following features: \\
 \textbf{1. Energy:}\\
 \[\textit{energy}=\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}\]\\
 \textbf{2. Total Energy}\\
-\[\textit{totalenergy}=V_{\textit{voxel}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}\] \\
+\[\textit{total energy}=V_{\textit{voxel}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}\] \\
 \textbf{3. Entropy:}\\
 \[\textit{entropy}=-\sum _{i=1}^{N_{g}}p\left(i\right)log_{2}\left(p\left(i\right)+\epsilon \right)\] \\
 Here, $\epsilon $ is an arbitrarily small positive number (${\approx}$2.2${\times}$10$^{-16}$) \\
@@ -36,7 +36,7 @@ The average gray level intensity within the \ac{roi}.\newline
 \textbf{9. Median:}\\
 The median gray level intensity within the \ac{roi}.\\
 \textbf{10.} \textbf{Interquartile Range:}\\
-\[\textit{interquartilerange}=P_{75}-P_{25}\]\\
+\[\textit{interquartile range}=P_{75}-P_{25}\]\\
 Here $P_{25}$ and $P_{75}$ {are the 25}$^{\mathrm{th}}${and 75}$^{\mathrm{th}}$ {percentile of the image array, respectively.}\\
 \textbf{11. Range:}\newline
 The range of gray values in the \ac{roi}.\\
@@ -51,7 +51,7 @@ MAD is the mean distance of all intensity values from the Mean Value of the imag
 \[RMS=\sqrt{\frac{\sum _{i=1}^{N_{P}}\left(X\left(i\right)+c\right)^{2}}{N_{P}}}\]\\
 Here, $c$ is an optional value which shifts the intensities to prevent negative values in $X$. This ensures that voxels with the lowest gray values contribute the least to RMS, instead of voxels with gray level intensity closest to 0.\\
 \textbf{15. Standard Deviation}\\
-\[\textit{standarddeviation}=\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\]\\
+\[\textit{standard deviation}=\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\]\\
 {Standard Deviation measures the amount of variation or dispersion from the Mean Value. By definition, standard deviation =}$\sqrt{\textit{variance}}$.\\
 {\textbf{16. Skewness:}}
 \[\textit{skewness}=\frac{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}N}\left(X\left(i\right)-\mean{X}\right)^{3}}{\left(\sqrt{\frac{1}{N_{P}}\sum _{i=1}^{N_{P}}\left(X\left(i\right)-\mean{X}\right)^{2}}\right)^{3}}\]\\
@@ -94,30 +94,30 @@ Let:
 \end{itemize}
 We can define the following features: \\
 \textbf{1. Autocorrelation}\\
-\[\textit{autocorrelation}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}ijp\left(i,j\right)\]\\
+\[\textit{auto correlation}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}ijp\left(i,j\right)\]\\
 \textbf{2. Joint Average}\\
-\[\textit{jointaverage}=\mu x=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p\left(i,j\right)i\]\\
+\[\textit{joint average}=\mu x=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p\left(i,j\right)i\]\\
 \textbf{3. Cluster Prominence:}\\
-\[\textit{clusterprominence}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{4}p\left(i,j\right)\]\\
+\[\textit{cluster prominence}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{4}p\left(i,j\right)\]\\
 \textbf{4. Cluster Shade:}\\
-\[\textit{clustershade}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{3}p\left(i,j\right)\]\\
+\[\textit{cluster shade}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{3}p\left(i,j\right)\]\\
 \textbf{5. Cluster Tendency:}\\
-\[\textit{clustertendency}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{2}p\left(i,j\right)\]\\
+\[\textit{cluster tendency}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i+j-\mu _{x}-\mu _{y}\right)^{2}p\left(i,j\right)\]\\
 \textbf{6. Contrast:}\\
 \[\textit{contrast}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(i-j\right)^{2}p\left(i,j\right)\]\\
 Contrast is a measure of the local intensity variation, favoring values away from the diagonal $\left(i=j\right)$. A larger value correlates with a greater disparity in intensity values among neighboring voxels.\\
 \textbf{7. Correlation:}\\
 \[\textit{correlation}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}ijp\left(i,j\right)-\mu _{x}\mu _{y}}{\sigma _{x}\left(i\right)\sigma _{y}\left(j\right)}\]\\
 \textbf{8. Difference Average:}\\
-\[\textit{differenceaverage}=\sum _{k=0}^{N_{g}-1}kp_{x-y}\left(k\right)\]\\
+\[\textit{difference average}=\sum _{k=0}^{N_{g}-1}kp_{x-y}\left(k\right)\]\\
 \textbf{9. Difference Entropy:}\\
-\[\textit{differenceentropy}=\sum _{k=0}^{N_{g}-1}p_{x-y}\left(k\right)log_{2}\left(p_{x-y}\left(k\right)+\epsilon \right)\]\\
+\[\textit{difference entropy}=\sum _{k=0}^{N_{g}-1}p_{x-y}\left(k\right)log_{2}\left(p_{x-y}\left(k\right)+\epsilon \right)\]\\
 \textbf{10. Difference Variance:}\\
-\[\textit{differencevariance}=\sum _{k=0}^{N_{g}-1}{\left(k-DA\right)^{2}}p_{x-y}\left(k\right)\]\\
+\[\textit{difference variance}=\sum _{k=0}^{N_{g}-1}{\left(k-DA\right)^{2}}p_{x-y}\left(k\right)\]\\
 \textbf{11. Joint Energy:}\\
-\[\textit{jointenergy}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(p\left(i,j\right)\right)^{2}\]\\
+\[\textit{joint energy}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\left(p\left(i,j\right)\right)^{2}\]\\
 \textbf{12.} \textbf{Joint Entropy:}\\
-\[\textit{jointentropy}=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p\left(i,j\right)log_{2}\left(p\left(i,j\right)+\epsilon \right)\]\\
+\[\textit{joint entropy}=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}p\left(i,j\right)log_{2}\left(p\left(i,j\right)+\epsilon \right)\]\\
 \textbf{13. Informal Measure of Correlation (IMC) 1:}\\
 \[IMC1=\frac{HXY-HXY1}{\max \left\{HX,HY\right\}}\]\\
 \textbf{14. Informal Measure of Correlation (IMC) 2:}\\
@@ -125,7 +125,7 @@ Contrast is a measure of the local intensity variation, favoring values away fro
 \textbf{15. Inverse Difference Moment (IDM)}\\
 \[IDM=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left| i-j\right| ^{2}}\]\\
 \textbf{16. Maximal Correlation Coefficient (MCC)}\\
-\[MCC=\sqrt{\textit{secondlargesteigenvalueofQ}}\]\\
+\[MCC=\sqrt{\textit{second largest eigen value of Q}}\]\\
 \[Q\left(i,j\right)=\sum _{k=0}^{N_{g}}\frac{p\left(i,k\right)p\left(j,k\right)}{p_{x}\left(i\right)p_{y}\left(k\right)}\]\\
 \textbf{17. Inverse Difference Moment Normalized (IDMN):}\\
 \[IDMN=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left(\frac{\left| i-j\right| ^{2}}{{N_{g}}^{2}}\right)}\]\\
@@ -134,9 +134,9 @@ Contrast is a measure of the local intensity variation, favoring values away fro
 \textbf{19. Inverse Difference Normalized (IDN):}\\
 \[IDN=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{1+\left(\frac{\left| i-j\right| }{N_{g}}\right)}\]\\
 \textbf{20. Inverse Variance:}\\
-\[\textit{inversevariance}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{\left| i-j\right| ^{2}} ,i\neq j\]\\
+\[\textit{inverse variance}=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{g}}\frac{p\left(i,j\right)}{\left| i-j\right| ^{2}} ,i\neq j\]\\
 \textbf{21. Maximum Probability:}\\
-\[\textit{maximumprobability}=\max \left(p\left(i,j\right)\right)\]\\
+\[\textit{maximum probability}=\max \left(p\left(i,j\right)\right)\]\\
 \textbf{22. Sum Average:}\\
 \[\sum \textit{average}=\sum _{k=2}^{2N_{g}}\left(kp_{x+y}\left(k\right)\right)\]\\
 \textbf{23. Sum Entropy:}\\
@@ -279,7 +279,7 @@ A measure of the distribution of small dependencies, with a greater value indica
 \textbf{7. Dependence Variance (DV):}\\
 \[DV=\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}p\left(i,j\right)\left(j-\mu \right)^{2},\text{where } \mu =\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}jp\left(i,j\right)\]\\
 \textbf{8. Dependence Entropy (DE):}\\
-\[\textit{DependenceEntropy}=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}p\left(i,j\right)log_{2}\left[p\left(i,j\right)+\epsilon \right]\]\\
+\[\textit{Dependence Entropy}=-\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}p\left(i,j\right)log_{2}\left[p\left(i,j\right)+\epsilon \right]\]\\
 \textbf{9. Low Gray Level Emphasis (LGLE):}\\
 \[LGLE=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}\frac{P\left(i,j\right)}{i^{2}}}{N_{z}}\]\\
 \textbf{10. High Gray Level Emphasis (HGLE):}\\
@@ -294,7 +294,7 @@ Measures the joint distribution of small dependence with higher gray-level value
 \[\textit{LDHGLE}=\frac{\sum _{i=1}^{N_{g}}\sum _{j=1}^{N_{d}}P\left(i,j\right)i^{2}j^{2}}{N_{z}}\]
 
 
-\section{Neigbouring Gray Tone Difference Matrix (NGTDM) Features}
+\section{Neighbouring Gray Tone Difference Matrix (NGTDM) Features}
 
 
 A NGTDM quantifies the difference between a gray value and the average gray value of its neighbors within distance $\delta $. The sum of absolute differences for gray level $i$ is stored in the matrix. Let $X_{gl}$ be a set of segmented voxels and $x_{gl}\left(j_{x},j_{y},j_{z}\right)\in X_{gl}$ be the gray level of a voxel at position $\left(j_{x},j_{y},j_{z}\right)$, then the average gray level of the neighborhood is:\\
