@@ -30,6 +30,7 @@
 %\usepackage{fancyref}
 \usepackage{acro}
 \usepackage{bm}
+\usepackage{afterpage}
 %\usepackage[toc,page]{appendix}
 
 % probably a good idea for the nomenclature entries:
@@ -113,6 +114,10 @@
 \maketitle
 \newpage
 
+\ % The empty page
+
+\newpage
+
 \tableofcontents
 
 \newpage
@@ -125,6 +130,7 @@
 \subimport{SemanticSeg/}{semantic_segmentation}
 %\subimport{HistologicalGradePrediction/}{hist_grad_prediction}
 \subimport{Contributions/}{contributions}
+\subimport{Contributions/}{histGrade}
 %\subimport{Perspectives/}{perspectives}
 \subimport{Conclusion/}{conclusion}
 \begin{appendices}
