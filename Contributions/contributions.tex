@@ -290,6 +290,19 @@ To cope with the high imbalanced data present in our datasets (e.g. number of vo
 \begin{equation}
 L = -\frac{1}{n} \sum_{i=1}^{N}\omega_i^{class}\left[\hat{P_i} \log P_i + (-\hat{P_i})\log (1 - P_i)\right]
 \end{equation}
+We implemented the entire training and inference pipeline with Python 3.6, using the library Keras (version 2.2.4) with a Tensorflow backend (v 1.8 to be compatible with older networks). The different networks were trained on a single NVIDIA GTX 1070 with 8GB VRAM. 
+The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesIJCARS}) allow us to see that even though a small number of images were used to train our networks, we were able to correctly address the wanted segmentation tasks by limiting the overfitting effect, despite the high number of parameters of the networks.
+\begin{figure}[!ht]
+\centering
+\begin{minipage}{\linewidth}
+\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat4}
+\end{minipage} \\
+\begin{minipage}{\linewidth}
+\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat6}
+\end{minipage}
+\caption{Two examples of obtained learning curves for the tumor segmentation task for different folds in the cross validation process. The first example depicts a standard learning curve where the training loss decreases gradually, followed by the validation loss, while both the training and the validation accuracy increase gradually. A higher variance can be seen in the second case, probably because of the small number of training images regarding the size of the network.}
+\label{fig:learningCurvesIJCARS}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%
@@ -300,7 +313,7 @@ L = -\frac{1}{n} \sum_{i=1}^{N}\omega_i^{class}\left[\hat{P_i} \log P_i + (-\hat
 %We first present the results obtain when performing the semantic segmentation of liver tissues on the \textbf{\lmttfont{TheraHCC-dB}}, before applied the resulting architecture to provide additional annotations to both \textbf{\lmttfont{TCIA-dB}} and \textbf{\lmttfont{G-dB}}.
 
 
-\subsection{Semantic segmentation of liver tissues}
+\subsection{Results}
 
 In this section, mean \ac{dsc}s were computed in a slice-wise fashion for each target class and the different methods were statistically compared using the Wilcoxon 
 signed paired rank tests, since slice-wise \ac{dsc}s did not follow a normal distribution. 
@@ -351,6 +364,16 @@ Active Tumor & 42.2 $\pm$ 24.0 & 43.2 $\pm$ 26.1 & 53.5 $\pm$ 24.2 & 51.3 $\pm$ 
 
 The results highlighted that the cascaded version performed significantly better than \pplfont{\{$ \cdot$\}-Full} networks for segmenting the active part of the lesion (Cascaded DMP vs \pplfont{\ac{pv}-Full}, $P = 0.001$).
 The resulting segmentation maps allow us to estimate the necrosis rate (which will be the ratio between the necrotic and the tumor areas). This metric is commonly used for diagnosis and prognosis of the treatment outcome. In this configuration\footnote{after using the liver expert \ac{gt} as mask for the first step}, our workflow provided estimates of this valuable biomarker with a mean error rate of 13.0 \%, which is accurate enough for clinical application. \\
+
+
+\textcolor{red}
+{
+However, our method presented limitations on some specific cases where errors in the segmentation maps can be noticed. 
+False-positives and false-negatives are leading to other problems later in the cascaded pipeline, because missing parts of the tumors are not going to be considered in the masked version used as input for the tumor segmentation task, whereas extra non-hepatic tissues considered as liver by the liver segmentation step, can lead to mis-segmentation later for the tumor segmentation task.
+When segmenting the liver using an axial CT slice as input, our networks usually mis-segmented other abdominal organs sharing the same intensity as the liver, such as the spleen, the heart or the stomach. Some examples are given in the figure \textbf{TODO}. 
+In the worst case, some parts of the liver or even some portions of its tumors can be missed, as depicted in the figure \textbf{TODO}. 
+For the tumor segmentation task...
+}
 
 When compared with another study that have been using a different dataset composed of MR images, we achieved slightly better segmentation results \cite{Zhang}.
 We evaluated our method on the same database used in \cite{Conze2017}, where a manual expert interaction was required for the segmentation phase, which is not the case in the present deep learning approach. To allow fair comparison, the evaluation was conducted on the areas where all the experts reached an agreement as in \cite{Conze2017}. The mean patient-wise segmentation \ac{dsc}s are depicted in table \ref{ComparisionConze}. Our method enabled a better segmentation of the lesions and both necrotic and active parts. Therefore, we were able to predict the patient-wise necrosis rate with a slightly better precision. 
@@ -419,6 +442,7 @@ Necrosis rate error & 7.84 $\pm$ 4.4 & \textbf{7.10 $\pm$ 1.4} \\
 
 We finally combined the \pplfont{DMP-Liver}, the \pplfont{DMP-Lesion} and \pplfont{DMP-Necrosis} networks in a cascaded fashion, as described in the figure \ref{CARS_Cascade}. This allowed us to perform a fully automatic segmentation of the raw (unmasked) \ac{ct} images. We reached average slice-wise \ac{dsc}s of 78.3 $\pm$ 22.1 for the segmentation of the parenchyma, 50.6 $\pm$ 24.6  for the segmentation of the active part, and 68.1 $\pm$ 23.2 for the necrotic part of the lesions. We also provided a necrosis rate per patient with a mean error of 15.9\% when compared to expert necrosis rate estimation \footnote{Here the estimation is performed on the raw images in an automatic fashion}. Examples of fully automatic segmentation results are given in figure \ref{FullAutoSeg}.
 
+
 \begin{figure}[!ht]
    \centering
 \begin{minipage}{4cm}
@@ -456,6 +480,8 @@ We finally combined the \pplfont{DMP-Liver}, the \pplfont{DMP-Lesion} and \pplfo
 \renewcommand{\baselinestretch}{1.75}
 \renewcommand{\arraystretch}{5}
 
+
+\subsection{Conclusions and discussion}\label{IJCARS_conclusions_and_discussion}
 
 When comparing results obtained by the specialized networks, we proved
 that the addition of the multiphase information provided better
