@@ -284,7 +284,8 @@ type of input (single phase or multiphase). \\
 %%%%%%%%%%%%%%%%%%%%
 %Revised --> ADDED
 %%%%%%%%%%%%%%%%%%%%
-\textcolor{red}{The original U-Net architecture implemented by Ronneberger et al. had a total of 32M parameters, and the results obtained when setting the hyperparameters tend also to prove that the best results were obtained using an architecture with the same number of parameters (with 1024 filters at bottleneck as mentioned above). When performing the segmentation of both the necrotic and the active parts of the tumor from a masked liver image, our cascaded version consists of 2 concatenated U-Net networks (one to segment the tumor and the second to differentiate between the active and the necrotic part) therefore, we decided to reduce the number of parameters to 8M parameters for each network of the cascaded (512 filters used at bottleneck instead of 1024) in comparison with the versatile networks (which have a total of 32M parameters) to ensure that no bias existed in favor of the cascaded networks.
+\textcolor{red}{
+The original U-Net architecture implemented by Ronneberger et al. had a total of 32M parameters, and the results obtained when setting the hyperparameters tend also to prove that the best results were obtained using an architecture with the same number of parameters (with 1024 filters at bottleneck as mentioned above). When performing the segmentation of both the necrotic and the active parts of the tumor from a masked liver image, our cascaded version consists of 2 concatenated U-Net networks (one to segment the tumor and the second to differentiate between the active and the necrotic part) therefore, we decided to reduce the number of parameters to 8M parameters for each network of the cascaded (512 filters used at bottleneck instead of 1024) in comparison with the versatile networks (which have a total of 32M parameters) to ensure that no bias existed in favor of the cascaded networks.
 Only the \pplfont{MPF-\{.\}} had a total of 16M parameters since it already consists of 2 combined U-Net networks as illustrated in the figure \ref{CARS_MPF_Full_Fig}.
 To cope with the high imbalanced data present in our datasets (e.g. number of voxels belonging to the tumor class vs those belonging to the parenchyma class when segmenting the lesion in the liver), we considered the weighted cross-entropy function as loss function when training our network. 
 \begin{equation}
@@ -293,15 +294,17 @@ L = -\frac{1}{n} \sum_{i=1}^{N}\omega_i^{class}\left[\hat{P_i} \log P_i + (-\hat
 We implemented the entire training and inference pipeline with Python 3.6, using the library Keras (version 2.2.4) with a Tensorflow backend (v 1.8 to be compatible with older networks). The different networks were trained on a single NVIDIA GTX 1070 with 8GB VRAM. 
 The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesIJCARS}) allow us to see that even though a small number of images were used to train our networks, we were able to correctly address the wanted segmentation tasks by limiting the overfitting effect, despite the high number of parameters of the networks.
 \begin{figure}[!ht]
-\centering
-\begin{minipage}{\linewidth}
-\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat4}
-\end{minipage} \\
-\begin{minipage}{\linewidth}
-\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat6}
-\end{minipage}
-\caption{Two examples of obtained learning curves for the tumor segmentation task for different folds in the cross validation process. The first example depicts a standard learning curve where the training loss decreases gradually, followed by the validation loss, while both the training and the validation accuracy increase gradually. A higher variance can be seen in the second case, probably because of the small number of training images regarding the size of the network.}
-\label{fig:learningCurvesIJCARS}
+\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+	\centering
+	\begin{minipage}{\linewidth}
+		\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat4}
+	\end{minipage} \\
+	\begin{minipage}{\linewidth}
+		\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat6}
+	\end{minipage}
+	\caption{Two examples of obtained learning curves for the tumor segmentation task for different folds in the cross validation process. The first example depicts a standard learning curve where the training loss decreases gradually, followed by the validation loss, while both the training and the validation accuracy increase gradually. A higher variance can be seen in the second case, probably because of the small number of training images regarding the size of the network.}
+	\label{fig:learningCurvesIJCARS}
+	\end{mdframed}
 \end{figure}
 }
 
@@ -365,12 +368,15 @@ Active Tumor & 42.2 $\pm$ 24.0 & 43.2 $\pm$ 26.1 & 53.5 $\pm$ 24.2 & 51.3 $\pm$ 
 The results highlighted that the cascaded version performed significantly better than \pplfont{\{$ \cdot$\}-Full} networks for segmenting the active part of the lesion (Cascaded DMP vs \pplfont{\ac{pv}-Full}, $P = 0.001$).
 The resulting segmentation maps allow us to estimate the necrosis rate (which will be the ratio between the necrotic and the tumor areas). This metric is commonly used for diagnosis and prognosis of the treatment outcome. In this configuration\footnote{after using the liver expert \ac{gt} as mask for the first step}, our workflow provided estimates of this valuable biomarker with a mean error rate of 13.0 \%, which is accurate enough for clinical application. \\
 
-
+%%%%%%%%%%%%%%%%%%%%
+%Revised --> ADDED
+%%%%%%%%%%%%%%%%%%%%
 \textcolor{red}
 {
 However, our method presents some limitations especially because false-positives and false-negatives occurring at a given stage of the cascaded architecture are leading to other problems later in the pipeline. As an example, when considering the liver segmentation task, missing parts of the tumors are not going to be considered in the masked version used as input for the tumor segmentation task, whereas extra non-hepatic tissues considered as liver by the liver segmentation step, can lead to mis-segmentation later for the tumor and/or the necrosis segmentation task.
 When segmenting the liver using an axial CT slice as input, our networks usually mis-segment other abdominal organs sharing the same intensity as the liver, such as the spleen, the heart or the stomach, as depicted in the figure \ref{fig:missegmentation_Liver_IJCARS}.  In some other cases, some parts of the liver or even some portions of its tumors can be missed, as depicted in the figure \ref{fig:missegmentation_Liver2_IJCARS}. 
 \begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat0_3}
@@ -401,8 +407,10 @@ When segmenting the liver using an axial CT slice as input, our networks usually
 	\end{minipage}
 	\caption{Examples of liver mis-segmentations where other parts of the abdomen are included in the predicted liver mask. Left: raw images, middle: expert ground truth, right: prediction. First and second row: we can see that the spleen is often considered as belonging to the liver, because of its HU intensities close to these of the liver parenchyma, especially at PV phase. Third and fourth row presented mis-segmenation with first the heart and second the stomach which also often share the same intensities as the liver parenchyma.}
 	\label{fig:missegmentation_Liver_IJCARS}
+	\end{mdframed}
 \end{figure}
 \begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat1_12}
@@ -422,10 +430,62 @@ When segmenting the liver using an axial CT slice as input, our networks usually
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/LiverVE_Pred_Pat6_6}
 	\end{minipage}
-	\caption{Examples of liver mis-segmentations where some parts of the actual liver are missed by the network. Left: raw images, middle: expert ground truth, right: prediction. First row present an example where a portion of the liver parenchyma is missing in the predicted liver segmentation mask, whereas the second raw present an example where a portion of the liver tumor necrosis is not included in the predicted liver segmentation.}
+	\caption{Examples of liver mis-segmentations where some parts of the actual liver are missed by the network. Left: raw images, middle: expert ground truth, right: prediction. First row: an example where a portion of the liver parenchyma is missing in the predicted liver segmentation mask, second row: an example where a portion of the liver tumor necrosis is not included in the predicted liver segmentation.}
 	\label{fig:missegmentation_Liver2_IJCARS}
+	\end{mdframed}
 \end{figure} 
-Regarding the tumor segmentation task, it has been noticed that active parts of the tumor with intensity close to parenchyma are often prone to mis-segmentation, and are sometimes considered as belonging to the parenchyma, as depicted in the figure \textbf{TODO}. Some other parts of the liver such as the air close to main vessels are sometimes considered as being tumors, since we are facing a binary classification task and they will often be closer to the tumor class than they are to the parenchyma class, as illustrated in the figure \textbf{TODO}.
+Regarding the tumor segmentation task, it has been noticed that active parts of the tumor with intensity close to parenchyma are often prone to mis-segmentation, and are sometimes considered as belonging to the parenchyma, as depicted in the figure \ref{fig:missegmentation_Tumor_IJCARS}. Some other parts of the liver such as the air close to main vessels are sometimes considered as being tumors, since we are facing a binary classification task and they will often be closer to the tumor class than they are to the parenchyma class, as illustrated in the figure \ref{fig:missegmentation_Tumor_IJCARS}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+	\centering
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/TumorMult_Raw_Pat5_0}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/TumorMult_GT_Pat5_0}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/TumorMult_Pred_Pat5_0}
+	\end{minipage} \\
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/TumorMult_Raw_Pat0_4}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/TumorMult_GT_Pat0_4}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/TumorMult_Pred_Pat0_4}
+	\end{minipage} 
+	\caption{Examples of tumor mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example of prediction where a portion of the active part of the tumor is mis-considered as belonging to the liver parenchyma, second row: example where some air captured by the liver envelope has been annotated as belonging to the liver parenchyma by the expert, but it was considered as tumoral tissues by the segmentation network.}
+	\label{fig:missegmentation_Tumor_IJCARS}
+	\end{mdframed}
+\end{figure}
+Finally, for the necrosis segmentation step, when the inter-tissue difference is strongly marked, the segmentation of the necrosis is accurate, but when it is less recognizable, the segmentation is more prone to errors as depicted in the figure \ref{fig:missegmentation_Necrosis_IJCARS}. The results will also depends on the experts annotation method, because they sometimes consider more tissues than the central necrosis when differentiating between active and necrotic parts, as illustrated in the figure \ref{fig:missegmentation_Necrosis_IJCARS}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+	\centering
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Raw_Pat0_8}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_GT_Pat0_8}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Pred_Pat0_8}
+	\end{minipage} \\
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Raw_Pat0_13}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_GT_Pat0_13}
+	\end{minipage} \hspace{-0.3cm}
+	\begin{minipage}{4cm}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Pred_Pat0_13}
+	\end{minipage} 
+	\caption{Examples of necrosis mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example where the distinction between the necrotic and the active part of the tumor is not strongly marked, which leads to errors in the segmentation with a larger proportion of the tumor considered as active. Second row: example where the expert extended the annotated necrotic area to its simple central region, whereas the network only considered the central part of the tumor as being necrotic.}
+	\label{fig:missegmentation_Necrosis_IJCARS}
+	\end{mdframed}
+\end{figure}
 }
 
 When compared with another study that have been using a different dataset composed of MR images, we achieved slightly better segmentation results \cite{Zhang}.
@@ -559,6 +619,13 @@ and the necrotic parts, than the one obtained using a semi-automatic
 technique with expert interaction \cite{Ouhmich2019,Conze2017}. We also
 obtained equivalent results than those from a similar study considering
 MR images as input \cite{Zhang2018}.\\
+%%%%%%%%%%%%%%%%%%%%
+%Revised --> ADDED
+%%%%%%%%%%%%%%%%%%%%
+\textcolor{red}
+{
+We noticed some mis-segmentations occurring for all the given tasks (liver, tumor, and necrosis segmentation separately) mainly because of mis-interpretation with some tissues sharing the same properties than some of the targeted classes (spleen, heart or stomach being considered as liver during the liver segmentation task, or active part of the tumor being considered as belonging to the parenchyma when segmenting the tumor on the masked liver ROI). These errors represent one of the main drawbacks of the cascaded architecture since some retained (or missed) tissues will be considered (or forgotten) for the remaining steps in the cascaded pipeline. These effects can be minimized by some post-processing steps such as the consideration of a single connected component after the liver segmentation task, or the filtering of the retained ROIs after the tumor segmentation task, but in our study we did not implemented any of the mentioned post-processing steps because we were only considering the actual performances of the networks.
+} \\
 We concluded that the combination of multiphase registered images used in a 
 cascaded architecture allows us to automatically perform the semantic segmentation of liver tissues.
 

@@ -48,24 +48,43 @@ liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCI
 
 \subsection{Automatic liver segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
-In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and
-\textbf{\lmttfont{LITS-dB}} contained expert liver delineation.
-
-\lmttfont{TheraHCC-dB} contains annotations only on sparse slices across the liver,
+\subsubsection{Material}
+In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation.
+\textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver,
 whereas \textbf{\lmttfont{LITS-dB}} contains full 3D pixel-wise liver annotation but it only
-contains monophase images, without any information regarding the
+contains single-phase images, without any information regarding the
 acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in the dataset).
-Our experiments however showed that a liver segmentation network trained
-on sufficiently enough cases is able to perform the semantic
-segmentation of both \ac{ar} and \ac{pv} raw images independently.
+\textcolor{red}
+{
+Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}.
+Regarding its design and the high number of segmented cases it contained, we decided to train our liver segmentation network on the \textbf{\lmttfont{LITS-dB}} volumes and test it on \textbf{\lmttfont{TCIA-dB}} patients.
+We inspected both datasets to assess if a network trained on the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determinate the differences between the two datasets with a visual examination of the CT volumes and through a quantitative analysis after placement of ROIs.
+For the visual examination, the medical expert was asked to list the different type of features present in both datasets.
+They both contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \textbf{TODO}. It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes with multiple lesions suspected to be metastases, as illustrated in the figure \textbf{TODO}.
+Both datasets presented liver containing benign lesions, track of fat deposit, or other metallic artifacts, as illustrated in the figure \textbf{TODO}.
+Diseased livers were also present in both datasets, where severe signs of cirrhosis were noticed, as exposed in the figure \textbf{TODO}.
+A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in term of contrast agent concentration. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU between both areas at portal venous phase could be a sign of cirrhosis \textbf{add ref}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation ot the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \textbf{TODO}. \\
+The quantitative analysis proved the probable presence of cirrhotic patients in both datasets, as depicted in the figure \textbf{TODO}.
+Finally, regarding the available contrast-enhanced phases per dataset, it has been proved that \textbf{\lmttfont{LITS-dB}} contains volumes that can be labeled as arterial and some other that can be labeled as portal venous (see figure \textbf{TODO}).
+\textit{Since all the patients of the \textbf{\lmttfont{TCIA-dB}} were supposed to be affected by HCC, it would have been ideal to have a dataset only composed of HCC or large solitary tumors, but only 20 patients of the 131 where affected by a single lesion larger than $ 2cm^3 $. }
+Since we considered that the type of lesions will only slightly affect the liver segmentation, we decided to keep all the patients of the \textbf{\lmttfont{LITS-dB}} (independently of the number of lesions present in the liver) to train our liver segmentation network. Using the entire dataset to train a single network allowed us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
+}
+%Our experiments however showed that a liver segmentation network trained
+%on sufficiently enough cases is able to perform the semantic
+%segmentation of both \ac{ar} and \ac{pv} raw images independently.
+
+\subsubsection{Methods}\label{liver_segmentation_tcia_db_methods}
 We trained our network called \pplfont{\ac{cect}-Liver} on the 131 volumes of the
 \textbf{\lmttfont{LITS-dB}} using the same hyperparameters as the ones detailed
-previously. When testing the \pplfont{\ac{cect}-Liver} network on \textbf{\lmttfont{TheraHCC-dB}} we
+previously. 
+
+\subsubsection{Results}\label{liver_segmentation_tcia_db_results}
+
+When testing the \pplfont{\ac{cect}-Liver} network on \textbf{\lmttfont{TheraHCC-dB}} we
 obtained a mean slice-wise \ac{dsc} of $ 90.4 \pm 17.5 $ on the \ac{pv} images and
 $ 86.9 \pm 19.1 $ on the \ac{ar} images. These results, close to those obtained
 in our previous work using a CV approach \cite{Ouhmich2019}, proved that \pplfont{\ac{cect}-Liver} can
 perform liver segmentation on both \ac{ar} and \ac{pv} unseen images.
-
 The \pplfont{CECT-Liver} network was also able to segment unseen volumes of the
 \textbf{\lmttfont{TCIA-dB}} in both \ac{ar} and \ac{pv} phases even when the liver presents a big
 lesion, as we can see in the figure \ref{fig:LiverPredTciaDb}.
