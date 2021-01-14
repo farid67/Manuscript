@@ -49,6 +49,7 @@ liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCI
 \subsection{Automatic liver segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
 \subsubsection{Material}
+\textcolor{red}{Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}.}
 In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation.
 \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver,
 whereas \textbf{\lmttfont{LITS-dB}} contains full 3D pixel-wise liver annotation but it only
@@ -56,15 +57,92 @@ contains single-phase images, without any information regarding the
 acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in the dataset).
 \textcolor{red}
 {
-Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}.
 Regarding its design and the high number of segmented cases it contained, we decided to train our liver segmentation network on the \textbf{\lmttfont{LITS-dB}} volumes and test it on \textbf{\lmttfont{TCIA-dB}} patients.
 We inspected both datasets to assess if a network trained on the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determinate the differences between the two datasets with a visual examination of the CT volumes and through a quantitative analysis after placement of ROIs.
 For the visual examination, the medical expert was asked to list the different type of features present in both datasets.
-They both contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \textbf{TODO}. It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes with multiple lesions suspected to be metastases, as illustrated in the figure \textbf{TODO}.
-Both datasets presented liver containing benign lesions, track of fat deposit, or other metallic artifacts, as illustrated in the figure \textbf{TODO}.
+They both contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \ref{fig:interdb_tumorExamples}. 
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Lits_examplePatientSmallTumor_2}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/TCIA_examplePatientSmallTumor}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Lits_examplePatientLargeTumor}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/TCIA_examplePatientLargeTumor}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of small and large tumors from both the training and the testing datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images, top: small tumors, bottom: large tumors.}
+	\label{fig:interdb_tumorExamples}
+\end{figure}
+It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes with multiple lesions suspected to be metastases, as illustrated in the figure \ref{fig:litsDb_meta}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/LITS_examplePatientMeta}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/LITS_examplePatientMeta_seg}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of patient from the \textbf{\lmttfont{LITS-dB}} with a high number of tumors susceptible of being metastases. Right : raw image, left: expert segmentation where red represents liver parenchyma and green represents tumors.}
+	\label{fig:litsDb_meta}
+\end{figure}
+Both datasets presented livers with benign lesions, track of fat deposit, or other metallic artifacts, as illustrated in the figure \ref{fig:InterDb_artifacts}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/LITS_pat58_potentialCyst}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_TCGA_DD_A1EA_presenceOfCyst}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/LITS_pat104_fatAccumulation}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/TCIA-BC-A3KF_fatAccumulation}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/LITS_pat30_metallicArtifacts}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/TCIA-DD-A3A0_slice32_metallic_artifacts}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of artifacts present in both training and test datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row presents patients with benign hepatic lesions, second row presents liver with tracks of fat accumulation, whereas last row gives examples of images with metallic artifacts.}
+	\label{fig:InterDb_artifacts}
+\end{figure}
 Diseased livers were also present in both datasets, where severe signs of cirrhosis were noticed, as exposed in the figure \textbf{TODO}.
-A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in term of contrast agent concentration. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU between both areas at portal venous phase could be a sign of cirrhosis \textbf{add ref}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation ot the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \textbf{TODO}. \\
-The quantitative analysis proved the probable presence of cirrhotic patients in both datasets, as depicted in the figure \textbf{TODO}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/LITS_pat115_CirrhoticAspectLiverBorders}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/TCIA-BC-A10Z_cirrhoticAspect}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of cirrhotic patients present in both datasets.  Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. We can see the irregular shape of the liver with signs of atrophy in both cases.}
+\end{figure}
+A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in term of contrast agent concentration. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU between both areas at portal venous phase could be a sign of cirrhosis \textbf{ADD REF}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation ot the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \textbf{TODO}. \\
+The quantitative analysis proved the probable presence of cirrhotic patients in both datasets, as depicted in the figure \ref{fig:cirrhosisPlot}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/LITS_TCIA_cirrhosisPlot}
+		\caption{Histogram representing the distribution of the difference between parenchyma and spleen intensities, where a difference higher than 18.5 HU (black vertical line) can be a sign of cirrhosis.}
+		\label{fig:cirrhosisPlot}
+	\end{mdframed}
+\end{figure}
 Finally, regarding the available contrast-enhanced phases per dataset, it has been proved that \textbf{\lmttfont{LITS-dB}} contains volumes that can be labeled as arterial and some other that can be labeled as portal venous (see figure \textbf{TODO}).
 \textit{Since all the patients of the \textbf{\lmttfont{TCIA-dB}} were supposed to be affected by HCC, it would have been ideal to have a dataset only composed of HCC or large solitary tumors, but only 20 patients of the 131 where affected by a single lesion larger than $ 2cm^3 $. }
 Since we considered that the type of lesions will only slightly affect the liver segmentation, we decided to keep all the patients of the \textbf{\lmttfont{LITS-dB}} (independently of the number of lesions present in the liver) to train our liver segmentation network. Using the entire dataset to train a single network allowed us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
