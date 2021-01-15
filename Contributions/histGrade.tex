@@ -48,7 +48,7 @@ liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCI
 
 \subsection{Automatic liver segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
-\subsubsection{Material}
+\subsubsection{Material}\label{tcia-db-unsupervised-liver-segmentation_material}
 \textcolor{red}{Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}.}
 In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation.
 \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver,
@@ -58,20 +58,20 @@ acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in t
 \textcolor{red}
 {
 Regarding its design and the high number of segmented cases it contained, we decided to train our liver segmentation network on the \textbf{\lmttfont{LITS-dB}} volumes and test it on \textbf{\lmttfont{TCIA-dB}} patients.
-We inspected both datasets to assess if a network trained on the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determinate the differences between the two datasets with a visual examination of the CT volumes and through a quantitative analysis after placement of ROIs.
+We inspected both datasets to assess if a network trained on the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determinate the differences between the two datasets with a visual examination of the CT volumes and through a quantitative analysis of the HU intensities after placement of ROIs.
 For the visual examination, the medical expert was asked to list the different type of features present in both datasets.
 They both contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \ref{fig:interdb_tumorExamples}. 
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Lits_examplePatientSmallTumor_2}
+			\includegraphics[width=\linewidth]{images/LITS_examplePatientSmallTumor_2}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{6cm}
 			\includegraphics[width=\linewidth]{images/TCIA_examplePatientSmallTumor}
 		\end{minipage} \\
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Lits_examplePatientLargeTumor}
+			\includegraphics[width=\linewidth]{images/LITS_examplePatientLargeTumor}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{6cm}
 			\includegraphics[width=\linewidth]{images/TCIA_examplePatientLargeTumor}
@@ -99,42 +99,51 @@ Both datasets presented livers with benign lesions, track of fat deposit, or oth
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Artifacts/LITS_pat58_potentialCyst}
+			\includegraphics[width=\linewidth]{images/Artifacts/LITS_cyst}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_TCGA_DD_A1EA_presenceOfCyst}
+			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_cyst}
 		\end{minipage} \\
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Artifacts/LITS_pat104_fatAccumulation}
+			\includegraphics[width=\linewidth]{images/Artifacts/LITS_fat}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Artifacts/TCIA-BC-A3KF_fatAccumulation}
+			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_fat}
 		\end{minipage} \\
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Artifacts/LITS_pat30_metallicArtifacts}
+			\includegraphics[width=\linewidth]{images/Artifacts/LITS_metallic_artifacts}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/Artifacts/TCIA-DD-A3A0_slice32_metallic_artifacts}
+			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_metallic_artifacts}
 		\end{minipage}
 	\end{mdframed}
-	\caption{Example of artifacts present in both training and test datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row presents patients with benign hepatic lesions, second row presents liver with tracks of fat accumulation, whereas last row gives examples of images with metallic artifacts.}
+	\caption{Example of artifacts present in both training and test datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row presents patients with benign hepatic lesions (yellow arrows), second row presents liver with tracks of fat accumulation (orange arrows), whereas last row gives examples of images with presence of metallic artifacts (red arrows).}
 	\label{fig:InterDb_artifacts}
 \end{figure}
-Diseased livers were also present in both datasets, where severe signs of cirrhosis were noticed, as exposed in the figure \textbf{TODO}.
+Diseased livers were also present in both datasets, where severe signs of cirrhosis were noticed, as exposed in the figure \ref{fig:InterDb_diseasedLivers}.
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/LITS_pat115_CirrhoticAspectLiverBorders}
+			\includegraphics[width=\linewidth]{images/LITS_cirrhoticPatientArrows}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{6cm}
-			\includegraphics[width=\linewidth]{images/TCIA-BC-A10Z_cirrhoticAspect}
+			\includegraphics[width=\linewidth]{images/TCIA_cirrhoticPatientArrows}
 		\end{minipage}
 	\end{mdframed}
-	\caption{Example of cirrhotic patients present in both datasets.  Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. We can see the irregular shape of the liver with signs of atrophy in both cases.}
+	\caption{Example of cirrhotic patients present in both datasets.  Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. We can see the irregular shape (cyan arrows) of the liver with signs of atrophy (pink arrows) in both cases.}
+	\label{fig:InterDb_diseasedLivers}
 \end{figure}
-A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in term of contrast agent concentration. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU between both areas at portal venous phase could be a sign of cirrhosis \textbf{ADD REF}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation ot the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \textbf{TODO}. \\
+A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in term of contrast agent concentration. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU between both areas at portal venous phase could be a sign of cirrhosis \textbf{ADD REF}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation ot the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \ref{fig:roiPlacement}. \\
 The quantitative analysis proved the probable presence of cirrhotic patients in both datasets, as depicted in the figure \ref{fig:cirrhosisPlot}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/juan_Roi_Example}
+		\caption{Example of ROI placement for the quantitative evaluation of differences between the \textbf{\lmttfont{LITS-dB}} and the \textbf{\lmttfont{TCIA-dB}}. Red: liver parenchyma, green: air, blue: spleen, yellow: bone, cyan: aorta.}
+		\label{fig:roiPlacement}
+	\end{mdframed}
+\end{figure}
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
@@ -143,18 +152,42 @@ The quantitative analysis proved the probable presence of cirrhotic patients in 
 		\label{fig:cirrhosisPlot}
 	\end{mdframed}
 \end{figure}
-Finally, regarding the available contrast-enhanced phases per dataset, it has been proved that \textbf{\lmttfont{LITS-dB}} contains volumes that can be labeled as arterial and some other that can be labeled as portal venous (see figure \textbf{TODO}).
-\textit{Since all the patients of the \textbf{\lmttfont{TCIA-dB}} were supposed to be affected by HCC, it would have been ideal to have a dataset only composed of HCC or large solitary tumors, but only 20 patients of the 131 where affected by a single lesion larger than $ 2cm^3 $. }
-Since we considered that the type of lesions will only slightly affect the liver segmentation, we decided to keep all the patients of the \textbf{\lmttfont{LITS-dB}} (independently of the number of lesions present in the liver) to train our liver segmentation network. Using the entire dataset to train a single network allowed us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
+Finally, regarding the available contrast-enhanced phases per dataset, it has been proved that \textbf{\lmttfont{LITS-dB}} contains volumes that can be labeled as arterial and some other that can be labeled as portal venous (see figure \ref{fig:LitsTciaPhasePlot}).
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/AortaParPlot}
+		\caption{Mean aorta intensity vs mean liver parenchyma intensity. Each point represents one volume. We can see a clear separation between arterial (green dots) and portal venous (red crosses) volumes among the \textbf{\lmttfont{TCIA-dB}} patients. Portal venous volumes present a higher variance for their liver parenchyma intensities, which can be explained by the differences in terms of duration between the injection of contrast medium and the acquisition of the images. It seems clear that the majority of volumes from the \textbf{\lmttfont{LITS-dB}} were acquired during the portal venous phase whereas some of them were acquired during the arterial phase. The rest of the volumes can be classified as belonging to the late arterial or the early portal venous phase.
+		}
+		\label{fig:LitsTciaPhasePlot}
+	\end{mdframed}
+\end{figure}
+Since all the patients of the \textbf{\lmttfont{TCIA-dB}} were supposed to be affected by HCC, it would have been ideal to have a dataset only composed of patients suffering from HCC or by a large solitary tumor, but only 20 patients of the 131 from the \textbf{\lmttfont{LITS-dB}} were affected by a single lesion larger than $ 2cm^3 $.
+Since we considered that the type of lesions will only slightly affect the liver segmentation, we decided to keep all the patients of the \textbf{\lmttfont{LITS-dB}} (independently of the number of lesions present in the liver) to train our liver segmentation network.
+Moreover, it would have been optimal to train one network per injected phase, or a single network with multiphase images as input.
+However \textbf{\lmttfont{TCIA-dB}} being the only available dataset with experts' liver segmentation, and since it is composed of both \ac{ar} and \ac{pv} volumes (with in-between phase volumes as depicted in the figure \ref{fig:LitsTciaPhasePlot}), we used the entire dataset to train a single network, allowing us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
 }
 %Our experiments however showed that a liver segmentation network trained
 %on sufficiently enough cases is able to perform the semantic
 %segmentation of both \ac{ar} and \ac{pv} raw images independently.
 
 \subsubsection{Methods}\label{liver_segmentation_tcia_db_methods}
+
+\textcolor{red}
+{
 We trained our network called \pplfont{\ac{cect}-Liver} on the 131 volumes of the
 \textbf{\lmttfont{LITS-dB}} using the same hyperparameters as the ones detailed
-previously. 
+previously. The network shares the same settings as the previously defined \pplfont{\ac{pv}-Liver} and \pplfont{\ac{ar}-Liver} networks, as detailed in the figure \ref{fig:CECTliverDetails}. In this case we used the architecture with 1024 filters at bottleneck, corresponding to about 32M parameters. Once the segmentation performed on each of the axial slices of a given patient, we implemented 2 post-processing steps by first extracting the biggest connected component in the entire 3D volume before applying a binary opening operation to the retained mask.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\includegraphics[width=\linewidth]{images/CECT_liver_details}
+		\caption{We trained our network using each one of the 131 volumes of the \textbf{\lmttfont{LITS-dB}}, and tested the obtained architecture on both \ac{ar} and \ac{pv} \textbf{\lmttfont{TCIA-dB}} volumes. 
+		}
+		\label{fig:CECTliverDetails}
+	\end{mdframed}
+\end{figure}
+}
 
 \subsubsection{Results}\label{liver_segmentation_tcia_db_results}
 
@@ -291,6 +324,144 @@ transform the \ac{ar} tumor mask to the \ac{pv} space as depicted by the red and
 \caption{Illustration of the registration pipeline applied to \textbf{\lmttfont{G-dB}}. A similar approach as the one applied to \textbf{\lmttfont{TCIA-dB}} is performed to obtain the registered multiphase images. A final step is added here to transform both the tumor and the liver masks using the registration transformation matrix (red and green dashed arrows)}
 \label{fig:GDB_registration_pipeline_vertical}
 \end{figure}
+
+We then trained our multiphase tumor segmentation network using the \textbf{\lmttfont{G-dB}} as training dataset.
+\textcolor{red}
+{
+To compare both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets, we achieved the same analysis as the one performed previously (see section \ref{tcia-db-unsupervised-liver-segmentation_material}).
+Therefore, a medical expert was asked to evaluate both visually and quantitatively the differences between the two datasets.
+To perform the visual analysis, he was asked to evaluate the type of characteristics present in both dataset, not only in the liver but also by comparing the tumors using imaging features. 
+As exposed previously, \textbf{\lmttfont{TCIA-dB}} contains both large and small tumors, and the same panel of tumor sizes was present in the \textbf{\lmttfont{G-dB}} dataset, as illustrated in the figure \ref{fig:interdb_tumorSeg_tumorExamples}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/GDB_examplePatientSmallTumor}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/GDB_examplePatientSmallTumor_seg}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/GDB_examplePatientLargeTumor}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/GDB_examplePatientLargeTumor_seg}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of small and large tumors from the \textbf{\lmttfont{G-dB}} images, top: small tumors, bottom: large tumors, left: raw image, left: expert segmentation.}
+	\label{fig:interdb_tumorSeg_tumorExamples}
+\end{figure}
+Some artifacts were also found in the \textbf{\lmttfont{G-dB}} dataset, such as the presence of benign lesions, fat accumulation or other metallic artifacts in the hepatic region (see figure \ref{fig:GDb_artifacts}).
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/GDB_cyst}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/GDB_fat}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/Artifacts/GDB_metallic_artifacts}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of artifacts present in the \textbf{\lmttfont{G-dB}} dataset. First row depicts a patient with benign hepatic lesion (yellow arrows), second row presents liver with tracks of fat accumulation (orange arrows), whereas last row gives example of images with presence of metallic artifacts (red arrows).}
+	\label{fig:GDb_artifacts}
+\end{figure}
+As it was the case in the \textbf{\lmttfont{TCIA-dB}} dataset, diseased livers were also present among the \textbf{\lmttfont{G-dB}} patients, as illustrated in the figure \ref{fig:GDb_diseasedLivers}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/GDB_cirrhoticPatientArrows}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/GDB_cirrhoticPatientArrows_2}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of cirrhotic patients present in the \textbf{\lmttfont{LITS-dB}} dataset. In both images, we can see the irregular shape (cyan arrows) of the liver.}
+	\label{fig:GDb_diseasedLivers}
+\end{figure}
+Regarding the tumor specific area, several imaging features were found in both datasets:
+\begin{itemize}
+\item the presence of internal arteries
+\item a peritumoral enhancement
+\item the presence of either smooth or non-smooth margins
+\item an hypoattenuating halo surrounding the tumor
+\item a high textural heterogeneity
+\item a wash-in/wash-out pattern 
+\end{itemize}
+Images illustrated each of the mentioned features were given in the figure \ref{fig:InterDb_imagingTraits}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_peritumoralEnhancement}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_peritumoralEnhancement}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_smoothMargins}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_smoothMargins}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_nonSmoothMargins}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_nonSmoothMargins}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_halo}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_halo}
+		\end{minipage} \\
+	\end{mdframed}
+	\caption{Example of tumor characteristic imaging traits present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. \textbf{TODO}.}
+	\label{fig:InterDb_imagingTraits}
+\end{figure}
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_internalArteries}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_internalArteries}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_texturalHeterogeneity}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_texturalHeterogeneity}
+		\end{minipage} \\
+	\end{mdframed}
+	\caption{Example of tumor characteristic imaging traits present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. \textbf{TODO}.}
+	\label{fig:InterDb_imagingTraits2}
+\end{figure}
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_washin}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_washin}
+		\end{minipage} \\
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_washout}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{6cm}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_washout}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Example of tumor characteristic imaging traits present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. Wash-in/Wash-out.}
+	\label{fig:InterDb_imagingTraits3}
+\end{figure}
+}
 
 We then fused the liver and the tumor masks to obtain a multiclass
 segmentation mask that can fit both the \ac{pv} and the registered \ac{ar} volumes, as depicted in the figure \ref{fig:gDbRegisteredPatient}.
