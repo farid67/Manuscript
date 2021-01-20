@@ -64,16 +64,16 @@ They both contained liver volumes affected by large solitary tumors (HCC-like le
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/LITS_examplePatientSmallTumor_2}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/TCIA_examplePatientSmallTumor}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/LITS_examplePatientLargeTumor}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/TCIA_examplePatientLargeTumor}
 		\end{minipage}
 	\end{mdframed}
@@ -84,10 +84,10 @@ It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes w
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/LITS_examplePatientMeta}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/LITS_examplePatientMeta_seg}
 		\end{minipage}
 	\end{mdframed}
@@ -98,22 +98,22 @@ Both datasets presented livers with benign lesions, track of fat deposit, or oth
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/LITS_cyst}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_cyst}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/LITS_fat}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_fat}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/LITS_metallic_artifacts}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/TCIA_metallic_artifacts}
 		\end{minipage}
 	\end{mdframed}
@@ -124,10 +124,10 @@ Diseased livers were also present in both datasets, where severe signs of cirrho
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/LITS_cirrhoticPatientArrows}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/TCIA_cirrhoticPatientArrows}
 		\end{minipage}
 	\end{mdframed}
@@ -199,6 +199,9 @@ perform liver segmentation on both \ac{ar} and \ac{pv} unseen images.
 The \pplfont{CECT-Liver} network was also able to segment unseen volumes of the
 \textbf{\lmttfont{TCIA-dB}} in both \ac{ar} and \ac{pv} phases even when the liver presents a big
 lesion, as we can see in the figure \ref{fig:LiverPredTciaDb}.
+Even though the overall visual predictions seemed very accurate, some mis-segmentation cases have been noticed. Liver segmentation errors often appear on top/bottom axial slices and are often due to our 2D approach, where the 3D context is lost, and where it is often very difficult to see the extremity of the liver in a single slice, as depicted in the figure \ref{fig:LITS_networkMisSeg_extremSlices}. As exposed previously the main drawback of our approach corresponds to cases where the missed liver segment is occupied by a liver tumor (see \ref{fig:LITS_networkMisSeg_extremSlices} and \ref{fig:LITS_networkMisSeg_tumor}).
+As explained earlier, an other problem often occurring is the mis-segmentation of other abdominal organs, that are sometimes considered as being part of the liver. However, our post-processing steps usually correct these mistakes by removing the undesired tissues from the final segmentation map (as illustrated in the figure \ref{fig:LITS_networkMisSeg_otherOrgans}).
+
 
 \begin{figure}[ht!]
 \centering
@@ -224,7 +227,71 @@ Raw images, right : liver segmentation as overlay).}
 \label{fig:LiverPredTciaDb}
 \end{figure}
 
+\begin{figure}[ht!]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A3A1_slice80_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A3A1_slice80_liverPrediction_Cmap}
+		\end{minipage} \\
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A4NK_slice32_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A4NK_slice32_liverPrediction_Cmap}
+		\end{minipage} \\
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1EB_slice9_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1EB_slice9_liverPrediction_Cmap_Arrow}
+		\end{minipage}
+		\caption{Examples of liver mis-segmentation cases with left being the raw images and right being the liver segmentation prediction obtained by our \pplfont{\ac{cect}-Liver} network (green area corresponds to the retained liver segmentation, whereas the purple area corresponds to voxels removed by the post-processing steps). Top row depicts an axial top liver slice, where nearly half of the liver has been missed. Second row depicts a bottom liver slice where a big portion of the liver occupied by a tumor has been missed by the liver segmentation. Bottom row also depicts a bottom liver slices where a small portion is missed by the network, but the hepatic lesion is missed as well (green arrow).}
+		\label{fig:LITS_networkMisSeg_extremSlices}
+	\end{mdframed}
+\end{figure}
 
+\begin{figure}[ht!]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1EB_slice16_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1EB_slice16_liverPrediction_Cmap}
+		\end{minipage}
+		\caption{Example of liver mis-segmentation where a big portion of the lesion has been missed by our liver segmentation network. In this specific case, the portion of the tumor that has been missed corresponded to the necrotic area which was remarkably darker than usual (less than 10HU).}
+		\label{fig:LITS_networkMisSeg_tumor}
+	\end{mdframed}
+\end{figure}
+
+\begin{figure}[ht!]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-BC-A3KF_slice61_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-BC-A3KF_slice61_liverPrediction_Cmap}
+		\end{minipage} \\
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-BC-A10Z_slice30_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-BC-A10Z_slice30_liverPrediction_Cmap}
+		\end{minipage} \\
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1EA_slice30_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1EA_slice30_liverPrediction_Cmap}
+		\end{minipage}
+		\caption{Examples of liver mis-segmentation cases with left being the raw images and right being the liver segmentation prediction obtained by our \pplfont{\ac{cect}-Liver} network (green area corresponds to the retained liver segmentation, whereas the purple area corresponds to voxels removed by the post-processing steps). In the given examples we have the stomach (top row), the spleen (second row) and the colon (bottom row) that have been mis-interpreted by the network as being part of the liver, however in each case the post-processing steps allowed us to remove the unwanted tissue from the remaining segmentation map.}
+		\label{fig:LITS_networkMisSeg_otherOrgans}
+	\end{mdframed}
+\end{figure}
 
 Once a robust liver segmentation was obtained, we implemented our
 registration pipeline.
@@ -335,16 +402,16 @@ As exposed previously, \textbf{\lmttfont{TCIA-dB}} contains both large and small
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/GDB_examplePatientSmallTumor}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/GDB_examplePatientSmallTumor_seg}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/GDB_examplePatientLargeTumor}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/GDB_examplePatientLargeTumor_seg}
 		\end{minipage}
 	\end{mdframed}
@@ -355,13 +422,13 @@ Some artifacts were also found in the \textbf{\lmttfont{G-dB}} dataset, such as 
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/GDB_cyst}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/GDB_fat}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/Artifacts/GDB_metallic_artifacts}
 		\end{minipage}
 	\end{mdframed}
@@ -372,10 +439,10 @@ As it was the case in the \textbf{\lmttfont{TCIA-dB}} dataset, diseased livers w
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/GDB_cirrhoticPatientArrows}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/GDB_cirrhoticPatientArrows_2}
 		\end{minipage}
 	\end{mdframed}
@@ -391,75 +458,95 @@ Regarding the tumor specific area, several imaging features were found in both d
 \item a high textural heterogeneity
 \item a wash-in/wash-out pattern 
 \end{itemize}
-Images illustrated each of the mentioned features were given in the figure \ref{fig:InterDb_imagingTraits}.
+Images illustrated each of the mentioned features were given in the figure \textbf{TODO} \ref{fig:InterDb_imagingTraits}.
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_peritumoralEnhancement}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_peritumoralEnhancement}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_smoothMargins}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_smoothMargins}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_nonSmoothMargins}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_nonSmoothMargins}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_halo}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_halo}
 		\end{minipage} \\
 	\end{mdframed}
-	\caption{Example of tumor characteristic imaging traits present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. \textbf{TODO}.}
+	\caption{Examples of tumor characteristic imaging traits relative to the tumor border present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row: peritumoral enhancement, which can be defines by the presence of a detectable region of enhancement adjacent to the tumor border in the arterial phase. Second and third rows: illustration of the tumor margin, that can be categorized as a smooth margin (second row) when facing nodular tumors with smooth contours or as non-smooth margin (third row) when facing non-nodular tumors with an irregular margin with budding portions at the periphery in both \ac{ar} and \ac{pv} images. Bottom row: hypoattenuating halo, defined as a rim of hypoattenuation partially or completely circumscribing the tumor on perituromal \ac{pv} images. }
 	\label{fig:InterDb_imagingTraits}
 \end{figure}
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_internalArteries}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_internalArteries}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_texturalHeterogeneity}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_texturalHeterogeneity}
 		\end{minipage} \\
 	\end{mdframed}
-	\caption{Example of tumor characteristic imaging traits present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. \textbf{TODO}.}
+	\caption{Example of tumor characteristic imaging traits, relative to the inner part of the tumor, present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. Top row: internal arteries, defined by the persistence of discrete arterial enhancement within the tumor in the \ac{ar} phase. Bottom row: high textural heterogeneity.}
 	\label{fig:InterDb_imagingTraits2}
 \end{figure}
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_washin}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_washin}
 		\end{minipage} \\
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_washout}
 		\end{minipage} \hspace{-0.1cm}
-		\begin{minipage}{6cm}
+		\begin{minipage}{0.45\linewidth}
 			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_washout}
 		\end{minipage}
 	\end{mdframed}
-	\caption{Example of tumor characteristic imaging traits present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. Wash-in/Wash-out.}
+	\caption{Example of specific wash-in/wash-out trait present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images.
+	Wash-in is defined as an enhancement of the lesion of the arterial phase higher than the one of the liver parenchyma, whereas the wash-out is defined as a lesion hypodense/hypointense compared to the liver parenchyma on the portal venous and/or delayed phases.}
 	\label{fig:InterDb_imagingTraits3}
+\end{figure}
+The same quantitative analysis as previously was performed (see section \ref{tcia-db-unsupervised-liver-segmentation_material}), with the placement of 5 ROIs in randomly chosen patients of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets. ROIs were placed in the liver parenchyma, the air, the spleen, the bone and the aorta. These areas were chosen mainly to detect potential cirrhotic patients in both datasets, as illustrated in the figure \ref{fig:cirrhoticPatPlot} , and to assess the homogeneity for the given phases among the different datasets, as depicted in the figure \ref{fig:gdbAortaPlot}. 
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/Gdb_TCIA_cirrhosisPlot}
+		\caption{Histogram representing the distribution of the difference between parenchyma and spleen intensities for the patients of  \textbf{\lmttfont{G-dB}} dataset (green) and the  \textbf{\lmttfont{TCIA-dB}} dataset (blue). A difference higher than 18.5 HU (black vertical line) can be a sign of cirrhosis.
+		}
+		\label{fig:cirrhoticPatPlot}
+	\end{mdframed}
+\end{figure}
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\includegraphics[width=0.6\linewidth]{images/AortaParPlot_Gdb}
+		\caption{Mean aorta intensity vs mean liver parenchyma intensity. Each point represents one volume. We can see a clear separation between arterial (green dots) and portal venous (red crosses) volumes for both the \textbf{\lmttfont{G-dB}} and the \textbf{\lmttfont{TCIA-dB}} patients. We can however notice a higher heterogeneity among the mean parenchyma intensity in the \textbf{\lmttfont{TCIA-dB}} dataset, which could be a sign of standardize acquisition settings for the \textbf{\lmttfont{G-dB}}.
+		}
+		\label{fig:gdbAortaPlot}
+	\end{mdframed}
 \end{figure}
 }
 
@@ -467,26 +554,21 @@ We then fused the liver and the tumor masks to obtain a multiclass
 segmentation mask that can fit both the \ac{pv} and the registered \ac{ar} volumes, as depicted in the figure \ref{fig:gDbRegisteredPatient}.
 
 \begin{figure}[ht!]
-\centering
-\begin{minipage}{0.45\linewidth}
-
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_AR_TumorPred}
-\end{minipage}
-\hspace{0.3cm}
-\begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_AR_liverTumorPred}
-\end{minipage}
-
-\vspace{0.8cm}
-\begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_raw_PV}
-\end{minipage}
-\hspace{0.3cm}
-\begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_PV_liverTumorPred}
-\end{minipage}
-\caption{Example of a patient from \textbf{\lmttfont{G-dB}}, obtained after enhancing the dataset with our semantic segmentation network and our registration pipeline. Top row: \ac{ar}\_registered volume with original tumor expert segmentation, bottom row: \ac{pv}\_volume, left: original raw volumes, right: segmentation mask overlay where the parenchyma is obtained through our segmentation pipeline and the tumor was initially delineated by an expert then transformed to fit the target volume space.}
-\label{fig:gDbRegisteredPatient}
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_AR_TumorPred}
+	\end{minipage} \hspace{-0.1cm}
+	\begin{minipage}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_AR_liverTumorPred}
+	\end{minipage} \\
+	\begin{minipage}{0.45\linewidth}
+	\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_raw_PV}
+	\end{minipage} \hspace{-0.1cm}
+	\begin{minipage}{0.45\linewidth}
+	\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/GDB/GDB_Pat77_slice261_PV_liverTumorPred}
+	\end{minipage}
+	\caption{Example of a patient from \textbf{\lmttfont{G-dB}}, obtained after enhancing the dataset with our semantic segmentation network and our registration pipeline. Top row: \ac{ar}\_registered volume with original tumor expert segmentation, bottom row: \ac{pv}\_volume, left: original raw volumes, right: segmentation mask overlay where the parenchyma is obtained through our segmentation pipeline and the tumor was initially delineated by an expert then transformed to fit the target volume space.}
+	\label{fig:gDbRegisteredPatient}
 \end{figure}
 
 
@@ -509,24 +591,51 @@ After training both architectures with
 the same parameters, we obtained a mean patient-wise \ac{dsc} of $ 73.2 \pm 20.6 $ with \pplfont{MPF}
 architecture versus $ 64.9 \pm 27.2 $ when using the \pplfont{DMP} when evaluating the
 models on the \textbf{\lmttfont{TCIA-dB}} patients. An example of prediction on the \textbf{\lmttfont{TCIA-dB}} is
-depicted in figure \ref{fig:TCIAMultiphaseTumorPred}.
+depicted in figure \ref{fig:TCIAMultiphaseTumorPred}. 
+\textcolor{red}
+{
+Event though the accuracy tends to be very high, we found some cases where the tumor segmentation contains some false positives, as illustrated in the figure \ref{fig:GDB_TumorMisSeg}.
+\begin{figure}[!ht]
+	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+		\centering
+		\begin{minipage}{0.3\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1ED_slice41_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.3\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1ED_slice41_raw_windowed}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.3\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A1ED_slice41_TumorPrediction}
+		\end{minipage} \vspace{0.3cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A4NK_slice75_raw}
+		\end{minipage} \hspace{-0.1cm}
+		\begin{minipage}{0.45\linewidth}
+			\includegraphics[width=\linewidth]{images/MisSegmentations/TCGA-DD-A4NK_slice75_TumorPrediction}
+		\end{minipage}
+	\end{mdframed}
+	\caption{Examples of tumor mis-segmentation.
+	In both cases, enhanced parts of the liver have been wrongly considered as being tumoral. Top row: the raw images has been windowed in such a case that enhanced part are easily visible (middle image). Only the bottom ROI correctly belong to the tumor, whereas the top ROI is a false positive (third image). The bottom row depicts an other example where the segmented areas corresponds to a false positive.}
+	\label{fig:GDB_TumorMisSeg}
+\end{figure}
+}
+
+
 
 \begin{figure}
-\begin{minipage}{0.3\linewidth}
-\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image13.png}
-\end{minipage}
-\hspace{0.1cm}
-\begin{minipage}{0.3\linewidth}
-\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image10.png}
-\end{minipage}
-\hspace{0.1cm}
-\begin{minipage}{0.3\linewidth}
-\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image7.png}
-\end{minipage}
-\caption{Example of an image from the \textbf{\lmttfont{TCIA-dB}}, with the obtained predicted tumor
-segmentation using the \pplfont{MPF-Tumor} segmentation network (left: raw,
-middle: expert annotation, right: obtained segmentation)}
-\label{fig:TCIAMultiphaseTumorPred}
+	\begin{minipage}{0.3\linewidth}
+		\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image13.png}
+	\end{minipage} \hspace{0.1cm}
+	\begin{minipage}{0.3\linewidth}
+		\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image10.png}
+	\end{minipage} \hspace{0.1cm}
+	\begin{minipage}{0.3\linewidth}
+		\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/image7.png}
+	\end{minipage}
+	\caption{Example of an image from the \textbf{\lmttfont{TCIA-dB}}, with the obtained predicted tumor
+	segmentation using the \pplfont{MPF-Tumor} segmentation network (left: raw,
+	middle: expert annotation, right: obtained segmentation)}
+	\label{fig:TCIAMultiphaseTumorPred}
 \end{figure}
 
 
@@ -654,16 +763,52 @@ semantic segmentation of the \textbf{\lmttfont{TCIA-dB}}, before predicting the
 histological grade.
 After obtaining the final cascaded architecture, we built our network dedicated to the
 histological grade prediction.
-
-\subsubsection{Experiments and results}
-
-\lmttfont{TCIA-dB} contains images from 18 patients, where 9 were diagnosed with a
+\textcolor{red}
+{We finally performed the prediction of the histological grade using the \ac{hcr} features computed on both the AR, the PV and the [PV - AR] volume \footnote{As a way to represent the dynamic within the same volume.}, using either the expert ground truth annotations or the output of our multiphase tumor semantic segmentation network as segmentation mask.}
+\textbf{\lmttfont{TCIA-dB}} contains images from 18 patients, where 9 were diagnosed with a
 grade 3 (G3), 7 with a grade 2 (G2) and 2 with a grade 1 (G1). In order
 to obtain a balanced training dataset, it has been decided to split them
 into two groups, the first containing G1 and G2 patients, and the second containing G3 patients, as it has been done previously in the literature since G2
 was considered as being closer to G1 than to G3 \cite{Han2013,Zucman-Rossi2015}. Patients from the first group (G1 and G2) were considered as
 having a low grade (LG), whereas those from the second group have a high
 grade (HG).
+
+\subsubsection{HCR features-based experiments}
+\textcolor{red}
+{
+We first performed the prediction of the histological grade using the \ac{hcr} features.
+To perform the prediction of the histological grade, we have decided to extract features from either the AR or the PV volume.
+Once the features extracted, we built a logistic regression model to select the relevant features and perform the prediction.
+Traditionally, the radiomics features are computed in a manually-defined ROI. We therefore decided to compare the accuracy of our model when using either the expert ground truth segmentation, or the predicted ROI obtained by our semantic segmentation network.
+It is difficult, or even impossible in the current \ac{hcr}-paradigm workflow to extract dynamic features, since by definition, most of the features are computed in a 2D or 3D fashion. 
+In order to investigate the value brought by the dynamic information, we have decided to compute the features on a so-called \textit{perfusion} volume, where each voxel intensity corresponds to the difference between the \ac{pv} and the registered AR volume. An illustration of the process to obtain the perfusion volume is given in the figure \ref{fig:perfusion}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{Contributions/images/perfusion}
+\caption{Left: Portal venous image, middle: registered AR image, right: perfusion image where each pixel's intensity is obtained by computing the difference between its PV and its AR intensity.}
+\label{fig:perfusion}
+\end{figure}
+We performed a 9-fold CV training so that each patient is present at least once in the testing set. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}
+
+\begin{table}[!htp]\centering
+\caption{\textbf{TODO}}\label{tab:hcrGrade}
+\scriptsize
+\begin{tabular}{lrrrrrr}\toprule
+\multicolumn{3}{c}{Settings} &\multicolumn{3}{c}{Accuracy} \\\cmidrule{1-6}
+Image type &Features Type &Tumor Segmentation &input = AR &input = PV &input = Perfusion \\\midrule
+Original &1st order + shape + GLM > &0.72 &0.77 &0.72 \\
+Original + Filtered (Log) &1st order + shape + GLM > &0.72 &0.83 &0.94 \\
+Original + Filtered (Log) + Wavelet &1st order + shape + GLM > &0.66 &0.66 &0.66 \\
+Original &1st order + shape + GLM &predicted &0.72 &0.77 &0.83 \\
+Original + Filtered (Log) &1st order + shape + GLM &predicted &0.66 &0.66 &0.56 \\
+Original + Filtered (Log) + Wavelet &1st order + shape + GLM &predicted &0.61 &0.61 &0.61 \\
+\bottomrule
+\end{tabular}
+\end{table}
+}
+
+\subsubsection{DLR features-based experiments}
+
 As explained previously, to train a network dedicated to predict the
 histological grade, we have decided to focus on what we called the
 relevant imaging semantic features.
@@ -791,6 +936,10 @@ It has been observed that the classification confidence was often correlated wit
 \end{tabular}
 \end{table}
 \renewcommand{\arraystretch}{5}
+
+
+
+
 Those results provided a more detailed prediction than the one
 consisting of a single patient-wise classification. Being able to
 compute the histological grade locally (here in a slice-wise fashion)
