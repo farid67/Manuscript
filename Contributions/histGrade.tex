@@ -48,7 +48,11 @@ liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCI
 
 \subsection{Automatic liver segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
+<<<<<<< HEAD
 \subsubsection{Material}\label{tcia-db-unsupervised-liver-segmentation_material}
+=======
+\subsubsection{Material}
+>>>>>>> 6f258712ceec0fb6caba50aa3ed67cd4fc775c4c
 \textcolor{red}{Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}.}
 In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation.
 \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver,
@@ -172,6 +176,7 @@ However \textbf{\lmttfont{TCIA-dB}} being the only available dataset with expert
 %segmentation of both \ac{ar} and \ac{pv} raw images independently.
 
 \subsubsection{Methods}\label{liver_segmentation_tcia_db_methods}
+
 
 \textcolor{red}
 {
@@ -549,7 +554,6 @@ The same quantitative analysis as previously was performed (see section \ref{tci
 	\end{mdframed}
 \end{figure}
 }
-
 We then fused the liver and the tumor masks to obtain a multiclass
 segmentation mask that can fit both the \ac{pv} and the registered \ac{ar} volumes, as depicted in the figure \ref{fig:gDbRegisteredPatient}.
 
@@ -766,6 +770,7 @@ histological grade prediction.
 \textcolor{red}
 {We finally performed the prediction of the histological grade using the \ac{hcr} features computed on both the AR, the PV and the [PV - AR] volume \footnote{As a way to represent the dynamic within the same volume.}, using either the expert ground truth annotations or the output of our multiphase tumor semantic segmentation network as segmentation mask.}
 \textbf{\lmttfont{TCIA-dB}} contains images from 18 patients, where 9 were diagnosed with a
+
 grade 3 (G3), 7 with a grade 2 (G2) and 2 with a grade 1 (G1). In order
 to obtain a balanced training dataset, it has been decided to split them
 into two groups, the first containing G1 and G2 patients, and the second containing G3 patients, as it has been done previously in the literature since G2
@@ -788,8 +793,7 @@ In order to investigate the value brought by the dynamic information, we have de
 \caption{Left: Portal venous image, middle: registered AR image, right: perfusion image where each pixel's intensity is obtained by computing the difference between its PV and its AR intensity.}
 \label{fig:perfusion}
 \end{figure}
-We performed a 9-fold CV training so that each patient is present at least once in the testing set. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}
-
+We performed a 9-fold CV training so that each patient is present at least once in the testing set. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}.
 \begin{table}[!htp]\centering
 \caption{\textbf{TODO}}\label{tab:hcrGrade}
 \scriptsize
@@ -936,9 +940,6 @@ It has been observed that the classification confidence was often correlated wit
 \end{tabular}
 \end{table}
 \renewcommand{\arraystretch}{5}
-
-
-
 
 Those results provided a more detailed prediction than the one
 consisting of a single patient-wise classification. Being able to
