@@ -297,10 +297,10 @@ The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesI
 \begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{\linewidth}
-		\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat4}
+		\includegraphics[width=\linewidth]{images/ResizelearningCurveTumorVE_pat4}
 	\end{minipage} \\
 	\begin{minipage}{\linewidth}
-		\includegraphics[width=\linewidth]{images/learningCurveTumorVE_pat6}
+		\includegraphics[width=\linewidth]{images/ResizelearningCurveTumorVE_pat6}
 	\end{minipage}
 	\caption{Two examples of obtained learning curves for the tumor segmentation task for different folds in the cross validation process. The first example depicts a standard learning curve where the training loss decreases gradually, followed by the validation loss, while both the training and the validation accuracy increase gradually. A higher variance can be seen in the second case, probably because of the small number of training images regarding the size of the network.}
 	\label{fig:learningCurvesIJCARS}
@@ -379,31 +379,31 @@ When segmenting the liver using an axial CT slice as input, our networks usually
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat0_3}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat0_3}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_GT_Pat0_3}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_GT_Pat0_3}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Pred_Pat0_3}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Pred_Pat0_3}
 	\end{minipage} \\
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat4_5}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat4_5}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_GT_Pat4_5}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_GT_Pat4_5}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Pred_Pat4_5}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Pred_Pat4_5}
 	\end{minipage} \\
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat1_1}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat1_1}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_GT_Pat1_1}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_GT_Pat1_1}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Pred_Pat1_1}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Pred_Pat1_1}
 	\end{minipage}
 	\caption{Examples of liver mis-segmentations where other parts of the abdomen are included in the predicted liver mask. Left: raw images, middle: expert ground truth, right: prediction. First and second row: we can see that the spleen is often considered as belonging to the liver, because of its HU intensities close to these of the liver parenchyma, especially at PV phase. Third and fourth row presented mis-segmenation with first the heart and second the stomach which also often share the same intensities as the liver parenchyma.}
 	\label{fig:missegmentation_Liver_IJCARS}
@@ -413,22 +413,22 @@ When segmenting the liver using an axial CT slice as input, our networks usually
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat1_12}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat1_12}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_GT_Pat1_12}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_GT_Pat1_12}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Pred_Pat1_12}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Pred_Pat1_12}
 	\end{minipage} \\
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Raw_Pat6_6}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat6_6}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_GT_Pat6_6}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_GT_Pat6_6}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/LiverVE_Pred_Pat6_6}
+		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Pred_Pat6_6}
 	\end{minipage}
 	\caption{Examples of liver mis-segmentations where some parts of the actual liver are missed by the network. Left: raw images, middle: expert ground truth, right: prediction. First row: an example where a portion of the liver parenchyma is missing in the predicted liver segmentation mask, second row: an example where a portion of the liver tumor necrosis is not included in the predicted liver segmentation.}
 	\label{fig:missegmentation_Liver2_IJCARS}
@@ -439,22 +439,22 @@ Regarding the tumor segmentation task, it has been noticed that active parts of 
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/TumorMult_Raw_Pat5_0}
+		\includegraphics[width=\linewidth]{images/ResizeTumorMult_Raw_Pat5_0}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/TumorMult_GT_Pat5_0}
+		\includegraphics[width=\linewidth]{images/ResizeTumorMult_GT_Pat5_0}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/TumorMult_Pred_Pat5_0}
+		\includegraphics[width=\linewidth]{images/ResizeTumorMult_Pred_Pat5_0}
 	\end{minipage} \\
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/TumorMult_Raw_Pat0_4}
+		\includegraphics[width=\linewidth]{images/ResizeTumorMult_Raw_Pat0_4}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/TumorMult_GT_Pat0_4}
+		\includegraphics[width=\linewidth]{images/ResizeTumorMult_GT_Pat0_4}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/TumorMult_Pred_Pat0_4}
+		\includegraphics[width=\linewidth]{images/ResizeTumorMult_Pred_Pat0_4}
 	\end{minipage} 
 	\caption{Examples of tumor mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example of prediction where a portion of the active part of the tumor is mis-considered as belonging to the liver parenchyma, second row: example where some air captured by the liver envelope has been annotated as belonging to the liver parenchyma by the expert, but it was considered as tumoral tissues by the segmentation network.}
 	\label{fig:missegmentation_Tumor_IJCARS}
@@ -465,22 +465,22 @@ Finally, for the necrosis segmentation step, when the inter-tissue difference is
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/NecrosisVE_Raw_Pat0_8}
+		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Raw_Pat0_8}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/NecrosisVE_GT_Pat0_8}
+		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_GT_Pat0_8}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/NecrosisVE_Pred_Pat0_8}
+		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Pred_Pat0_8}
 	\end{minipage} \\
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/NecrosisVE_Raw_Pat0_13}
+		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Raw_Pat0_13}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/NecrosisVE_GT_Pat0_13}
+		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_GT_Pat0_13}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/NecrosisVE_Pred_Pat0_13}
+		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Pred_Pat0_13}
 	\end{minipage} 
 	\caption{Examples of necrosis mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example where the distinction between the necrotic and the active part of the tumor is not strongly marked, which leads to errors in the segmentation with a larger proportion of the tumor considered as active. Second row: example where the expert extended the annotated necrotic area to its simple central region, whereas the network only considered the central part of the tumor as being necrotic.}
 	\label{fig:missegmentation_Necrosis_IJCARS}

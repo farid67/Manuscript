@@ -22,7 +22,7 @@ the different \ac{cect} volumes.
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{../HistologicalGradePrediction/images/RegistrationTCIA_pipeline_vertical2}
+\includegraphics[width=0.7\linewidth]{../HistologicalGradePrediction/images/ResizeRegistrationTCIA_pipeline_vertical2}
 \caption{Illustration of the registration pipeline applied to the images of \textbf{\lmttfont{TCIA-dB}}. The first green arrows correspond to the liver segmentation using a network trained on the \textbf{\lmttfont{LITS-dB}}. Dashed blue arrows correspond to the ANTs registration pipeline, where a dilated version of the predicted liver annotations maps are used as registration masks. The ANTs algorithm implements 3 transformations: a rigid, an affine, and a diffeomorphic Syn transformation that computes a deformation grid \cite{Avants2008}. The 3 steps of the ANTs algorithm allows us to obtain registered multiphase images.}
 \label{fig:RegistrationTCIA_pipeline_vertical2}
 \end{figure}
@@ -211,20 +211,20 @@ As explained earlier, an other problem often occurring is the mis-segmentation o
 \begin{figure}[ht!]
 \centering
 \begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/TCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_AR_raw}
+\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/ResizeTCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_AR_raw}
 \end{minipage}
 \hspace{0.3cm}
 \begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/TCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_AR_green_liver}
+\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/ResizeTCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_AR_green_liver}
 \end{minipage}
 
 \vspace{0.8cm}
 \begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/TCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_raw}
+\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/ResizeTCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_raw}
 \end{minipage}
 \hspace{0.3cm}
 \begin{minipage}{0.45\linewidth}
-\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/TCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_greenLiver}
+\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/ResizeTCIA_CECTLiver_prediction_TCGA-DD-A11A_slice42_greenLiver}
 \end{minipage}
 \caption{Example of liver segmentation using the \pplfont{\ac{cect}-Liver} network on \textbf{\lmttfont{TCIA-dB}}
 patients (Top row \ac{ar} images, bottom row: \ac{pv} images, left:
@@ -344,12 +344,12 @@ The registration allows us to obtain both a new registered arterial volume, a tr
 \begin{figure}
 \centering
 \begin{minipage}{0.7\linewidth}
-\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/TCIA_TCGA-DD-A11A_deformation_grid_slice49}
+\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/ResizeTCIA_TCGA-DD-A11A_deformation_grid_slice49}
 \end{minipage}
 
 \vspace{0.8cm}
 \begin{minipage}{0.7\linewidth}
-\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/TCIA_TCGA-DD-A11A_deformation_grid_slice68}
+\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/ResizeTCIA_TCGA-DD-A11A_deformation_grid_slice68}
 \end{minipage}
 \caption{Example of deformation grids obtained after applying the registration pipeline on \lmttfont{TCIA-dB} patients}
 \label{fig:deformationGridExamples}
@@ -468,28 +468,28 @@ Images illustrated each of the mentioned features were given in the figure \text
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_peritumoralEnhancement}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_peritumoralEnhancement}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_peritumoralEnhancement}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_peritumoralEnhancement}
 		\end{minipage} \\
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_smoothMargins}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_smoothMargins}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_smoothMargins}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_smoothMargins}
 		\end{minipage} \\
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_nonSmoothMargins}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_nonSmoothMargins}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_nonSmoothMargins}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_nonSmoothMargins}
 		\end{minipage} \\
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_halo}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_halo}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_halo}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_halo}
 		\end{minipage} \\
 	\end{mdframed}
 	\caption{Examples of tumor characteristic imaging traits relative to the tumor border present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row: peritumoral enhancement, which can be defines by the presence of a detectable region of enhancement adjacent to the tumor border in the arterial phase. Second and third rows: illustration of the tumor margin, that can be categorized as a smooth margin (second row) when facing nodular tumors with smooth contours or as non-smooth margin (third row) when facing non-nodular tumors with an irregular margin with budding portions at the periphery in both \ac{ar} and \ac{pv} images. Bottom row: hypoattenuating halo, defined as a rim of hypoattenuation partially or completely circumscribing the tumor on perituromal \ac{pv} images. }
@@ -499,16 +499,16 @@ Images illustrated each of the mentioned features were given in the figure \text
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_internalArteries}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_internalArteries}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_internalArteries}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_internalArteries}
 		\end{minipage} \\
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_texturalHeterogeneity}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_texturalHeterogeneity}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_texturalHeterogeneity}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_texturalHeterogeneity}
 		\end{minipage} \\
 	\end{mdframed}
 	\caption{Example of tumor characteristic imaging traits, relative to the inner part of the tumor, present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. Top row: internal arteries, defined by the persistence of discrete arterial enhancement within the tumor in the \ac{ar} phase. Bottom row: high textural heterogeneity.}
@@ -518,16 +518,16 @@ Images illustrated each of the mentioned features were given in the figure \text
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_washin}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_washin}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_washin}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_washin}
 		\end{minipage} \\
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/GDB_washout}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeGDB_washout}
 		\end{minipage} \hspace{-0.1cm}
 		\begin{minipage}{0.45\linewidth}
-			\includegraphics[width=\linewidth]{images/ImagingTraits/TCIA_washout}
+			\includegraphics[width=\linewidth]{images/ImagingTraits/ResizeTCIA_washout}
 		\end{minipage}
 	\end{mdframed}
 	\caption{Example of specific wash-in/wash-out trait present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images.
@@ -789,26 +789,28 @@ It is difficult, or even impossible in the current \ac{hcr}-paradigm workflow to
 In order to investigate the value brought by the dynamic information, we have decided to compute the features on a so-called \textit{perfusion} volume, where each voxel intensity corresponds to the difference between the \ac{pv} and the registered AR volume. An illustration of the process to obtain the perfusion volume is given in the figure \ref{fig:perfusion}
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{Contributions/images/perfusion}
+\includegraphics[width=0.9\linewidth]{Contributions/images/perfusion}
 \caption{Left: Portal venous image, middle: registered AR image, right: perfusion image where each pixel's intensity is obtained by computing the difference between its PV and its AR intensity.}
 \label{fig:perfusion}
 \end{figure}
-We performed a 9-fold CV training so that each patient is present at least once in the testing set. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}.
+We performed a 9-fold CV training so that each patient is present at least once in the testing set. For each of the experiment we extracted both first order, shape and GLM-based features. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}.
+\renewcommand{\arraystretch}{2}
 \begin{table}[!htp]\centering
 \caption{\textbf{TODO}}\label{tab:hcrGrade}
 \scriptsize
-\begin{tabular}{lrrrrrr}\toprule
-\multicolumn{3}{c}{Settings} &\multicolumn{3}{c}{Accuracy} \\\cmidrule{1-6}
-Image type &Features Type &Tumor Segmentation &input = AR &input = PV &input = Perfusion \\\midrule
-Original &1st order + shape + GLM > &0.72 &0.77 &0.72 \\
-Original + Filtered (Log) &1st order + shape + GLM > &0.72 &0.83 &0.94 \\
-Original + Filtered (Log) + Wavelet &1st order + shape + GLM > &0.66 &0.66 &0.66 \\
-Original &1st order + shape + GLM &predicted &0.72 &0.77 &0.83 \\
-Original + Filtered (Log) &1st order + shape + GLM &predicted &0.66 &0.66 &0.56 \\
-Original + Filtered (Log) + Wavelet &1st order + shape + GLM &predicted &0.61 &0.61 &0.61 \\
+\begin{tabular}{lcccc}\toprule
+\multicolumn{2}{c}{Settings} &\multicolumn{3}{c}{Accuracy} \\\cmidrule{1-5}
+Image type &Tumor Segmentation & input = AR &input = PV &input = Perfusion \\\midrule
+Original & Expert GT & 0.72 &0.77 &0.72 \\
+Original + Filtered (Log) & Expert GT & 0.72 &0.83 &0.94 \\
+Original + Filtered (Log) + Wavelet & Expert GT & 0.66 &0.66 &0.66 \\
+Original & predicted &0.72 &0.77 &0.83 \\
+Original + Filtered (Log) & predicted &0.66 &0.66 &0.56 \\
+Original + Filtered (Log) + Wavelet & predicted &0.61 &0.61 &0.61 \\
 \bottomrule
 \end{tabular}
 \end{table}
+\renewcommand{\arraystretch}{5}
 }
 
 \subsubsection{DLR features-based experiments}
