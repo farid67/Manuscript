@@ -48,11 +48,8 @@ liver semantic segmentation (green arrows in the figure \ref{fig:RegistrationTCI
 
 \subsection{Automatic liver segmentation}\label{tcia-db-unsupervised-liver-segmentation}
 
-<<<<<<< HEAD
 \subsubsection{Material}\label{tcia-db-unsupervised-liver-segmentation_material}
-=======
-\subsubsection{Material}
->>>>>>> 6f258712ceec0fb6caba50aa3ed67cd4fc775c4c
+
 \textcolor{red}{Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}.}
 In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation.
 \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver,
@@ -62,8 +59,8 @@ acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in t
 \textcolor{red}
 {
 Regarding its design and the high number of segmented cases it contained, we decided to train our liver segmentation network on the \textbf{\lmttfont{LITS-dB}} volumes and test it on \textbf{\lmttfont{TCIA-dB}} patients.
-We inspected both datasets to assess if a network trained on the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determinate the differences between the two datasets with a visual examination of the CT volumes and through a quantitative analysis of the HU intensities after placement of ROIs.
-For the visual examination, the medical expert was asked to list the different type of features present in both datasets.
+We inspected both datasets to assess if a network trained on the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determine the differences between the two datasets with a visual examination of the CT volumes and through a quantitative analysis of the HU intensities after placement of ROIs.
+For the visual examination, the medical expert was asked to list the different types of features present in both datasets.
 They both contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \ref{fig:interdb_tumorExamples}. 
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
@@ -138,7 +135,7 @@ Diseased livers were also present in both datasets, where severe signs of cirrho
 	\caption{Example of cirrhotic patients present in both datasets.  Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. We can see the irregular shape (cyan arrows) of the liver with signs of atrophy (pink arrows) in both cases.}
 	\label{fig:InterDb_diseasedLivers}
 \end{figure}
-A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in term of contrast agent concentration. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU between both areas at portal venous phase could be a sign of cirrhosis \textbf{ADD REF}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation ot the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \ref{fig:roiPlacement}. \\
+A quantitative analysis has been performed on randomly chosen patients, where 5 ROIs were placed by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in terms of contrast agent concentration\footnote{Assuming that the aorta is the best area to measure the concentration of contrast agent}. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU \footnote{In cirrhotic livers, portal system is the most affected, to such an extent that the arterial inflow increases, hence the contrast inflow, whereas the spleen is less affected.} between both areas at portal venous phase could be a sign of cirrhosis \cite{Wells2016}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation of the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \ref{fig:roiPlacement}. \\
 The quantitative analysis proved the probable presence of cirrhotic patients in both datasets, as depicted in the figure \ref{fig:cirrhosisPlot}.
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
@@ -598,7 +595,7 @@ models on the \textbf{\lmttfont{TCIA-dB}} patients. An example of prediction on 
 depicted in figure \ref{fig:TCIAMultiphaseTumorPred}. 
 \textcolor{red}
 {
-Event though the accuracy tends to be very high, we found some cases where the tumor segmentation contains some false positives, as illustrated in the figure \ref{fig:GDB_TumorMisSeg}.
+Even though the accuracy tends to be very good, we found some cases where the tumor segmentation contains some false positives, as illustrated in the figure \ref{fig:GDB_TumorMisSeg}.
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
@@ -783,34 +780,44 @@ grade (HG).
 {
 We first performed the prediction of the histological grade using the \ac{hcr} features.
 To perform the prediction of the histological grade, we have decided to extract features from either the AR or the PV volume.
-Once the features extracted, we built a logistic regression model to select the relevant features and perform the prediction.
+Once the features were extracted, we built a logistic regression model to select the relevant features and perform the prediction.
 Traditionally, the radiomics features are computed in a manually-defined ROI. We therefore decided to compare the accuracy of our model when using either the expert ground truth segmentation, or the predicted ROI obtained by our semantic segmentation network.
 It is difficult, or even impossible in the current \ac{hcr}-paradigm workflow to extract dynamic features, since by definition, most of the features are computed in a 2D or 3D fashion. 
 In order to investigate the value brought by the dynamic information, we have decided to compute the features on a so-called \textit{perfusion} volume, where each voxel intensity corresponds to the difference between the \ac{pv} and the registered AR volume. An illustration of the process to obtain the perfusion volume is given in the figure \ref{fig:perfusion}
 \begin{figure}
-\centering
-\includegraphics[width=0.9\linewidth]{Contributions/images/perfusion}
-\caption{Left: Portal venous image, middle: registered AR image, right: perfusion image where each pixel's intensity is obtained by computing the difference between its PV and its AR intensity.}
-\label{fig:perfusion}
+\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Contributions/images/perfusion}
+	\caption{Left: Portal venous image, middle: registered AR image, right: perfusion image where each pixel's intensity is obtained by computing the difference between its PV and its AR intensity.}
+	\label{fig:perfusion}
+\end{mdframed}
 \end{figure}
-We performed a 9-fold CV training so that each patient is present at least once in the testing set. For each of the experiment we extracted both first order, shape and GLM-based features. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}.
+We performed a 9-fold CV training so that each patient is present at least once in the testing set. During each fold, 16 patients were placed in the training (8 LG vs 8 HG) and 2 patients in the test set (1 LG vs 1 HG). For each experiment we extracted both first order, shape and GLM-based features. We then used our model to predict the patient-wise histological grade of the patients present in the test set. We presented the accuracy of the model in terms of how many patients were correctly classified in each of the fold. Results are given in the table \ref{tab:hcrGrade}.
 \renewcommand{\arraystretch}{2}
-\begin{table}[!htp]\centering
-\caption{\textbf{TODO}}\label{tab:hcrGrade}
+\begin{table}[!htp]
+\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
+\centering
+\caption{Accuracy of our HCR-based histological grade prediction model given the experimental settings. Results are given in terms of how many patients are correctly classified in the testing set during the CV process (over the 18 patients of the dataset).}\label{tab:hcrGrade}
 \scriptsize
 \begin{tabular}{lcccc}\toprule
 \multicolumn{2}{c}{Settings} &\multicolumn{3}{c}{Accuracy} \\\cmidrule{1-5}
 Image type &Tumor Segmentation & input = AR &input = PV &input = Perfusion \\\midrule
-Original & Expert GT & 0.72 &0.77 &0.72 \\
-Original + Filtered (Log) & Expert GT & 0.72 &0.83 &0.94 \\
-Original + Filtered (Log) + Wavelet & Expert GT & 0.66 &0.66 &0.66 \\
-Original & predicted &0.72 &0.77 &0.83 \\
-Original + Filtered (Log) & predicted &0.66 &0.66 &0.56 \\
-Original + Filtered (Log) + Wavelet & predicted &0.61 &0.61 &0.61 \\
+Original & Expert GT & 13  & 14  & 13  \\
+Original + Filtered (Log) & Expert GT & 13  &15  & \textbf{17}  \\
+Original + Filtered (Log) + Wavelet & Expert GT & 12  & 12  & 12  \\
+Original & predicted & 13  & 14  &15  \\
+Original + Filtered (Log) & predicted &12  & 12  & 10  \\
+Original + Filtered (Log) + Wavelet & predicted & 11  & 11  &11  \\
 \bottomrule
 \end{tabular}
+\end{mdframed}
 \end{table}
 \renewcommand{\arraystretch}{5}
+As we can see, the best accuracy was obtained when extracting features from both the original and filtered images within the expert's ROI on the perfusion volume. It is worth noting that the accuracy drops when too much features are extracted (third and last row), and that the results were also slightly better when using the tumor ROI segmented by the experts, rather than the output of our semantic segmentation network. It could potentially mean that even though the accuracy of the tumor semantic segmentation network is relatively high, the FP rate is currently too high to provide an accurate ROI to be used in a \ac{hcr} features based pipeline.\\
+Regarding the injected phase to use, we realized that no real difference was present when using single-phase volumes, even though results were slightly higher using the PV-phase volumes. However, the best results were obtained when combining both the AR and the PV phase volumes in our so-called \textit{perfusion} volumes, but more multiphase ``representations'' need to be investigated.
+Throughout the CV training, the features picked by the model were somehow stable, and the most relevant ones were the \textit{Energy}, the \textit{Total Energy} and the \textit{High Intensity Large Area Emphasis} (HILAE) computed on the original image. These features tend to be sensitive to the presence of patterns in the images, especially the GLM one, that will respond to the presence of zones with high intensity voxels such as vessels within the tumor. Moreover, concerning the filtered images, features computed on images processed with a large filter (4mm for example) were retained more often than the rest of the features, meaning potentially that the apparition of large structures within the tumor can be correlated with the histological grade.
+These results are however preliminary, and need to be confirmed by the addition of more patients in the dataset, or by a validation on an external dataset.\\
+In the following section, we will present our \ac{dlr} based pipeline to propose an automatic prediction of the histological grade based on the extraction of imaging features from the multiphase tumor semantic segmentation network.
 }
 
 \subsubsection{DLR features-based experiments}
@@ -943,7 +950,7 @@ It has been observed that the classification confidence was often correlated wit
 \end{table}
 \renewcommand{\arraystretch}{5}
 
-Those results provided a more detailed prediction than the one
+These results provided a more detailed prediction than the one
 consisting of a single patient-wise classification. Being able to
 compute the histological grade locally (here in a slice-wise fashion)
 allows us to visually focus on the heterogeneous regions that are
@@ -951,6 +958,10 @@ crucial when needing to establish a diagnosis. Our pipeline can also
 provide a map of the best biopsy sites that will further be necessary in
 the clinical practice to either evaluate the progression of the disease
 or its prognosis.\\
+\textcolor{red}
+{
+Compared with the \ac{hcr} features-based pipeline, we decided to propose a way to predict the histological grade at both a patient-wise and a slice-wise scale. It would have also been possible to compute the \ac{hcr} features in a slice-wise fashion but some of them would have lost their interpretability such as the shape-based features. The current DLR features-based pipeline allows us to perform the prediction in a fully automatic fashion, whereas the accuracy of our HCR-based model when using the predicted tumor segmentation tended to be poor.
+}
 We successfully proved that multiphase images incorporated in a cascaded architecture corresponds to the best combination when performing semantic segmentation of liver and its tumors. Moreover, our preliminary results proved that imaging features extracted from our cascaded multiphase segmentation architecture were relevant enough to be incorporated in a deep radiomics pipeline for the histological grade prediction. 
 Our semantic segmentation results outperformed those reported on the same database using an ensemble classifier and requiring expert interactions during the segmentation process.
 Our histological grade prediction results were on par with the ones reported by the only study performing histological grade prediction but using a different dataset composed of MR images and using manually drawn regions of interest.\\

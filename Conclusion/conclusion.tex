@@ -120,6 +120,11 @@ able to perform the semantic segmentation of liver and its tumors on
 unseen cases.
 We validated this assumption by performing the segmentation of TCIA
 tumors, and obtained a mean patient-wise \ac{dsc} of $ 73.2 \pm 20.6 $.\\
+\textcolor{red}
+{
+We implemented both a HCR and a DLR based pipeline to predict the histological grade of the TCIA patients. Both were trained in a CV manner so that each patient is present once in the testing set. The HCR pipeline consisted in a logistic regression model responsible for the selection of the relevant features and performing the prediction of the grade of the test patients. The best results were obtained after computation of radiomics features on the original and the filtered images (using LoG). We found that the most relevant features were those affected by the presence of zones with high intensity such as the blood vessels within the hepatic area. Combining multiphase volumes is somehow difficult when using an HCR based pipeline, therefore we computed a so-called ``perfusion'' volume to represent the dynamic information and we found extracting features on this volume allows us to obtain better results when predicting the histological grade. Results were better when computing features within the experts' defined ROI, rather than using our predicted segmentation map. We were able, using the perfusion volume as input and extracting the features only in the experts' defined tumor ROI, to correctly classify 17 patients over the 18 of the dataset.
+We then implemented a DLR based architecture to predict the histological grade automatically and to provide a prediction at a finer scale.
+}
 To predict the histological grade, we proved that features learned by
 our multiphase semantic segmentation network are relevant to perform
 this task.
