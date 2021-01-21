@@ -1,6 +1,11 @@
-\chapter{Introduction}
+\chapter*{Introduction}
+\label{cha:Introduction}
+\addcontentsline{toc}{chapter}{\nameref{cha:Introduction}}
 
-\section{Context}
+\section*{Context}
+\label{sec:Context}
+\addcontentsline{toc}{section}{\nameref{sec:Context}}
+
 This research work is part of the RADIAL (RADiomics Image Analysis of the Liver) project, carried out by the
 institute for minimally invasive surgery from Strasbourg (IHU), where
 one of the objectives is to improve the treatment and the prevention of
@@ -16,13 +21,19 @@ Conventional radiomics however suffers from a lot of limitations such as the han
 morphological properties in images only by using the pixel intensities
 as input. The radiomics field was impacted by this new set of algorithms, and a new branch of radiomics was created, where the definition of the region of interest and/or the extraction of features are performed using deep learning approaches.
 
-\section{Contributions}
+\section*{Contributions}
+\label{sec:IntroContributions}
+\addcontentsline{toc}{section}{\nameref{sec:IntroContributions}}
+
 In our work we present strategies to automatically provide characterization of the liver tumors.
 We present a review of current liver-related hand-crafted radiomics studies and propose different ways to improve their reproducibility.
 Often performed manually, the delineations of the tumors can suffer from various bias, such as the inter and intra-observer variability, or its undefined borders leading to errors when diagnosing, classifying or staging the liver cancer. Therefore, we present a robust automatic pipeline to perform semantic segmentation of liver tumors using both the power of deep cascaded networks architectures and the incorporation of dynamic contrast-enhanced information. A main prerequisite for the liver tumors characterization is the study of dynamic multiphase images, however, the main challenge that we faced in our work is the difficult to obtain (either internally or externally) databases containing liver tumors multiphase images. Consequently, we prove the value of our cascaded architecture by providing missing annotations in a weakly-annotated multiphase CT datasets.
 To characterize the tumors, we tackle the automatic histological grade prediction and we propose a novel deep radiomics pipeline which uses relevant semantic imaging features to assess the grade in a slice-wise fashion.
 
-\section{Outline of the thesis}
+\section*{Outline of the thesis}
+\label{sec:Outline}
+\addcontentsline{toc}{section}{\nameref{sec:Outline}}
+
 We present the different types of liver cancers, and particularly the
 hepatocellular carcinoma (\ac{hcc}), which will be the main topic of our work.
 We describe the different steps of hepatocarcinogenesis, which
