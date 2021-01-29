@@ -460,7 +460,7 @@ Regarding the tumor specific area, several imaging features were found in both d
 \item a high textural heterogeneity
 \item a wash-in/wash-out pattern 
 \end{itemize}
-Images illustrated each of the mentioned features were given in the figure \textbf{TODO} \ref{fig:InterDb_imagingTraits}.
+Images illustrated each of the mentioned features were given in the figure \ref{fig:InterDb_imagingTraits}.
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
@@ -535,7 +535,7 @@ The same quantitative analysis as previously was performed (see section \ref{tci
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\includegraphics[width=0.6\linewidth]{images/Gdb_TCIA_cirrhosisPlot}
+		\includegraphics[width=0.6\linewidth]{images/Gdb_TCIA_cirrhosisPlot_bins5}
 		\caption{Histogram representing the distribution of the difference between parenchyma and spleen intensities for the patients of  \textbf{\lmttfont{G-dB}} dataset (green) and the  \textbf{\lmttfont{TCIA-dB}} dataset (blue). A difference higher than 18.5 HU (black vertical line) can be a sign of cirrhosis.
 		}
 		\label{fig:cirrhoticPatPlot}
@@ -544,8 +544,8 @@ The same quantitative analysis as previously was performed (see section \ref{tci
 \begin{figure}[!ht]
 	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 		\centering
-		\includegraphics[width=0.6\linewidth]{images/AortaParPlot_Gdb}
-		\caption{Mean aorta intensity vs mean liver parenchyma intensity. Each point represents one volume. We can see a clear separation between arterial (green dots) and portal venous (red crosses) volumes for both the \textbf{\lmttfont{G-dB}} and the \textbf{\lmttfont{TCIA-dB}} patients. We can however notice a higher heterogeneity among the mean parenchyma intensity in the \textbf{\lmttfont{TCIA-dB}} dataset, which could be a sign of standardize acquisition settings for the \textbf{\lmttfont{G-dB}}.
+		\includegraphics[width=0.6\linewidth]{images/AortaParPlot_Gdb_2}
+		\caption{Mean aorta intensity vs mean liver parenchyma intensity. Each point represents one volume. We can see a clear separation between arterial (red) and portal venous (green) volumes for both the \textbf{\lmttfont{G-dB}} and the \textbf{\lmttfont{TCIA-dB}} patients. We can however notice a higher heterogeneity among the mean parenchyma intensity in the \textbf{\lmttfont{TCIA-dB}} dataset, which could be a sign of standardize acquisition settings for the \textbf{\lmttfont{G-dB}}.
 		}
 		\label{fig:gdbAortaPlot}
 	\end{mdframed}
@@ -783,7 +783,8 @@ To perform the prediction of the histological grade, we have decided to extract 
 Once the features were extracted, we built a logistic regression model to select the relevant features and perform the prediction.
 Traditionally, the radiomics features are computed in a manually-defined ROI. We therefore decided to compare the accuracy of our model when using either the expert ground truth segmentation, or the predicted ROI obtained by our semantic segmentation network.
 It is difficult, or even impossible in the current \ac{hcr}-paradigm workflow to extract dynamic features, since by definition, most of the features are computed in a 2D or 3D fashion. 
-In order to investigate the value brought by the dynamic information, we have decided to compute the features on a so-called \textit{perfusion} volume, where each voxel intensity corresponds to the difference between the \ac{pv} and the registered AR volume. An illustration of the process to obtain the perfusion volume is given in the figure \ref{fig:perfusion}
+%We first extracted, for each patient of the dataset, pairs of features, so that each feature in computed once for the AR and once for the PV volume.
+In order to investigate the value brought by the dynamic information, we have decided to compute the features on a so-called \textit{perfusion} volume, where each voxel intensity corresponds to the difference between the \ac{pv} and the registered AR volume. An illustration of the process to obtain the perfusion volume is given in the figure \ref{fig:perfusion}.
 \begin{figure}
 \begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
@@ -800,7 +801,7 @@ We performed a 9-fold CV training so that each patient is present at least once 
 \caption{Accuracy of our HCR-based histological grade prediction model given the experimental settings. Results are given in terms of how many patients are correctly classified in the testing set during the CV process (over the 18 patients of the dataset).}\label{tab:hcrGrade}
 \scriptsize
 \begin{tabular}{lcccc}\toprule
-\multicolumn{2}{c}{Settings} &\multicolumn{3}{c}{Accuracy} \\\cmidrule{1-5}
+\multicolumn{2}{c}{Settings} &\multicolumn{3}{c}{Number of correctly classified patients (over 18)} \\\cmidrule{1-5}
 Image type &Tumor Segmentation & input = AR &input = PV &input = Perfusion \\\midrule
 Original & Expert GT & 13  & 14  & 13  \\
 Original + Filtered (Log) & Expert GT & 13  &15  & \textbf{17}  \\
@@ -908,7 +909,7 @@ we obtained a $ 32\times32\times8 $ cube per phase), and we considered a 2cm vol
 training/testing our architecture.
 
 With our CV-training, we were able to correctly predict the patient-wise
-histological grade of 15 patients among 18, as detailed in the table \ref{tab:confusion_matrix} (a patient is considered as being correctly predicted
+histological grade of \textbf{15 patients over the 18} of the dataset, as detailed in the table \ref{tab:confusion_matrix} (a patient is considered as being correctly predicted
 when at least half of the retained slices were annotated with the
 correct \ac{gt} class).
 When considering a slice-wise prediction, we were able to correctly
@@ -960,7 +961,7 @@ the clinical practice to either evaluate the progression of the disease
 or its prognosis.\\
 \textcolor{red}
 {
-Compared with the \ac{hcr} features-based pipeline, we decided to propose a way to predict the histological grade at both a patient-wise and a slice-wise scale. It would have also been possible to compute the \ac{hcr} features in a slice-wise fashion but some of them would have lost their interpretability such as the shape-based features. The current DLR features-based pipeline allows us to perform the prediction in a fully automatic fashion, whereas the accuracy of our HCR-based model when using the predicted tumor segmentation tended to be poor.
+Compared with the \ac{hcr} features-based pipeline, we decided to propose a way to predict the histological grade at both a patient-wise and a slice-wise scale. It would have also been possible to compute the \ac{hcr} features in a slice-wise fashion but some of them would have lost their interpretability such as the shape-based features. The current DLR features-based pipeline allows us to perform the prediction in a fully automatic fashion with the same accuracy as the one obtained with our HCR-based pipeline (15/18 patients correctly classified using both methods). The results were however better in terms of number of patients correctly classified using our HCR-based pipeline when extracting the features only in the expert defined tumor ROI (17/18 for the HCR-based vs 15/18 for the DLR-based). These results tend to show that the prediction accuracy of our DLR-based pipeline can be improved by increasing the precision of the semantic segmentation.
 }
 We successfully proved that multiphase images incorporated in a cascaded architecture corresponds to the best combination when performing semantic segmentation of liver and its tumors. Moreover, our preliminary results proved that imaging features extracted from our cascaded multiphase segmentation architecture were relevant enough to be incorporated in a deep radiomics pipeline for the histological grade prediction. 
 Our semantic segmentation results outperformed those reported on the same database using an ensemble classifier and requiring expert interactions during the segmentation process.
