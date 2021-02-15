@@ -20,7 +20,9 @@
 \usepackage{soul}% for underlines
 \usepackage[table]{xcolor} % for cell colors
 \usepackage{changepage,threeparttable} % for wide tables
-\usepackage{cite}
+\usepackage[backend=bibtex,giveninits,style=numeric,sorting=none]{biblatex}
+\addbibresource{biblio.bib}
+%\usepackage{cite}
 \usepackage{longtable}
 \usepackage{paralist}
 \usepackage{rotating}
@@ -32,6 +34,7 @@
 \usepackage{acro}
 \usepackage{bm}
 \usepackage{afterpage}
+%\usepackage[backend=bibtex,giveinits,style=unsrt]{biblatex}
 %\usepackage[toc,page]{appendix}
 
 % probably a good idea for the nomenclature entries:
@@ -142,8 +145,8 @@
 \end{appendices}
 
 \newpage
-\bibliographystyle{unsrt}
-\bibliography{biblio}
+%\bibliographystyle{unsrt}
+\printbibliography[heading=bibintoc]
 	
 	
 \end{document}

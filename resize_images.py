@@ -2,7 +2,7 @@
 from PIL import Image                                              
 import os, sys                       
 
-path =  "/home/farid/Documents/These/Redaction/Contributions/images/ImagingTraits/"   
+path =  "/home/fouhmich/Documents/Thesis/Redaction/Manuscript/Contributions/images/MisSegmentations"   
 dirs = os.listdir(path)                                       
 
 def resize():
