@@ -723,9 +723,9 @@ When evaluating the \ac{hcr}-based histological grade prediction model, we prese
 	\begin{tabular}{lccccc}\toprule
 		\multicolumn{2}{c}{Settings} &\multicolumn{4}{c}{Number of correctly classified patients (over 18)} \\\cmidrule{1-6}
 		Image type &Tumor Segmentation & input = AR &input = PV &input = Perfusion & input = AR \& PV \\\midrule
-		Original & Expert GT & 12  & 8  & 11 & 12 \\
-		Original + LoG & Expert GT & 12  & 13  & 11 & 13 \\
-		Original + LoG + Wavelet & Expert GT & 12  & 11  & 9 & 13 \\
+		Original & Expert GT & 12  & 10  & 7 & 11 \\
+		Original + LoG & Expert GT & 13  & 10  & 13 & 13 \\
+		Original + LoG + Wavelet & Expert GT & 12  & 11  & 11 & 11 \\
 		Original & predicted & 11  & 11  & 12 & 12 \\
 		Original + LoG & predicted & \textbf{14}  & 12  & 13 & \textbf{14} \\
 		Original + LoG + Wavelet & predicted & 9  & 10  & 10 & 11 \\
@@ -734,8 +734,9 @@ When evaluating the \ac{hcr}-based histological grade prediction model, we prese
 \end{table}
 \renewcommand{\arraystretch}{5}
 
-\todo{Add conclusion and report true results}
 
+When examining the results, we realized that radiomics features extracted from the automatically predicted tumor ROI were seemed to be as relevant as the ones extracted from the experts' defined tumor ROI. This indicates that our semantic segmentation network tends to retain relevant features (at least the features necessary for the wanted task).
+The incorporation of LoG-based features seems to improve the predictive capacities of the model, and we also noticed that the accuracy was higher when using small filters (in our case 1mm filter gave the best results). This suggests that small details can be important than larger ones for the determination of the histological grade, hence the necessity to create a model that aims for local prediction of histological grade to consider the heterogeneity within the tumor.
 
 We finally compared the \ac{hcr}-based model with our \ac{dlr}-based newly created architecture.
 After testing several combinations for the hyperparameters, we
@@ -763,8 +764,8 @@ It has been observed that the classification confidence was often correlated wit
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/Slice_hist_grad_prediction_details}
-	\caption{Example of slice-wise histological grade prediction of one patient from the \lmttfont{TCIA-dB}. Here we observed that the confidence regarding the grade prediction was correlated with the quality of the semantic segmentation. An accurate semantic segmentation is therefore a prerequisite to extract relevant features. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side, and tumor segmentation heatmap in the right side), two are correctly segmented and their histological grade was correctly predicted whereas one of them contained mis-segmented areas leading to a mis-classification of the histological grade.}
+	\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/Slice_hist_grad_prediction_details_v2}
+	\caption{Example of slice-wise histological grade prediction of one patient from the \lmttfont{TCIA-dB}. Here we observed that the confidence regarding the grade prediction was correlated with the quality of the semantic segmentation. An accurate semantic segmentation is therefore a prerequisite to extract relevant features. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side and where the tumor GT delineation is given in red, and tumor segmentation heatmap in the right side), two are correctly segmented and their histological grade was correctly predicted whereas one of them contained mis-segmented areas leading to a mis-classification of the histological grade.}
 	\label{fig:Slice_hist_grad_prediction_details}
 \end{figure}
 
