@@ -31,6 +31,7 @@
 \usepackage{acro}
 \usepackage{bm}
 \usepackage{afterpage}
+\usepackage[section]{placeins}
 %\usepackage[backend=bibtex,giveinits,style=unsrt]{biblatex}
 %\usepackage[toc,page]{appendix}
 
@@ -112,9 +113,9 @@
 \section{Introduction}
 
 
-In this chapter, we present our automatic deep-radiomics based histological grade prediction pipeline. To build our automatic prediction pipeline, we had to use several datasets since none of the available ones contained both precise experts' delineations for the volumes of interest (for liver and liver tumor areas in a multiphase fashion), and the observed histological grade.
+In this chapter, we present our automatic deep-radiomics based histological grade prediction pipeline. To build our automatic prediction pipeline, we had to use several datasets since none of the available ones contained both precise experts' delineation for the volumes of interest (for liver and liver tumor areas in a multiphase fashion), and the observed histological grade.
 We first validated our cascaded semantic segmentation architecture on larger datasets and prove the ability of our pipeline to automatically segment unlabeled datasets. We then used the features produced by the tumor semantic segmentation networks to build an automatic deep-radiomics histological grade prediction network. We compared our preliminary results with those obtained using a classical \ac{hcr} paradigm. \\
-We start by presenting the only study performing the histological grade prediction using a \ac{dl} architecture. We then detailed the datasets used to train both the liver (\textbf{\lmttfont{LITS-dB}}) and the liver tumor (\textbf{\lmttfont{G-dB}}) segmentation networks, and the one used to train and test the histological grade prediction pipelines (\textbf{\lmttfont{TCIA-dB}}). We expose the different steps of our pipeline to perform the histological grade prediction. We conclude by exhibiting our preliminary results and proposing different areas for improvement.
+We start by presenting the only study performing the histological grade prediction using a \ac{dl} architecture. We then detailed the datasets used to train both the liver (\textbf{\lmttfont{LITS-dB}}) and the liver tumor (\textbf{\lmttfont{G-dB}}) segmentation networks, and the one used to train and test the histological grade prediction pipelines (\textbf{\lmttfont{TCIA-dB}}). We then expose the different steps of both the HCR and the DLR pipelines to perform the histological grade prediction. We conclude by exhibiting our preliminary results and propose different areas for improvement.
 
 \section{Related work}
 
@@ -177,19 +178,18 @@ steps were performed by \ac{dl} networks.
 \section{Material}
 
 
-To build an automatic histological grade prediction pipeline, we decided to extract relevant imaging features from a multiphase liver tumor semantic segmentation network. These features will then be processed by another neural network for the histological grade prediction. To build such an architecture we used 3 different datasets (2 responsible for the training of the liver tumor segmentation through a cascaded architecture and one for the training/testing of the histological grade prediction).
+To build an automatic histological grade prediction pipeline, we decided to extract relevant imaging features from our multiphase liver tumor semantic segmentation network. These features will then be processed by another neural network for the histological grade prediction. To build such an architecture we used 3 different datasets (2 responsible for the training of the liver tumor segmentation through a 2-stages cascaded architecture and one for the training/testing of the histological grade prediction).
 %The only available dataset with histological grade expert ground truth is the \textbf{\lmttfont{TCIA-dB}} one, therefore, we first reimplemented a cascaded liver tumor semantic segmentation architecture before extracting imaging features to evaluate the histological grade prediction in a CV-manner on the \textbf{\lmttfont{TCIA-dB}} dataset. \\
-We first trained a modified version of the automatic liver segmentation network (presented in the section \todo{\textbf{X.X.X}}) using the 131 volumes of the \textbf{\lmttfont{LITS-dB}} dataset in order to segment the liver on both \ac{ar} and \ac{pv} phases independently. We then trained our \pplfont{MPF-Tumor} segmentation network using the 79 multiphase volumes of the \textbf{\lmttfont{G-dB}}. We subsequently evaluated the obtained tumor segmentation on the registered volumes of the \textbf{\lmttfont{TCIA-dB}} datasets. After extraction of the relevant imaging features, we performed a cross-validation training on the 18 multiphase volumes of the \textbf{\lmttfont{TCIA-dB}} to predict the histological grade. \\
-Thereafter, we give more details about the inter-databases differences, especially those between the \textbf{\lmttfont{LITS-dB}} and the \textbf{\lmttfont{TCIA-dB}} datasets used respectively as training and testing datasets on the liver segmentation network, and those between the \textbf{\lmttfont{G-dB}} and the \textbf{\lmttfont{TCIA-dB}} datasets used respectively as training and testing datasets on the liver tumor segmentation network.
+We first trained a modified version of the automatic liver segmentation network (presented in the section \ref{subsect_auto_liver_tumor_seg}) using the 131 volumes of the \textbf{\lmttfont{LITS-dB}} dataset in order to segment the liver on both \ac{ar} and \ac{pv} phases independently. We then trained our \pplfont{MPF-Tumor} segmentation network using the 79 multiphase volumes of the \textbf{\lmttfont{G-dB}}. We subsequently evaluated the obtained tumor segmentation on the registered volumes of the \textbf{\lmttfont{TCIA-dB}} dataset. After the extraction of relevant imaging features, we performed a cross-validation training on the 18 multiphase volumes of the \textbf{\lmttfont{TCIA-dB}} to predict the histological grade. \\
+Thereafter, we give more details about the inter-database differences, especially those between \textbf{\lmttfont{LITS-dB}} and \textbf{\lmttfont{TCIA-dB}} used respectively as training and testing datasets for the liver segmentation network, and those between \textbf{\lmttfont{G-dB}} and \textbf{\lmttfont{TCIA-dB}} used respectively as training and testing datasets for the liver tumor segmentation network.
 
-\subsection{Liver segmentation inter-dataset comparison}
+\subsection{Liver segmentation inter-dataset comparison} \label{liver_interdb_comparison}
 
 Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}. In the available datasets (as presented in the table \textbf{\textcolor{red}{ref table datasets}}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation. \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver, whereas \textbf{\lmttfont{LITS-dB}} contains full 3D pixel-wise liver annotation but it only contains single-phase images, without any information regarding the
 acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in the dataset).
 Regarding its design and the high number of segmented cases it contained, we decided to train our liver segmentation network using the \textbf{\lmttfont{LITS-dB}} volumes and test it on the \textbf{\lmttfont{TCIA-dB}} patients.\\
-We inspected both datasets to assess if a liver segmentation network trained using the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determine the differences between the two datasets with a visual examination of the CT volumes (inspection of the types of tumors present in both datasets, as long as the different artifacts that can affect the training, such as the benign hepatic lesions, the presence of fat accumulation or metallic artifacts) and through a quantitative analysis of the HU intensities after placement of ROIs (especially to prove the presence of cirrhotic patients in both datasets and for the comparison between AR and PV labeled volumes in both datasets).
-For the visual examination, the medical expert was asked to list the different types of features present in both datasets.
-They both contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \ref{fig:interdb_tumorExamples}.
+We inspected both datasets to assess if a liver segmentation network trained using the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determine the differences between the two datasets with a visual examination of the CT volumes (inspection of the types of tumors present in both datasets, as long as the different artifacts that can affect the training, such as the presence of benign hepatic lesions, of fat accumulation or metallic artifacts) and through a quantitative analysis of the HU intensities after placement of ROIs (especially to prove the presence of cirrhotic patients in both datasets and for the comparison between AR and PV labeled volumes in both datasets). \\
+For the visual examination, the medical expert observed that both datasets contained liver volumes affected by large solitary tumors (HCC-like lesions), but some other smaller solitary tumors have also been found in both datasets, as depicted in the figure \ref{fig:interdb_tumorExamples}. It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes with multiple lesions suspected to be metastases, as illustrated in the figure \ref{fig:litsDb_meta}. Both datasets presented livers with benign lesions, track of fat deposit, or other metallic artifacts, as illustrated in the figure \ref{fig:InterDb_artifacts}. Diseased livers were also present in both datasets, where severe signs of cirrhosis were noticed, as exposed in the figure \ref{fig:InterDb_diseasedLivers}.
 
 \begin{figure}[!ht]
 	\centering
@@ -208,7 +208,6 @@ They both contained liver volumes affected by large solitary tumors (HCC-like le
 	\caption{Example of small and large tumors from both the training and the testing datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images, top: small tumors, bottom: large tumors.}
 	\label{fig:interdb_tumorExamples}
 \end{figure}
-It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes with multiple lesions suspected to be metastases, as illustrated in the figure \ref{fig:litsDb_meta}.
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
@@ -220,7 +219,6 @@ It is worth noting that only the \textbf{\lmttfont{LITS-dB}} contained volumes w
 	\caption{Example of patient from the \textbf{\lmttfont{LITS-dB}} with a high number of tumors susceptible of being metastases. Right : raw image, left: expert segmentation where red represents liver parenchyma and green represents tumors.}
 	\label{fig:litsDb_meta}
 \end{figure}
-Both datasets presented livers with benign lesions, track of fat deposit, or other metallic artifacts, as illustrated in the figure \ref{fig:InterDb_artifacts}.
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
@@ -241,10 +239,9 @@ Both datasets presented livers with benign lesions, track of fat deposit, or oth
 	\begin{minipage}{0.45\linewidth}
 		\includegraphics[width=\linewidth]{../Contributions/images/Artifacts/ResizeTCIA_metallic_artifacts}
 	\end{minipage}
-	\caption{Example of artifacts present in both training and test datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row presents patients with benign hepatic lesions (yellow arrows), second row presents liver with tracks of fat accumulation (orange arrows), whereas last row gives examples of images with presence of metallic artifacts (red arrows).}
+	\caption{Example of artifacts present in both training and test datasets. Left: \textbf{\lmttfont{LITS-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row presents patients with benign hepatic lesions (yellow arrows), the second row presents liver with tracks of fat accumulation (orange arrows), whereas the last row gives examples of images with presence of metallic artifacts (red arrows).}
 	\label{fig:InterDb_artifacts}
 \end{figure}
-Diseased livers were also present in both datasets, where severe signs of cirrhosis were noticed, as exposed in the figure \ref{fig:InterDb_diseasedLivers}.
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
@@ -257,8 +254,8 @@ Diseased livers were also present in both datasets, where severe signs of cirrho
 	\label{fig:InterDb_diseasedLivers}
 \end{figure}
 
-The quantitative analysis aims to prove the existence of cirrhotic patients in both datasets, and allows an inter and intra-phases evaluation, essentially to prove that a liver segmentation network trained using the \textbf{\lmttfont{LITS-dB}} patients can perform the liver segmentation on both AR and PV volumes. \\
-The quantitative analysis has been performed on randomly chosen patients and consisted on the placement of 5 ROIs by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in terms of contrast agent concentration\footnote{Assuming that the aorta is the best area to measure the concentration of contrast agent}. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU \footnote{In cirrhotic livers, portal system is the most affected, to such an extent that the arterial inflow increases, hence the contrast inflow, whereas the spleen is less affected.} between both areas at portal venous phase could be a sign of cirrhosis \cite{Wells2016}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation of the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \ref{fig:roiPlacement}. \\
+The quantitative analysis aims to prove the existence of cirrhotic patients in both datasets, and allows an inter and intra-phase evaluation, essentially to prove that a liver segmentation network trained using the \textbf{\lmttfont{LITS-dB}} volumes can perform the liver segmentation on both AR and PV volumes. \\
+The quantitative analysis has been performed on randomly chosen patients and consisted on the placement of 5 ROIs by the medical expert in the liver parenchyma, the air, the spleen, the bone and the aorta. The aorta was chosen to analyze the changes in terms of contrast agent concentration\footnote{Assuming that the aorta is the best area to measure the concentration of contrast agent}. The liver parenchyma and the spleen were also affected by the contrast agent diffusion, but they were mainly used to diagnose diseased patients since a difference of more than 18.5 HU \footnote{In cirrhotic livers, the portal system is the most affected, to such an extent that the arterial inflow increases, hence the contrast inflow, whereas the spleen is less affected.} between both areas at portal venous phase could be a sign of cirrhosis \cite{Wells2016}. It is worth noting that the ROIs in the liver parenchyma were placed in the peripheral parts of the liver to avoid vessels. The bone and the air ROIs served as control since the air is supposed to have always the same intensity (-1000 HU independently of the acquisition parameters), while the calcium present in the bone renders the circulation of the contrast agent difficult, and this ROI can be used as a way to compare the different phases. An example of annotation is given in the figure \ref{fig:roiPlacement}. \\
 The quantitative analysis proved the probable presence of cirrhotic patients in both datasets, as depicted in the figure \ref{fig:cirrhosisPlot}.
 \begin{figure}[!ht]
 	\centering
@@ -282,19 +279,33 @@ Finally, regarding the available contrast-enhanced phases per dataset, it has be
 	}
 	\label{fig:LitsTciaPhasePlot}
 \end{figure}
-Since all the patients of the \textbf{\lmttfont{TCIA-dB}} were supposed to be affected by HCC, it would have been ideal to train our liver segmentation network with a dataset only composed of patients suffering from HCC or by a large solitary tumor, but only 20 patients of the 131 from the \textbf{\lmttfont{LITS-dB}} were affected by a single lesion larger than $ 2cm^3 $.
+Since all the patients of the \textbf{\lmttfont{TCIA-dB}} were supposed to be affected by HCC, it would have been ideal to train our liver segmentation network with a dataset only composed of patients suffering from HCC (or by a large solitary tumor), but only 20 patients of the 131 from the \textbf{\lmttfont{LITS-dB}} were affected by a single lesion larger than $ 2cm^3 $.
 Since we considered that the type of lesions will only slightly affect the liver segmentation, we decided to keep all the patients of the \textbf{\lmttfont{LITS-dB}} (independently of the number of lesions present in the liver) to train our liver segmentation network.
 Moreover, it would have been optimal to train one network per injected phase, or a single network with multiphase images as input.
-However \textbf{\lmttfont{LITS-dB}} being the only available dataset with experts' liver segmentation, and since it is composed of both \ac{ar} and \ac{pv} volumes (with in-between phase volumes as depicted in the figure \ref{fig:LitsTciaPhasePlot}), we used the entire dataset to train a single network, allowing us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
+However \textbf{\lmttfont{LITS-dB}} being composed of both \ac{ar} and \ac{pv} volumes (with in-between phase volumes as depicted in the figure \ref{fig:LitsTciaPhasePlot}), we used the entire dataset to train a single network, allowing us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
 
 
-\subsection{Liver tumor segmentation inter-dataset comparison}
+\subsection{Liver tumor segmentation inter-dataset comparison} \label{liver_tumor_interdb_comparison}
 
 
-We also compared both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets used for the liver tumor segmentation task using the same analysis as the one performed previously (see section \textcolor{red}{\textbf{ref above section}}).
+We also compared both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets used for the liver tumor segmentation task using the same analysis as the one performed previously (see section \ref{liver_interdb_comparison}).
 Therefore, a medical expert was asked to evaluate both visually and quantitatively the differences between the two datasets.
 To perform the visual examination, he was asked to evaluate the type of characteristics present in both datasets, not only in the liver but also by comparing the tumors using imaging features. 
 As exposed previously, \textbf{\lmttfont{TCIA-dB}} contains both large and small tumors. The same panel of tumor sizes was present in the \textbf{\lmttfont{G-dB}} dataset, as illustrated in the figure \ref{fig:interdb_tumorSeg_tumorExamples}.
+
+Some artifacts were also found in the \textbf{\lmttfont{G-dB}} dataset, such as the presence of benign lesions, fat accumulation or other metallic artifacts in the hepatic region (see figure \ref{fig:GDb_artifacts}).
+As it was the case in the \textbf{\lmttfont{TCIA-dB}} dataset, diseased livers were also present among the \textbf{\lmttfont{G-dB}} patients, as illustrated in the figure \ref{fig:GDb_diseasedLivers}.
+Regarding the tumor specific area, several imaging features were found in both datasets:
+\begin{itemize}
+\item the presence of internal arteries
+\item a peritumoral enhancement
+\item the presence of either smooth or non-smooth margins
+\item an hypoattenuating halo surrounding the tumor
+\item a high textural heterogeneity
+\item a wash-in/wash-out pattern 
+\end{itemize}
+Images illustrated each of the above mentioned features were given in the figure \ref{fig:InterDb_imagingTraits}.
+
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
@@ -312,7 +323,6 @@ As exposed previously, \textbf{\lmttfont{TCIA-dB}} contains both large and small
 	\caption{Example of small and large tumors from the \textbf{\lmttfont{G-dB}} images, top: small tumors, bottom: large tumors, left: raw image, left: expert segmentation.}
 	\label{fig:interdb_tumorSeg_tumorExamples}
 \end{figure}
-Some artifacts were also found in the \textbf{\lmttfont{G-dB}} dataset, such as the presence of benign lesions, fat accumulation or other metallic artifacts in the hepatic region (see figure \ref{fig:GDb_artifacts}).
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
@@ -324,10 +334,9 @@ Some artifacts were also found in the \textbf{\lmttfont{G-dB}} dataset, such as 
 	\begin{minipage}{0.45\linewidth}
 		\includegraphics[width=\linewidth]{../Contributions/images/Artifacts/ResizeGDB_metallic_artifacts}
 	\end{minipage}
-	\caption{Example of artifacts present in the \textbf{\lmttfont{G-dB}} dataset. First row depicts a patient with benign hepatic lesion (yellow arrows), second row presents liver with tracks of fat accumulation (orange arrows), whereas last row gives example of images with presence of metallic artifacts (red arrows).}
+	\caption{Example of artifacts present in the \textbf{\lmttfont{G-dB}} dataset. First row depicts a patient with benign hepatic lesion (yellow arrow), the second row presents liver with tracks of fat accumulation (orange arrow), whereas the last row gives examples of images with presence of metallic artifacts (red arrow).}
 	\label{fig:GDb_artifacts}
 \end{figure}
-As it was the case in the \textbf{\lmttfont{TCIA-dB}} dataset, diseased livers were also present among the \textbf{\lmttfont{G-dB}} patients, as illustrated in the figure \ref{fig:GDb_diseasedLivers}.
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
@@ -339,17 +348,7 @@ As it was the case in the \textbf{\lmttfont{TCIA-dB}} dataset, diseased livers w
 	\caption{Example of cirrhotic patients present in the \textbf{\lmttfont{LITS-dB}} dataset. In both images, we can see the irregular shape (cyan arrows) of the liver.}
 	\label{fig:GDb_diseasedLivers}
 \end{figure}
-Regarding the tumor specific area, several imaging features were found in both datasets:
-\begin{itemize}
-\item the presence of internal arteries
-\item a peritumoral enhancement
-\item the presence of either smooth or non-smooth margins
-\item an hypoattenuating halo surrounding the tumor
-\item a high textural heterogeneity
-\item a wash-in/wash-out pattern 
-\end{itemize}
-Images illustrated each of the above mentioned features were given in the figure \ref{fig:InterDb_imagingTraits}.
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centering
 	\begin{minipage}{0.45\linewidth}
 		\includegraphics[width=\linewidth]{../Contributions/images/ImagingTraits/ResizeGDB_peritumoralEnhancement}
@@ -375,7 +374,7 @@ Images illustrated each of the above mentioned features were given in the figure
 	\begin{minipage}{0.45\linewidth}
 		\includegraphics[width=\linewidth]{../Contributions/images/ImagingTraits/ResizeTCIA_halo}
 	\end{minipage}
-	\caption{Examples of tumor characteristic imaging traits relative to the tumor border present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row: peritumoral enhancement, which can be defines by the presence of a detectable region of enhancement adjacent to the tumor border in the arterial phase. Second and third rows: illustration of the tumor margin, that can be categorized as a smooth margin (second row) when facing nodular tumors with smooth contours or as non-smooth margin (third row) when facing non-nodular tumors with an irregular margin with budding portions at the periphery in both \ac{ar} and \ac{pv} images. Bottom row: hypoattenuating halo, defined as a rim of hypoattenuation partially or completely circumscribing the tumor on perituromal \ac{pv} images. }
+	\caption{Examples of tumor characteristic imaging traits relative to the tumor border present in both training and test datasets. Left: \textbf{\lmttfont{G-dB}} images, right: \textbf{\lmttfont{TCIA-dB}} images. First row: peritumoral enhancement, which can be defined by the presence of a detectable region of enhancement adjacent to the tumor border in the arterial phase. Second and third rows: illustration of the tumor margin, that can be categorized as a smooth margin (second row) when facing nodular tumors with smooth contours or as non-smooth margin (third row) when facing non-nodular tumors with an irregular margin with budding portions at the periphery in both \ac{ar} and \ac{pv} images. Bottom row: hypoattenuating halo, defined as a rim of hypoattenuation partially or completely circumscribing the tumor on peritumoral \ac{pv} images. }
 	\label{fig:InterDb_imagingTraits}
 \end{figure}
 \begin{figure}[!ht]
@@ -413,7 +412,9 @@ Images illustrated each of the above mentioned features were given in the figure
 	Wash-in is defined as an enhancement of the lesion of the arterial phase higher than the one of the liver parenchyma, whereas the wash-out is defined as a lesion hypodense/hypointense compared to the liver parenchyma on the portal venous and/or delayed phases.}
 	\label{fig:InterDb_imagingTraits3}
 \end{figure}
-The same quantitative analysis as previously was performed (see section \textcolor{red}{\textbf{ref above section}}), with the placement of 5 ROIs in randomly chosen patients of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets. ROIs were placed in the liver parenchyma, the air, the spleen, the bone and the aorta. These areas were chosen mainly to detect potential cirrhotic patients in both datasets, as illustrated in the figure \ref{fig:cirrhoticPatPlot} , and to assess the homogeneity for the given phases among the different datasets, as depicted in the figure \ref{fig:gdbAortaPlot}. 
+
+
+The same quantitative analysis as previously was performed (see section \textcolor{red}{\textbf{ref above section}}), with the placement of 5 ROIs in randomly chosen patients of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets. ROIs were placed in the liver parenchyma, the air, the spleen, the bone and the aorta. These areas were chosen mainly to detect potential cirrhotic patients in both datasets, as illustrated in the figure \ref{fig:cirrhoticPatPlot}, and to assess the homogeneity for the given phases among the different datasets, as depicted in the figure \ref{fig:gdbAortaPlot}. 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.6\linewidth]{../Contributions/images/Gdb_TCIA_cirrhosisPlot_bins5}
@@ -424,7 +425,7 @@ The same quantitative analysis as previously was performed (see section \textcol
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.6\linewidth]{../Contributions/images/AortaParPlot_Gdb_2}
-	\caption{Mean aorta intensity vs mean liver parenchyma intensity. Each point represents one volume. We can see a clear separation between arterial (red) and portal venous (green) volumes for both the \textbf{\lmttfont{G-dB}} and the \textbf{\lmttfont{TCIA-dB}} patients. We can however notice a higher heterogeneity among the mean parenchyma intensity in the \textbf{\lmttfont{TCIA-dB}} dataset, which could be a sign of standardize acquisition settings for the \textbf{\lmttfont{G-dB}}.
+	\caption{Mean aorta intensity vs mean liver parenchyma intensity. Each point represents one volume. We can see a clear separation between arterial (red) and portal venous (green) volumes for both the \textbf{\lmttfont{G-dB}} and the \textbf{\lmttfont{TCIA-dB}} patients. We can however notice a higher heterogeneity among the mean parenchyma intensity in the \textbf{\lmttfont{TCIA-dB}} dataset, which could be a sign of standardize acquisition settings within the \textbf{\lmttfont{G-dB}}.
 	}
 	\label{fig:gdbAortaPlot}
 \end{figure}
@@ -444,7 +445,7 @@ grade (HG).
 
 \section{Methods}
 
-In this section, we present our cascaded automatic liver tumor segmentation architecture, inspired from the one implemented in the section \todo{Add ref IJCARS section}, especially our so-called \pplfont{\ac{cect}-Liver}, responsible for the automatic segmentation of liver on both \ac{ar} and \ac{pv} volumes, as well as the \ac{dlr}-based histological grade prediction network.
+In this section, we present our cascaded automatic liver tumor segmentation architecture, inspired from the one implemented in the section \todo{Add ref IJCARS section}, especially our so-called \pplfont{\ac{cect}-Liver}, responsible for the automatic segmentation of liver on both \ac{ar} and \ac{pv} volumes. We then present both the \ac{hcr}-based and the \ac{dlr}-based histological grade prediction networks.
 
 
 \subsection{Automatic liver tumor segmentation} \label{subsect_auto_liver_tumor_seg}
@@ -452,7 +453,7 @@ In this section, we present our cascaded automatic liver tumor segmentation arch
 Our cascaded liver tumor segmentation architecture is composed of one \pplfont{\ac{cect}-Liver} network, presented hereafter, followed by a multiphase tumor segmentation network (both the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks were trained and their accuracy compared), already presented in the section \todo{add ref}. \\
 We trained our network called \pplfont{\ac{cect}-Liver} on the 131 volumes of the
 \textbf{\lmttfont{LITS-dB}} using the same hyperparameters as the ones detailed
-previously. The network shares the same settings as the previously defined \pplfont{\ac{pv}-Liver} and \pplfont{\ac{ar}-Liver} networks (see figure \ref{fig:CECTliverDetails}). In this case we used the architecture with 1024 filters at bottleneck, corresponding to about 32M parameters. Once the segmentation is performed on each of the axial slice of a given patient, we implemented 2 post-processing steps by first extracting the biggest connected component in the entire 3D volume before applying a binary opening operation to the retained mask.
+previously. The network shares the same settings as the previously defined \pplfont{\ac{pv}-Liver} and \pplfont{\ac{ar}-Liver} networks (see figure \ref{fig:CECTliverDetails}). In this case we used the architecture with 1024 filters at bottleneck, corresponding to about 32M parameters. Once the segmentation is performed on each of the axial slices of a given patient, we implemented 2 post-processing steps by first extracting the biggest connected component in the entire 3D volume before applying a binary opening operation to the retained mask.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=\linewidth]{../Contributions/images/CECT_liver_details}
@@ -462,7 +463,7 @@ previously. The network shares the same settings as the previously defined \pplf
 \end{figure}
 
 Before training our multiphase tumor segmentation network, we have to ensure that both the liver and its internal structures such as the potential tumors are located at the same spatial position between
-the different \ac{cect} volumes. We therefore decided to register both volumes of the \textbf{\lmttfont{G-dB}} (training dataset) and the \textbf{\lmttfont{TCIA-dB}} (testing dataset) datasets.
+the different \ac{cect} volumes (both AR and PV volumes in our case). We therefore decided to register AR and PV volumes of the \textbf{\lmttfont{G-dB}} (training dataset) and the \textbf{\lmttfont{TCIA-dB}} (testing dataset) datasets.
 We have decided to implement the registration pipeline using ANTs \cite{avants2009advanced}, since it has already been used for liver
 CT scans registration \cite{Zhao2019,Zhao2020}.
 During the registration process, the liver segmentation was used as
@@ -477,12 +478,12 @@ compared to \ac{ar} (or DELAY) volume. The registration pipeline described in th
 \label{fig:RegistrationTCIA_pipeline_vertical2}
 \end{figure}
 
-Once the volumes of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets were registered, we trained both a \pplfont{MPF-Tumor} and a \pplfont{DMP-Tumor} using the 79 volumes of the \textbf{\lmttfont{G-dB}} dataset (details regarding the architectures of the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks are given in the section \todo{add ref}).
+Once the volumes of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets were registered, we trained our liver tumor segmentation network using the 79 volumes of the \textbf{\lmttfont{G-dB}} dataset by comparing both a \pplfont{MPF-Tumor} and a \pplfont{DMP-Tumor} (details regarding the architectures of the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks are given in the section \todo{add ref}).
 
 
 \subsection{Histological grade prediction}\label{subsect_hist_grad_pred}
 
-To perform the automatic histological grade prediction, we compare a traditional \ac{hcr}-based algorithm where features were extracted from either the automatically predicted or the expert-defined tumor ROI, and our \ac{dlr}-based algorithm where features were extracted from the second network of the cascaded tumor segmentation architecture, before being processed by another neural network.\\
+To perform the automatic histological grade prediction, we compare a traditional \ac{hcr}-based algorithm where features were extracted from either the automatically predicted or the expert-defined tumor ROI, and our \ac{dlr}-based algorithm where features were extracted from the second network of the cascaded tumor segmentation architecture before being processed by another neural network.\\
 The \textbf{\lmttfont{TCIA-dB}} dataset with its associated annotations (liver and liver tumor segmentations) obtained thanks to the previous section (see section \ref{subsect_auto_liver_tumor_seg}) will be used to compared both the HCR and the DLR-based histological grade prediction pipelines.
 
 
@@ -498,7 +499,7 @@ In order to investigate the value brought by the dynamic information, we have de
 	\label{fig:perfusion}
 \end{figure}
 
-The features extraction step was performed using the \textit{PyRadiomics} python module \footnote{\url{https://pyradiomics.readthedocs.io/en/latest/}}. This package allows the extraction of features on various representations of the raw image. In our case, we decidex to extract features from both the original image and those obtained after application of LoG \footnote{Laplacian Of Gaussian with various $\sigma$ filter sizes} or Wavelet filtering methods. When using the original images, a total of 107 features are extracted, while only 93 features are extracted from the LoG filtered images (since shape-based features are removed). The wavelet filtering method produced 8 different images, hence a total of 744 features to extract (93 for each version). When combining all produced features for a single image, we reach a total of 944 features (when considering only one filter size for the LoG filtering step).
+The features extraction step was performed using the \textit{PyRadiomics} python module\footnote{\url{https://pyradiomics.readthedocs.io/en/latest/}}. This package allows the extraction of features on various representations of the raw image. In our case, we decided to extract features from both the original image and those obtained after application of LoG \footnote{Laplacian Of Gaussian with various $\sigma$ filter sizes} or Wavelet filtering methods. When using the original images, a total of 107 features are extracted, while only 93 features are extracted from the LoG filtered images (since shape-based features are removed). The wavelet filtering method produced 8 different images, hence a total of 744 features to extract (93 for each version). When combining all produced features for a single image, we reach a total of 944 features (when considering only one filter size for the LoG filtering step).
 Once the features were extracted, a logistical model was built using the least absolute shrinkage and selection operator algorithm (LASSO). The objective is to minimize the negative log-likelihood contribution $L$ for each observation $ i $ of our training dataset, as described in the equation \ref{lassoLog}.
 \begin{equation} \label{lassoLog}
 L = -\sum_{i=1}^{N} \left[ y_{i} \left( {\beta}_{0} + {\beta}_{1} x_{i} \right) -\ln \left( 1+e^{({\beta}_{0} + {\beta}_{1} x_{i})} \right) \right] + \lambda \sum_{j=1}^{p} \left| {\beta}_{j} \right|
@@ -686,7 +687,7 @@ architecture versus $ 64.9 \pm 27.2 $ when using the \pplfont{DMP} when evaluati
 models on the \textbf{\lmttfont{TCIA-dB}} patients. An example of prediction on the \textbf{\lmttfont{TCIA-dB}} is
 depicted in figure \ref{fig:TCIAMultiphaseTumorPred}. 
 
-\begin{figure}
+\begin{figure}[ht!]
 	\begin{minipage}{0.3\linewidth}
 		\includegraphics[width=\linewidth]{../HistologicalGradePrediction/images/Resizeimage13.png}
 	\end{minipage} \hspace{0.1cm}
@@ -700,7 +701,6 @@ depicted in figure \ref{fig:TCIAMultiphaseTumorPred}.
 	\label{fig:TCIAMultiphaseTumorPred}
 \end{figure}
 
-
 These results obtained on an external dataset tend to demonstrate a satisfactory precision
 of the tumor segmentation when training our cascaded architecture with a
 sufficient number of cases.
@@ -709,12 +709,12 @@ significantly better than the \pplfont{DMP} one ($ p = 0.02 $ using a Wilcoxon s
 paired rank test on the patient-wise \ac{dsc}).
 We confirmed the benefit of the cascaded architecture since these results
 were obtained using an architecture where the first network was trained
-on \textbf{\lmttfont{LITS-dB}} and the second on \textbf{\lmttfont{G-dB}}. Such an architecture allows consequently to obtain good results even though the number of training cases tends to be small, and the different available datasets homogeneous in the type of annotated areas. We also were able to use a single-phase network for the first stage and a multiphasic network for the second.
+on \textbf{\lmttfont{LITS-dB}} and the second on \textbf{\lmttfont{G-dB}}. Such an architecture allows consequently to obtain good results even though the number of training cases tends to be small, and the different available datasets homogeneous in the type of annotated areas. The cascaded architecture also permits to use a single-phase network for the first stage and a multiphasic network for the second.
 
 \subsection{Histological grade prediction}
 
 % histological grade prediction results HCR vs DLR
-When evaluating the \ac{hcr}-based histological grade prediction model, we presented the accuracy of the model in terms of how many patients of the testing set were correctly classified throughout the 9-fold cross-validation training. Results are given in the table \ref{tab:hcrGrade}.
+When evaluating the \ac{hcr}-based histological grade prediction model, we presented the accuracy of the model in terms of how many patients in the testing set were correctly classified throughout the 9-fold cross-validation training. Results are given in the table \ref{tab:hcrGrade}.
 \renewcommand{\arraystretch}{2}
 \begin{table}[!htp]
 	\centering
@@ -735,8 +735,10 @@ When evaluating the \ac{hcr}-based histological grade prediction model, we prese
 \renewcommand{\arraystretch}{5}
 
 
-When examining the results, we realized that radiomics features extracted from the automatically predicted tumor ROI were seemed to be as relevant as the ones extracted from the experts' defined tumor ROI. This indicates that our semantic segmentation network tends to retain relevant features (at least the features necessary for the wanted task).
-The incorporation of LoG-based features seems to improve the predictive capacities of the model, and we also noticed that the accuracy was higher when using small filters (in our case 1mm filter gave the best results). This suggests that small details can be important than larger ones for the determination of the histological grade, hence the necessity to create a model that aims for local prediction of histological grade to consider the heterogeneity within the tumor.
+The results highlighted that radiomics features extracted from the automatically predicted tumor ROI seemed to be as relevant as the ones extracted from the experts' defined tumor ROI. This indicates that our semantic segmentation network tends to retain relevant features (at least the features necessary for the wanted task).
+The incorporation of LoG-based features seems to improve the predictive capacities of the model, and we also noticed that the accuracy was higher when filtering images with small filters (in our case 1mm filter gave the best results). This suggests that small details can be more important than larger ones for the determination of the histological grade, hence the necessity to create a model that aims for local prediction of histological grade to consider the heterogeneity within the tumor. We also realized that areas with low intensity within the tumor had their importance in the determination of the histological grade, especially the presence of necrotic areas, since most relevant features were glm-based features sensitive to small and large areas with low gray level intensity (SALGLE, SDLGLE and LRLGLE features) and intensity-based features sensitive to objects with low gray level intensity (first order $10^{th}$ percentile). 
+When comparing the type of input, we realized that the best results were obtained when extracting features from the AR volumes, potentially meaning that the information relative to the histological grade is encoded through the difference between hypervascular structures of the tumor (more expressed in the AR-phase volumes) and the necrotic areas.
+
 
 We finally compared the \ac{hcr}-based model with our \ac{dlr}-based newly created architecture.
 After testing several combinations for the hyperparameters, we
@@ -756,8 +758,8 @@ It has been observed that the classification confidence was often correlated wit
 
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{../HistologicalGradePrediction/images/Slice_hist_grad_prediction_2}
-	\caption{Example of slice-wise histological grade prediction of one patient from the \lmttfont{TCIA-dB}. Here we observed that the confidence was correlated with the relative position to the center. Even though the semantic segmentation of the tumor was correctly performed, distant slices tend to be either misclassified or classified with a lower confidence than central slices. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side, and tumor segmentation heatmap in the right side)}
+	\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/Slice_hist_grad_prediction_v3}
+	\caption{Example of slice-wise histological grade prediction of one patient from the \lmttfont{TCIA-dB}. Here we observed that the confidence was correlated with the relative position to the center. Even though the semantic segmentation of the tumor was correctly performed, distant slices tend to be either misclassified or classified with a lower confidence than central slices. Details of tumor semantic segmentation are given for 3 slices (raw image where pixels outside the predicted liver are masked in the left side and where the tumor GT delineation is given in red, and tumor segmentation heatmap in the right side)}
 	\label{fig:Slice_hist_grad_prediction_2}
 \end{figure}
 
@@ -769,12 +771,10 @@ It has been observed that the classification confidence was often correlated wit
 	\label{fig:Slice_hist_grad_prediction_details}
 \end{figure}
 
-
-
-
 \renewcommand{\arraystretch}{2}
-\begin{table}[!htp]\centering
-	\caption{Confusion matrix regarding the patient-wise histological grade prediction}\label{tab:confusion_matrix}
+\begin{table}[!ht]
+	\centering
+	\caption{Confusion matrix regarding the \ac{dlr}-based patient-wise histological grade prediction}\label{tab:confusion_matrix}
 	\begin{tabular}{l|l|c|c|c}
 		\multicolumn{2}{c}{}&\multicolumn{2}{c}{\textbf{True grade}}&\\
 		\cline{3-4}
@@ -801,6 +801,13 @@ or its prognosis.\\
 
 \section{Conclusion}
 
+
+We successfully confirmed that multiphase images incorporated in a cascaded architecture corresponds to the best combination when performing semantic segmentation of liver and its tumors. Moreover, our preliminary results proved that imaging features extracted from our cascaded multiphase segmentation architecture were relevant enough to be incorporated in a deep radiomics pipeline for the histological grade prediction. 
+Compared to the \ac{hcr} features-based pipeline, our \ac{dlr} pipeline allows us to propose a way to predict the histological grade at both a patient-wise and a slice-wise scale. 
+It would have also been possible to compute the \ac{hcr} features in a slice-wise fashion but some of them would have lost their interpretability such as the shape-based features. The current DLR features-based pipeline allows us to perform the prediction in a fully automatic fashion with a better patient-wise accuracy as the one obtained with our HCR-based pipeline (15/18 patients correctly classified using the DLR-based pipeline vs 14/18 at best for the HCR-based pipeline).
+Even though our results need to be validate by external studies, they tend to show that features extracted in an automatic fashion from the raw images can be more relevant than classical hand-crafted features.
+Our histological grade prediction results were on par with the ones reported by the only study performing histological grade prediction but using a different dataset composed of MR images and using manually drawn regions of interest.\\
+In the following section we present the different axes of improvement to improve the present work.
 
 
 \newpage
