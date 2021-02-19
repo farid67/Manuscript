@@ -35,8 +35,9 @@
 \usepackage{bm}
 \usepackage{afterpage}
 \usepackage[section]{placeins}
+\usepackage{appendix}
 %\usepackage[backend=bibtex,giveinits,style=unsrt]{biblatex}
-%\usepackage[toc,page]{appendix}
+
 
 % probably a good idea for the nomenclature entries:
 \acsetup{first-style=short}
@@ -99,6 +100,7 @@
 \def\fps@figure{htbp}
 \makeatother
 
+\newcommand{\todo}[1]{{\textcolor{red}{\textbf{#1}}}}
 
 \newcommand{\pplfont}[1]{{\fontfamily{ppl}\selectfont #1}}
 
@@ -138,6 +140,7 @@
 \subimport{Contributions/}{histGrade}
 %\subimport{Perspectives/}{perspectives}
 \subimport{Conclusion/}{conclusion}
+
 \begin{appendices}
 \subimport{Appendix/}{appendixDlSemanticSeg}
 \subimport{Appendix/}{appendixHyperparam}

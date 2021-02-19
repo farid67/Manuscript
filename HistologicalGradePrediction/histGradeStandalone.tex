@@ -114,7 +114,7 @@
 
 
 In this chapter, we present our automatic deep-radiomics based histological grade prediction pipeline. To build our automatic prediction pipeline, we had to use several datasets since none of the available ones contained both precise experts' delineation for the volumes of interest (for liver and liver tumor areas in a multiphase fashion), and the observed histological grade.
-We first validated our cascaded semantic segmentation architecture on larger datasets and prove the ability of our pipeline to automatically segment unlabeled datasets. We then used the features produced by the tumor semantic segmentation networks to build an automatic deep-radiomics histological grade prediction network. We compared our preliminary results with those obtained using a classical \ac{hcr} paradigm. \\
+We first updated our cascaded semantic segmentation architecture on larger datasets and prove the ability of our pipeline to automatically segment unlabeled datasets. We then used the features produced by the tumor semantic segmentation networks to build an automatic deep-radiomics histological grade prediction network. We compared our preliminary results with those obtained using a classical \ac{hcr} paradigm. \\
 We start by presenting the only study performing the histological grade prediction using a \ac{dl} architecture. We then detailed the datasets used to train both the liver (\textbf{\lmttfont{LITS-dB}}) and the liver tumor (\textbf{\lmttfont{G-dB}}) segmentation networks, and the one used to train and test the histological grade prediction pipelines (\textbf{\lmttfont{TCIA-dB}}). We then expose the different steps of both the HCR and the DLR pipelines to perform the histological grade prediction. We conclude by exhibiting our preliminary results and propose different areas for improvement.
 
 \section{Related work}
@@ -178,12 +178,18 @@ steps were performed by \ac{dl} networks.
 \section{Material}
 
 
-To build an automatic histological grade prediction pipeline, we decided to extract relevant imaging features from our multiphase liver tumor semantic segmentation network. These features will then be processed by another neural network for the histological grade prediction. To build such an architecture we used 3 different datasets (2 responsible for the training of the liver tumor segmentation through a 2-stages cascaded architecture and one for the training/testing of the histological grade prediction).
+To build an automatic histological grade prediction pipeline, we decided to extract relevant imaging features from our multiphase liver tumor semantic segmentation network. These features will then be processed by another neural network for the histological grade prediction. To build such an architecture we used 3 different datasets since none of the available datasets was consistent enough to be used alone (2 datasets were responsible for the training of the liver tumor segmentation through a 2-stages cascaded architecture and one for the training/testing of the histological grade prediction). The entire pipeline is described in the figure \ref{fig:DLR_pipeline_withDB}.
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{../HistologicalGradePrediction/images/DLR_pipeline_withDB}
+	\caption{Description of the entire workflow to build our DLR-based histological grade prediction. \textbf{\lmttfont{LITS-dB}} and \textbf{\lmttfont{G-dB}} are used to train respectively the liver (green arrows) and the liver tumor (red arrows) semantic segmentation network, whereas \textbf{\lmttfont{TCIA-dB}} is used to train the histological grade prediction using semantic imaging features extracted from the liver tumor segmentation network (pink arrow).}
+	\label{fig:DLR_pipeline_withDB}
+\end{figure}
 %The only available dataset with histological grade expert ground truth is the \textbf{\lmttfont{TCIA-dB}} one, therefore, we first reimplemented a cascaded liver tumor semantic segmentation architecture before extracting imaging features to evaluate the histological grade prediction in a CV-manner on the \textbf{\lmttfont{TCIA-dB}} dataset. \\
 We first trained a modified version of the automatic liver segmentation network (presented in the section \ref{subsect_auto_liver_tumor_seg}) using the 131 volumes of the \textbf{\lmttfont{LITS-dB}} dataset in order to segment the liver on both \ac{ar} and \ac{pv} phases independently. We then trained our \pplfont{MPF-Tumor} segmentation network using the 79 multiphase volumes of the \textbf{\lmttfont{G-dB}}. We subsequently evaluated the obtained tumor segmentation on the registered volumes of the \textbf{\lmttfont{TCIA-dB}} dataset. After the extraction of relevant imaging features, we performed a cross-validation training on the 18 multiphase volumes of the \textbf{\lmttfont{TCIA-dB}} to predict the histological grade. \\
 Thereafter, we give more details about the inter-database differences, especially those between \textbf{\lmttfont{LITS-dB}} and \textbf{\lmttfont{TCIA-dB}} used respectively as training and testing datasets for the liver segmentation network, and those between \textbf{\lmttfont{G-dB}} and \textbf{\lmttfont{TCIA-dB}} used respectively as training and testing datasets for the liver tumor segmentation network.
 
-\subsection{Liver segmentation inter-dataset comparison} \label{liver_interdb_comparison}
+\subsection{Liver segmentation inter-dataset comparison (\textbf{\lmttfont{LITS-dB}} vs \textbf{\lmttfont{TCIA-dB}})} \label{liver_interdb_comparison}
 
 Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}. In the available datasets (as presented in the table \textbf{\textcolor{red}{ref table datasets}}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation. \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver, whereas \textbf{\lmttfont{LITS-dB}} contains full 3D pixel-wise liver annotation but it only contains single-phase images, without any information regarding the
 acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in the dataset).
@@ -285,7 +291,7 @@ Moreover, it would have been optimal to train one network per injected phase, or
 However \textbf{\lmttfont{LITS-dB}} being composed of both \ac{ar} and \ac{pv} volumes (with in-between phase volumes as depicted in the figure \ref{fig:LitsTciaPhasePlot}), we used the entire dataset to train a single network, allowing us to segment the liver on both \ac{ar} and \ac{pv} volumes independently.
 
 
-\subsection{Liver tumor segmentation inter-dataset comparison} \label{liver_tumor_interdb_comparison}
+\subsection{Liver tumor segmentation inter-dataset comparison (\textbf{\lmttfont{G-dB}} vs \textbf{\lmttfont{TCIA-dB}})} \label{liver_tumor_interdb_comparison}
 
 
 We also compared both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets used for the liver tumor segmentation task using the same analysis as the one performed previously (see section \ref{liver_interdb_comparison}).
@@ -803,7 +809,7 @@ or its prognosis.\\
 
 
 We successfully confirmed that multiphase images incorporated in a cascaded architecture corresponds to the best combination when performing semantic segmentation of liver and its tumors. Moreover, our preliminary results proved that imaging features extracted from our cascaded multiphase segmentation architecture were relevant enough to be incorporated in a deep radiomics pipeline for the histological grade prediction. 
-Compared to the \ac{hcr} features-based pipeline, our \ac{dlr} pipeline allows us to propose a way to predict the histological grade at both a patient-wise and a slice-wise scale. 
+Compared to the \ac{hcr} features-based pipeline, our \ac{dlr} pipeline allows us to propose a way to predict the histological grade in a fully automatic fashion and at both a patient-wise and a slice-wise scale. 
 It would have also been possible to compute the \ac{hcr} features in a slice-wise fashion but some of them would have lost their interpretability such as the shape-based features. The current DLR features-based pipeline allows us to perform the prediction in a fully automatic fashion with a better patient-wise accuracy as the one obtained with our HCR-based pipeline (15/18 patients correctly classified using the DLR-based pipeline vs 14/18 at best for the HCR-based pipeline).
 Even though our results need to be validate by external studies, they tend to show that features extracted in an automatic fashion from the raw images can be more relevant than classical hand-crafted features.
 Our histological grade prediction results were on par with the ones reported by the only study performing histological grade prediction but using a different dataset composed of MR images and using manually drawn regions of interest.\\

@@ -403,7 +403,7 @@ going to rely on, quantitative or semantic.
 In the case of quantitative features, the reviewed studies often decided
 to focus on a single category of features (first-order, textural
 features, higher-order\ldots{}), thus obtaining a relative small number
-of features (27 for Li et al., 32 for Raman et al.).
+of features (27 for Li et al.\cite{Li2016}, 32 for Raman et al.\cite{Raman2015}).
 However, despite choosing a specific category of features, this number
 can increase, when combining the native features with the spatial
 filter, and the different contrast enhanced phases, as in Akai
@@ -717,8 +717,8 @@ However, we have decided to review the first \ac{dlr}-liver related studies, in 
 
 Within the reviewed \ac{dlr} studies, the majority of them are
 targeting a characterization of the tumor, either the classification of \ac{fll}s (\emph{Focal
-Liver Lesions}) \cite{Yamada2019,Wang2018,Yasaka2018,Liang2018} or the estimation of the fibrosis
-stage \cite{Yasaka2018a}, when two of them focused on the
+Liver Lesions}) \cite{Yamada2019,Wang2018,Yasaka2018,Liang2018}, the estimation of the fibrosis
+stage \cite{Yasaka2018a}, or the prediction of the histological grade \cite{Yang2019} when two of them focused on the
 response to treatments, either for recurrence after resection \cite{WANG2019} or the response after TACE (\emph{TransArterial ChemoEmbolization})\cite{Peng2020}.\\
 We selected the studies using CT images to perform their
 analysis, and realized that the vast majority of them used multiphasic
@@ -735,6 +735,7 @@ of contrast agent, at early arterial phase and a third phase, either
 portal venous \cite{WANG2019,Wang2018,Liang2018} or a delayed one \cite{Yamada2019, Yasaka2018}. Peng et al. decided to get rid of the \ac{nect}
 (\emph{Non-Enhanced CT}) phase, but still chose a triphasic acquisition
 (\ac{ar}, \ac{pv}, DELAY).
+The only retained study performing its analysis on MR images \cite{Yang2019}, also used multiphase images, were 5 phases were processed (precontrast, late arterial, portal venous, equilibrium and delayed phases).
 
 \subsubsection{Image processing pipeline}\label{image-processing-pipeline}
 
@@ -744,8 +745,7 @@ by the experts around the hepatic lesion, before a registration between
 the different phases in case of multiphasic acquisition to compensate the
 effects of body motion and/or breathing.\\
 The manual delineation of the \emph{\ac{roi}s} is usually done by one or more
-experts on the raw image \cite{Yamada2019,Wang2018,Yasaka2018a,Yasaka2018,WANG2019}, and only
-one study decided to perform an automatic segmentation of both the
+experts on the raw image \cite{Yamada2019,Wang2018,Yasaka2018a,Yasaka2018,WANG2019,Yang2019}, and only one study decided to perform an automatic segmentation of both the
 parenchyma and the lesion with the application of a random-walker
 algorithm, before being checked by experts \cite{Liang2018}. 
 When the method is based on a 2D approach, selected images are
@@ -786,7 +786,7 @@ and can also be difficult to integrate in a deep network, as illustrated
 in the figure \ref{Wang2019_Fig2}.
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.7\linewidth]{images/image5}
+\includegraphics[width=1.0\linewidth]{images/image5}
 \caption{Illustration given by \textbf{©Wang et al.} of the different tested deep networks where raw images are combined with the clinical data \cite{WANG2019}}
 \label{Wang2019_Fig2}
 \end{figure}
@@ -820,7 +820,7 @@ An illustration of this process can be found in the figure \ref{Wang2018_Fig3}.
 
 
 The rest of the reviewed studies created a custom architecture and
-trained it from scratch \cite{Yasaka2018a,Yasaka2018,Liang2018}.
+trained it from scratch \cite{Yasaka2018a,Yasaka2018,Liang2018,Yang2019}.
 Two of them used classical convolutional layers followed by max pooling
 layers, early in the network to extract relevant features, as depicted
 in the figure \ref{Yasaka2018_Fig2}.
@@ -848,6 +848,21 @@ layers.
 \label{Liang2018_Fig1}
 \end{figure}
 
+Yang et al also created a custom architecture to incorporate the dynamic information \cite{Yang2019}.
+The used architecture is depicted in the figure \ref{fig:Yang2019_Figure2_MCF-3DCNN}. It first splits the 4D
+tensors into 5 3D objects so that each slice is treated separately. Each
+3D volume was then processed by 2 convolutional, 2 max pooling and 1
+fully connected layer. The features of each slice were then
+concatenated, before a second fully connected layer followed by a dense
+layer with a softmax activation function outputs the probability of
+belonging to each one of the three classes (well, moderately or poorly differentiated).
+
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{../HistologicalGradePrediction/images/Yang2019_Fig2}
+	\caption{MCF-3DCNN architecture as detailed by \textbf{©Yang et al. \cite{Yang2019}}}
+	\label{fig:Yang2019_Figure2_MCF-3DCNN}
+\end{figure}
 
 
 When using a pre-trained architecture, the input size is often dictated
@@ -900,6 +915,10 @@ results less accurate than those obtained using elastography data
 elastography}), but they were the first to perform this analysis on CT
 images, and their results could be improved with the inclusion of
 volumetric information, and other sources of data \cite{Yasaka2018a}.
+The only study targeting the prediction of the histological grade using MR images as input was able to correctly classify the \ac{hcc}s into the 3 differentiation groups with a mean accuracy of \textbf{74\%}.\\
+Their study however suffers from a lot of limitations such as the
+reduced size of the cohort, the imbalanced data and the fact that the
+analysis was only performed in a manually drawn \ac{voi} \cite{Yang2019}.\\
 
 Finally, the studies predicting a response to a treatment reported a
 high accuracy with an AUC of 0.82 when predicting the recurrence after

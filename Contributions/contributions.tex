@@ -15,6 +15,8 @@
 
 \chapter{Semantic segmentation applied to the study of HCC}
 
+
+\section{Introduction}
 As explained previously, state-of-the-art deep learning techniques allow
 modern hardware to perform automatic segmentation of both the liver and
 its structures with a precision close to the one obtained by the experts
@@ -284,7 +286,6 @@ type of input (single phase or multiphase). \\
 %%%%%%%%%%%%%%%%%%%%
 %Revised --> ADDED
 %%%%%%%%%%%%%%%%%%%%
-\textcolor{red}{
 The original U-Net architecture implemented by Ronneberger et al. had a total of 32M parameters, and the results obtained when setting the hyperparameters tend also to prove that the best results were obtained using an architecture with the same number of parameters (with 1024 filters at bottleneck as mentioned above). When performing the segmentation of both the necrotic and the active parts of the tumor from a masked liver image, our cascaded version consists of 2 concatenated U-Net networks (one to segment the tumor and the second to differentiate between the active and the necrotic part) therefore, we decided to reduce the number of parameters to 8M parameters for each network of the cascaded (512 filters used at bottleneck instead of 1024) in comparison with the versatile networks (which have a total of 32M parameters) to ensure that no bias existed in favor of the cascaded networks.
 Only the \pplfont{MPF-\{.\}} had a total of 16M parameters since it already consists of 2 combined U-Net networks as illustrated in the figure \ref{CARS_MPF_Full_Fig}.
 To cope with the high imbalanced data present in our datasets (e.g. number of voxels belonging to the tumor class vs those belonging to the parenchyma class when segmenting the lesion in the liver), we considered the weighted cross-entropy function as loss function when training our network. 
@@ -294,7 +295,6 @@ L = -\frac{1}{n} \sum_{i=1}^{N}\omega_i^{class}\left[\hat{P_i} \log P_i + (-\hat
 We implemented the entire training and inference pipeline with Python 3.6, using the library Keras (version 2.2.4) with a Tensorflow backend (v 1.8 to be compatible with older networks). The different networks were trained on a single NVIDIA GTX 1070 with 8GB VRAM. 
 The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesIJCARS}) allow us to see that even though a small number of images were used to train our networks, we were able to correctly address the wanted segmentation tasks by limiting the overfitting effect, despite the high number of parameters of the networks.
 \begin{figure}[!ht]
-\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{\linewidth}
 		\includegraphics[width=\linewidth]{images/ResizelearningCurveTumorVE_pat4}
@@ -304,9 +304,7 @@ The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesI
 	\end{minipage}
 	\caption{Two examples of obtained learning curves for the tumor segmentation task for different folds in the cross validation process. The first example depicts a standard learning curve where the training loss decreases gradually, followed by the validation loss, while both the training and the validation accuracy increase gradually. A higher variance can be seen in the second case, probably because of the small number of training images regarding the size of the network.}
 	\label{fig:learningCurvesIJCARS}
-	\end{mdframed}
 \end{figure}
-}
 
 %%%%%%%%%%%%%%%%%%%%
 %Revised --> REMOVED
@@ -319,10 +317,10 @@ The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesI
 \subsection{Results}
 
 In this section, mean \ac{dsc}s were computed in a slice-wise fashion for each target class and the different methods were statistically compared using the Wilcoxon 
-signed paired rank tests, since slice-wise \ac{dsc}s did not follow a normal distribution. 
+signed paired rank tests, since slice-wise \ac{dsc}s did not follow a normal distribution. We used the DSC as a metric to compare the models since it is one of the most commonly used metric for the semantic segmentation task (other metrics can be found in the appendix \ref{appendix---Evaluation Metric}).
 We first compared \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Liver} networks
  to evaluate which phase allows better liver segmentation. 
- We then trained \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Lesion} and  \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Necrosis} networks separately on the \textbf{\lmttfont{TheraHCC-dB}} by masking all values outside the liver using ground truth annotations in order to assess whether multiphase information is really useful for the segmentation. The results are given in table \ref{SingleVsMult}.
+ We then trained \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Lesion} and  \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Necrosis} networks separately on the \textbf{\lmttfont{TheraHCC-dB}} by masking all values outside the liver using ground truth annotations in order to assess whether multiphase information is really useful for the segmentation. The results are given in table \ref{SingleVsMult} (the mean DSCs are expressed as a percentage).
 
 Multiphase performed significantly better than single-phase for segmenting the liver (DMP vs \ac{pv}, $P=0.001$; DMP vs \ac{ar}, $P=0.005$, DMP vs \ac{nect}, $P<0.001$) and the active part of the lesions (DMP vs \ac{pv}, $P<0.001$; DMP vs \ac{ar}, $P=0.003$; DMP vs \ac{nect}, $P<0.001$). When comparing single-phase alone, \ac{pv} achieved significantly better \ac{dsc}s than \ac{ar} or \ac{nect} for all the segmentation tasks except for the liver segmentation. When comparing multiphase methods, DMP carries out significantly better than MPF for the segmentation of the liver (DMP vs MPF, $P=0.004$), the parenchyma (DMP vs MPF, $P<0.001$) and the active part of the lesions (DMP vs MPF, $P=0.005$).
 
@@ -626,6 +624,6 @@ MR images as input \cite{Zhang2018}.\\
 {
 We noticed some mis-segmentations occurring for all the given tasks (liver, tumor, and necrosis segmentation separately) mainly because of mis-interpretation with some tissues sharing the same properties than some of the targeted classes (spleen, heart or stomach being considered as liver during the liver segmentation task, or active part of the tumor being considered as belonging to the parenchyma when segmenting the tumor on the masked liver ROI). These errors represent one of the main drawbacks of the cascaded architecture since some retained (or missed) tissues will be considered (or forgotten) for the remaining steps in the cascaded pipeline. These effects can be minimized by some post-processing steps such as the consideration of a single connected component after the liver segmentation task, or the filtering of the retained ROIs after the tumor segmentation task, but in our study we did not implemented any of the mentioned post-processing steps because we were only considering the actual performances of the networks, and no the performances of the entire segmentation pipeline.
 } \\
-We concluded that the combination of multiphase registered images used in a 
-cascaded architecture allows us to automatically perform the semantic segmentation of liver tissues.
+We concluded that the combination of multiphase registered images used in a cascaded architecture allows us to automatically perform the semantic segmentation of liver tissues. \\
+In the next chapter, we will update our cascaded semantic segmentation architecture to perform the segmentation of liver and liver tissues on larger datasets, and ultimately extract relevant semantic imaging features to perform an automatic prediction of the histological grade.
 

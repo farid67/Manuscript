@@ -24,7 +24,7 @@ segmentation methods \cite{Bilic2019}, although it does not correspond
 to a true gold standard \cite{Heimann2009} and often requires several experts to segment the
 different structures for reducing the operator-dependent bias \cite{Echegaray2015, Moltz2009}.\\
 In order to compare digitally obtained segmentations with the expert
-outputs, different metrics have been implemented over time (see appendix \ref{appendix---Evaluation Metrics}). However, as
+outputs, different metrics have been implemented over time. However, as
 explained above, manually segmenting the liver and its different
 structures is a tedious, time-consuming (up to 90 minutes per patient
 \cite{Gotra2017}) and operator-dependent task, as seen in the figure \ref{interobserver_var}.
@@ -375,12 +375,7 @@ is implemented to refine the obtained area. The evolution of the
 level-set based contour is controlled by the initial speed image values
 and by the curvature. Vessels near the liver boundary can be added to
 the final map using a rolling ball algorithm.
-Wimmer et al. \cite{Wimmer2007} semi-automatically segmented the liver by extending 2D
-cross-sectional annotations, in 3D using \ac{rbf} and applied a level set
-technique to refine the obtained volume. The initial area is obtained by
-manually performing 2 cross-sectional segmentations per axis, and
-extending them in 3D via \ac{rbf} after sampling some points along the given
-contours, as depicted in the figure \ref{Wimmer2007_Fig2}.
+Wimmer et al. \cite{Wimmer2007} semi-automatically segmented the liver by extending 2D cross-sectional annotations, in 3D using \ac{rbf} (Radial Basis Function) and applied a level set technique to refine the obtained volume. The initial area is obtained by manually performing 2 cross-sectional segmentations per axis, and extending them in 3D via \ac{rbf} after sampling some points along the given contours, as depicted in the figure \ref{Wimmer2007_Fig2}.
 The level set reconstruction surface was then used to refine the
 obtained shape. The function used takes into account the points
 initially present after manual segmentation. This method however suffers
@@ -412,7 +407,7 @@ each point by considering the learned appearance model. Candidates
 points are projected back to the zero level set, and the points with the
 highest probability are kept. The obtained probability map is used in
 \ac{gvf} (\emph{Gradient Vector Flow}) to get the best contour.\\
-Massoptier and Casciaro used a patch-based intensity approach to distinguish
+Massoptier and Casciaro \cite{Massoptier2008} used a patch-based intensity approach to distinguish
 hepatic tissues from other abdominal organs, and refine the obtained
 boundary by implementing active contour with \ac{gvf}. The liver segmentation
 was followed by a liver lesions segmentation via k-means clustering \cite{Massoptier2008}. Wimmer et al. \cite{Wimmer2009} built later a shape model based on nonparametric density
@@ -968,14 +963,14 @@ methods rely now on these techniques.
 
 \section{Deep Learning based semantic segmentation methods}
 
-\subsection{State-of-the-art \ac{dl} pipelines} \label{subsection:StateOfTheArtDlImplementations}
+%\subsection{State-of-the-art \ac{dl} pipelines} \label{subsection:StateOfTheArtDlImplementations}
 
 The different \ac{dl} studies introduced for the liver tissue semantic
 segmentation purpose share some common properties that will be exposed
 hereafter. We will fist detail the different types of \ac{dl} architectures that have been developed to perform this task, before introducing the sequential segmentation concept shared by almost all of the reviewed studies. The details regarding the networks input type, the training strategies, and the inference schemes were then discussed.
 Details regarding the reviewed studies can be found in the appendix \ref{detailed-analysis-of-the-dl-semantic-segmentation-reviewed-articles}.
 
-\subsubsection{\ac{fcn}-based architectures}
+\subsection{\ac{fcn}-based architectures}
 
 The use of fully convolutional networks (\ac{fcn}) was quickly democratized,
 and popular imaging-related architectures such as VGG-16 or AlexNet
@@ -1045,7 +1040,7 @@ architecture built for a classification task is depicted in the figure \ref{Dens
 \end{figure}
 
 
-\subsubsection{Cascaded architectures}
+\subsection{Cascaded architectures}
 
 To segment the liver and the lesions it might contain, the vast majority
 of the studies used a cascaded architecture where a coarse liver
@@ -1085,7 +1080,7 @@ adjacent slices to get a segmentation of the middle slice.
 \end{figure}
 
 
-\subsubsection{Input type (2D, 2.5D, 3D, patches, multiphase)}
+\subsection{Input type (2D, 2.5D, 3D, patches, multiphase)}
 
 The first deep-learning related study that performed the semantic
 segmentation of the liver or its lesions, used patches as input.
@@ -1135,7 +1130,7 @@ al. were the first to utilize multiphase information during the
 channel was trained to extract features before they were merged through
 a features fusion layer.
 
-\subsubsection{Training strategies (pre-processing, pre-trained networks\ldots{})}
+\subsection{Training strategies (pre-processing, pre-trained networks\ldots{})}
 
 Regarding the training strategies, no real consensus can be established.\\
 Concerning the pre-processing steps, the majority of the studies decided
@@ -1166,7 +1161,7 @@ to train the network, where some studies implemented a weighted version
 of the cross entropy (categorical or binary) \cite{Han2017, Bellver2017, Ben-Cohen, Christ2017}, and some others decided to directly associate the target metric
 with the loss function through the Dice or Jaccard distance \cite{Yuan2017, Chlebus2018, Vorontsov2018}
 
-\subsubsection{Inference schemes (post-processing, ensemble learning)}
+\subsection{Inference schemes (post-processing, ensemble learning)}
 
 
 Finally, the inference schemes present also some differences among the
@@ -1204,7 +1199,7 @@ Whereas Chlebus et al. trained one network per axis \cite{Chlebus2018}. Bi et al
 multiscale-strategy \cite{Bi2017}, and Vorontsov et al. trained networks on
 differently oriented images \cite{Vorontsov2018}.
 
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 
 As exposed previously, no real consensus can be found to design a
 generic \ac{dl}-related liver tissue semantic segmentation method. However,
