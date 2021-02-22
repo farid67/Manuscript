@@ -82,7 +82,7 @@ Thereafter, we give more details about the inter-database differences, especiall
 
 \subsection{Liver segmentation inter-dataset comparison (\textbf{\lmttfont{LITS-dB}} vs \textbf{\lmttfont{TCIA-dB}})} \label{liver_interdb_comparison}
 
-Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}. In the available datasets (as presented in the table \textbf{\textcolor{red}{ref table datasets}}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation. \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver, whereas \textbf{\lmttfont{LITS-dB}} contains full 3D pixel-wise liver annotation but it only contains single-phase images, without any information regarding the
+Our objective is to automatically segment the liver on both the \ac{ar} and the \ac{pv} phased volumes of the \textbf{\lmttfont{TCIA-dB}}. In the available datasets (as presented in the table \ref{xp_datasets}), only \textbf{\lmttfont{TheraHCC-dB}} and \textbf{\lmttfont{LITS-dB}} contained expert liver delineation. \textbf{\lmttfont{TheraHCC-dB}} contains annotations only on sparse slices across the liver, whereas \textbf{\lmttfont{LITS-dB}} contains full 3D pixel-wise liver annotation but it only contains single-phase images, without any information regarding the
 acquisition phase (\ac{ar}, \ac{pv} and potentially DELAY volumes are mixed in the dataset).
 Regarding its design and the high number of segmented cases it contained, we decided to train our liver segmentation network using the \textbf{\lmttfont{LITS-dB}} volumes and test it on the \textbf{\lmttfont{TCIA-dB}} patients.\\
 We inspected both datasets to assess if a liver segmentation network trained using the \textbf{\lmttfont{LITS-dB}} volumes could perform the wanted task. Therefore, a medical expert was asked to determine the differences between the two datasets with a visual examination of the CT volumes (inspection of the types of tumors present in both datasets, as long as the different artifacts that can affect the training, such as the presence of benign hepatic lesions, of fat accumulation or metallic artifacts) and through a quantitative analysis of the HU intensities after placement of ROIs (especially to prove the presence of cirrhotic patients in both datasets and for the comparison between AR and PV labeled volumes in both datasets). \\
@@ -311,7 +311,7 @@ Images illustrated each of the above mentioned features were given in the figure
 \end{figure}
 
 
-The same quantitative analysis as previously was performed (see section \textcolor{red}{\textbf{ref above section}}), with the placement of 5 ROIs in randomly chosen patients of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets. ROIs were placed in the liver parenchyma, the air, the spleen, the bone and the aorta. These areas were chosen mainly to detect potential cirrhotic patients in both datasets, as illustrated in the figure \ref{fig:cirrhoticPatPlot}, and to assess the homogeneity for the given phases among the different datasets, as depicted in the figure \ref{fig:gdbAortaPlot}. 
+The same quantitative analysis as previously was performed (see section \ref{liver_interdb_comparison}), with the placement of 5 ROIs in randomly chosen patients of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets. ROIs were placed in the liver parenchyma, the air, the spleen, the bone and the aorta. These areas were chosen mainly to detect potential cirrhotic patients in both datasets, as illustrated in the figure \ref{fig:cirrhoticPatPlot}, and to assess the homogeneity for the given phases among the different datasets, as depicted in the figure \ref{fig:gdbAortaPlot}. 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.6\linewidth]{../Contributions/images/Gdb_TCIA_cirrhosisPlot_bins5}
@@ -342,12 +342,12 @@ grade (HG).
 
 \section{Methods}
 
-In this section, we present our cascaded automatic liver tumor segmentation architecture, inspired from the one implemented in the section \todo{Add ref IJCARS section}, especially our so-called \pplfont{\ac{cect}-Liver}, responsible for the automatic segmentation of liver on both \ac{ar} and \ac{pv} volumes. We then present both the \ac{hcr}-based and the \ac{dlr}-based histological grade prediction networks.
+In this section, we present our cascaded automatic liver tumor segmentation architecture, inspired from the one implemented in the section \ref{chapter:IJCARS}, especially our so-called \pplfont{\ac{cect}-Liver}, responsible for the automatic segmentation of liver on both \ac{ar} and \ac{pv} volumes. We then present both the \ac{hcr}-based and the \ac{dlr}-based histological grade prediction networks.
 
 
 \subsection{Automatic liver tumor segmentation} \label{subsect_auto_liver_tumor_seg}
 
-Our cascaded liver tumor segmentation architecture is composed of one \pplfont{\ac{cect}-Liver} network, presented hereafter, followed by a multiphase tumor segmentation network (both the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks were trained and their accuracy compared), already presented in the section \todo{add ref}. \\
+Our cascaded liver tumor segmentation architecture is composed of one \pplfont{\ac{cect}-Liver} network, presented hereafter, followed by a multiphase tumor segmentation network (both the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks were trained and their accuracy compared), already presented in the section \ref{sec:IJCARS_multiphase}. \\
 We trained our network called \pplfont{\ac{cect}-Liver} on the 131 volumes of the
 \textbf{\lmttfont{LITS-dB}} using the same hyperparameters as the ones detailed
 previously. The network shares the same settings as the previously defined \pplfont{\ac{pv}-Liver} and \pplfont{\ac{ar}-Liver} networks (see figure \ref{fig:CECTliverDetails}). In this case we used the architecture with 1024 filters at bottleneck, corresponding to about 32M parameters. Once the segmentation is performed on each of the axial slices of a given patient, we implemented 2 post-processing steps by first extracting the biggest connected component in the entire 3D volume before applying a binary opening operation to the retained mask.
@@ -375,7 +375,7 @@ compared to \ac{ar} (or DELAY) volume. The registration pipeline described in th
 \label{fig:RegistrationTCIA_pipeline_vertical2}
 \end{figure}
 
-Once the volumes of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets were registered, we trained our liver tumor segmentation network using the 79 volumes of the \textbf{\lmttfont{G-dB}} dataset by comparing both a \pplfont{MPF-Tumor} and a \pplfont{DMP-Tumor} (details regarding the architectures of the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks are given in the section \todo{add ref}).
+Once the volumes of both the training (\textbf{\lmttfont{G-dB}}) and the testing (\textbf{\lmttfont{TCIA-dB}}) datasets were registered, we trained our liver tumor segmentation network using the 79 volumes of the \textbf{\lmttfont{G-dB}} dataset by comparing both a \pplfont{MPF-Tumor} and a \pplfont{DMP-Tumor} (details regarding the architectures of the \pplfont{MPF-Tumor} and the \pplfont{DMP-Tumor} networks are given in the section \ref{sec:IJCARS_multiphase}).
 
 
 \subsection{Histological grade prediction}\label{subsect_hist_grad_pred}
@@ -428,7 +428,7 @@ histological grade tends to be heterogeneous in the lesion, meaning that
 a slice-wise approach allows us to give a finer prediction to find
 potential areas with a more advanced disease.
 
-The network responsible for the multiphase segmentation of liver tumors is composed of 2 classical U-Net networks (as illustrated in the figure \todo{Add ref}), where each
+The network responsible for the multiphase segmentation of liver tumors is composed of 2 classical U-Net networks (as illustrated in the figure \ref{CARS_MPF_Full_Fig}), where each
 one takes either the \ac{ar} or the \ac{pv} image as input. We believe
 that the compressed information present in the bottleneck part of the
 networks can be sufficient to encode the useful information present in the

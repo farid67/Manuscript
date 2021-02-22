@@ -13,7 +13,7 @@
 %we describe our \ac{dlr} pipeline which incorporates the relevant semantic imaging features 
 %for the prediction of the histological grade.
 
-\chapter{Semantic segmentation applied to the study of HCC}
+\chapter{Semantic segmentation applied to the study of HCC} \label{chapter:IJCARS}
 
 
 \section{Introduction}
@@ -148,7 +148,7 @@ images as input. An illustration of the network is given in the figure
 \end{figure}
 
 
-\section{Multiphase information}
+\section{Multiphase information} \label{sec:IJCARS_multiphase}
 
 Only the \ac{ar} and \ac{pv} phases were considered in the
 multiphase networks because \ac{nect} phase images do not provide enough
@@ -369,12 +369,10 @@ The resulting segmentation maps allow us to estimate the necrosis rate (which wi
 %%%%%%%%%%%%%%%%%%%%
 %Revised --> ADDED
 %%%%%%%%%%%%%%%%%%%%
-\textcolor{red}
-{
 However, our method presents some limitations especially because false-positives and false-negatives occurring at a given stage of the cascaded architecture are leading to other problems later in the pipeline. As an example, when considering the liver segmentation task, missing parts of the tumors are not going to be considered in the masked version used as input for the tumor segmentation task, whereas extra non-hepatic tissues considered as liver by the liver segmentation step, can lead to mis-segmentation later for the tumor and/or the necrosis segmentation task.
-When segmenting the liver using an axial CT slice as input, our networks usually mis-segment other abdominal organs sharing the same intensity as the liver, such as the spleen, the heart or the stomach, as depicted in the figure \ref{fig:missegmentation_Liver_IJCARS}.  In some other cases, some parts of the liver or even some portions of its tumors can be missed, as depicted in the figure \ref{fig:missegmentation_Liver2_IJCARS}. 
+When segmenting the liver using an axial CT slice as input, our networks usually mis-segment other abdominal organs sharing the same intensity as the liver, such as the spleen, the heart or the stomach, as depicted in the figure \ref{fig:missegmentation_Liver_IJCARS}.  In some other cases, some parts of the liver or even some portions of its tumors can be missed, as depicted in the figure \ref{fig:missegmentation_Liver2_IJCARS}.
+ 
 \begin{figure}[!ht]
-	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat0_3}
@@ -405,10 +403,9 @@ When segmenting the liver using an axial CT slice as input, our networks usually
 	\end{minipage}
 	\caption{Examples of liver mis-segmentations where other parts of the abdomen are included in the predicted liver mask. Left: raw images, middle: expert ground truth, right: prediction. First and second row: we can see that the spleen is often considered as belonging to the liver, because of its HU intensities close to these of the liver parenchyma, especially at PV phase. Third and fourth row presented mis-segmenation with first the heart and second the stomach which also often share the same intensities as the liver parenchyma.}
 	\label{fig:missegmentation_Liver_IJCARS}
-	\end{mdframed}
 \end{figure}
+
 \begin{figure}[!ht]
-	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/ResizeLiverVE_Raw_Pat1_12}
@@ -430,11 +427,10 @@ When segmenting the liver using an axial CT slice as input, our networks usually
 	\end{minipage}
 	\caption{Examples of liver mis-segmentations where some parts of the actual liver are missed by the network. Left: raw images, middle: expert ground truth, right: prediction. First row: an example where a portion of the liver parenchyma is missing in the predicted liver segmentation mask, second row: an example where a portion of the liver tumor necrosis is not included in the predicted liver segmentation.}
 	\label{fig:missegmentation_Liver2_IJCARS}
-	\end{mdframed}
 \end{figure} 
+
 Regarding the tumor segmentation task, it has been noticed that active parts of the tumor with intensity close to parenchyma are often prone to mis-segmentation, and are sometimes considered as belonging to the parenchyma, as depicted in the figure \ref{fig:missegmentation_Tumor_IJCARS}. Some other parts of the liver such as the fat portions close to main vessels are sometimes considered as being tumors, since we are facing a binary classification task and they will often be closer to the tumor class than they are to the parenchyma class, as illustrated in the figure \ref{fig:missegmentation_Tumor_IJCARS}.
 \begin{figure}[!ht]
-	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/ResizeTumorMult_Raw_Pat5_0}
@@ -456,11 +452,11 @@ Regarding the tumor segmentation task, it has been noticed that active parts of 
 	\end{minipage} 
 	\caption{Examples of tumor mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example of prediction where a portion of the active part of the tumor is mis-considered as belonging to the liver parenchyma, second row: example where some air captured by the liver envelope has been annotated as belonging to the liver parenchyma by the expert, but it was considered as tumoral tissues by the segmentation network.}
 	\label{fig:missegmentation_Tumor_IJCARS}
-	\end{mdframed}
 \end{figure}
+
 Finally, for the necrosis segmentation step, when the inter-tissue difference is strongly marked, the segmentation of the necrosis is accurate, but when it is less recognizable, the segmentation is more prone to errors as depicted in the figure \ref{fig:missegmentation_Necrosis_IJCARS}. The results will also depend on the experts' annotation method, because they sometimes consider more tissues than the central necrosis when differentiating between active and necrotic parts, as illustrated in the figure \ref{fig:missegmentation_Necrosis_IJCARS}.
+
 \begin{figure}[!ht]
-	\begin{mdframed}[backgroundcolor=blue!50,linecolor=blue!50]
 	\centering
 	\begin{minipage}{4cm}
 		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Raw_Pat0_8}
@@ -482,9 +478,7 @@ Finally, for the necrosis segmentation step, when the inter-tissue difference is
 	\end{minipage} 
 	\caption{Examples of necrosis mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example where the distinction between the necrotic and the active part of the tumor is not strongly marked, which leads to errors in the segmentation with a larger proportion of the tumor considered as active. Second row: example where the expert extended the annotated necrotic area to its simple central region, whereas the network only considered the central part of the tumor as being necrotic.}
 	\label{fig:missegmentation_Necrosis_IJCARS}
-	\end{mdframed}
 \end{figure}
-}
 
 When compared with another study that have been using a different dataset composed of MR images, we achieved slightly better segmentation results \cite{Zhang}.
 We evaluated our method on the same database used in \cite{Conze2017}, where a manual expert interaction was required for the segmentation phase, which is not the case in the present deep learning approach. To allow fair comparison, the evaluation was conducted on the areas where all the experts reached an agreement as in \cite{Conze2017}. The mean patient-wise segmentation \ac{dsc}s are depicted in table \ref{ComparisionConze}. Our method enabled a better segmentation of the lesions and both necrotic and active parts. Therefore, we were able to predict the patient-wise necrosis rate with a slightly better precision. 
@@ -620,10 +614,9 @@ MR images as input \cite{Zhang2018}.\\
 %%%%%%%%%%%%%%%%%%%%
 %Revised --> ADDED
 %%%%%%%%%%%%%%%%%%%%
-\textcolor{red}
-{
 We noticed some mis-segmentations occurring for all the given tasks (liver, tumor, and necrosis segmentation separately) mainly because of mis-interpretation with some tissues sharing the same properties than some of the targeted classes (spleen, heart or stomach being considered as liver during the liver segmentation task, or active part of the tumor being considered as belonging to the parenchyma when segmenting the tumor on the masked liver ROI). These errors represent one of the main drawbacks of the cascaded architecture since some retained (or missed) tissues will be considered (or forgotten) for the remaining steps in the cascaded pipeline. These effects can be minimized by some post-processing steps such as the consideration of a single connected component after the liver segmentation task, or the filtering of the retained ROIs after the tumor segmentation task, but in our study we did not implemented any of the mentioned post-processing steps because we were only considering the actual performances of the networks, and no the performances of the entire segmentation pipeline.
-} \\
+
+
 We concluded that the combination of multiphase registered images used in a cascaded architecture allows us to automatically perform the semantic segmentation of liver tissues. \\
 In the next chapter, we will update our cascaded semantic segmentation architecture to perform the segmentation of liver and liver tissues on larger datasets, and ultimately extract relevant semantic imaging features to perform an automatic prediction of the histological grade.
 
