@@ -36,6 +36,7 @@
 \usepackage{afterpage}
 \usepackage[section]{placeins}
 \usepackage{appendix}
+\usepackage{enumitem}
 %\usepackage[backend=bibtex,giveinits,style=unsrt]{biblatex}
 
 
@@ -86,13 +87,9 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-\renewcommand{\baselinestretch}{1.75}
-
-\renewcommand{\arraystretch}{5}
 
 
 
-\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
 
 
 % set default figure placement to htbp
@@ -111,21 +108,36 @@
 
 \input{abbr}
 
-\title{New radiomics approaches for hepatic tumor characterization by imaging analysis}
+%\title{New radiomics approaches for hepatic tumor characterization by imaging analysis}
 
-\author{OUHMICH Farid\\{\small Supervised by: AGNUS Vincent, HEITZ Fabrice \& NOBLET Vincent}}
+%\author{OUHMICH Farid\\{\small Supervised by: AGNUS Vincent, HEITZ Fabrice \& NOBLET Vincent}}
 
+
+\renewcommand{\baselinestretch}{1.75}
+
+\renewcommand{\arraystretch}{5}
+
+\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}   % set the margins 
+\usepackage{tocloft}
 
 \begin{document}
 
-\maketitle
-\newpage
 
-\ % The empty page
 
-\newpage
+%\maketitle
 
+\include{title_page}
+
+
+
+%\newpage
+
+%\ % The empty page
+
+
+%%\newpage
 \tableofcontents
+
 
 \newpage
 \printacronyms[include-classes=abbrev,name=Abbreviations]

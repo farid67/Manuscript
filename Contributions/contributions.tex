@@ -13,14 +13,12 @@
 %we describe our \ac{dlr} pipeline which incorporates the relevant semantic imaging features 
 %for the prediction of the histological grade.
 
-\chapter{Semantic segmentation applied to the study of HCC} \label{chapter:IJCARS}
+\chapter{Proposed method for the semantic segmentation of HCC} \label{chapter:IJCARS}
 
 
 \section{Introduction}
-As explained previously, state-of-the-art deep learning techniques allow
-modern hardware to perform automatic segmentation of both the liver and
-its structures with a precision close to the one obtained by the experts
-themselves.
+As explained previously, state-of-the-art deep learning techniques allow to perform automatic segmentation of both the liver and
+its structures with a precision close to the one obtained by the experts.
 In this section, we will first describe the implemented
 networks and the different used datasets, before presenting the experiments.
 %As described previously, no real consensus was made regarding the
@@ -31,18 +29,16 @@ After selecting an optimal set of hyperparameters, we evaluated the
 advantages brought by a cascaded architecture, and the way to implement
 it, before describing the way to incorporate the multiphase information
 in our architecture.
-The results and the conclusions of this work were presented in the
-literature \cite{Ouhmich2019}.
+The results and the conclusions of this work were published as a journal paper \cite{Ouhmich2019}.
 
 
 \section{Motivations}
 
-We implemented different architectures to validate the hypothesis that
+We implemented several architectures to validate the hypothesis that
 current deep networks can perform automatic delineation of both the
-liver and its tumors. The wash-in wash-out being an important characteristic of the tumor (see chapter \ref{liverCancer}), we decided to design an architecture that will try to extract features encoding this specific information. We wanted to prove that incorporating the dynamic information through the use of contrast-enhanced images can improve the performances of the network, therefore, we compared results obtained using single and multi-phase networks. \\
-We built several architectures to confirm that the cascaded approach corresponds to the best paradigm when dealing with small multiphase datasets.
-Finally, we proved the ability of our cascaded architecture to provide additional annotations in weakly annotated datasets.\\
-It it worth noting that we are the first to automatically 
+liver and its tumors. The wash-in wash-out being an important characteristic of the tumor (see chapter \ref{liverCancer}), we decided to design an architecture that extract features encoding this specific information. To objectify that incorporating the dynamic information through the use of contrast-enhanced images can improve the performance of the network, we compared results obtained using single and multi-phase networks. \\
+The comparison of several architectures leads to the conclusion that the cascaded approach corresponds to the best paradigm when dealing with small multiphase datasets.\\
+It it worth noting no existing studies proposed to automatically 
 delineate \ac{hcc} on multiphase \ac{ct} images using a \ac{dl} architecture, and that features computed by the our architecture will further be used in a radiomics purpose to predict the histological grade.
 
 
@@ -260,7 +256,8 @@ such as the learning rate, the decay, the depth of the network or the
 type and the amount of data augmentation.
 The selection process is detailed in the appendix \ref{appendix---hyperparameters-selection}, and here is the list of the chosen hyperparameters:
 
-\begin{itemize}
+
+\begin{itemize}[itemsep=-0.5em]
 	\item Lr: 1e-4
 	\item Decay: 1e-4
 	\item Number of epochs: 20
@@ -268,13 +265,16 @@ The selection process is detailed in the appendix \ref{appendix---hyperparameter
 	\item Number of filters at bottleneck: 1024
 	\item Input image size: 512
 	\item Data augmentation
-	\begin{itemize}
+	\vspace{-1em}
+	\begin{itemize}[itemsep=-0.5em]
 		\item Rotations in the interval $ \left[0, 40\right] $
 		\item Translations with shift in the interval $ \left[-0.1, 0.1\right] $
 		\item Horizontal and vertical flips
 	\end{itemize}
+	\vspace{-0.5em}
 	\item Augmentation factor: 20
 \end{itemize}
+
 
 When transferring those settings to the \textbf{\lmttfont{TheraHCC-dB}}, 
 we implemented both translation and the addition of gaussian
@@ -317,7 +317,7 @@ The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesI
 \subsection{Results}
 
 In this section, mean \ac{dsc}s were computed in a slice-wise fashion for each target class and the different methods were statistically compared using the Wilcoxon 
-signed paired rank tests, since slice-wise \ac{dsc}s did not follow a normal distribution. We used the DSC as a metric to compare the models since it is one of the most commonly used metric for the semantic segmentation task (other metrics can be found in the appendix \ref{appendix---Evaluation Metric}).
+signed paired rank tests, since slice-wise \ac{dsc}s did not follow a normal distribution. We used the DSC as a metric to compare the models since it is one of the most commonly used metric for the semantic segmentation task (other metrics can be found in the appendix \ref{appendix---Evaluation_Metrics}).
 We first compared \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Liver} networks
  to evaluate which phase allows better liver segmentation. 
  We then trained \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Lesion} and  \pplfont{\{\ac{nect}, \ac{ar}, \ac{pv}, DMP, MPF\}-Necrosis} networks separately on the \textbf{\lmttfont{TheraHCC-dB}} by masking all values outside the liver using ground truth annotations in order to assess whether multiphase information is really useful for the segmentation. The results are given in table \ref{SingleVsMult} (the mean DSCs are expressed as a percentage).
@@ -459,22 +459,22 @@ Finally, for the necrosis segmentation step, when the inter-tissue difference is
 \begin{figure}[!ht]
 	\centering
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Raw_Pat0_8}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Raw_Pat0_8_crop}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_GT_Pat0_8}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_GT_Pat0_8_crop}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Pred_Pat0_8}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Pred_Pat0_8_crop}
 	\end{minipage} \\
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Raw_Pat0_13}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Raw_Pat0_13_crop}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_GT_Pat0_13}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_GT_Pat0_13_crop}
 	\end{minipage} \hspace{-0.3cm}
 	\begin{minipage}{4cm}
-		\includegraphics[width=\linewidth]{images/ResizeNecrosisVE_Pred_Pat0_13}
+		\includegraphics[width=\linewidth]{images/NecrosisVE_Pred_Pat0_13_crop}
 	\end{minipage} 
 	\caption{Examples of necrosis mis-segmentations. Left: raw images, middle: expert ground truth, right: prediction. First row: example where the distinction between the necrotic and the active part of the tumor is not strongly marked, which leads to errors in the segmentation with a larger proportion of the tumor considered as active. Second row: example where the expert extended the annotated necrotic area to its simple central region, whereas the network only considered the central part of the tumor as being necrotic.}
 	\label{fig:missegmentation_Necrosis_IJCARS}

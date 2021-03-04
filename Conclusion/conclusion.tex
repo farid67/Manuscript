@@ -6,65 +6,57 @@
 \label{sec:ConclusionContributions}
 \addcontentsline{toc}{section}{\nameref{sec:ConclusionContributions}}
 
-The purpose of the thesis was to propose solutions to better use medical images in order to provide a better characterization of the liver tumors. We successfully presented results proving the ability of deep learning to accurately delineate the liver and its tumors on dynamic CECT images. Moreover, we presented preliminary results proving the ability of automatically extracted deep multiphase imaging features to predict the histological grade of HCCs.
+The purpose of the thesis was to propose solutions to better use medical images in order to improve the characterization of the liver tumors. We successfully presented results proving the ability of deep learning to accurately delineate the liver and its tumors on dynamic CECT images. Moreover, we presented preliminary results proving the ability of automatically extracted deep multiphase imaging features to predict the histological grade of HCCs.
 
 After describing the potential causes that can lead to the different
 types of liver cancer, we motivated our choice to mainly focus on
 hepatocellular carcinoma (\ac{hcc}).
-This primary cancer type, which is the most frequent one, was described
-through its origin, the way it is usually diagnosed, classified and
-treated. The different steps transforming healthy hepatic cells to cancerous ones have been described, along with the analysis of the physiological changes often caused by this process.
-To better characterize the liver tumors, we have decided to rely on
-medical images solely, through a quantitative and objective analysis.
-Regarding the modality choice, we retained the computed tomography
+%This primary cancer type, which is the most frequent one, was described
+%through its origin, the way it is usually diagnosed, classified and
+%treated. The different steps transforming healthy hepatic cells to cancerous ones have been described, along with the analysis of the physiological changes often caused by this process.
+To better characterize the liver tumors, and especially the HCCs, we have decided to rely on medical images solely, through a quantitative and objective analysis.
+Regarding the modality choice, we retained computed tomography
 because it currently corresponds, with \ac{mri}, to the most widely used modality  for a non-invasive assessment of the disease.
-CT was chosen over \ac{mri} mainly since it is usually the first choice for less-specialized centers, and because it can be more easily interpreted than \ac{mri}. With our medical studies review, we showed that the use of dynamic temporal images is a prerequisite to conduct an imaging based liver cancer study.
+%CT was chosen over \ac{mri} mainly since it is usually the first choice for less-specialized centers, and because it can be more easily interpreted than \ac{mri}. 
+With our medical studies review, we showed that the use of dynamic temporal images is a prerequisite to conduct an imaging based liver cancer study.
 
-In the present work, we presented the two paradigms allowing the computer
-assisted analysis of medical images, either with engineered features, or
-thanks to deep-learning. One of the key aspects of medical images
-analysis being the segment, we compared the different semantic
-segmentation architectures, and evaluated the benefit brought by
-multiphase images which was most of the time neglected by previously
-existing studies. Then we extracted relevant features from our semantic
-segmentation architecture to tackle the prediction of the histological
-grade. Each step of our research work required imaging databases
-precisely annotated by experts in association with researchers to
-improve their applicability.
+%In the present work, we presented the two paradigms allowing the computer
+%assisted analysis of medical images, either with engineered features, or
+%thanks to deep-learning. One of the key aspects of medical images
+%analysis being the segment, we compared the different semantic
+%segmentation architectures, and evaluated the benefit brought by
+%multiphase images which was most of the time neglected by previously
+%existing studies. Then we extracted relevant features from our semantic
+%segmentation architecture to tackle the prediction of the histological
+%grade. Each step of our research work required imaging databases
+%precisely annotated by experts in association with researchers to
+%improve their applicability.
 
 In the clinical practice, images are usually analyzed by the experts
 with the naked eye, but the technological advancements allowed the
 creation of computer assisted diagnosis tools (CADs), where a few number
 of imaging features were initially used to differentiate benign and
 malignant lesions.
-A new technology called radiomics has been developed to compute a higher
+A technology called radiomics has been developed to compute a higher
 number of features but it took a long time before this technology was
 applied to the liver, especially because of the scarcity of publicly
-available datasets. We provided a detailed description of the radiomics pipeline,  based on a manual segmentation of the \ac{roi}, followed by the extraction of a high number of engineered quantitative features, thus being called \emph{\ac{hcr}} (Hand-Crafted Radiomics).\\
+available datasets. We provided a detailed description of the radiomics pipeline, based on a manual segmentation of the \ac{roi}, followed by the extraction of a high number of engineered quantitative features, thus being called \emph{\ac{hcr}} (Hand-Crafted Radiomics).\\
 We presented our review, where a total of 15 \emph{\ac{hcr}} studies
-performed on \ac{hcc} patients have been analyzed.
+applied on \ac{hcc} patients have been analyzed.
 We evaluated them against the radiomics quality score (\emph{RQS})
 which has been developed to assess the robustness and the
 reproducibility of radiomics studies.
 We pointed out the lack of reproducibility of the studies, with a mean
-\emph{RQS} of 8.73 +/- 5.57 points out of a possible maximum value of 36
-points. Several important criteria were found as being ignored by the majority of the studies, such as a prospective design, the use of open-sourced data, the evaluation of the prediction on a validation dataset, or the extraction of features at multiple timepoints.
+\emph{RQS} of  $8.73 \pm 5.57$  points out of a possible maximum value of 36 points. Several important criteria were found as being ignored by the majority of the studies, such as a prospective design, the use of open-sourced data, the evaluation of the prediction on a validation dataset, or the extraction of features at multiple timepoints.
 
 The emergence of deep learning has changed the way a lot of imaging
 related problems are comprehended.
-The radiomics field has been also impacted by this novel set of
-algorithms, and a new paradigm called \emph{\ac{dlr}} (Deep-Learning
+The radiomics field has been also impacted by this novel paradigm, and a new approach called \emph{\ac{dlr}} (Deep-Learning
 Radiomics) has been initiated, where one or several steps of the
 radiomics pipeline are performed by deep learning algorithms.
-We believe that the key part of the radiomics pipeline lies in the
-segmentation of the \ac{roi}. This step has been found to suffer from a high inter- and intra-observer variability, thus having consequences for the accuracy of the final prediction. 
+We reviewed 8 studies implementing a DLR pipeline to characterize liver tumors, and realized that a key part of the radiomics pipeline lies in the segmentation of the \ac{roi}. This step has been found to suffer from a high inter- and intra-observer variability, thus having consequences for the accuracy of the final radiomics-based prediction. 
 
-We reviewed the different studies using deep learning architectures to
-perform automatic segmentation of the liver and its tumors. We extracted
-the common key settings shared by the majority of them, such as the
-cascaded architecture or the use of fully convolutional networks.
-However, we realized the lack of studies presenting results obtained
-from multiphase images, which has been a key element in our work. 
+We consequently reviewed the different studies using deep learning architectures to perform automatic segmentation of the liver and its tumors. We extracted the common key settings shared by the majority of them, such as the cascaded architecture or the use of fully convolutional networks. However, we realized the lack of studies presenting results obtained from multiphase images, which has been a key element in our work. 
 
 We performed the automatic segmentation of an internal dataset composed
 of 104 sparse biphasic liver slices obtained from patients suffering
@@ -77,48 +69,35 @@ When evaluating the performances of each specialized network, we
 validated the hypothesis that the use of multiphase information allows a
 better accuracy than single phased based networks for each task,
 with significant difference obtained for the segmentation of the liver
-(mean \ac{dsc} of $ 89.9 \pm 15.6 $ for the multiphase network \emph{vs} $ 89.5 \pm
-13.2 $ for the best single phase network, $p = 0.005$) and the active part of the
-lesions (mean \ac{dsc} of $ 75.5 \pm 17.4 $ \emph{vs} $ 71.6 \pm 20.7 $, $p = 0.001$).\\
+(mean \ac{dsc} of $ 89.9 \pm 15.6 $ for the multiphase network \emph{vs} $ 89.5 \pm 13.2 $ for the best single phase network, $p = 0.005$) and the active part of the lesions (mean \ac{dsc} of $ 75.5 \pm 17.4 $ \emph{vs} $ 71.6 \pm 20.7 $, $p = 0.001$).\\
 Regarding single phase networks, the \emph{\ac{pv}} phase was the one
 allowing the most accurate segmentation, with significant difference vs
-\emph{\ac{ar}} and \emph{\ac{nect}} for the segmentation of the parenchyma (mean
-\ac{dsc} of $ 88.7 \pm 15.4 $) , the lesion (mean \ac{dsc} of $ 87.8 \pm 9.7 $), and both the
+\emph{\ac{ar}} and \emph{\ac{nect}} for the segmentation of the parenchyma (mean \ac{dsc} of $ 88.7 \pm 15.4 $) , the lesion (mean \ac{dsc} of $ 87.8 \pm 9.7 $), and both the
 necrotic (mean \ac{dsc} $ 77.8 \pm 12.4 $) and the active (mean \ac{dsc} of $ 71.6 \pm 20.7 $)
-part of the lesion. \\
+parts of the lesion. \\
 We validated the hypothesis that several specialized networks combined
 in a cascaded architecture perform better than a single network
-addressing all the tasks simultaneously (obtained mean slice-wise \ac{dsc} of
-$ 90.5 \pm 13.2 $ for the parenchyma, $ 75.8 \pm 15.1 $ for the necrosis and $ 59.6 \pm
-22.5 $ for the active part of the tumor when using the cascaded
-architecture with the liver \ac{gt} mask as input).\\
-In a fully automatic manner (without using the liver \ac{gt} mask), we were
-able to reach promising results regarding the size of the dataset, with
-a mean slice-wise \ac{dsc} of $ 78.3 \pm 22.1 $ for the parenchyma, $ 50.6 \pm 24.6 $ for
-the active tumor and $ 68.1 \pm 23.2 $ for the necrotic part of the tumor.\\
+addressing all the tasks simultaneously (obtained mean slice-wise \ac{dsc} of $ 90.5 \pm 13.2 $ for the parenchyma, $ 75.8 \pm 15.1 $ for the necrosis and $ 59.6 \pm 22.5 $ for the active part of the tumor when using the cascaded architecture with the liver \ac{gt} mask as input).\\
+In a fully automatic manner (without using the liver \ac{gt} mask), we were able to reach promising results (regarding the size of the dataset), with a mean slice-wise \ac{dsc} of $ 78.3 \pm 22.1 $ for the parenchyma, $ 50.6 \pm 24.6 $ for the active tumor and $ 68.1 \pm 23.2 $ for the necrotic part of the tumor.\\
 We were also able to automatically compute the necrosis rate of the
 tumors, with a mean error of 15.9\% when compared with the experts
 obtained rates. This prediction is accurate enough to consider the
 predicted necrosis rate when evaluating the treatment outcomes. \\
-To overcome the limited size of multiphase datasets, we defined a
-strategy to ``augment'' the weakly annotated or non-annotated available
-datasets.
-With a robust registration algorithm and our cascaded architecture where
-specialized networks are trained on a sufficient amount of data, we were
+
+With a robust registration algorithm and an updated version of our cascaded architecture (where specialized networks are trained on a sufficient amount of data using both the LITS\_dB and the G\_dB datasets), we were
 able to perform the semantic segmentation of liver and its tumors on
 unseen cases.
 We validated this assumption by performing the segmentation of TCIA
 tumors, and obtained a mean patient-wise \ac{dsc} of $ 73.2 \pm 20.6 $.
 
-We implemented both a HCR and a DLR based pipeline to predict the histological grade of the TCIA patients. Both were trained in a CV manner so that each patient is present once in the testing set. The HCR pipeline consisted in a LASSO logistic regression model responsible for the selection of the relevant features and performing the prediction of the grade of the test patients. The best results were obtained after computation of radiomics features on the original and the filtered images (using LoG). We found that the most relevant features were those affected by the presence of zones with low intensity such as the necrotic areas. Combining multiphase volumes is somehow difficult when using an HCR based pipeline, indeed, features computed from the ``perfusion'' volume and stacked single-phase features did not allow a better prediction accuracy. No significance differences could be observed between results obtained when computing features from the expert defined tumor ROI and those obtained when extracting features from the automatically segmented tumor ROI. This suggested that our deep semantic segmentation cascaded architecture retains the relevant imaging features to perform the wanted task.
-We then implemented a DLR based architecture to predict the histological grade automatically and to provide a prediction at a finer scale.
+We implemented both a HCR and a DLR based pipeline to predict the histological grade of the TCIA patients. Both were trained in a CV manner so that each patient is present once in the testing set. The HCR pipeline consisted in a LASSO logistic regression model responsible for the selection of the relevant features and performing the prediction of the grade of the test patients. The best results were obtained after computation of radiomics features on the original and the filtered images (using LoG). We found that the most relevant features were those affected by the presence of zones with low intensity such as the necrotic areas. Combining multiphase volumes is somehow difficult when using an HCR based pipeline, indeed, features computed from the ``perfusion'' volume and stacked single-phase features did not allow a better prediction accuracy. No significance differences could be observed between results obtained when computing features from the expert defined tumor ROI and those obtained when extracting features from the automatically segmented tumor ROI. This suggested that our deep semantic segmentation cascaded architecture retains the relevant imaging features to perform the wanted task.\\
+We then implemented a DLR based architecture to predict the histological grade automatically and provide a prediction at a finer scale.
 We proved that features learned by our multiphase semantic segmentation network are relevant to perform this task.
 We predicted the grade for central tumor slices, and after a CV
 training, we correctly predicted 74\% of them. When considering the
 patient histological grade as being the most frequent one in the central
 tumor slices, we were able to correctly classify 15 patients over the 18
-of the dataset. Regarding the small number of patients involved in the study,
-the results that we presented are only preliminary and further studies are required to confirm them.
+of the dataset. Regarding the small number of patients involved in the study, it is impossible to determine which one of the implemented paradigms (HCR vs DLR) has the best predictive abilities. It is also worth noting that the results that we presented are only preliminary and further studies are required to confirm them.
 
 As a conclusion, our research work is the first to propose a fully
 automatic \emph{\ac{dlr}} pipeline with multiphase images as input. Our
@@ -205,12 +184,12 @@ To overcome this issue, publicly available datasets such as the
 annotations for the parenchyma and/or the tumors, but a third class (or
 more) could be incorporated, in order to consider tissues belonging to none of
 these groups such as the cysts or the blood vessels.\\
-As explained in the section  \ref{subsection:StateOfTheArtDlImplementations}, current state-of-the-art tumor
+As explained in the section  \ref{section:StateOfTheArtDlImplementations}, current state-of-the-art tumor
 segmentation results are often obtained with 2D or 2.5D networks, but
 the post-processings steps usually help to improve the obtained accuracy
 (via 3D CRF or even simple morphological operations). Several studies
 implemented a U-Net like architecture, where the information is
-compressed before being decoding to obtain the final segmentation map.
+compressed before being decoded to obtain the final segmentation map.
 One of the key concepts in these architectures is the propagation of
 features learned in the earlier layers later in the network, either
 thanks to skip-connections, residual units or even densely connected
@@ -224,7 +203,7 @@ architecture. Some studies already investigated this solution \cite{Dou2016},
 but they could not yet outperform state-of-the-art results. \\
 Some other concepts could be incorporated in future architectures. Jin et
 al. \cite{Jin2018} for example proposed a network that integrated both U-Net and
-attention residual mechanism to proceed the segmentation of both the
+attention residual mechanism to carry out the segmentation of both the
 liver and the lesions. The residual attention mechanism has been
 introduced in 2017 by Wang et al. \cite{Wang2017} to perform image
 classification, with the idea that the attention mechanism can help the
@@ -246,9 +225,9 @@ from dynamic contrast-enhanced images. However, it has been very
 difficult to collect dynamic \ac{cect} based images, since only a few
 publicly available datasets contain this type of volume. \\
 There is a huge room for improvement regarding this specific type of
-dataset. It has been mentioned in the chapter \ref{liverCancer}, that the
-use of images obtained after the injection of contrast medium largely
-improves the visual and the automatic quality of the diagnosis.
+dataset. It has been mentioned in chapter \ref{liverCancer}, that the
+use of images obtained after injection of contrast medium largely
+improves the quality of the diagnostic.
 Nonetheless, we realized that multiphasic images could be better used in
 either the semantic segmentation and/or the radiomics field.\\
 The first issue is related to the acquisition protocol required to
@@ -262,7 +241,7 @@ characteristics of the patient such as its weight that will determine
 how the contrast medium is diffused through the liver.
 
 When dealing with multiphase databases, we believe that these key
-elements need to be considered, at least the moment of injection and/or
+elements need to be considered, at least at the moment of injection and/or
 the duration between the injection and the acquisition.  
 %since the weight
 %of the patient can be inferred from the liver volume (which can be
@@ -280,12 +259,7 @@ implemented . The automatic detection of the amount of contrast medium still in
 the liver could also help to predict the exact duration between the
 injection of the contrast medium and the acquisition.
 
-In our research work, we have decided to implement an histogram
-specification algorithm to ``normalize'' images from a given phase. The
-first step requires to compute a mean histogram per phase (which requires to
-have a sufficient amount of \ac{ct} images correctly labeled), before
-transforming the volumes of a given patient to match the obtained mean
-histogram, as depicted in the figure \ref{fig:specif}.
+One solution could be to implement an histogram specification algorithm to ``normalize'' images from a given phase. The first step will consist in the computation of a mean histogram per phase (which requires to have a sufficient amount of \ac{ct} images correctly labeled), before transforming the volumes of a given patient to match the obtained mean histogram, as depicted in the figure \ref{fig:specif}.
 
 \begin{figure}[ht!]
 \centering
@@ -341,14 +315,14 @@ We are considering the relevant imaging features as being the
 ones extracted from the bottleneck part of our U-Net network but other
 types of auto-encoders could be investigated to better
 extract the relevant information from the raw images, or from the
-retained features. We could have also incorporate clinical
+retained features. We could have also incorporated clinical
 data (\ac{afp} (Alpha-FetoProtein) levels, age, \ldots{}) in our pipeline, however such data are
 often difficult to retrieve, and challenging to combine with imaging
 features, consequently, we decided to focus only on images in the
 current work.\\
 It is worth also noting that the current registration steps still suffers from limitation
-essentially because it performed using the predicted liver masks as registrations masks. However, the automatic liver delineation is not perfect, and therefore this can result in slightly misregistered volumes. Therefore, we advocate an incorporation of an automatic deep learning based registration step in our \ac{dlr} pipeline, or a workflow requiring no registration at all (for example by considering features learned in each phase separately and combining them for the grade prediction).\\
-If more interest is shown in the future towards the prediction
+essentially because they were performed using the predicted liver masks as registrations masks. Since, the automatic liver delineation is not perfect, this can result in slightly misregistered volumes. Therefore, we advocate an incorporation of an automatic deep learning based registration step in our \ac{dlr} pipeline, or a workflow requiring no registration at all (for example by considering features learned in each phase separately and combining them for the grade prediction).\\
+If more interest is shown in the future towards the prediction of
 histological grade, we believe that the existing grading systems have to
 be standardized by considering more criteria than just the worst or the
 most frequent grade present in the histological slices, which is

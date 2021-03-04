@@ -1,17 +1,16 @@
 
-\chapter{Radiomics}\label{radiomics}
+\chapter{Radiomics: state-of-the-art}\label{radiomics}
 
 \section{Introduction}\label{introduction}
 
-As explained previously, there are globally two ways for establishing a
-diagnosis of diseases such as liver cancers: the biopsy, or the
+As explained previously, there are mainly two ways for establishing the diagnosis and the staging of liver cancers: the biopsy and the
 diagnostic imaging. The biopsy, as detailed earlier, suffers from a lot of drawbacks. It
 remains an invasive procedure, with a high cost in terms of resources,
 and does not consider the tumor heterogeneity. The diagnostic imaging on the other hand, is not invasive, provides
 information about the tumor shape, the growth over the time, and is less
 prone to bias due to tissue heterogeneity.
-The biopsy remains the only available ground truth since diagnosis imaging still suffer from the medical expert subjectivity. In our work, we are trying to prove that medical images can be used to improve the visual inspection of the medical expert and at long-term replace invasive procedure such as the biopsy.\\
-The recent improvements in the medical imaging field allow acquisition
+The biopsy remains the only available ground truth since diagnosis imaging still suffer from the medical expert subjectivity. The biopsy and the medical imaging analysis are currently complementary considering that they provide different information. In our work, we are trying to prove that medical images can be used to improve the visual inspection of the medical expert and at long-term replace invasive procedure such as the biopsy.\\
+The improvements in the medical imaging field allow acquisition
 of data enabling a better characterization of the patients phenotype. In the case of brain imaging, the augmentation of contrast, on MR
 images, thanks to the injection of contrast agents such as
 gadolinium-based agents (method mentioned before) is an important
@@ -25,8 +24,7 @@ been demonstrated on other organs such as the liver \cite{Davnall2012}, the brea
 \cite{Sahani2014} with a consequent benefit in terms of
 diagnosis. However, even though the advancements in the medical imaging fields have
 allowed these performances, the interpretation of the medical images
-remains subjective and not quantitative. In order to correctly provide a
-diagnosis it is necessary to transform images into mineable high-dimensional data.
+remains subjective and not quantitative. In order to improve the quality of the diagnostic, it is important to decode the information present in the image, often difficult or impossible to assess with the naked eye (such as textural-based information).
 
 Introduced in the 80s, CAD (\emph{Computer Assisted Diagnosis}) tools
 were the first to establish a link between the
@@ -51,7 +49,7 @@ of the tumors, their recurrence, or the advancement of the disease.
 In the clinical practice, this new method also allows an improvement in
 the way biopsies are performed, with the identification of the areas
 where the extraction should be performed \cite{Gillies2016}
-or even by prediction when a biopsy is helpful or not \cite{Liu2016}.\\
+or even by predicting when a biopsy is helpful or not \cite{Liu2016}.\\
 Compared to the above-mentioned criteria based on a naked-eye examination,
 we are now able to rely on a computer to analyse the gray-levels at a
 finer scale. Therefore, two approaches exist, the \ac{hcr} (\emph{Hand-Crafted
@@ -114,9 +112,7 @@ different scanners with the same settings \cite{Berenguer2018}.
 It is also common to differentiate CT images into two
 categories, the screening where low dose images are used and the
 diagnosis with higher quality of contrast obtained with 
-higher doses \cite{Thawani2018}. It is worth mentioning that the
-majority of the studies that are being investigated belong to the second
-category where higher doses are used during the imaging acquisition.\\
+higher doses \cite{Thawani2018}. The investigated studies aim for the diagnosis of the disease, therefore higher doses were used during the imaging acquisition.\\
 Images are typically combined with other clinical sources when computing
 the radiomics features. Among them, gene expressions, clinical data such
 as the age, the gender or the past medical history, blood biomarkers or
@@ -472,7 +468,6 @@ among patients for the classification of hypervascular lesions, whereas
 Renzulli et al. evaluated the positive and negative predictive
 values of the selected features against the microvascular invasion
 status of the patients.
-
 The list of discriminant features per study is given in the tables \ref{tab:QuantitativeFeatures}
  \& \ref{tab:SemanticFeatures} , with a separation between quantitative and semantic features.
 
@@ -522,7 +517,7 @@ The details of the different scores per study are reported in the table \ref{tab
 
 \include{rqs_details}
 
-The mean obtained \ac{rqs} by the reviewed studies was 8.73 +/- 5.57
+The mean obtained \ac{rqs} by the reviewed studies was 8.73 $\pm$ 5.57
 points, which corresponds to less than 23\% of the maximal possible
 score, and only one study obtained a more than 50\% of the maximum
 points, which translates the lack of robustness of the current
@@ -589,7 +584,7 @@ volumetric information, that is more powerful than the diameter only,
 and that allows to compute the tumor burden, which has an importance
 when estimating the efficiency of a given treatment \cite{Gobbi2004, Bornemann2007, Heussel2007, Kuhnigk2006, Puesken2010, Bauknecht2010}.\\
 
-\subsection{Difference between HCR and DLR}\label{difference-between-hcr-and-dlr}
+\subsection{DLR to tackle HCR limitations}\label{difference-between-hcr-and-dlr}
 
 Being a recent field, radiomics starts to mature when applied to several
 organs such as the lungs or the breast, but it still struggles when
@@ -600,7 +595,7 @@ always rely on hand crafted features.
 The main limitation observed is the lack of reproducibility originating
 from engineered features, that sometimes result from complex processes
 which can be difficult to imitate, and often fail to work on different
-databases. \ac{hcr} rely on manual or semi-automatic expert annotations, which
+databases. \ac{hcr} often rely on manual or semi-automatic expert annotations, which
 often require a complex and time-consuming process, that also provide
 several constraints, such as the poor inter-expert reproducibility.
 The extracted features are not necessarily relevant to encode the
@@ -622,7 +617,7 @@ A neural network can be trained to generate the most relevant features.
 These features can either be kept in the network for the final
 pathological target prediction, or used as input in a different model
 (such as a \ac{svm} or a RF).
-Compared to the \ac{hcr}, no prior knowledge is required, and the
+Compared to the \ac{hcr}, less prior knowledge is required, and the
 features can be extracted in an end-to-end manner, using only the raw
 images as input, and without necessarily providing any segmentation. It
 has also been demonstrated that performances of those networks increase
@@ -937,10 +932,8 @@ pipeline, no real consensus exists but several strategies are
 implemented especially to compensate for the small size of the
 databases. Worth also noting that the reviewed studies correspond to the
 first \ac{dlr} liver-related applications, therefore, they tend to tackle the
-less complex problems such as the \ac{fll}s classification. With future
-improvements regarding \ac{dl} applied to the medical imaging field, and with
-more publicly available data, the next \ac{dlr} liver-related studies will be
-ready to tackle more complex challenges.\\
+less complex problems such as the \ac{fll}s classification. We believe that currently, when only a small amount of data is available, and when the differentiation can be performed using simple criteria, then an HCR-based pipeline will be superior to a DLR one. With future
+improvements regarding \ac{dl} applied to the medical imaging field, and with more publicly available data, the next \ac{dlr} liver-related studies will be ready to tackle more complex challenges.\\
 In our research work, we conducted a study aiming for the histological grade prediction, 
 consequently, we designed a pipeline following the aforementioned conclusions. 
 The key element in our work was an automatic cascaded liver and tumor segmentation performed on registered multiphase CT images. It is worth noting that we are the first to perform prediction of the histological grade from multiphase CT images using a fully automatic pipeline. 

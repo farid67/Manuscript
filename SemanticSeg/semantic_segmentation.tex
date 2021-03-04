@@ -1,13 +1,12 @@
 
 
-\chapter{Segmentation of Liver Tissue in computed tomography} \label{SegSemantic}
+\chapter{Segmentation of Liver Tissue in computed tomography: state-of-the-art} \label{SegSemantic}
 
 \section{Introduction}
 
 
 %{Medical value brought by liver tissue segmentation}
-The automatic segmentation of the tumors allows the computation 
-of the entire tumor volume, which corresponds to a better predictor when
+The automatic segmentation of the tumors allows to obtain a volumetric information which corresponds to a better predictor when
 compared to the diameter only, according to the \emph{Response
 	Evaluation Criteria in Solid Tumor} (\ac{recist}) standard \cite{Eisenhauer2008, Ye2017}. A precise
 volumetric segmentation of both the liver and its tumors is a
@@ -40,19 +39,17 @@ over time.
 	\label{interobserver_var}
 \end{figure} 
 
-As explained in the chapter \ref{liverCancer}, the liver is an
-organ with a key function in the human body. Being a soft organ, it
-presents a large variation in shape among the population (inter-patient
+Being a soft organ, the liver presents a large variation in shape among the population (inter-patient
 variation), and can also be subject to deformations due to respiratory
 and heart motions in case of multiphasic acquisition after injection of
 contrast agents (intra-patient variation).\\
-On computed tomography images, the intensities of the liver itself and
+On computed tomography images, the intensities of the liver and
 those of nearby organs (heart, spleen, stomach) are very similar. The
 images are often acquired after the injection of contrast agents to
-offer critical information (e.g. \emph{wash-in/wash-out}). Nonetheless,
+offer key information (e.g. \emph{wash-in/wash-out}). Nonetheless,
 the acquisition protocol may differ among the institutions (type of
 contrast agent, moments of injection, injection rate, \ldots{}) and the
-results often differ with the patient characteristics (e.g. blood flow).
+obtained contrast-enhanced images often differ with the patient characteristics (e.g. blood flow).
 Moveover, the liver can easily be affected by diseases such as
 cirrhosis, and is often the site of either primary or secondary cancers
 with varying contrast levels (hyper-/hypo-intense tumors, peritumoral
@@ -68,7 +65,7 @@ segmentation of the liver and its structures to be challenging.
 
 
 In this chapter, we are first covering the different publicly available datasets as long
-as the different challenges launched to increase interest in liver
+as the different challenges launched to raise the interest of the scientific community in liver
 semantic segmentation. We are then investigating the first methods
 developed to perform the semantic segmentation of the liver and/or liver
 tumors, before presenting most recent advances brought by deep learning (\ac{dl}).
@@ -962,8 +959,9 @@ methods rely now on these techniques.
 %	reducing the amount of false positives.}
 
 \section{Deep Learning based semantic segmentation methods}
+\label{section:StateOfTheArtDlImplementations}
+%\subsection{State-of-the-art \ac{dl} pipelines} 
 
-%\subsection{State-of-the-art \ac{dl} pipelines} \label{subsection:StateOfTheArtDlImplementations}
 
 The different \ac{dl} studies introduced for the liver tissue semantic
 segmentation purpose share some common properties that will be exposed
