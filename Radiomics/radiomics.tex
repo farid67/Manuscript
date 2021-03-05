@@ -706,7 +706,7 @@ The main reason behind that is the late emergence of deep learning and
 the recent outbreak of new architectures and concepts that are often
 first developed and evaluated in other fields than the medical imaging
 one (e.g. Residual Network, DenseNet, Capsule Net).\\
-However, we have decided to review the first \ac{dlr}-liver related studies, in order to understand how \ac{dl} architectures can successfully be incorporated in a radiomics pipeline. We describe the study endpoints, the data preprocessing, the implementation and training strategies, before analyzing their performances. A more detailed analysis of the reviewed studies is available in the following \href{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit#gid=0}{link} \footnote{https://docs.google.com/spreadsheets/d/1VktRkGiX0J7RzQEVxRq1LxKPfV6YsrzHhctr0xlkEBY/edit\#gid=0}.
+However, we have decided to review the first \ac{dlr}-liver related studies, in order to understand how \ac{dl} architectures can successfully be incorporated in a radiomics pipeline. We describe the study endpoints, the data preprocessing, the implementation and training strategies, before analyzing their performances. A more detailed analysis of the reviewed studies is available in the following \href{http://bit.ly/dlr_studies_summary}{link} \footnote{\url{http://bit.ly/dlr_studies_summary}}.
 
 \subsubsection{Study Endpoint}\label{study-endpoint}
 
@@ -736,7 +736,7 @@ The only retained study performing its analysis on MR images \cite{Yang2019}, al
 
 Concerning the image processing pipeline, the data used to train the
 deep networks are most commonly selected via placement of a bounding box
-by the experts around the hepatic lesion, before a registration between
+by the experts around the hepatic lesion \footnote{Although some parts of the pipeline are being processed by DL networks, it is worth noting that among the analyzed DLR-studies, the definition of the region of interests and the registration is still often manually performed, hence, highlighting current limitations of the first DLR-based studies.}, before a registration between
 the different phases in case of multiphasic acquisition to compensate the
 effects of body motion and/or breathing.\\
 The manual delineation of the \emph{\ac{roi}s} is usually done by one or more
