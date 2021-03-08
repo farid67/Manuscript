@@ -1,0 +1,85 @@
+\newcommand{\pplfont}[1]{{\fontfamily{ppl}\selectfont #1}}
+\newcommand{\lmttfont}[1]{{\fontfamily{lmtt}\selectfont #1}}
+
+\documentclass{article}
+
+\begin{document}
+
+\textbf{Title} : New radiomics approaches for hepatic tumor characterization by imaging analysis\\
+
+\vspace{0.5cm}
+
+I would like to thank the jury members for their helpful comments designed to improve the quality of the thesis manuscript. \\
+We revised the structure of the manuscript by splitting the contributions in two parts with a first chapter describing the work submitted in the IJCARS journal (semantic segmentation of liver, liver tumors and distinction between necrotic and active parts of the tumor), and a second presenting an updated version of the cascaded liver tumor semantic segmentation architecture where semantic features were extracted for the histological grade prediction.
+When presenting our first contribution, we gave more details concerning the implementation settings (programming language, libraries, hardware), and the training process (number of parameters, loss function, learning curves).
+Regarding the second architecture, we provided more details about the new liver segmentation network (\pplfont{CECT-Liver}) and its link to the two previously presented networks (\pplfont{AR-Liver} and \pplfont{PV-Liver}). We also compared the training and the testing sets used at each stage of the cascade.
+We provided several examples of failure cases obtained when using our semantic segmentation networks with hypothesis about their causes.
+We finally compared our DLR-based histological grade prediction pipeline with a HCR-based pipeline. \\
+
+Here is the more detailed list of feedback/questions brought by the jury members and the corresponding revisions that have been done to answer them.
+
+
+
+\begin{itemize}
+
+\item \textit{\textbf{In order to better balance between state of art and contributions, it would be preferable to split the contribution chapter in two parts, the first one summarizing the work that has been published in the IJCARS journal, and the second one describing the connection between semantic segmentation and prediction of the histological grade}}
+
+A new structure of the manuscript has been proposed with 5 chapters.\\
+The first chapter focuses on the medical context with details regarding the different liver tumors, the main risk factors, and a more detailed description of the HCC with the current diagnostic tools, especially the non-invasive ones with the use of medical images such as contrast-enhanced CT in our case. \\
+The second chapter gives a detailed description of the radiomics paradigm with a comparison between handcrafted (HCR in the section 2.2) and deep-learning based radiomics (DLR in the section 2.3) pipelines. We enumerated the studies implementing either the HCR or the DLR pipeline to characterize liver tumors, and noticed the lack of reproducibility of the HCR studies having a low Radiomics Quality Scores (RQS detailed in the section 2.2.2.4). One of the main reasons leading to a lack of reproducibility for the HCR pipeline is the extraction of features from a manually defined ROI, often dependent on the experience of the expert delineating the region, and suffering from a high inter and intra-expert variability.
+We therefore explored the different existing automatic semantic segmentation techniques and reviewed them in the third chapter. We analyzed the studies implementing either hand-crafted based (in the section 3.3) or deep learning based (in the section 3.4) semantic segmentation algorithms to delineate the liver and its tumors.\\
+Our first contribution was depicted in chapter 4, where we presented our multiphase cascaded architecture to automatically segment both the liver, the liver tumors and separate necrotic and active tissues within liver tumors. \\
+In the last chapter we present our preliminary work to automatically predict the histological grade of HCCs. We recycled the architecture obtained in the fourth chapter and using more data than earlier, we trained a two-stage cascade to segment both the liver and its tumors automatically (presented in the section 5.4.1). We then extracted imaging features from the second stage of the semantic segmentation cascade to predict the histological grade thanks to a supplementary deep neural network. The obtained results were then compared with DLR-based pipelines where hand-crafted features were extracted from either the experts' defined or our predicted tumor ROI.
+
+
+\item \textit{\textbf{Addition of failure cases obtained using our semantic segmentation pipeline.}}
+
+
+We added examples of mis-segmentations obtained by both the first (presented in the chapter 4) and the second version (presented in the chapter 5) of our cascaded semantic segmentation architecture.\\
+Concerning our first cascaded architecture (trained on the \lmttfont{TheraHCC-dB} patients), we illustrated failure cases obtained by each stage of the cascade, with liver mis-segmentation examples in the figures 4.7 and 4.8, liver tumor mis-segmentation examples in the figure 4.9 and finally necrosis area mis-segmentation examples in the figure 4.10.
+Failure cases were also presented when using our updated version of the cascaded liver tumor semantic segmentation architecture (trained on the \lmttfont{TCIA-dB} patients), with liver mis-segmentation examples depicted in the figures 5.23, 5.24 and 5.25. 
+
+For each one of the above mentioned segmentation tasks, we also provided our hypothesis concerning the reasons leading to failure cases.
+Regarding the liver segmentation, we consider that the noise brought by neighboring abdominal organs sharing the same intensities range as the liver, such as the heart, the spleen or the colon can lead to mis-segmentation. We also realized that top and bottom liver slices often suffer from mis-segmentation, probably resulting from our 2D approach when performing the segmentation. We therefore noticed that the problem was more present with our first cascaded architecture, probably because it was trained on the \lmttfont{TheraHCC-dB} which contains expert annotations only for sparse slices across the liver.
+
+\item \textit{\textbf{Provide more details about the datasets used in our work, especially the difference in terms of image quality between the datasets, and the inter-dataset variability. One of the main concerns when training a deep neural network is the incorporation of heterogeneous data. How was this problem handled in our work? How did we decide to split between the training and the testing sets, and if we trained on one dataset and test on a second one, how did we ensure that the model has the ability to perform properly on the testing dataset? Did we use any fine-tuning technique to adapt the network to unseen images or otherwise did we evaluate the loss in terms of segmentation accuracy of not improving the "generalizability" of the model?}}  
+
+As exposed previously, our contributions can basically be split in two parts. The first one corresponds to the creation of a cascaded semantic segmentation architecture responsible for the semantic segmentation of the liver, its tumors and the differentiation between both active and necrotic parts within liver tumors.
+To perform our analysis, we compared mean results obtained throughout a leave-one-patient-out cross-validation training on the \lmttfont{TheraHCC-dB}. Since the volumes of the \lmttfont{TheraHCC-dB} presented common characteristics (large solitary HCC tumors with large necrotic areas), we decided to not perform any supplementary analysis on this dataset.
+
+The issue of generalization was more present with the new version of the cascaded semantic segmentation architecture presented in the chapter 5, we therefore gave more details about the difference between the datasets used to train and test the 2 networks composing this architecture.
+The cascaded architecture was composed of a first network responsible for the liver segmentation trained on the \lmttfont{LITS-dB} volumes and a second liver tumor segmentation network trained on the \lmttfont{G-dB} volumes. The final architecture was tested on the \lmttfont{TCIA-dB} dataset since the target was to extract semantic imaging features from this dataset, to predict the histological grade.
+Consequently, we first compared the \lmttfont{LITS-dB} and the \lmttfont{TCIA-dB} corresponding respectively to the training and the testing sets for the liver segmentation task.\\
+We asked a medical expert to determine the differences between the two datasets through both a visual examination of the CT volumes (to compare the type of liver tumors present in both datasets and the artifacts that could affect the training such as the presence of metallic objects, benign lesions or fat accumulation). We also performed a quantitative analysis consisting on the placement (by the medical expert) of circular ROIs in 5 different zones of the CT scans (the air, the liver parenchyma, the bones, the spleen and the aorta) to attest the presence of cirrhotic patients, and to confirm that a single network trained on the \lmttfont{LITS-dB} could perform the segmentation of both the AR and PV-phased volumes of the \lmttfont{TCIA-dB}. Details regarding this comparison are given in the section 5.3.1 with illustrations in the figures 5.2 to 5.6 \\
+We then compared the \lmttfont{G-dB} and the \lmttfont{TCIA-dB} corresponding respectively to the training and the testing sets for the liver tumor segmentation task.
+The same visual and quantitative examinations as above were performed to compare the livers of both datasets. However, we also asked our medical expert to compare the type of tumor features present in both datasets (such as the presence of internal arteries, peritumoral enhancement, either smooth or non-smooth margins, an hypoattenuation halo surrounding the tumor, a high textural heterogeneity, and a wash-in/wash-out pattern). Details are given in the section 5.3.2, with visual examples in the figures 5.9, 5.10, 5.11 and 5.12.\\
+
+Regarding these elements and the similarity between the training and the testing sets for both tasks, we considered that no fine-tuning technique was requiring when training either the liver or the liver tumor segmentation networks. For the first task (liver segmentation), it would have been very difficult to evaluate the loss in terms of segmentation accuracy since no ground truth was available for the liver area in the testing set. For the second task, our best network reached a mean patient-wise DSC of $ 73.2 \pm 20.6 $ which remains close to the accuracy obtained by state-of-art liver tumor segmentation networks (mean DSC of \textasciitilde{}80). Therefore, we did not evaluated the loss in terms of accuracy of not improving the ``generalizability'' of our model.
+
+\item \textit{\textbf{Provide more details concerning the implementation choices when training/testing the first cascaded architecture presented in the chapter 4 (learning curves, number of parameters, and precisions about the loss function used).}}
+
+In chapter 4, we added details related to our experiments. 
+In the section 4.7.3, we presented the number of parameters of the original U-Net architecture and the number of parameters in the modified version of the network that we implemented in our cascaded architecture. We also provided the formula of the weighted cross-entropy loss function that we implemented (equation 4.1), with the technical characteristics used to perform the training (python version, libraries and material).
+We also provided examples of learning curves to prove that despite the large number of parameters in the model, we were able to combat the overfitting thanks to data augmentation and implementation choices.
+
+\item \textit{\textbf{Explain the relation between the CECT-Liver network presented in section 5.4.1 and both the AR-Liver and the PV-Liver networks presented in section 4.4.}}
+
+To predict the histological grade, we decided to extract (in an automatic fashion) the semantic features responsible for the separation between liver parenchyma and tumoral tissues (see figures 5.20 \& 5.21). We believe that a good way to get this information is through the semantic segmentation of the liver tumors. We therefore built a two-stage multiphase cascaded architecture to segment liver tumors (presented in the section 5.4.1). The first stage will delineate the liver within an axial CT slice when the second stage will segment the potential tumors within the obtained liver area.\\
+The available datasets did not allow us to create an entire multiphase cascaded architecture, but we realized that, thanks to its structure (see section 5.3.1), a network trained on the \lmttfont{LITS-dB} could perform the segmentation of liver on both AR and PV volumes. We therefore named this network \pplfont{CECT-Liver} in comparison with \pplfont{PV-Liver} (resp. \pplfont{AR-Liver}) specialized in the segmentation of liver in PV volumes (resp. AR volumes). The so-called \pplfont{CECT-Liver} network shares the same structure as the corresponding \pplfont{PV-Liver} (and \pplfont{AR-Liver}). More details regarding this network can be found in the section 5.4.1.
+
+\item \textit{\textbf{Propose a comparison between both the HCR and the DLR pipelines when performing the prediction of the histological grade.}}
+
+We have evaluated both the HCR and the DLR pipelines and compared their ability to perform histological grade prediction. 
+Both pipelines were presented in the section 5.4.2.1 (for the HCR pipeline) and 5.4.2.2 (for the DLR pipeline). \\
+Regarding the HCR pipeline, we extracted features either from single phase (directly from the AR or the PV volume) volumes or from a representation of the multiphase volumes.
+It is still challenging within a HCR pipeline to extract dynamic features so we compared results obtained when stacking single phase features, with those obtained when extracting features from a so-called \textit{perfusion} volume (where the intensity of each voxels correspond to the difference between PV and AR voxel intensities, as illustrated in the figure 5.19). \\
+We also compared results when features are extracted from either the original image or a filtered version of the original image (using the Laplacian of Gaussian with various filter sizes, or the Wavelet filtering methods).
+Finally, we compared the results when features were extracted within the expert-defined or within the semantic segmentation-predicted tumor ROI. \\
+The prediction of the histological grade was performed thanks to a logistical model using the least absolute shrinkage and selection operator algorithm (LASSO). More details are given in the section 5.4.2.1 and preliminary results are given in the section 5.5.2 (especially in the table 5.1).
+
+\end{itemize}
+
+\vspace{0.2cm}
+Some other minor modifications have been incorporated to the manuscript such as the addition of an introduction section at the beginning of each chapter, correction on figure captions and bibliography references.
+
+\end{document}
