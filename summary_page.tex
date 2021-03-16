@@ -7,36 +7,13 @@
 \begin{minipage}{.75\linewidth}\centering
 	\vspace{1cm}
 	{\large \textbf{Farid \textsc{OUHMICH}}}\\\vspace{.25cm}
-	{ \textbf {\textsc{New radiomics approaches for hepatic tumor characterization by imaging analysis}}}
+	{ \textbf {\textsc{Nouvelles approches radiomiques pour la caractérisation de tumeurs hépatiques par analyse d'image}}}
 
 \end{minipage}
 \begin{minipage}{30mm}
 	\raisebox{-.5\totalheight}{\includegraphics[width=0.5\linewidth]{Logo/ihu}}  
 \end{minipage}
 \vspace{0.2cm}
-
-\noindent
-\fbox{
-	\renewcommand{\baselinestretch}{0}
-	
-	\begin{minipage}{0.97\linewidth}
-		{\large  \textbf {Abstract}}
-		
-		{\small To evaluate the status of a liver tumor, we usually perform a biopsy followed by an anatomo-pathological evaluation of the extracted sample. However, the biopsy, due to the small sampling size, does not testify the intra and inter-tumor heterogeneity, thus struggling in assessing precisely the phenotypical characteristics of the patients.
-		Recent progress in medical imaging and data science fields enabled the emergence of a new technique called radiomics, that is partially answering these challenges.
-		In this thesis, we have been focusing on hepatocellular carcinoma, and we built new imaging methods to characterize this widespread pathology.
-		By incorporating temporal information through multiphase images, specialized UNet-like networks have been stacked in a cascaded architecture to provide a semantic segmentation of both the liver and its internal tissue (parenchyma, active \& necrotic part of the tumor).
-		To characterize the strong heterogeneity that resides in the tumor, we predict the histological grade on a fine scale (slice-wise), by re-using the features learned from the semantic segmentation network. Our preliminary results enable the production of a fine-detailed map of the tumor that separates well differentiated areas from poorly ones. 
-		Even though these results need to be confirmed with a larger cohort, we believe that medical images combined with deep modeling techniques may soon be introduced in a clinical workflow to help diagnose and evaluate the phenotypical characteristics of pathologies such as liver cancer.
-		}
-		
-	\medskip
-		
-	\textbf{Keywords}:  Liver cancer, Hepatocellular Carcinoma, Histological grade, Contrast Enhanced CT, Deep Learning, Semantic Segmentation,  Radiomics
-	\end{minipage}
-}
-
-\vspace{0.5cm}
 
 \noindent
 \fbox{
@@ -50,6 +27,29 @@
 		\medskip
 		
 		\textbf{Mots cl\'{e}s}: Cancer du foie, Hépatocarcinome cellulaire, CT avec injection de produit de contraste, Apprentissage profond, Segmentation sémantique, Radiomique
+	\end{minipage}
+}
+
+\vspace{0.5cm}
+
+\noindent
+\fbox{
+	\renewcommand{\baselinestretch}{0}
+	
+	\begin{minipage}{0.97\linewidth}
+		{\large  \textbf {Résumé en anglais}}
+		
+		{\small To evaluate the status of a liver tumor, we usually perform a biopsy followed by an anatomo-pathological evaluation of the extracted sample. However, the biopsy, due to the small sampling size, does not testify the intra and inter-tumor heterogeneity, thus struggling in assessing precisely the phenotypical characteristics of the patients.
+		Recent progress in medical imaging and data science fields enabled the emergence of a new technique called radiomics, that is partially answering these challenges.
+		In this thesis, we have been focusing on hepatocellular carcinoma, and we built new imaging methods to characterize this widespread pathology.
+		By incorporating temporal information through multiphase images, specialized UNet-like networks have been stacked in a cascaded architecture to provide a semantic segmentation of both the liver and its internal tissue (parenchyma, active \& necrotic part of the tumor).
+		To characterize the strong heterogeneity that resides in the tumor, we predict the histological grade on a fine scale (slice-wise), by re-using the features learned from the semantic segmentation network. Our preliminary results enable the production of a fine-detailed map of the tumor that separates well differentiated areas from poorly ones. 
+		Even though these results need to be confirmed with a larger cohort, we believe that medical images combined with deep modeling techniques may soon be introduced in a clinical workflow to help diagnose and evaluate the phenotypical characteristics of pathologies such as liver cancer.
+		}
+		
+	\medskip
+		
+	\textbf{Keywords}:  Liver cancer, Hepatocellular Carcinoma, Histological grade, Contrast Enhanced CT, Deep Learning, Semantic Segmentation,  Radiomics
 	\end{minipage}
 }
 

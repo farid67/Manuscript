@@ -1,4 +1,4 @@
-\chapter*{Introduction}
+\chapter*[Introduction]{Introduction}
 \label{cha:Introduction}
 \addcontentsline{toc}{chapter}{\nameref{cha:Introduction}}
 
@@ -19,6 +19,14 @@ Radiomics is a new field developed in the early 2010s to extract the encoded inf
 Conventional radiomics however suffers from limitations related to the hand-crafted design of the extracted features or the computation of characteristics only in a manually defined region or volume of interest. Deep learning changed the way to apprehend several medical imaging related problematics thanks to its ability to encode
 morphological properties in images only by using the pixel intensities
 as input. The radiomics field was impacted by this new set of algorithms, and a new branch of radiomics emerged, where the delineation of the region of interest and/or the extraction of features are performed using deep learning approaches.
+
+\section*{Contributions}
+\label{sec:IntroContributions}
+\addcontentsline{toc}{section}{\nameref{sec:IntroContributions}}
+
+In this work we present strategies to automatically provide characterization of the liver tumors.
+We present a review of current liver-related hand-crafted radiomics studies while assessing their experimental design through the Radiomics Quality Score, and propose different ways to improve their reproducibility.
+Often performed manually, the delineations of the tumors can suffer from various bias, such as the inter and intra-observer variability, or its undefined borders leading to errors when diagnosing, classifying or staging the liver cancer. Therefore, we present a robust automatic pipeline to perform semantic segmentation of liver tumors that take advantage of deep cascaded networks architectures and the incorporation of dynamic contrast-enhanced information. A main prerequisite for the liver tumors characterization is the study of dynamic multiphase images, however, the major challenge that we faced in our work is the difficulty to obtain (either internally or externally) databases containing liver tumors multiphase images. To characterize the tumors, we combined several datasets to tackle the automatic histological grade prediction and we propose a novel deep radiomics pipeline which uses relevant semantic imaging features to assess the grade in a slice-wise fashion.
 
 \section*{Outline of the thesis}
 \label{sec:Outline}
@@ -81,13 +89,6 @@ Finally, conclusion and perspectives are given.
 
 
 
-\section*{Contributions}
-\label{sec:IntroContributions}
-\addcontentsline{toc}{section}{\nameref{sec:IntroContributions}}
-
-In this work we present strategies to automatically provide characterization of the liver tumors.
-We present a review of current liver-related hand-crafted radiomics studies while assessing their experimental design through the Radiomics Quality Score, and propose different ways to improve their reproducibility.
-Often performed manually, the delineations of the tumors can suffer from various bias, such as the inter and intra-observer variability, or its undefined borders leading to errors when diagnosing, classifying or staging the liver cancer. Therefore, we present a robust automatic pipeline to perform semantic segmentation of liver tumors that take advantage of deep cascaded networks architectures and the incorporation of dynamic contrast-enhanced information. A main prerequisite for the liver tumors characterization is the study of dynamic multiphase images, however, the major challenge that we faced in our work is the difficulty to obtain (either internally or externally) databases containing liver tumors multiphase images. To characterize the tumors, we combined several datasets to tackle the automatic histological grade prediction and we propose a novel deep radiomics pipeline which uses relevant semantic imaging features to assess the grade in a slice-wise fashion.\\
 
 
 %In the first chapter we present the medical context and motivate our choices to focus on HCC with a characterization based on CT images. The second chapter present state-of-art methods to automatically segment liver and liver tumors whereas the third chapter introduce the concept of radiomics with a summary of both HCR and DLR-based existing studies applied to the liver.

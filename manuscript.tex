@@ -135,11 +135,15 @@
 %\ % The empty page
 
 
-%%\newpage
+\setlength\beforechapskip{-\baselineskip}
+\addtocontents{toc}{\protect\enlargethispage{35mm}}
+%\clearpage
 \tableofcontents
 
 
 \newpage
+%\chapter*[Abbreviations]{Abbreviations}
+\markboth{List of Abbreviations}{List of Abbreviations}
 \printacronyms[include-classes=abbrev,name=Abbreviations]
 \newpage
 
