@@ -126,7 +126,7 @@
 
 %\maketitle
 
-\include{title_page}
+\include{title_page_ed}
 
 
 
@@ -136,17 +136,21 @@
 
 
 \setlength\beforechapskip{-\baselineskip}
-\addtocontents{toc}{\protect\enlargethispage{35mm}}
+
+{\newgeometry{vmargin={15mm, 20mm}, hmargin={30mm,30mm}}
 %\clearpage
 \tableofcontents
-
+}
 
 \newpage
+%
 %\chapter*[Abbreviations]{Abbreviations}
 \markboth{List of Abbreviations}{List of Abbreviations}
 \printacronyms[include-classes=abbrev,name=Abbreviations]
 \newpage
 
+
+\newgeometry{vmargin={15mm}, hmargin={30mm,30mm}}
 \subimport{Introduction/}{introduction}
 \subimport{MedicalContext/}{medical_context}
 \subimport{Radiomics/}{radiomics}
