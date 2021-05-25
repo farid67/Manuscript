@@ -290,7 +290,7 @@ The original U-Net architecture implemented by Ronneberger et al. had a total of
 Only the \pplfont{MPF-\{.\}} had a total of 16M parameters since it already consists of 2 combined U-Net networks as illustrated in the figure \ref{CARS_MPF_Full_Fig}.
 To cope with the high imbalanced data present in our datasets (e.g. number of voxels belonging to the tumor class vs those belonging to the parenchyma class when segmenting the lesion in the liver), we considered the weighted cross-entropy function as loss function when training our network. 
 \begin{equation}
-L = -\frac{1}{n} \sum_{i=1}^{N}\omega_i^{class}\left[\hat{P_i} \log P_i + (-\hat{P_i})\log (1 - P_i)\right]
+L = -\frac{1}{n} \sum_{i=1}^{N}\omega_i^{class}\left[\hat{P_i} \log P_i + (1 - \hat{P_i})\log (1 - P_i)\right]
 \end{equation}
 We implemented the entire training and inference pipeline with Python 3.6, using the library Keras (version 2.2.4) with a Tensorflow backend (v 1.8 to be compatible with older networks). The different networks were trained on a single NVIDIA GTX 1070 with 8GB VRAM. 
 The obtained learning curves (as exposed in the figure \ref{fig:learningCurvesIJCARS}) allow us to see that even though a small number of images were used to train our networks, we were able to correctly address the wanted segmentation tasks by limiting the overfitting effect, despite the high number of parameters of the networks.
